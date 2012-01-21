@@ -171,8 +171,8 @@ class TestExtendedVersionHandlers(unittest.TestCase):
         pyeq2.dataConvertorService().ConvertAndSortColumnarASCII(DataForUnitTests.asciiDataInColumns_2D, equation, False)
         
         equation.Solve()
-        coefficientsShouldBe = numpy.array([0.00052915, 0.00041378])
-        self.assertTrue(numpy.allclose(equation.solvedCoefficients, coefficientsShouldBe, rtol=1.0E-04, atol=1.0E-300))
+        coefficientsShouldBe = numpy.array([0.00053, 0.00041378])
+        self.assertTrue(numpy.allclose(equation.solvedCoefficients, coefficientsShouldBe, rtol=1.0E-02, atol=1.0E-300))
         
         
     def test_ExtendedVersion_Asymptotic_Exponential_A_WithExponentialGrowthAndOffset_2D(self):
