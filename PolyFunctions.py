@@ -489,9 +489,8 @@ class Power_NegativeTwo_OfLog_Term(object):
 
 
 
-# variableName here could be x or y
 # the order of occurrence in this list is the order of display
-def GenerateListForPolyfunctionals(variableName, codeName):
+def GenerateListForPolyfunctionals_WithParameters(variableName, codeName, dimensionality):
     termList = []
     
     termList.append(Offset_Term(variableName, codeName))
@@ -513,18 +512,33 @@ def GenerateListForPolyfunctionals(variableName, codeName):
     termList.append(Exponential_VariableTimesNegativeOne_Term(variableName, codeName))
     
     termList.append(Sine_Term(variableName, codeName))
-    #termList.append(HyperbolicSine_Term(variableName, codeName))
     termList.append(Cosine_Term(variableName, codeName))
-    #termList.append(HyperbolicCosine_Term(variableName, codeName))
     termList.append(Tangent_Term(variableName, codeName))
-    #termList.append(ArcTangent_Term(variableName, codeName))
-    #termList.append(HyperbolicTangent_Term(variableName, codeName))
+    
+    # 3D makes an overwhelmimg number of X and Y permutations, only add these for 2D
+    if dimensionality == 2:
+        termList.append(HyperbolicSine_Term(variableName, codeName))
+        termList.append(HyperbolicCosine_Term(variableName, codeName))
+        termList.append(ArcTangent_Term(variableName, codeName))
+        termList.append(HyperbolicTangent_Term(variableName, codeName))
 
     return termList
+    
+
+def GenerateListForPolyfunctionals_2D():
+    return GenerateListForPolyfunctionals_WithParameters('x', 'x_in', 2)
+    
+
+def GenerateListForPolyfunctionals_3D_X():
+    return GenerateListForPolyfunctionals_WithParameters('x', 'x_in', 3)
 
 
-# variableName here could be x or y
-def GenerateListForRationals(variableName, codeName):
+def GenerateListForPolyfunctionals_3D_Y():
+    return GenerateListForPolyfunctionals_WithParameters('y', 'y_in', 3)
+
+
+# this list is small due to my available CPU, you can add more to be thorough
+def GenerateListForRationals_2D(variableName = 'x', codeName = 'x_in'):
     termList = []
     
     termList.append(Offset_Term(variableName, codeName))
@@ -540,5 +554,5 @@ def GenerateListForRationals(variableName, codeName):
 
     termList.append(Exponential_VariableUnchanged_Term(variableName, codeName))
     termList.append(Exponential_VariableTimesNegativeOne_Term(variableName, codeName))
-    
+
     return termList

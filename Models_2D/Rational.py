@@ -54,7 +54,7 @@ class UserSelectableRational(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         if inRationalEquationList:
             self.rationalEquationList = inRationalEquationList
         else:
-            self.rationalEquationList = pyeq2.PolyFunctions.GenerateListForRationals('unused', 'unused')
+            self.rationalEquationList = pyeq2.PolyFunctions.GenerateListForRationals_2D()
         
         self._HTML = "y = user-selectable rational"
         self._leftSideHTML = 'y'
@@ -109,7 +109,7 @@ class UserSelectableRational(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         numeratorString = ""
         denominatorString = ""
         coeffCount = 0
-        EquationListForRationals = pyeq2.PolyFunctions.GenerateListForRationals('x', 'x_in')
+        EquationListForRationals = pyeq2.PolyFunctions.GenerateListForRationals_2D()
         
         for i in self.rationalNumeratorFlags:
             if coeffCount < (len(self.rationalNumeratorFlags) - 1):

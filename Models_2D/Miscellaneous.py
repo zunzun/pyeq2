@@ -1638,24 +1638,24 @@ class Simple_Equation_01(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
     def GetDataCacheFunctions(self):
         functionList = []
-        functionList.append([pyeq2.DataCache.DataCacheFunctions.X(NameOrValueFlag=1), []])
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.PowX(NameOrValueFlag=1, args=[0.0]), [0.0]])
         return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
 
 
     def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
-        x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
+        PowX_0 = inDataCacheDictionary['PowX_0.0'] # only need to perform this dictionary look-up once
         
         a = inCoeffs[0]
 
         try:
-            temp = a
+            temp = a * PowX_0
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
 
 
     def SpecificCodeCPP(self):
-        s = "\ttemp = a;\n"
+        s = "\ttemp += a * pow(x_in, 0.0);\n"
         return s
 
 

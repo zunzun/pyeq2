@@ -20,7 +20,7 @@ numpy.seterr(over = 'raise', divide = 'raise', invalid = 'raise', under = 'ignor
 class IModel(object):
     splineFlag = False
     userSelectablePolynomialFlag = False
-    UserSelectablePolyfunctionalFlag = False
+    userSelectablePolyfunctionalFlag = False
     userSelectableRationalFlag = False
     userDefinedFunctionFlag = False
 
@@ -28,7 +28,8 @@ class IModel(object):
     # "l" is removed so it is not mistaken for the number "1" - some fonts make these appear the same or very similar
     # "o" is removed so it is not mistaken for the number "0" - some fonts make these appear the same or very similar
     # VBA is case insensitive, so coefficient 'a' looks the same to VBA as coefficient 'A' - use double characters instead of capital letters
-    listOfAdditionalCoefficientDesignators = ['a','b','c','d','f','g','h','i','j','k','m','n','p','q','r','s','t','u','v','w','x','y','z','aa','bb','cc','dd','ff','gg','hh','ii','jj','kk','mm','nn','pp','qq','rr','ss','tt','uu','vv','ww','xx','yy','zz']
+    # "x", "y", "xx", and "yy" are removed so they are not mistaken for variables named x or y
+    listOfAdditionalCoefficientDesignators = ['a','b','c','d','f','g','h','i','j','k','m','n','p','q','r','s','t','u','v','w','z','aa','bb','cc','dd','ff','gg','hh','ii','jj','kk','mm','nn','pp','qq','rr','ss','tt','uu','vv','ww','zz']
     
     fittingTargetDictionary = {'SSQABS': 'sum of squared absolute error',
                                'SSQREL': 'sum of squared relative error',
@@ -57,11 +58,12 @@ class IModel(object):
         self.estimatedCoefficients = []
         self.fixedCoefficients = []
         self.solvedCoefficients = []
-        self.polyfunctionalFlags = None
+        self.polyfunctional2DFlags = []
+        self.polyfunctional3DFlags = []
         self.xPolynomialOrder = None
         self.yPolynomialOrder = None
-        self.rationalNumeratorFlags = None
-        self.rationalDenominatorFlags = None
+        self.rationalNumeratorFlags = []
+        self.rationalDenominatorFlags = []
         self.fittingTarget = inFittingTarget
         
         self.independentData1CannotContainZeroFlag = False
@@ -211,6 +213,11 @@ class IModel(object):
 
 
     def CalculateModelErrors(self, inCoeffs, inDictionary):
+        if self.fixedCoefficients != []:
+            self._canLinearSolverBeUsedForSSQABS = False
+            for i in range(len(inCoeffs)):
+                if self.fixedCoefficients[i]: # use None as a flag for coefficients that are not fixed
+                    inCoeffs[i] = self.fixedCoefficients[i]
         self.modelPredictions = self.CalculateModelPredictions(inCoeffs, inDictionary)
         self.modelAbsoluteError = self.modelPredictions - inDictionary['DependentData']
         try:
@@ -231,7 +238,8 @@ class IModel(object):
         # return SSQ as we are only using this method for guessing initial coefficients
         try:
             try: # set any fixed coefficients
-                if len(self.fixedCoefficients) > 0:
+                if self.fixedCoefficients != []:
+                    self._canLinearSolverBeUsedForSSQABS = False
                     for i in range(len(inCoeffs)):
                         if self.fixedCoefficients[i]: # use None as a flag for coefficients that are not fixed
                             inCoeffs[i] = self.fixedCoefficients[i]
@@ -255,7 +263,8 @@ class IModel(object):
 
         try:
             try: # set any fixed coefficients
-                if len(self.fixedCoefficients) > 0:
+                if self.fixedCoefficients != []:
+                    self._canLinearSolverBeUsedForSSQABS = False
                     for i in range(len(inCoeffs)):
                         if self.fixedCoefficients[i]: # use None as a flag for coefficients that are not fixed
                             inCoeffs[i] = self.fixedCoefficients[i]
@@ -355,6 +364,9 @@ class IModel(object):
         if self.splineFlag:
             return solver.SolveUsingSpline(self)
         
+        if self.fixedCoefficients != []:
+            self._canLinearSolverBeUsedForSSQABS = False
+            
         if self.fittingTarget == 'SSQABS':
             if self.CanLinearSolverBeUsedForSSQABS() == True:
                 return solver.SolveUsingLinear(self)
@@ -399,17 +411,32 @@ class IModel(object):
 
 
     def WrapperForScipyCurveFit(self, data, *inCoeffs):
+        if self.fixedCoefficients != []:
+            self._canLinearSolverBeUsedForSSQABS = False
+            for i in range(len(inCoeffs)):
+                if self.fixedCoefficients[i]: # use None as a flag for coefficients that are not fixed
+                    inCoeffs[i] = self.fixedCoefficients[i]
         return self.CalculateModelPredictions(inCoeffs, self.dataCache.allDataCacheDictionary)
 
 
     def WrapperForODR(self, inCoeffs, data):
         if numpy.array_equal(data, self.dataCache.allDataCacheDictionary['IndependentData']):
+            if self.fixedCoefficients != []:
+                self._canLinearSolverBeUsedForSSQABS = False
+                for i in range(len(inCoeffs)):
+                    if self.fixedCoefficients[i]: # use None as a flag for coefficients that are not fixed
+                        inCoeffs[i] = self.fixedCoefficients[i]
             result = self.CalculateModelPredictions(inCoeffs, self.dataCache.allDataCacheDictionary)
         else:
             tempCache = self.dataCache.allDataCacheDictionary
             self.dataCache.allDataCacheDictionary = {}
             self.dataCache.allDataCacheDictionary['IndependentData'] = data
             self.dataCache.FindOrCreateAllDataCache(self)
+            if self.fixedCoefficients != []:
+                self._canLinearSolverBeUsedForSSQABS = False
+                for i in range(len(inCoeffs)):
+                    if self.fixedCoefficients[i]: # use None as a flag for coefficients that are not fixed
+                        inCoeffs[i] = self.fixedCoefficients[i]
             result = self.CalculateModelPredictions(inCoeffs, self.dataCache.allDataCacheDictionary)
             self.dataCache.allDataCacheDictionary = tempCache
         return result

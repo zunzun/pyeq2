@@ -314,7 +314,7 @@ def Polyfunctional3D(data=None, args=None, eqInstance=None, NameOrValueFlag=0):
     if NameOrValueFlag: # name used by cache, must be distinct
         return sys._getframe().f_code.co_name + '_' + str(args)
     try:
-        returnValue = eqInstance.polyfunctionalEquationList[args[0]].value(data[0]) * eqInstance.polyfunctionalEquationList[args[1]].value(data[1])
+        returnValue = eqInstance.polyfunctionalEquationList_X[args[0]].value(data[0]) * eqInstance.polyfunctionalEquationList_Y[args[1]].value(data[1])
         if numpy.alltrue(numpy.isfinite(returnValue)):
             return returnValue
         return 1.0E300 * numpy.ones_like(data[0])

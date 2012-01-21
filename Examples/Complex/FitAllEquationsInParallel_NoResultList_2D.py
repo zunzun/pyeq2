@@ -59,16 +59,15 @@ def SetParametersAndFit(inEquation, inBestResult, inPrintStatus, processIdentifi
     if (not inBestResult) or (target < inBestResult[3]):
         t0 = copy.deepcopy(inEquation.__module__)
         t1 = copy.deepcopy(inEquation.__class__.__name__)
-        t2 = inEquation.extendedVersionHandler.__class__.__name__.split('_')[1]
+        t2 = copy.deepcopy(inEquation.extendedVersionHandler.__class__.__name__.split('_')[1])
         t3 = copy.deepcopy(target)
         t4 = copy.deepcopy(inEquation.solvedCoefficients)
-        t5 = copy.deepcopy(inEquation.polyfunctionalFlags)
+        t5 = copy.deepcopy(inEquation.polyfunctional2DFlags)
         t6 = copy.deepcopy(inEquation.xPolynomialOrder)
-        t7 = copy.deepcopy(inEquation.yPolynomialOrder)
-        t8 = copy.deepcopy(inEquation.rationalNumeratorFlags)
-        t9 = copy.deepcopy(inEquation.rationalDenominatorFlags)
+        t7 = copy.deepcopy(inEquation.rationalNumeratorFlags)
+        t8 = copy.deepcopy(inEquation.rationalDenominatorFlags)
     
-        return [t0,t1,t2,t3,t4,t5,t6,t7,t8,t9]
+        return [t0,t1,t2,t3,t4,t5,t6,t7,t8]
 
 
 
@@ -84,8 +83,8 @@ def ParallelFittingFunction(rawData, fittingTargetText, smoothnessControl, modul
     
     equationCountForModulus = 0
 
-
     
+
     ##########################
     # add named equations here
     print
@@ -98,7 +97,7 @@ def ParallelFittingFunction(rawData, fittingTargetText, smoothnessControl, modul
                     # special classes
                     if equationClass[1].splineFlag or \
                        equationClass[1].userSelectablePolynomialFlag or \
-                       equationClass[1].UserSelectablePolyfunctionalFlag or \
+                       equationClass[1].userSelectablePolyfunctionalFlag or \
                        equationClass[1].userSelectableRationalFlag or \
                        equationClass[1].userDefinedFunctionFlag:
                         continue
@@ -145,7 +144,7 @@ def ParallelFittingFunction(rawData, fittingTargetText, smoothnessControl, modul
     print 'Process ID', processID, 'fitting polyfunctionals:'
     equationCount = 0
     maxPolyfunctionalCoefficients = 4 # this value was chosen to make this example more convenient
-    polyfunctionalEquationList = pyeq2.PolyFunctions.GenerateListForPolyfunctionals('unused', 'unused')
+    polyfunctionalEquationList = pyeq2.PolyFunctions.GenerateListForPolyfunctionals_2D()
     functionIndexList = range(len(polyfunctionalEquationList)) # make a list of function indices to permute
     
     for coeffCount in range(1, maxPolyfunctionalCoefficients+1):
@@ -181,8 +180,8 @@ def ParallelFittingFunction(rawData, fittingTargetText, smoothnessControl, modul
                 reducedDataCache[equationInstance.numberOfReducedDataPoints] = equationInstance.dataCache.reducedDataCacheDictionary
             
             equationCount += 1
-            if (equationCount % 250) == 0:
-                print '    ', equationCount, '...'
+            if (equationCount % 50) == 0:
+                print '    Process ID', processID, 'fitted',  equationCount, 'equations...'
 
     
     
@@ -230,7 +229,7 @@ def ParallelFittingFunction(rawData, fittingTargetText, smoothnessControl, modul
     print 'Process ID', processID, 'fitting user-selectable rationals:'
     equationCount = 0
     maxCoeffs = smoothnessControl # arbitrary choice of maximum total coefficients for this example
-    functionList = pyeq2.PolyFunctions.GenerateListForRationals('unused', 'unused')
+    functionList = pyeq2.PolyFunctions.GenerateListForRationals_2D()
     functionIndexList = range(len(functionList)) # make a list of function indices
     
     for numeratorCoeffCount in range(1, maxCoeffs):
@@ -282,7 +281,7 @@ def ParallelFittingFunction(rawData, fittingTargetText, smoothnessControl, modul
                             else:
                                 print
 
-
+    
     print 'Process ID', processID, 'has completed'
     return bestResult
     
@@ -372,18 +371,17 @@ if __name__ == "__main__":
     className = bestResult[1]
     extendedVersionHandlerName = bestResult[2]
     fittingTarget = bestResult[3]
-    fittedCoefficients = bestResult[4]
-    polyfunctionalFlags = bestResult[5]
+    solvedCoefficients = bestResult[4]
+    polyfunctional2DFlags = bestResult[5]
     polynomialOrderX = bestResult[6]
-    polynomialOrderY = bestResult[7]
-    rationalNumeratorFlags = bestResult[8]
-    rationalDenominatorFlags = bestResult[9]
+    rationalNumeratorFlags = bestResult[7]
+    rationalDenominatorFlags = bestResult[8]
     
     
     # now instantiate the "best fit" equation based on the name stored in the result list
-    if polyfunctionalFlags:
-        equation = eval(moduleName + "." + className + "('" + fittingTargetText + "', '" + extendedVersionHandlerName + "', " + str(polyfunctionalFlags) + ")")
-    elif polynomialOrderX:
+    if polyfunctional2DFlags:
+        equation = eval(moduleName + "." + className + "('" + fittingTargetText + "', '" + extendedVersionHandlerName + "', " + str(polyfunctional2DFlags) + ")")
+    elif polynomialOrderX != None:
         equation = eval(moduleName + "." + className + "('" + fittingTargetText + "', '" + extendedVersionHandlerName + "', " + str(polynomialOrderX) + ", " + str(polynomialOrderY) + ")")
     elif rationalNumeratorFlags and rationalDenominatorFlags:
         equation = eval(moduleName + "." + className + "('" + fittingTargetText + "', '" + extendedVersionHandlerName + "', " + str(rationalNumeratorFlags) + ", " + str(rationalDenominatorFlags) + ")")
@@ -393,7 +391,7 @@ if __name__ == "__main__":
     
     pyeq2.dataConvertorService().ConvertAndSortColumnarASCII(rawData, equation, False)
     equation.fittingTarget = fittingTargetText
-    equation.solvedCoefficients = fittedCoefficients
+    equation.solvedCoefficients = solvedCoefficients
     equation.dataCache.FindOrCreateAllDataCache(equation)
     equation.CalculateModelErrors(equation.solvedCoefficients, equation.dataCache.allDataCacheDictionary)
     
@@ -403,11 +401,11 @@ if __name__ == "__main__":
     
     print 'Fitting target value', equation.fittingTarget + ":", equation.CalculateAllDataFittingTarget(equation.solvedCoefficients)
     
-    if polyfunctionalFlags:
+    if polyfunctional2DFlags:
         print
-        print 'Polyfunctional flags:', polyfunctionalFlags
+        print 'Polyfunctional flags:', polyfunctional2DFlags
         print
-    if polynomialOrderX:
+    if polynomialOrderX != None:
         print
         print 'Polynomial order:', polynomialOrderX
         print

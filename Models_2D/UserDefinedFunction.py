@@ -56,7 +56,7 @@ class UserDefinedFunction(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
 
     def GetDisplayHTML(self):
-        return 'z = User Defined Function'
+        return 'y = User Defined Function'
 
 
     def GetDataCacheFunctions(self):

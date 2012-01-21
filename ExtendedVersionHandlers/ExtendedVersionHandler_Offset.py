@@ -17,7 +17,7 @@ import IExtendedVersionHandler
 class ExtendedVersionHandler_Offset(IExtendedVersionHandler.IExtendedVersionHandler):
     
     def AssembleDisplayHTML(self, inModel):
-        return inModel._HTML + '<br>' + inModel._leftSideHTML + ' = ' + inModel._leftSideHTML + " + Offset"
+        return inModel._HTML + " + Offset"
 
 
     def AssembleDisplayName(self, inModel):

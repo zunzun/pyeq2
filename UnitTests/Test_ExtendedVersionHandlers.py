@@ -18,7 +18,7 @@ class TestExtendedVersionHandlers(unittest.TestCase):
     def test_ExtendedVersion_Exponential_WithOffset_2D(self):
         equation = pyeq2.Models_2D.Exponential.Exponential('SSQABS', 'Offset')
         self.assertEqual(equation.extendedVersionHandler.__class__.__name__, 'ExtendedVersionHandler_Offset')
-        self.assertEqual(equation.GetDisplayHTML(), 'y = a * exp(bx)<br>y = y + Offset')
+        self.assertEqual(equation.GetDisplayHTML(), 'y = a * exp(bx) + Offset')
         self.assertEqual(equation.GetDisplayName(), 'Exponential With Offset')
         self.assertEqual(equation.GetCoefficientDesignators(), ['a', 'b', 'Offset'])
         self.assertEqual(len(equation.GetDataCacheFunctions()), 1)
@@ -171,8 +171,8 @@ class TestExtendedVersionHandlers(unittest.TestCase):
         pyeq2.dataConvertorService().ConvertAndSortColumnarASCII(DataForUnitTests.asciiDataInColumns_2D, equation, False)
         
         equation.Solve()
-        coefficientsShouldBe = numpy.array([0.000529146352943, 0.00041378476906])
-        self.assertTrue(numpy.allclose(equation.solvedCoefficients, coefficientsShouldBe, rtol=1.0E-05, atol=1.0E-300))
+        coefficientsShouldBe = numpy.array([0.00052915, 0.00041378])
+        self.assertTrue(numpy.allclose(equation.solvedCoefficients, coefficientsShouldBe, rtol=1.0E-04, atol=1.0E-300))
         
         
     def test_ExtendedVersion_Asymptotic_Exponential_A_WithExponentialGrowthAndOffset_2D(self):

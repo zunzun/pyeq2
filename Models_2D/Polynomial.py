@@ -23,6 +23,127 @@ numpy.seterr(over = 'raise', divide = 'raise', invalid = 'raise', under = 'ignor
 import pyeq2.Model_2D_BaseClass
 
 
+class Quintic(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
+    
+    _baseName = "Quintic"
+    _HTML = 'y = a + bx + cx<sup>2</sup> + dx<sup>3</sup> + fx<sup>4</sup> + gx<sup>5</sup>'
+    _leftSideHTML = 'y'
+    _coefficientDesignators = ['a', 'b', 'c', 'd', 'f', 'g']
+    _canLinearSolverBeUsedForSSQABS = True
+    
+    webReferenceURL = ''
+
+    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
+    autoGenerateOffsetForm = False
+    autoGenerateReciprocalForm = True
+    autoGenerateInverseForms = True
+    autoGenerateGrowthAndDecayForms = True
+
+    independentData1CannotContainZeroFlag = False
+    independentData1CannotContainPositiveFlag = False
+    independentData1CannotContainNegativeFlag = False
+    independentData2CannotContainZeroFlag = False
+    independentData2CannotContainPositiveFlag = False
+    independentData2CannotContainNegativeFlag = False
+    
+
+    def GetDataCacheFunctions(self):
+        functionList = []
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.Ones(NameOrValueFlag=1), []])
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.X(NameOrValueFlag=1), []])
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.PowX(NameOrValueFlag=1, args=[2.0]), [2.0]])
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.PowX(NameOrValueFlag=1, args=[3.0]), [3.0]])
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.PowX(NameOrValueFlag=1, args=[4.0]), [4.0]])
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.PowX(NameOrValueFlag=1, args=[5.0]), [5.0]])
+        return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
+
+
+    def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
+        x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
+        x_PowX2 = inDataCacheDictionary['PowX_2.0'] # only need to perform this dictionary look-up once
+        x_PowX3 = inDataCacheDictionary['PowX_3.0'] # only need to perform this dictionary look-up once
+        x_PowX4 = inDataCacheDictionary['PowX_4.0'] # only need to perform this dictionary look-up once
+        x_PowX5 = inDataCacheDictionary['PowX_5.0'] # only need to perform this dictionary look-up once
+        
+        a = inCoeffs[0]
+        b = inCoeffs[1]
+        c = inCoeffs[2]
+        d = inCoeffs[3]
+        f = inCoeffs[4]
+        g = inCoeffs[5]
+
+        try:
+            temp = a + b * x_in + c * x_PowX2 + d * x_PowX3 + f * x_PowX4 + g * x_PowX5
+            return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
+        except:
+            return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
+
+
+    def SpecificCodeCPP(self):
+        s = "\ttemp += a + b * x_in + c * pow(x_in, 2.0) + d * pow(x_in, 3.0) + f * pow(x_in, 4.0);\n"
+        return s
+
+
+
+class Quartic(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
+    
+    _baseName = "Quartic"
+    _HTML = 'y = a + bx + cx<sup>2</sup> + dx<sup>3</sup> + fx<sup>4</sup>'
+    _leftSideHTML = 'y'
+    _coefficientDesignators = ['a', 'b', 'c', 'd', 'f']
+    _canLinearSolverBeUsedForSSQABS = True
+    
+    webReferenceURL = ''
+
+    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
+    autoGenerateOffsetForm = False
+    autoGenerateReciprocalForm = True
+    autoGenerateInverseForms = True
+    autoGenerateGrowthAndDecayForms = True
+
+    independentData1CannotContainZeroFlag = False
+    independentData1CannotContainPositiveFlag = False
+    independentData1CannotContainNegativeFlag = False
+    independentData2CannotContainZeroFlag = False
+    independentData2CannotContainPositiveFlag = False
+    independentData2CannotContainNegativeFlag = False
+    
+
+    def GetDataCacheFunctions(self):
+        functionList = []
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.Ones(NameOrValueFlag=1), []])
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.X(NameOrValueFlag=1), []])
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.PowX(NameOrValueFlag=1, args=[2.0]), [2.0]])
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.PowX(NameOrValueFlag=1, args=[3.0]), [3.0]])
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.PowX(NameOrValueFlag=1, args=[4.0]), [4.0]])
+        return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
+
+
+    def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
+        x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
+        x_PowX2 = inDataCacheDictionary['PowX_2.0'] # only need to perform this dictionary look-up once
+        x_PowX3 = inDataCacheDictionary['PowX_3.0'] # only need to perform this dictionary look-up once
+        x_PowX4 = inDataCacheDictionary['PowX_4.0'] # only need to perform this dictionary look-up once
+        
+        a = inCoeffs[0]
+        b = inCoeffs[1]
+        c = inCoeffs[2]
+        d = inCoeffs[3]
+        f = inCoeffs[4]
+
+        try:
+            temp = a + b * x_in + c * x_PowX2 + d * x_PowX3 + f * x_PowX4
+            return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
+        except:
+            return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
+
+
+    def SpecificCodeCPP(self):
+        s = "\ttemp += a + b * x_in + c * pow(x_in, 2.0) + d * pow(x_in, 3.0) + f * pow(x_in, 4.0);\n"
+        return s
+
+
+
 class Cubic(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Cubic"
@@ -242,8 +363,8 @@ class UserSelectablePolynomial(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = False
     autoGenerateReciprocalForm = False
-    autoGenerateInverseForms = True
-    autoGenerateGrowthAndDecayForms = True
+    autoGenerateInverseForms = False
+    autoGenerateGrowthAndDecayForms = False
 
     independentData1CannotContainZeroFlag = False
     independentData1CannotContainPositiveFlag = False
@@ -255,10 +376,7 @@ class UserSelectablePolynomial(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     def __init__(self, inFittingTarget = 'SSQABS', inExtendedVersionName = 'Default', inXorder = None):
         pyeq2.Model_2D_BaseClass.Model_2D_BaseClass.__init__(self, inFittingTarget, inExtendedVersionName) # call superclass
-        
         self.xPolynomialOrder = inXorder
-        
-        self._HTML = "y = user-selectable polynomial"
         self._leftSideHTML = 'y'
     
     
@@ -267,6 +385,23 @@ class UserSelectablePolynomial(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         return self.extendedVersionHandler.AssembleCoefficientDesignators(self)
     
     
+    def GetDisplayHTML(self):
+        if self.xPolynomialOrder == None:
+            self._HTML = "y = user-selectable polynomial"
+        else:
+            self._HTML = "y = "
+            cd = self.GetCoefficientDesignators()
+            for i in range(self.xPolynomialOrder+1): # 0 - xOrder
+                if i == 0:
+                    self._HTML += cd[i]
+                else:
+                    self._HTML += cd[i] + 'x<SUP>' + str(i) + '</SUP>'
+                if i != self.xPolynomialOrder:
+                    self._HTML += ' + '
+
+        return self.extendedVersionHandler.AssembleDisplayHTML(self)
+
+
     def GetDataCacheFunctions(self):
         functionList = []
         for i in range(self.xPolynomialOrder+1): # 0 to xPolynomialOrder

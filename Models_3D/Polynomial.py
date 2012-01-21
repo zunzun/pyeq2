@@ -407,11 +407,8 @@ class UserSelectablePolynomial(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
     
     def __init__(self, inFittingTarget = 'SSQABS', inExtendedVersionName = 'Default', inXorder = None, inYorder = None):
         pyeq2.Model_3D_BaseClass.Model_3D_BaseClass.__init__(self, inFittingTarget, inExtendedVersionName) # call superclass
-        
         self.xPolynomialOrder = inXorder
         self.yPolynomialOrder = inYorder
-        
-        self._HTML = "z = user-selectable polynomial"
         self._leftSideHTML = 'z'
     
     
@@ -419,6 +416,25 @@ class UserSelectablePolynomial(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
         self._coefficientDesignators = list(self.listOfAdditionalCoefficientDesignators[:(self.xPolynomialOrder+1) * (self.yPolynomialOrder+1)])
         return self.extendedVersionHandler.AssembleCoefficientDesignators(self)
     
+    
+    def GetDisplayHTML(self):
+        if self.xPolynomialOrder == None:
+            self._HTML = "z = user-selectable polynomial"
+        else:
+            self._HTML = "z = "
+            cd = self.GetCoefficientDesignators()
+            indexmax = (self.xPolynomialOrder+1) * (self.yPolynomialOrder+1)
+            for i in range(self.xPolynomialOrder+1): # 0 - xOrder
+                for j in range(self.yPolynomialOrder+1): # 0 - yOrder
+                    index = (i*(self.yPolynomialOrder+1))+j
+                    if index == 0:
+                        self._HTML += cd[index]
+                    else:
+                        self._HTML += cd[index] + 'x<SUP>' + str(i) + '</SUP>y<SUP>' + str(j) + '</SUP>'
+                    if (i+1)*(j+1) != indexmax:
+                        self._HTML += ' + '
+        return self.extendedVersionHandler.AssembleDisplayHTML(self)
+
     
     def GetDataCacheFunctions(self):
         functionList = []

@@ -16,9 +16,8 @@ if __name__ == "__main__":
     pyeq2.dataConvertorService().ConvertAndSortColumnarASCII(equation.exampleData, equation, False)
     
     
-    # Note that only one coefficient is set to a fixed value in this
-    # example, using None for coefficients that are not fixed
-    equation.fixedCoefficients = [2.0, None]
+    # Note that all coefficients are set with estimated values
+    equation.estimatedCoefficients = [2.0, 3.0E13]
     
     
     equation.Solve()

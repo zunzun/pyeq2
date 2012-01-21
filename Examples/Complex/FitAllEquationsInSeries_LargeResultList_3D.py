@@ -46,20 +46,18 @@ def SetParametersAndFit(inEquation, resultList, inPrintStatus): # utility functi
             return
     except:
         print "Exception in " + inEquation.__class__.__name__ + '\n' + str(sys.exc_info()[0]) + '\n' + str(sys.exc_info()[1]) + '\n'
-        return None
+        return
 
     t0 = copy.deepcopy(inEquation.__module__)
     t1 = copy.deepcopy(inEquation.__class__.__name__)
-    t2 = inEquation.extendedVersionHandler.__class__.__name__.split('_')[1]
+    t2 = copy.deepcopy(inEquation.extendedVersionHandler.__class__.__name__.split('_')[1])
     t3 = copy.deepcopy(target)
     t4 = copy.deepcopy(inEquation.solvedCoefficients)
-    t5 = copy.deepcopy(inEquation.polyfunctionalFlags)
+    t5 = copy.deepcopy(inEquation.polyfunctional3DFlags)
     t6 = copy.deepcopy(inEquation.xPolynomialOrder)
     t7 = copy.deepcopy(inEquation.yPolynomialOrder)
-    t8 = copy.deepcopy(inEquation.rationalNumeratorFlags)
-    t9 = copy.deepcopy(inEquation.rationalDenominatorFlags)
 
-    resultList += ([t0,t1,t2,t3,t4,t5,t6,t7,t8,t9]),
+    resultList.append([t0,t1,t2,t3,t4,t5,t6,t7])
 
 
 
@@ -123,7 +121,7 @@ if __name__ == "__main__":
                     # special classes 
                     if equationClass[1].splineFlag or \
                        equationClass[1].userSelectablePolynomialFlag or \
-                       equationClass[1].UserSelectablePolyfunctionalFlag or \
+                       equationClass[1].userSelectablePolyfunctionalFlag or \
                        equationClass[1].userSelectableRationalFlag or \
                        equationClass[1].userDefinedFunctionFlag:
                         continue
@@ -166,10 +164,11 @@ if __name__ == "__main__":
     
     maxPolyfunctionalCoefficients = 2
     
-    polyfunctionalEquationList = pyeq2.PolyFunctions.GenerateListForPolyfunctionals('unused', 'unused')
+    polyfunctionalEquationList_X = pyeq2.PolyFunctions.GenerateListForPolyfunctionals_3D_X() # reuse below
+    polyfunctionalEquationList_Y = pyeq2.PolyFunctions.GenerateListForPolyfunctionals_3D_Y() # reuse below
     functionCombinationIndexList = [] # make a list of function indices to permute
-    for i in range(len(polyfunctionalEquationList)):
-        for j in range(len(polyfunctionalEquationList)):
+    for i in range(len(polyfunctionalEquationList_X)):
+        for j in range(len(polyfunctionalEquationList_Y)):
             functionCombinationIndexList.append([i,j])
     
     for coeffCount in range(1, maxPolyfunctionalCoefficients+1):
@@ -179,7 +178,7 @@ if __name__ == "__main__":
             if len(functionCombination) > smoothnessControl:
                 continue
                             
-            equationInstance = pyeq2.Models_3D.Polyfunctional.UserSelectablePolyfunctional(fittingTargetText, 'Default', functionCombination, polyfunctionalEquationList)
+            equationInstance = pyeq2.Models_3D.Polyfunctional.UserSelectablePolyfunctional(fittingTargetText, 'Default', functionCombination, polyfunctionalEquationList_X, polyfunctionalEquationList_Y) # reuse lists
             
             equationInstance.dataCache = externalCache # re-use the external cache
             
@@ -237,7 +236,7 @@ if __name__ == "__main__":
             print '    Fitted X order', str(polynomialOrderX) + ', Y order', str(polynomialOrderY)
     
     
-    
+
     # Sort the result list by fitting target value
     resultList.sort(ResultListSortFunction) # ResultListSortFunction() currently requires the 4th result element to be fitting target
     bestResult = resultList[0]
@@ -255,28 +254,24 @@ if __name__ == "__main__":
     className = bestResult[1]
     extendedVersionHandlerName = bestResult[2]
     fittingTarget = bestResult[3]
-    fittedCoefficients = bestResult[4]
-    polyfunctionalFlags = bestResult[5]
+    solvedCoefficients = bestResult[4]
+    polyfunctional3DFlags = bestResult[5]
     polynomialOrderX = bestResult[6]
     polynomialOrderY = bestResult[7]
-    rationalNumeratorFlags = bestResult[8]
-    rationalDenominatorFlags = bestResult[9]
     
     
     # now instantiate the "best fit" equation based on the name stored in the result list
-    if polyfunctionalFlags:
-        equation = eval(moduleName + "." + className + "('" + fittingTargetText + "', '" + extendedVersionHandlerName + "', " + str(polyfunctionalFlags) + ")")
-    elif polynomialOrderX:
+    if polyfunctional3DFlags:
+        equation = eval(moduleName + "." + className + "('" + fittingTargetText + "', '" + extendedVersionHandlerName + "', " + str(polyfunctional3DFlags) + ")")
+    elif polynomialOrderX != None:
         equation = eval(moduleName + "." + className + "('" + fittingTargetText + "', '" + extendedVersionHandlerName + "', " + str(polynomialOrderX) + ", " + str(polynomialOrderY) + ")")
-    elif rationalNumeratorFlags and rationalDenominatorFlags:
-        equation = eval(moduleName + "." + className + "('" + fittingTargetText + "', '" + extendedVersionHandlerName + "', " + str(rationalNumeratorFlags) + ", " + str(rationalDenominatorFlags) + ")")
     else:
         equation = eval(moduleName + "." + className + "('" + fittingTargetText + "', '" + extendedVersionHandlerName + "')")
     
     
     pyeq2.dataConvertorService().ConvertAndSortColumnarASCII(rawData, equation, False)
     equation.fittingTarget = fittingTargetText
-    equation.solvedCoefficients = fittedCoefficients
+    equation.solvedCoefficients = solvedCoefficients
     equation.dataCache.FindOrCreateAllDataCache(equation)
     equation.CalculateModelErrors(equation.solvedCoefficients, equation.dataCache.allDataCacheDictionary)
     
@@ -286,20 +281,13 @@ if __name__ == "__main__":
     
     print 'Fitting target value', equation.fittingTarget + ":", equation.CalculateAllDataFittingTarget(equation.solvedCoefficients)
     
-    if polyfunctionalFlags:
+    if polyfunctional3DFlags:
         print
-        print 'Polyfunctional flags:', polyfunctionalFlags
+        print 'Polyfunctional flags:', polyfunctional3DFlags
         print
-    if polynomialOrderX:
+    if polynomialOrderX != None:
         print
         print 'Polynomial order:', polynomialOrderX
-        print
-    if rationalNumeratorFlags and rationalDenominatorFlags:
-        print
-        print 'Rational numerator flags:', rationalNumeratorFlags
-        print 'Rational denominator flags:', rationalDenominatorFlags
-        if extendedVersionHandlerName == 'Offset':
-            print 'with offset'
         print
     
     for i in range(len(equation.solvedCoefficients)):
