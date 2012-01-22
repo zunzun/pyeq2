@@ -27,7 +27,11 @@ class ExtendedVersionHandler_ExponentialDecayAndOffset(IExtendedVersionHandler.I
         if inModel.baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions:
             return inModel._HTML + '<br>' + inModel._leftSideHTML + ' = ' + inModel._leftSideHTML + ' / exp(' + x_or_xy + ') + Offset'
         else:
-            return inModel._HTML + '<br>' + inModel._leftSideHTML + ' = ' + inModel._leftSideHTML + ' / (' + inModel.listOfAdditionalCoefficientDesignators[len(inModel._coefficientDesignators)] + ' * exp(' + x_or_xy + ')) + Offset'
+            try:
+                cd = inModel.GetCoefficientDesignators()
+                return inModel._HTML + '<br>' + inModel._leftSideHTML + ' = ' + inModel._leftSideHTML + ' / (' + inModel.listOfAdditionalCoefficientDesignators[len(cd)] + ' * exp(' + x_or_xy + ')) + Offset'
+            except:
+                return inModel._HTML + '<br>' + inModel._leftSideHTML + ' = ' + inModel._leftSideHTML + ' / (exp(' + x_or_xy + ')) + Offset'
 
 
     def AssembleDisplayName(self, inModel):

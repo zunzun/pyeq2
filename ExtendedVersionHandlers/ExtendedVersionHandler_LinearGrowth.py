@@ -24,8 +24,11 @@ class ExtendedVersionHandler_LinearGrowth(IExtendedVersionHandler.IExtendedVersi
         if inModel.baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions:
             return inModel._HTML + '<br>' + inModel._leftSideHTML + ' = ' + inModel._leftSideHTML + ' * ' + x_or_xy
         else:
-            cd = inModel.GetCoefficientDesignators()
-            return inModel._HTML + '<br>' + inModel._leftSideHTML + ' = ' + inModel._leftSideHTML + ' * (' + cd[len(cd)-1] + ' * ' + x_or_xy + ')'
+            try:
+                cd = inModel.GetCoefficientDesignators()
+                return inModel._HTML + '<br>' + inModel._leftSideHTML + ' = ' + inModel._leftSideHTML + ' * (' + inModel.listOfAdditionalCoefficientDesignators[len(cd)] + ' * ' + x_or_xy + ') + Offset'
+            except:
+                return inModel._HTML + '<br>' + inModel._leftSideHTML + ' = ' + inModel._leftSideHTML + ' * (' + x_or_xy + ') + Offset'
 
 
     def AssembleDisplayName(self, inModel):

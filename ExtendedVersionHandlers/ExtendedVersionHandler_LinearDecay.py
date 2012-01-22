@@ -24,8 +24,11 @@ class ExtendedVersionHandler_LinearDecay(IExtendedVersionHandler.IExtendedVersio
         if inModel.baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions:
             return inModel._HTML + '<br>' + inModel._leftSideHTML + ' = ' + inModel._leftSideHTML + ' / ' + x_or_xy
         else:
-            cd = inModel.GetCoefficientDesignators()
-            return inModel._HTML + '<br>' + inModel._leftSideHTML + ' = ' + inModel._leftSideHTML + ' / (' + cd[len(cd)-1] + ' * ' + x_or_xy + ')'
+            try:
+                cd = inModel.GetCoefficientDesignators()
+                return inModel._HTML + '<br>' + inModel._leftSideHTML + ' = ' + inModel._leftSideHTML + ' / (' + inModel.listOfAdditionalCoefficientDesignators[len(cd)] + ' * ' + x_or_xy + ')'
+            except:
+                return inModel._HTML + '<br>' + inModel._leftSideHTML + ' = ' + inModel._leftSideHTML + ' / (' + x_or_xy + ')'
 
 
     def AssembleDisplayName(self, inModel):
