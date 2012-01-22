@@ -10,6 +10,7 @@
 #    License: BSD-style (see LICENSE.txt in main source directory)
 #    Version info: $Id$
 
+import pyeq2
 import abc, inspect
 
 
