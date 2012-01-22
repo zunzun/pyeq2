@@ -818,7 +818,7 @@ class RationalN(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
 class RationalO(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
     
     _baseName = "Rational O"
-    _HTML = 'z = (a + b*(x) + c*ln(y) + d*ln(x)ln(y))/(1 + fx + gy + hxy)'
+    _HTML = 'z = (a + b*ln(x) + c*ln(y) + d*ln(x)ln(y))/(1 + fx + gy + hxy)'
     _leftSideHTML = 'z'
     _coefficientDesignators = ['a', 'b', 'c', 'd', 'f', 'g', 'h']
     _canLinearSolverBeUsedForSSQABS = False
