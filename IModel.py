@@ -327,8 +327,8 @@ class IModel(object):
                     data = scipy.odr.odrpack.Data(self.dataCache.allDataCacheDictionary['IndependentData'],  self.dataCache.allDataCacheDictionary['DependentData'], we = self.dataCache.allDataCacheDictionary['Weights'])
                 else:
                     data = scipy.odr.odrpack.Data(self.dataCache.allDataCacheDictionary['IndependentData'],  self.dataCache.allDataCacheDictionary['DependentData'])
-                myodr = scipy.odr.odrpack.ODR(data, model, beta0=inCoeffs,  maxit=len(inCoeffs) * solver().fminIterationLimit)
-                myodr.set_job(var_calc=0)
+                myodr = scipy.odr.odrpack.ODR(data, model, beta0=inCoeffs, maxit=0)
+                myodr.set_job(fit_type=2)
                 out = myodr.run()
                 val = out.sum_square
                 if numpy.isfinite(val):
