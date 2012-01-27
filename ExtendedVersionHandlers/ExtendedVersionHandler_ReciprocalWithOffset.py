@@ -42,5 +42,5 @@ class ExtendedVersionHandler_ReciprocalWithOffset(IExtendedVersionHandler.IExten
 
 
     def GetAdditionalModelPredictions(self, inBaseModelCalculation, inCoeffs, inDataCacheDictionary, inModel):
-        return 1.0 / inBaseModelCalculation + inCoeffs[len(inCoeffs)-1]
+        return self.ConvertInfAndNanToLargeNumber(1.0 / inBaseModelCalculation + inCoeffs[len(inCoeffs)-1])
 

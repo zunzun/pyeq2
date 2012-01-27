@@ -44,6 +44,6 @@ class ExtendedVersionHandler_InverseWithOffset(IExtendedVersionHandler.IExtended
 
     def GetAdditionalModelPredictions(self, inBaseModelCalculation, inCoeffs, inDataCacheDictionary, inModel):
         if inModel.GetDimensionality() == 2:
-            return (inDataCacheDictionary['X'] / inBaseModelCalculation) + inCoeffs[len(inCoeffs)-1]
+            return self.ConvertInfAndNanToLargeNumber((inDataCacheDictionary['X'] / inBaseModelCalculation) + inCoeffs[len(inCoeffs)-1])
         else:
-            return (inDataCacheDictionary['XY'] / inBaseModelCalculation) + inCoeffs[len(inCoeffs)-1]
+            return self.ConvertInfAndNanToLargeNumber((inDataCacheDictionary['XY'] / inBaseModelCalculation) + inCoeffs[len(inCoeffs)-1])

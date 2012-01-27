@@ -11,7 +11,7 @@
 #    Version info: $Id$
 
 import pyeq2
-import abc, inspect
+import abc, inspect, numpy
 
 
 class IExtendedVersionHandler(object):
@@ -73,6 +73,12 @@ class IExtendedVersionHandler(object):
     def GetAdditionalModelPredictions(self, inBaseModelCalculation, inCoeffs, inDataCacheDictionary, inModel):
         raise NotImplementedError, 'The IExtendedVersionHandler abstract base class does not implement ' + inspect.stack()[0][3]
 
+
+    def ConvertInfAndNanToLargeNumber(self, inArray):
+        inArray[numpy.isnan(inArray)] = 1.0E300
+        inArray[numpy.isinf(inArray)] = 1.0E300
+        return inArray
+    
 
     def CanLinearSolverBeUsedForSSQABS(self, inModelFlag):
         return False

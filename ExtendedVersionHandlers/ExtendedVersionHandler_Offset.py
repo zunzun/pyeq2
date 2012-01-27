@@ -42,7 +42,7 @@ class ExtendedVersionHandler_Offset(IExtendedVersionHandler.IExtendedVersionHand
 
 
     def GetAdditionalModelPredictions(self, inBaseModelCalculation, inCoeffs, inDataCacheDictionary, inModel):
-        return inBaseModelCalculation + inCoeffs[len(inCoeffs)-1]
+        return self.ConvertInfAndNanToLargeNumber(inBaseModelCalculation + inCoeffs[len(inCoeffs)-1])
     
     
     # overridden from abstract parent class

@@ -84,11 +84,11 @@ class ExtendedVersionHandler_ExponentialGrowth(IExtendedVersionHandler.IExtended
     def GetAdditionalModelPredictions(self, inBaseModelCalculation, inCoeffs, inDataCacheDictionary, inModel):
         if inModel.GetDimensionality() == 2:
             if inModel.baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions:
-                return inBaseModelCalculation * inDataCacheDictionary['ExpX']
+                return self.ConvertInfAndNanToLargeNumber(inBaseModelCalculation * inDataCacheDictionary['ExpX'])
             else:
-                return inBaseModelCalculation * (inCoeffs[len(inCoeffs)-1] * inDataCacheDictionary['ExpX'])
+                return self.ConvertInfAndNanToLargeNumber(inBaseModelCalculation * (inCoeffs[len(inCoeffs)-1] * inDataCacheDictionary['ExpX']))
         else:
             if inModel.baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions:
-                return inBaseModelCalculation * inDataCacheDictionary['ExpXY']
+                return self.ConvertInfAndNanToLargeNumber(inBaseModelCalculation * inDataCacheDictionary['ExpXY'])
             else:
-                return inBaseModelCalculation * (inCoeffs[len(inCoeffs)-1] * inDataCacheDictionary['ExpXY'])
+                return self.ConvertInfAndNanToLargeNumber(inBaseModelCalculation * (inCoeffs[len(inCoeffs)-1] * inDataCacheDictionary['ExpXY']))

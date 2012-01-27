@@ -84,11 +84,11 @@ class ExtendedVersionHandler_ExponentialDecayAndOffset(IExtendedVersionHandler.I
     def GetAdditionalModelPredictions(self, inBaseModelCalculation, inCoeffs, inDataCacheDictionary, inModel):
         if inModel.GetDimensionality() == 2:
             if inModel.baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions:
-                return inBaseModelCalculation / inDataCacheDictionary['ExpX'] + inCoeffs[len(inCoeffs)-1]
+                return self.ConvertInfAndNanToLargeNumber(inBaseModelCalculation / inDataCacheDictionary['ExpX'] + inCoeffs[len(inCoeffs)-1])
             else:
-                return inBaseModelCalculation / (inCoeffs[len(inCoeffs)-2] * inDataCacheDictionary['ExpX']) + inCoeffs[len(inCoeffs)-1]
+                return self.ConvertInfAndNanToLargeNumber(inBaseModelCalculation / (inCoeffs[len(inCoeffs)-2] * inDataCacheDictionary['ExpX']) + inCoeffs[len(inCoeffs)-1])
         else:
             if inModel.baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions:
-                return inBaseModelCalculation / inDataCacheDictionary['ExpXY'] + inCoeffs[len(inCoeffs)-1]
+                return self.ConvertInfAndNanToLargeNumber(inBaseModelCalculation / inDataCacheDictionary['ExpXY'] + inCoeffs[len(inCoeffs)-1])
             else:
-                return inBaseModelCalculation / (inCoeffs[len(inCoeffs)-2] * inDataCacheDictionary['ExpXY']) + inCoeffs[len(inCoeffs)-1]
+                return self.ConvertInfAndNanToLargeNumber(inBaseModelCalculation / (inCoeffs[len(inCoeffs)-2] * inDataCacheDictionary['ExpXY']) + inCoeffs[len(inCoeffs)-1])

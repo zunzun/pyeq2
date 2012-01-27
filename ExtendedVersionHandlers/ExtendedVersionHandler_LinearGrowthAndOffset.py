@@ -61,14 +61,14 @@ class ExtendedVersionHandler_LinearGrowthAndOffset(IExtendedVersionHandler.IExte
     def GetAdditionalModelPredictions(self, inBaseModelCalculation, inCoeffs, inDataCacheDictionary, inModel):
         if inModel.GetDimensionality() == 2:
             if inModel.baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions:
-                return inBaseModelCalculation * inDataCacheDictionary['X'] + inCoeffs[len(inCoeffs)-1]
+                return self.ConvertInfAndNanToLargeNumber(inBaseModelCalculation * inDataCacheDictionary['X'] + inCoeffs[len(inCoeffs)-1])
             else:
-                return inBaseModelCalculation * (inCoeffs[len(inCoeffs)-2] * inDataCacheDictionary['X']) + inCoeffs[len(inCoeffs)-1]
+                return self.ConvertInfAndNanToLargeNumber(inBaseModelCalculation * (inCoeffs[len(inCoeffs)-2] * inDataCacheDictionary['X']) + inCoeffs[len(inCoeffs)-1])
         else:
             if inModel.baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions:
-                return inBaseModelCalculation * inDataCacheDictionary['XY'] + inCoeffs[len(inCoeffs)-1]
+                return self.ConvertInfAndNanToLargeNumber(inBaseModelCalculation * inDataCacheDictionary['XY'] + inCoeffs[len(inCoeffs)-1])
             else:
-                return inBaseModelCalculation * (inCoeffs[len(inCoeffs)-2] * inDataCacheDictionary['XY']) + inCoeffs[len(inCoeffs)-1]
+                return self.ConvertInfAndNanToLargeNumber(inBaseModelCalculation * (inCoeffs[len(inCoeffs)-2] * inDataCacheDictionary['XY']) + inCoeffs[len(inCoeffs)-1])
     
     
 

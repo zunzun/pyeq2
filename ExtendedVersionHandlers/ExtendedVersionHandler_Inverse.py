@@ -44,6 +44,6 @@ class ExtendedVersionHandler_Inverse(IExtendedVersionHandler.IExtendedVersionHan
 
     def GetAdditionalModelPredictions(self, inBaseModelCalculation, inCoeffs, inDataCacheDictionary, inModel):
         if inModel.GetDimensionality() == 2:
-            return inDataCacheDictionary['X'] / inBaseModelCalculation
+            return self.ConvertInfAndNanToLargeNumber(inDataCacheDictionary['X'] / inBaseModelCalculation)
         else:
-            return inDataCacheDictionary['XY'] / inBaseModelCalculation
+            return self.ConvertInfAndNanToLargeNumber(inDataCacheDictionary['XY'] / inBaseModelCalculation)

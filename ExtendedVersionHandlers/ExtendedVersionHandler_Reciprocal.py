@@ -42,4 +42,4 @@ class ExtendedVersionHandler_Reciprocal(IExtendedVersionHandler.IExtendedVersion
 
 
     def GetAdditionalModelPredictions(self, inBaseModelCalculation, inCoeffs, inDataCacheDictionary, inModel):
-        return 1.0 / inBaseModelCalculation
+        return self.ConvertInfAndNanToLargeNumber(1.0 / inBaseModelCalculation)

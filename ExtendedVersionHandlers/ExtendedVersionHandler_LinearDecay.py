@@ -80,11 +80,11 @@ class ExtendedVersionHandler_LinearDecay(IExtendedVersionHandler.IExtendedVersio
     def GetAdditionalModelPredictions(self, inBaseModelCalculation, inCoeffs, inDataCacheDictionary, inModel):
         if inModel.GetDimensionality() == 2:
             if inModel.baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions:
-                return inBaseModelCalculation / inDataCacheDictionary['X']
+                return self.ConvertInfAndNanToLargeNumber(inBaseModelCalculation / inDataCacheDictionary['X'])
             else:
-                return inBaseModelCalculation / (inCoeffs[len(inCoeffs)-1] * inDataCacheDictionary['X'])
+                return self.ConvertInfAndNanToLargeNumber(inBaseModelCalculation / (inCoeffs[len(inCoeffs)-1] * inDataCacheDictionary['X']))
         else:
             if inModel.baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions:
-                return inBaseModelCalculation / inDataCacheDictionary['XY']
+                return self.ConvertInfAndNanToLargeNumber(inBaseModelCalculation / inDataCacheDictionary['XY'])
             else:
-                return inBaseModelCalculation / (inCoeffs[len(inCoeffs)-1] * inDataCacheDictionary['XY'])
+                return self.ConvertInfAndNanToLargeNumber(inBaseModelCalculation / (inCoeffs[len(inCoeffs)-1] * inDataCacheDictionary['XY']))

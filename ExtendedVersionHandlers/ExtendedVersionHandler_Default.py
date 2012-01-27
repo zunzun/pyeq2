@@ -43,7 +43,7 @@ class ExtendedVersionHandler_Default(IExtendedVersionHandler.IExtendedVersionHan
 
 
     def GetAdditionalModelPredictions(self, inBaseModelCalculation, inCoeffs, inDataCacheDictionary, inModel):
-        return inBaseModelCalculation
+        return self.ConvertInfAndNanToLargeNumber(inBaseModelCalculation)
 
 
     # overridden from abstract parent class
