@@ -173,11 +173,10 @@ class UserDefinedFunction(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
         # eval uses previously compiled code for improved performance
         # based on http://lybniz2.sourceforge.net/safeeval._HTML
         try:
-            result = eval(self.userFunctionCodeObject, {"__builtins__":None, 'numpy':numpy}, self.safe_dict)
-            return result
+            temp = eval(self.userFunctionCodeObject, {"__builtins__":None, 'numpy':numpy}, self.safe_dict)
+            return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
-            result = numpy.ones(len(inDataCacheDictionary['X'])) * 1.0E300
-            return result
+            return numpy.ones(len(inDataCacheDictionary['X'])) * 1.0E300
     
 
     def Solve(self, inUserFunctionString = None):
