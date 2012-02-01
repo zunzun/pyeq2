@@ -14,6 +14,12 @@ import numpy
 numpy.seterr(over = 'raise', divide = 'raise', invalid = 'raise', under = 'ignore') # numpy raises warnings, convert to exceptions to trap them
 
 
+# duplicated in IExtendedVersionHandler.py
+def ConvertInfAndNanToLargeNumber(inArray):
+    inArray[numpy.isnan(inArray)] = 1.0E300
+    inArray[numpy.isinf(inArray)] = 1.0E300
+    return inArray
+
 
 class Offset_Term(object):
     cannotAcceptDataWith_Zero = False
@@ -48,9 +54,7 @@ class ArcTangent_Term(object):
     def value(self, x):
         try:
             returnValue = numpy.arctan(x)
-            if numpy.isfinite(returnValue).all():
-                return returnValue
-            return 1.0E300 * numpy.ones_like(x)
+            return ConvertInfAndNanToLargeNumber(returnValue)
         except:
             return 1.0E300 * numpy.ones_like(x)
 
@@ -71,9 +75,7 @@ class Power_NegativeOne_Term(object):
     def value(self, x):
         try:
             returnValue = numpy.power(x, -1.0)
-            if numpy.isfinite(returnValue).all():
-                return returnValue
-            return 1.0E300 * numpy.ones_like(x)
+            return ConvertInfAndNanToLargeNumber(returnValue)
         except:
             return 1.0E300 * numpy.ones_like(x)
 
@@ -94,9 +96,7 @@ class HyperbolicCosine_Term(object):
     def value(self, x):
         try:
             returnValue = numpy.cosh(x)
-            if numpy.isfinite(returnValue).all():
-                return returnValue
-            return 1.0E300 * numpy.ones_like(x)
+            return ConvertInfAndNanToLargeNumber(returnValue)
         except:
             return 1.0E300 * numpy.ones_like(x)
 
@@ -117,9 +117,7 @@ class Power_OnePointFive_Term(object):
     def value(self, x):
         try:
             returnValue = numpy.power(x, 1.5)
-            if numpy.isfinite(returnValue).all():
-                return returnValue
-            return 1.0E300 * numpy.ones_like(x)
+            return ConvertInfAndNanToLargeNumber(returnValue)
         except:
             return 1.0E300 * numpy.ones_like(x)
 
@@ -140,9 +138,7 @@ class Power_ZeroPointFive_Term(object):
     def value(self, x):
         try:
             returnValue = numpy.power(x, 0.5)
-            if numpy.isfinite(returnValue).all():
-                return returnValue
-            return 1.0E300 * numpy.ones_like(x)
+            return ConvertInfAndNanToLargeNumber(returnValue)
         except:
             return 1.0E300 * numpy.ones_like(x)
 
@@ -180,9 +176,7 @@ class Power_Two_Term(object):
     def value(self, x):
         try:
             returnValue = numpy.power(x, 2.0)
-            if numpy.isfinite(returnValue).all():
-                return returnValue
-            return 1.0E300 * numpy.ones_like(x)
+            return ConvertInfAndNanToLargeNumber(returnValue)
         except:
             return 1.0E300 * numpy.ones_like(x)
 
@@ -203,9 +197,7 @@ class HyperbolicSine_Term(object):
     def value(self, x):
         try:
             returnValue = numpy.sinh(x)
-            if numpy.isfinite(returnValue).all():
-                return returnValue
-            return 1.0E300 * numpy.ones_like(x)
+            return ConvertInfAndNanToLargeNumber(returnValue)
         except:
             return 1.0E300 * numpy.ones_like(x)
 
@@ -226,9 +218,7 @@ class Exponential_VariableUnchanged_Term(object):
     def value(self, x):
         try:
             returnValue = numpy.exp(x)
-            if numpy.isfinite(returnValue).all():
-                return returnValue
-            return 1.0E300 * numpy.ones_like(x)
+            return ConvertInfAndNanToLargeNumber(returnValue)
         except:
             return 1.0E300 * numpy.ones_like(x)
 
@@ -249,9 +239,7 @@ class Exponential_VariableTimesNegativeOne_Term(object):
     def value(self, x):
         try:
             returnValue = numpy.exp(-x)
-            if numpy.isfinite(returnValue).all():
-                return returnValue
-            return 1.0E300 * numpy.ones_like(x)
+            return ConvertInfAndNanToLargeNumber(returnValue)
         except:
             return 1.0E300 * numpy.ones_like(x)
 
@@ -272,9 +260,7 @@ class Sine_Term(object):
     def value(self, x):
         try:
             returnValue = numpy.sin(x)
-            if numpy.isfinite(returnValue).all():
-                return returnValue
-            return 1.0E300 * numpy.ones_like(x)
+            return ConvertInfAndNanToLargeNumber(returnValue)
         except:
             return 1.0E300 * numpy.ones_like(x)
 
@@ -295,9 +281,7 @@ class Cosine_Term(object):
     def value(self, x):
         try:
             returnValue = numpy.cos(x)
-            if numpy.isfinite(returnValue).all():
-                return returnValue
-            return 1.0E300 * numpy.ones_like(x)
+            return ConvertInfAndNanToLargeNumber(returnValue)
         except:
             return 1.0E300 * numpy.ones_like(x)
 
@@ -319,9 +303,7 @@ class Tangent_Term(object):
     def value(self, x):
         try:
             returnValue = numpy.tan(x)
-            if numpy.isfinite(returnValue).all():
-                return returnValue
-            return 1.0E300 * numpy.ones_like(x)
+            return ConvertInfAndNanToLargeNumber(returnValue)
         except:
             return 1.0E300 * numpy.ones_like(x)
 
@@ -343,9 +325,7 @@ class HyperbolicTangent_Term(object):
     def value(self, x):
         try:
             returnValue = numpy.tanh(x)
-            if numpy.isfinite(returnValue).all():
-                return returnValue
-            return 1.0E300 * numpy.ones_like(x)
+            return ConvertInfAndNanToLargeNumber(returnValue)
         except:
             return 1.0E300 * numpy.ones_like(x)
 
@@ -366,9 +346,7 @@ class Power_NegativeZeroPointFive_Term(object):
     def value(self, x):
         try:
             returnValue = numpy.power(x, -0.5)
-            if numpy.isfinite(returnValue).all():
-                return returnValue
-            return 1.0E300 * numpy.ones_like(x)
+            return ConvertInfAndNanToLargeNumber(returnValue)
         except:
             return 1.0E300 * numpy.ones_like(x)
 
@@ -389,9 +367,7 @@ class Power_NegativeTwo_Term(object):
     def value(self, x):
         try:
             returnValue = numpy.power(x, -2.0)
-            if numpy.isfinite(returnValue).all():
-                return returnValue
-            return 1.0E300 * numpy.ones_like(x)
+            return ConvertInfAndNanToLargeNumber(returnValue)
         except:
             return 1.0E300 * numpy.ones_like(x)
 
@@ -412,9 +388,7 @@ class Log_Term(object):
     def value(self, x):
         try:
             returnValue = numpy.log(x)
-            if numpy.isfinite(returnValue).all():
-                return returnValue
-            return 1.0E300 * numpy.ones_like(x)
+            return ConvertInfAndNanToLargeNumber(returnValue)
         except:
             return 1.0E300 * numpy.ones_like(x)
 
@@ -435,9 +409,7 @@ class Power_NegativeOne_OfLog_Term(object):
     def value(self, x):
         try:
             returnValue = numpy.power(numpy.log(x), -1.0)
-            if numpy.isfinite(returnValue).all():
-                return returnValue
-            return 1.0E300 * numpy.ones_like(x)
+            return ConvertInfAndNanToLargeNumber(returnValue)
         except:
             return 1.0E300 * numpy.ones_like(x)
 
@@ -458,9 +430,7 @@ class Power_Two_OfLog_Term(object):
     def value(self, x):
         try:
             returnValue = numpy.power(numpy.log(x), 2.0)
-            if numpy.isfinite(returnValue).all():
-                return returnValue
-            return 1.0E300 * numpy.ones_like(x)
+            return ConvertInfAndNanToLargeNumber(returnValue)
         except:
             return 1.0E300 * numpy.ones_like(x)
 
@@ -481,9 +451,7 @@ class Power_NegativeTwo_OfLog_Term(object):
     def value(self, x):
         try:
             returnValue = numpy.power(numpy.log(x), -2.0)
-            if numpy.isfinite(returnValue).all():
-                return returnValue
-            return 1.0E300 * numpy.ones_like(x)
+            return ConvertInfAndNanToLargeNumber(returnValue)
         except:
             return 1.0E300 * numpy.ones_like(x)
 
