@@ -60,6 +60,37 @@ class UserSelectableRational(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         self._leftSideHTML = 'y'
     
     
+    def GetDisplayHTML(self):                
+        if 0 == (len(self.rationalNumeratorFlags) + len(self.rationalDenominatorFlags)):
+            self._HTML = "y = user-selectable rational"
+        else:
+            self._HTML = "</B><B>y = (" # turn off any preceding bolding
+            count = 0
+            for xindex in range(len(self.rationalEquationList)):
+                if xindex in self.rationalNumeratorFlags: # numerator
+                    if self.rationalEquationList[xindex].HTML == '':
+                        self._HTML += self.listOfAdditionalCoefficientDesignators[count] + " "
+                    else:
+                        self._HTML += self.listOfAdditionalCoefficientDesignators[count] + "(</B>&nbsp;" + self.rationalEquationList[xindex].HTML + "&nbsp;<B>) "
+                    count += 1
+                    if len(self.rationalNumeratorFlags) > count:
+                        self._HTML += "+ "
+            self._HTML += ") / (1.0 + "
+            count = 0
+            for xindex in range(len(self.rationalEquationList)):
+                if xindex in self.rationalDenominatorFlags: # denominator
+                    if self.rationalEquationList[xindex].HTML == '':
+                        self._HTML += self.listOfAdditionalCoefficientDesignators[count + len(self.rationalNumeratorFlags)] + " "
+                    else:
+                        self._HTML += self.listOfAdditionalCoefficientDesignators[count + len(self.rationalNumeratorFlags)] + "(</B>&nbsp;" + self.rationalEquationList[xindex].HTML + "&nbsp;<B>) "
+                    count += 1
+                    if len(self.rationalDenominatorFlags) > count:
+                        self._HTML += "+ "
+            self._HTML += ')</B>'
+            
+        return self.extendedVersionHandler.AssembleDisplayHTML(self)
+
+
     def GetCoefficientDesignators(self):
         self._coefficientDesignators = list(self.listOfAdditionalCoefficientDesignators[:len(self.rationalNumeratorFlags) + len(self.rationalDenominatorFlags)])
         return self.extendedVersionHandler.AssembleCoefficientDesignators(self)
