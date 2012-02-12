@@ -216,7 +216,7 @@ class IModel(object):
         if self.fixedCoefficients != []:
             self._canLinearSolverBeUsedForSSQABS = False
             for i in range(len(inCoeffs)):
-                if self.fixedCoefficients[i]: # use None as a flag for coefficients that are not fixed
+                if self.fixedCoefficients[i] != None: # use None as a flag for coefficients that are not fixed
                     inCoeffs[i] = self.fixedCoefficients[i]
         self.modelPredictions = self.CalculateModelPredictions(inCoeffs, inDictionary)
         self.modelAbsoluteError = self.modelPredictions - inDictionary['DependentData']
@@ -241,7 +241,7 @@ class IModel(object):
                 if self.fixedCoefficients != []:
                     self._canLinearSolverBeUsedForSSQABS = False
                     for i in range(len(inCoeffs)):
-                        if self.fixedCoefficients[i]: # use None as a flag for coefficients that are not fixed
+                        if self.fixedCoefficients[i] != None: # use None as a flag for coefficients that are not fixed
                             inCoeffs[i] = self.fixedCoefficients[i]
             except:
                 pass
@@ -266,7 +266,7 @@ class IModel(object):
                 if self.fixedCoefficients != []:
                     self._canLinearSolverBeUsedForSSQABS = False
                     for i in range(len(inCoeffs)):
-                        if self.fixedCoefficients[i]: # use None as a flag for coefficients that are not fixed
+                        if self.fixedCoefficients[i] != None: # use None as a flag for coefficients that are not fixed
                             inCoeffs[i] = self.fixedCoefficients[i]
             except:
                 pass
@@ -414,7 +414,7 @@ class IModel(object):
         if self.fixedCoefficients != []:
             self._canLinearSolverBeUsedForSSQABS = False
             for i in range(len(inCoeffs)):
-                if self.fixedCoefficients[i]: # use None as a flag for coefficients that are not fixed
+                if self.fixedCoefficients[i] != None: # use None as a flag for coefficients that are not fixed
                     inCoeffs[i] = self.fixedCoefficients[i]
         return self.CalculateModelPredictions(inCoeffs, self.dataCache.allDataCacheDictionary)
 
@@ -424,7 +424,7 @@ class IModel(object):
             if self.fixedCoefficients != []:
                 self._canLinearSolverBeUsedForSSQABS = False
                 for i in range(len(inCoeffs)):
-                    if self.fixedCoefficients[i]: # use None as a flag for coefficients that are not fixed
+                    if self.fixedCoefficients[i] != None: # use None as a flag for coefficients that are not fixed
                         inCoeffs[i] = self.fixedCoefficients[i]
             result = self.CalculateModelPredictions(inCoeffs, self.dataCache.allDataCacheDictionary)
         else:
@@ -435,7 +435,7 @@ class IModel(object):
             if self.fixedCoefficients != []:
                 self._canLinearSolverBeUsedForSSQABS = False
                 for i in range(len(inCoeffs)):
-                    if self.fixedCoefficients[i]: # use None as a flag for coefficients that are not fixed
+                    if self.fixedCoefficients[i] != None: # use None as a flag for coefficients that are not fixed
                         inCoeffs[i] = self.fixedCoefficients[i]
             result = self.CalculateModelPredictions(inCoeffs, self.dataCache.allDataCacheDictionary)
             self.dataCache.allDataCacheDictionary = tempCache
