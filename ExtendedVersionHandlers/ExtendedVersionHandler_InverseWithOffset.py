@@ -35,11 +35,19 @@ class ExtendedVersionHandler_InverseWithOffset(IExtendedVersionHandler.IExtended
         return inModel._coefficientDesignators + ['Offset']
 
 
+    # overridden from abstract parent class
+    def AppendAdditionalCoefficientBounds(self, inModel):
+        if inModel.upperCoefficientBounds != []:
+            inModel.upperCoefficientBounds.append(1.0E300)
+        if inModel.lowerCoefficientBounds != []:
+            inModel.lowerCoefficientBounds.append(-1.0E300)
+
+
     def AssembleOutputSourceCodeCPP(self, inModel):
         if inModel.GetDimensionality() == 2:
-            return inModel.SpecificCodeCPP() + "temp = x_in / temp + Offset;\n"
+            return inModel.SpecificCodeCPP() + "\ttemp = x_in / temp + Offset;\n"
         else:
-            return inModel.SpecificCodeCPP() + "temp = (x_in * y_in) / temp + Offset;\n"
+            return inModel.SpecificCodeCPP() + "\ttemp = (x_in * y_in) / temp + Offset;\n"
 
 
     def GetAdditionalModelPredictions(self, inBaseModelCalculation, inCoeffs, inDataCacheDictionary, inModel):

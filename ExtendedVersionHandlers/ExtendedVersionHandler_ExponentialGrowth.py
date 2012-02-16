@@ -49,16 +49,27 @@ class ExtendedVersionHandler_ExponentialGrowth(IExtendedVersionHandler.IExtended
             return inModel._coefficientDesignators + [inModel.listOfAdditionalCoefficientDesignators[len(inModel._coefficientDesignators)]]
 
 
+    # overridden from abstract parent class
+    def AppendAdditionalCoefficientBounds(self, inModel):
+        if inModel.baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions:
+            return
+        else:
+            if inModel.upperCoefficientBounds != []:
+                inModel.upperCoefficientBounds.append(1.0E300)
+            if inModel.lowerCoefficientBounds != []:
+                inModel.lowerCoefficientBounds.append(-1.0E300)
+
+
     def AssembleOutputSourceCodeCPP(self, inModel):
         x_or_xy = 'x_in * y_in'
         if inModel.GetDimensionality() == 2:
             x_or_xy = 'x_in'
             
         if inModel.baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions:
-            return inModel.SpecificCodeCPP() + "temp = temp * exp(" + x_or_xy + ");\n"
+            return inModel.SpecificCodeCPP() + "\ttemp = temp * exp(" + x_or_xy + ");\n"
         else:
             cd = inModel.GetCoefficientDesignators()
-            return inModel.SpecificCodeCPP() + "temp = temp * ("  + cd[len(cd)-1] + ' * exp(' + x_or_xy + "));\n"
+            return inModel.SpecificCodeCPP() + "\ttemp = temp * ("  + cd[len(cd)-1] + ' * exp(' + x_or_xy + "));\n"
         
 
     def GetAdditionalDataCacheFunctions(self, inModel, inDataCacheFunctions):

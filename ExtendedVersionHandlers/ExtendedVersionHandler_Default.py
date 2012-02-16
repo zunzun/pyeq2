@@ -33,6 +33,11 @@ class ExtendedVersionHandler_Default(IExtendedVersionHandler.IExtendedVersionHan
         return inModel._coefficientDesignators
 
 
+    # overridden from abstract parent class
+    def AppendAdditionalCoefficientBounds(self, inModel):
+        return
+
+
     def AssembleOutputSourceCodeCPP(self, inModel):
         return inModel.SpecificCodeCPP()
 

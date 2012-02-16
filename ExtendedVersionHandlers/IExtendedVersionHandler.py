@@ -74,6 +74,11 @@ class IExtendedVersionHandler(object):
         raise NotImplementedError, 'The IExtendedVersionHandler abstract base class does not implement ' + inspect.stack()[0][3]
 
 
+    @abc.abstractmethod
+    def AppendAdditionalCoefficientBounds(self, inModel):
+        raise NotImplementedError, 'The IExtendedVersionHandler abstract base class does not implement ' + inspect.stack()[0][3]
+
+
     # duplicated in Polyfunctions.py
     def ConvertInfAndNanToLargeNumber(self, inArray):
         inArray[numpy.isnan(inArray)] = 1.0E300

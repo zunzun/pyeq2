@@ -32,8 +32,13 @@ class ExtendedVersionHandler_Reciprocal(IExtendedVersionHandler.IExtendedVersion
         return inModel._coefficientDesignators
 
 
+    # overridden from abstract parent class
+    def AppendAdditionalCoefficientBounds(self, inModel):
+        return
+
+
     def AssembleOutputSourceCodeCPP(self, inModel):
-        return inModel.SpecificCodeCPP() + "temp = 1.0 / temp;\n"
+        return inModel.SpecificCodeCPP() + "\ttemp = 1.0 / temp;\n"
 
 
     # overridden from abstract parent class

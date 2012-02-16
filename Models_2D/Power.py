@@ -99,6 +99,7 @@ class PowerA_Modified(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     def __init__(self, inFittingTarget = 'SSQABS', inExtendedVersionName = 'Default'):
         pyeq2.Model_2D_BaseClass.Model_2D_BaseClass.__init__(self, inFittingTarget, inExtendedVersionName)
         self.lowerCoefficientBounds = [-1.0E300, 1.0E-300]
+        self.extendedVersionHandler.AppendAdditionalCoefficientBounds(self)
         
         
     def GetDataCacheFunctions(self):

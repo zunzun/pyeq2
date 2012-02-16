@@ -45,6 +45,16 @@ class ExtendedVersionHandler_LinearGrowth(IExtendedVersionHandler.IExtendedVersi
         else:
             return inModel._coefficientDesignators + [inModel.listOfAdditionalCoefficientDesignators[len(inModel._coefficientDesignators)]]
 
+    # overridden from abstract parent class
+    def AppendAdditionalCoefficientBounds(self, inModel):
+        if inModel.baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions:
+            return
+        else:
+            if inModel.upperCoefficientBounds != []:
+                inModel.upperCoefficientBounds.append(1.0E300)
+            if inModel.lowerCoefficientBounds != []:
+                inModel.lowerCoefficientBounds.append(-1.0E300)
+
 
     def AssembleOutputSourceCodeCPP(self, inModel):
         x_or_xy = 'x_in * y_in'
@@ -52,10 +62,10 @@ class ExtendedVersionHandler_LinearGrowth(IExtendedVersionHandler.IExtendedVersi
             x_or_xy = 'x_in'
             
         if inModel.baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions:
-            return inModel.SpecificCodeCPP() + "temp = temp * (" + x_or_xy + ");\n"
+            return inModel.SpecificCodeCPP() + "\ttemp = temp * (" + x_or_xy + ");\n"
         else:
             cd = inModel.GetCoefficientDesignators()
-            return inModel.SpecificCodeCPP() + "temp = temp * ("  + cd[len(cd)-1] + ' * ' + x_or_xy + ");\n"
+            return inModel.SpecificCodeCPP() + "\ttemp = temp * ("  + cd[len(cd)-1] + ' * ' + x_or_xy + ");\n"
         
 
     def GetAdditionalModelPredictions(self, inBaseModelCalculation, inCoeffs, inDataCacheDictionary, inModel):

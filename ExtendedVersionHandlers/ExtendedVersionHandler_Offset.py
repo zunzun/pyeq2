@@ -32,8 +32,16 @@ class ExtendedVersionHandler_Offset(IExtendedVersionHandler.IExtendedVersionHand
         return inModel._coefficientDesignators + ['Offset']
 
 
+    # overridden from abstract parent class
+    def AppendAdditionalCoefficientBounds(self, inModel):
+        if inModel.upperCoefficientBounds != []:
+            inModel.upperCoefficientBounds.append(1.0E300)
+        if inModel.lowerCoefficientBounds != []:
+            inModel.lowerCoefficientBounds.append(-1.0E300)
+
+
     def AssembleOutputSourceCodeCPP(self, inModel):
-        return inModel.SpecificCodeCPP() + "temp += Offset;\n"
+        return inModel.SpecificCodeCPP() + "\ttemp += Offset;\n"
 
 
     # overridden from abstract parent class

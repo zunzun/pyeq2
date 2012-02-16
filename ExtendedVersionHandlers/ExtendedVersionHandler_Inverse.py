@@ -35,11 +35,16 @@ class ExtendedVersionHandler_Inverse(IExtendedVersionHandler.IExtendedVersionHan
         return inModel._coefficientDesignators
 
 
+    # overridden from abstract parent class
+    def AppendAdditionalCoefficientBounds(self, inModel):
+        return
+
+
     def AssembleOutputSourceCodeCPP(self, inModel):
         if inModel.GetDimensionality() == 2:
-            return inModel.SpecificCodeCPP() + "temp = x_in / temp;\n"
+            return inModel.SpecificCodeCPP() + "\ttemp = x_in / temp;\n"
         else:
-            return inModel.SpecificCodeCPP() + "temp = (x_in * y_in) / temp;\n"
+            return inModel.SpecificCodeCPP() + "\ttemp = (x_in * y_in) / temp;\n"
 
 
     def GetAdditionalModelPredictions(self, inBaseModelCalculation, inCoeffs, inDataCacheDictionary, inModel):
