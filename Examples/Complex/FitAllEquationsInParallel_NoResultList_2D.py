@@ -330,21 +330,14 @@ if __name__ == "__main__":
     for i in range(number_of_cpu_cores):
         poolItems.append(pool.apply_async(ParallelFittingFunction, (rawData, fittingTargetText, smoothnessControl, number_of_cpu_cores, i))) # modulus math divides the equations among the processes
         
-    # no more items will be added to the process pool
-    pool.close()
-    
-    # wait for all items in the process pool to complete
-    pool.join()
-
     # gather all results from the process pool
     allResults = []
     for i in range(number_of_cpu_cores):
         allResults.append(poolItems[i].get())
         
-    # done with the parallel process pool
-    poolItems = None
-    pool = None 
-    
+    # no more items will be added to the process pool
+    pool.close()
+
     ##############################################
     # Parallel region ends
     ##############################################

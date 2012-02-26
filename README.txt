@@ -1,6 +1,6 @@
 #    Version info: $Id$
 
-You will need to install python, numpy and scipy to run this software.
+You will need to install python and scipy to run this software.
 
 See the Examples directory to get started. All of the examples should
 run by typing "python examplename.py" at a command prompt. 
