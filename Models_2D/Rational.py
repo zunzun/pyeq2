@@ -68,7 +68,7 @@ class UserSelectableRational(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
             count = 0
             for xindex in range(len(self.rationalEquationList)):
                 if xindex in self.rationalNumeratorFlags: # numerator
-                    if xindex == 0:
+                    if self.rationalEquationList[xindex].HTML == '':
                         self._HTML += self.listOfAdditionalCoefficientDesignators[count] + " "
                     else:
                         self._HTML += self.listOfAdditionalCoefficientDesignators[count] + "(</B>&nbsp;" + self.rationalEquationList[xindex].HTML + "&nbsp;<B>) "
@@ -79,7 +79,7 @@ class UserSelectableRational(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
             count = 0
             for xindex in range(len(self.rationalEquationList)):
                 if xindex in self.rationalDenominatorFlags: # denominator
-                    if xindex == 0:
+                    if self.rationalEquationList[xindex].HTML == '':
                         self._HTML += self.listOfAdditionalCoefficientDesignators[count + len(self.rationalNumeratorFlags)] + " "
                     else:
                         self._HTML += self.listOfAdditionalCoefficientDesignators[count + len(self.rationalNumeratorFlags)] + "(</B>&nbsp;" + self.rationalEquationList[xindex].HTML + "&nbsp;<B>) "
