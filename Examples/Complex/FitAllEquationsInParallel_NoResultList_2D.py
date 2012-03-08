@@ -337,6 +337,7 @@ if __name__ == "__main__":
         
     # no more items will be added to the process pool
     pool.terminate()
+    pool.join()
 
     ##############################################
     # Parallel region ends
