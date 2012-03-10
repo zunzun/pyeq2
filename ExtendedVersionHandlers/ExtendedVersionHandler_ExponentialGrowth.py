@@ -55,9 +55,9 @@ class ExtendedVersionHandler_ExponentialGrowth(IExtendedVersionHandler.IExtended
             return
         else:
             if inModel.upperCoefficientBounds != []:
-                inModel.upperCoefficientBounds.append(1.0E300)
+                inModel.upperCoefficientBounds.append(None)
             if inModel.lowerCoefficientBounds != []:
-                inModel.lowerCoefficientBounds.append(-1.0E300)
+                inModel.lowerCoefficientBounds.append(None)
 
 
     def AssembleOutputSourceCodeCPP(self, inModel):
