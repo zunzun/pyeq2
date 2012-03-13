@@ -61,7 +61,7 @@ class NIST_Bennett5(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         c = inCoeffs[2]
 
         try:
-            temp = a * numpy.power(b * x_in, 1.0 / c)
+            temp = a * numpy.power(b + x_in, -1.0 / c)
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -272,10 +272,10 @@ class NIST_ENSO(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
         try:
             od = x_TwoPiX / d
-            og = x_TwoPiX / h
+            oh = x_TwoPiX / h
             temp = a + b * x_NistEnsoCosX + c * x_NistEnsoSinX
             temp += f *numpy.cos(od) + g * numpy.sin(od)
-            temp += i * numpy.cos(og) + j * numpy.sin(og)
+            temp += i * numpy.cos(oh) + j * numpy.sin(oh)
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -712,7 +712,7 @@ class NIST_MGH17(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         f = inCoeffs[4]
 
         try:
-            temp = a + b * numpy.exp(x_Neg * c) + d * numpy.exp(x_Neg * f)
+            temp = a + b * numpy.exp(x_Neg * d) + c * numpy.exp(x_Neg * f)
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -859,7 +859,7 @@ class NIST_Misra1c(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         b = inCoeffs[1]
 
         try:
-            temp = a * numpy.power(1.0 - 2.0 * b * x_in, -0.5)
+            temp = a * (1.0 - numpy.power(1.0 + 2.0 * b * x_in, -0.5))
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -1118,7 +1118,7 @@ class NIST_Thurber(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         h = inCoeffs[6]
 
         try:
-            temp = a + b * x_in + c * x_PowX2 + d * x_PowX3 / (1.0 + f * x_in + g * x_PowX2 + h * x_PowX3)
+            temp = (a + b * x_in + c * x_PowX2 + d * x_PowX3) / (1.0 + f * x_in + g * x_PowX2 + h * x_PowX3)
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300

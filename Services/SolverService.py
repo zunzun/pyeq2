@@ -104,36 +104,55 @@ class SolverService(object):
         inModel.dataCache.FindOrCreateAllDataCache(inModel)
         inModel.dataCache.FindOrCreateReducedDataCache(inModel)
 
+        results = []
         # first try is with initial coefficients are equal to 1
         try:
             LM1, unused = scipy.optimize.curve_fit(inModel.WrapperForScipyCurveFit, None, inModel.dataCache.allDataCacheDictionary['DependentData'], numpy.ones(len(inModel.GetCoefficientDesignators())), maxfev=1000000) # initial coefficients are all equal to 1
             SSQ1 = inModel.CalculateAllDataFittingTarget(LM1)
+            results.append([SSQ1, LM1])
         except:
             LM1 = None
             SSQ1 = 1.0E300
             
+        # next try is with initial coefficients from DE
+        try:
+            LM2, unused = scipy.optimize.curve_fit(inModel.WrapperForScipyCurveFit, None, inModel.dataCache.allDataCacheDictionary['DependentData'], inModel.deEstimatedCoefficients, maxfev=1000000) # initial coefficients are all equal to 1
+            SSQ2 = inModel.CalculateAllDataFittingTarget(LM2)
+            results.append([SSQ2, LM2])
+        except:
+            LM2 = None
+            SSQ2 = 1.0E300
+                
         # now try using estimated coefficients, if any
         if len(inModel.estimatedCoefficients) > 0:
             estimatedOK = False
             try:
-                LM2 = inModel.estimatedCoefficients
-                SSQ2 = inModel.CalculateAllDataFittingTarget(LM2)
-                try:
-                    LM2, unused = scipy.optimize.curve_fit(inModel.WrapperForScipyCurveFit, None, inModel.dataCache.allDataCacheDictionary['DependentData'], inModel.estimatedCoefficients, maxfev=1000000)
-                    SSQ2 = inModel.CalculateAllDataFittingTarget(LM2)
-                except:
-                    LM2 = inModel.estimatedCoefficients
-                    SSQ2 = inModel.CalculateAllDataFittingTarget(LM2)
+                LM3 = inModel.estimatedCoefficients
+                SSQ3 = inModel.CalculateAllDataFittingTarget(LM3)
+                results.append([SSQ3, LM3])
             except:
-                LM2 = None
-                SSQ2 = 1.0E300
+                LM3 = None
+                SSQ3 = 1.0E300
+            try:
+                LM4, unused = scipy.optimize.curve_fit(inModel.WrapperForScipyCurveFit, None, inModel.dataCache.allDataCacheDictionary['DependentData'], inModel.estimatedCoefficients, maxfev=1000000)
+                SSQ4 = inModel.CalculateAllDataFittingTarget(LM4)
+                results.append([SSQ4, LM4])
+            except:
+                LM4 = None
+                SSQ4 = 1.0E300
                 
-        if SSQ2 > SSQ1:
-            inModel.solvedCoefficients = LM1
-            return LM1
-        else:
-            inModel.solvedCoefficients = LM2
-            return LM2
+        if len(results) > 1:
+               results.sort(self.ResultListSortFunction)
+        return results[0][1]
+
+
+    def ResultListSortFunction(selg, a, b): # utility function
+        if a[0] < b[0]:
+            return -1
+        if a[0] > b[0]:
+            return 1
+        return 0
+
 
 
     def SolveUsingSpline(self, inModel):

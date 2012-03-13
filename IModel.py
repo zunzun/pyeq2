@@ -398,7 +398,7 @@ class IModel(object):
             if self.CanLinearSolverBeUsedForSSQABS() == True:
                 return solver.SolveUsingLinear(self)
             else:
-                self.estimatedCoefficients = solver.SolveUsingDE(self)
+                self.deEstimatedCoefficients = solver.SolveUsingDE(self)
                 self.estimatedCoefficients = solver.SolveUsingLevenbergMarquardt(self)
                 return solver.SolveUsingSimplex(self)
         

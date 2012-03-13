@@ -6,9 +6,11 @@
 [project attributes]
 proj.directory-list = [{'dirloc': loc('..'),
                         'excludes': [u'DesignAndDevelopment/pyeq2.xmi',
+                                     u'NIST/Bennett5.dat',
                                      u'DesignAndDevelopment/ClassDiagram.png'],
                         'filter': '*',
                         'include_hidden': False,
                         'recursive': True,
                         'watch_for_changes': True}]
+proj.file-list = [loc('../UnitTests/NIST_DataFiles/Bennett5.dat')]
 proj.file-type = 'shared'

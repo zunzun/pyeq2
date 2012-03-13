@@ -10,6 +10,7 @@ import Test_CalculateCoefficientAndFitStatistics
 import Test_ModelSolveMethods
 import Test_ExtendedVersionHandlers
 import Test_Equations
+import Test_NIST
 
 
 # see http://www.voidspace.org.uk/python/articles/introduction-to-unittest.shtml#loaders-runners-and-all-that-stuff
@@ -25,6 +26,7 @@ suite.addTests(loader.loadTestsFromModule(Test_ModelSolveMethods))
 suite.addTests(loader.loadTestsFromModule(Test_OutputSourceCodeService))
 suite.addTests(loader.loadTestsFromModule(Test_SolverService))
 suite.addTests(loader.loadTestsFromModule(Test_Equations))
+suite.addTests(loader.loadTestsFromModule(Test_NIST))
 
 runner = unittest.TextTestRunner(verbosity=2)
 
