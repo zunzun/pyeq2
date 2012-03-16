@@ -141,8 +141,12 @@ class SolverService(object):
                 LM4 = None
                 SSQ4 = 1.0E300
                 
+        if results == []:
+            return numpy.ones(len(inModel.GetCoefficientDesignators()))
+        
         if len(results) > 1:
-               results.sort(self.ResultListSortFunction)
+            results.sort(self.ResultListSortFunction)
+            
         return results[0][1]
 
 
