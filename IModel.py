@@ -391,7 +391,7 @@ class IModel(object):
         if self.splineFlag:
             return solver.SolveUsingSpline(self)
         
-        if self.fixedCoefficients != [] or self.upperCoefficientBounds != [] or self.lowerCoefficientBounds != []:
+        if self.fixedCoefficients != [] or self.upperCoefficientBounds != [] or self.lowerCoefficientBounds != [] or len(self.dataCache.allDataCacheDictionary['Weights']):
             self._canLinearSolverBeUsedForSSQABS = False
             
         if self.fittingTarget == 'SSQABS':
