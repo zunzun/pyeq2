@@ -1016,14 +1016,14 @@ class QuinticLogarithmicTransform(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         i = inCoeffs[7]
 
         try:
-            temp = a + b*numpy.log(h * x_in + i) + c*numpy.power(numpy.log(h * x_in + i), 2.0) + d*numpy.power(numpy.log(h * x_in + i), 3.0) + f*numpy.power(numpy.log(h * x_in + i), 4.0) + f*numpy.power(numpy.log(h * x_in + i), 5.0)
+            temp = a + b*numpy.log(h * x_in + i) + c*numpy.power(numpy.log(h * x_in + i), 2.0) + d*numpy.power(numpy.log(h * x_in + i), 3.0) + f*numpy.power(numpy.log(h * x_in + i), 4.0) + g*numpy.power(numpy.log(h * x_in + i), 5.0)
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
 
 
     def SpecificCodeCPP(self):
-        s = "\ttemp = a + b*log(h * x_in + i) + c*pow(log(h * x_in + i), 2.0) + d*pow(log(h * x_in + i), 3.0) + f*pow(log(h * x_in + i), 4.0) + f*pow(log(h * x_in + i), 5.0);\n"
+        s = "\ttemp = a + b*log(h * x_in + i) + c*pow(log(h * x_in + i), 2.0) + d*pow(log(h * x_in + i), 3.0) + f*pow(log(h * x_in + i), 4.0) + g*pow(log(h * x_in + i), 5.0);\n"
         return s
 
 
