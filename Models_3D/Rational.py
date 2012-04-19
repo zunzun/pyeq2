@@ -867,7 +867,7 @@ class RationalO(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
         h = inCoeffs[6]
 
         try:
-            temp = (a + b*LogX + c*LogY + d*LogX_LogY) / (1.0 + f*x_in + g*y_in + XY)
+            temp = (a + b*LogX + c*LogY + d*LogX_LogY) / (1.0 + f*x_in + g*y_in + h*XY)
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
