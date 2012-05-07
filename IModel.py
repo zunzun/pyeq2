@@ -385,7 +385,8 @@ class IModel(object):
             return 1.0E300
 
 
-    def Solve(self):
+    def Solve(self, inNonLinearSolverAlgorithmName='Levenberg-Marquardt'):
+        
         solver = pyeq2.solverService()
         
         if self.splineFlag:
@@ -394,16 +395,15 @@ class IModel(object):
         if self.fixedCoefficients != [] or self.upperCoefficientBounds != [] or self.lowerCoefficientBounds != [] or len(self.dataCache.allDataCacheDictionary['Weights']):
             self._canLinearSolverBeUsedForSSQABS = False
             
-        if self.fittingTarget == 'SSQABS':
-            if self.CanLinearSolverBeUsedForSSQABS() == True:
+        if self.fittingTarget == 'SSQABS' and self.CanLinearSolverBeUsedForSSQABS() == True:
                 return solver.SolveUsingLinear(self)
-            else:
-                self.deEstimatedCoefficients = solver.SolveUsingDE(self)
-                self.estimatedCoefficients = solver.SolveUsingLevenbergMarquardt(self)
-                return solver.SolveUsingSimplex(self)
+        else:
+            self.deEstimatedCoefficients = solver.SolveUsingDE(self)
+            self.estimatedCoefficients = solver.SolveUsingSelectedAlgorithm(self, inAlgorithmName=inNonLinearSolverAlgorithmName)
+            return solver.SolveUsingSimplex(self)
         
         if self.fittingTarget == 'ODR':
-            self.estimatedCoefficients = solver.SolveUsingDE(self)
+            self.deEstimatedCoefficients = solver.SolveUsingDE(self)
             return solver.SolveUsingODR(self)
         
         # default

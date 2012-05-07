@@ -39,7 +39,7 @@ class TestSolverService(unittest.TestCase):
         model = pyeq2.Models_3D.Polynomial.Linear('SSQABS')
         model.estimatedCoefficients = numpy.array([0.2, -1.0, 1.0]) # starting values for the simplex solver
         pyeq2.dataConvertorService().ConvertAndSortColumnarASCII(DataForUnitTests.asciiDataInColumns_3D, model, False)
-        coefficients = pyeq2.solverService().SolveUsingLevenbergMarquardt(model)
+        coefficients = pyeq2.solverService().SolveUsingSelectedAlgorithm(model, inAlgorithmName="Levenberg-Marquardt")
         self.assertTrue(numpy.allclose(coefficients, coefficientsShouldBe, rtol=1.0E-05, atol=1.0E-300))
 
 
@@ -48,7 +48,7 @@ class TestSolverService(unittest.TestCase):
         model = pyeq2.Models_2D.Polynomial.Linear('SSQABS')
         model.estimatedCoefficients = numpy.array([-4.0, 2.0]) # starting values for the simplex solver
         pyeq2.dataConvertorService().ConvertAndSortColumnarASCII(DataForUnitTests.asciiDataInColumns_2D, model, False)
-        coefficients = pyeq2.solverService().SolveUsingLevenbergMarquardt(model)
+        coefficients = pyeq2.solverService().SolveUsingSelectedAlgorithm(model, inAlgorithmName="Levenberg-Marquardt")
         self.assertTrue(numpy.allclose(coefficients, coefficientsShouldBe, rtol=1.0E-06, atol=1.0E-300))
 
 

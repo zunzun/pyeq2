@@ -37,8 +37,24 @@ class custom_prng_for_diffev(numpy.random.mtrand.RandomState):
 
 class SolverService(object):
     
+    # these are taken from docs for scipy.optimize.minimize, except for 'Levenberg=Marquardt'.
+    # The algorithms 'L-BFGS-B' and 'TNC' are not on the list as they are bounded versions of other algorithms listed here.
+    ListOfNonLinearSolverAlgorithmNames = ['Levenberg-Marquardt','NelderMead','Powell','CG','BFGS','Newton-CG','Anneal','COBYLA','SLSQP']
+    
+    
     def __init__(self):
         self.fminIterationLimit = 2500
+        self.fmin_xtol = 1.0E-16
+        self.fmin_ftol = 1.0E-16
+        self.fmin_FunctionLimit = 2500
+        
+
+    def ResultListSortFunction(self, a, b): # utility function
+        if a[0] < b[0]:
+            return -1
+        if a[0] > b[0]:
+            return 1
+        return 0
 
 
     def SolveUsingLinear(self, inModel):
@@ -49,11 +65,8 @@ class SolverService(object):
 
 
     def SolveUsingSimplex(self, inModel):
-        fmin_xtol = 1.0E-16
-        fmin_ftol = 1.0E-16
-        fmin_FunctionLimit = 2500
         inModel.dataCache.FindOrCreateAllDataCache(inModel)
-        inModel.solvedCoefficients = scipy.optimize.fmin(inModel.CalculateAllDataFittingTarget, inModel.estimatedCoefficients, maxiter = len(inModel.estimatedCoefficients) * self.fminIterationLimit, maxfun = len(inModel.estimatedCoefficients) * fmin_FunctionLimit, disp = 0, xtol=fmin_xtol, ftol=fmin_ftol)
+        inModel.solvedCoefficients = scipy.optimize.fmin(inModel.CalculateAllDataFittingTarget, inModel.estimatedCoefficients, maxiter = len(inModel.estimatedCoefficients) * self.fminIterationLimit, maxfun = len(inModel.estimatedCoefficients) * self.fmin_FunctionLimit, disp = 0, xtol=self.fmin_xtol, ftol=self.fmin_ftol)
         return inModel.solvedCoefficients
 
 
@@ -95,51 +108,55 @@ class SolverService(object):
         return de.best_vector
 
 
-    def SolveUsingLevenbergMarquardt(self, inModel):
-        LM1 = None
-        LM2 = None
-        SSQ1 = 1.0E300
-        SSQ2 = 1.0E300
-            
+    def SolveUsingSelectedAlgorithm(self, inModel, inAlgorithmName):
+        
+        if inAlgorithmName not in self.ListOfNonLinearSolverAlgorithmNames:
+            raise Exception('"' + inAlgorithmName + '" was not in the list of known non-linear solver algorithm names.  Please see the SolverService class definition.')
+
         inModel.dataCache.FindOrCreateAllDataCache(inModel)
         inModel.dataCache.FindOrCreateReducedDataCache(inModel)
 
         results = []
-        # first try is with initial coefficients are equal to 1
+        # try with initial coefficients equal to 1
         try:
-            LM1, unused = scipy.optimize.curve_fit(inModel.WrapperForScipyCurveFit, None, inModel.dataCache.allDataCacheDictionary['DependentData'], numpy.ones(len(inModel.GetCoefficientDesignators())), maxfev=1000000) # initial coefficients are all equal to 1
-            SSQ1 = inModel.CalculateAllDataFittingTarget(LM1)
-            results.append([SSQ1, LM1])
+            if inAlgorithmName == 'Levenberg-Marquardt':
+                coeffs, unused = scipy.optimize.curve_fit(inModel.WrapperForScipyCurveFit, None, inModel.dataCache.allDataCacheDictionary['DependentData'], numpy.ones(len(inModel.GetCoefficientDesignators())), maxfev=1000000)
+            else:
+                coeffs = scipy.optimize.minimize(inModel.CalculateAllDataFittingTarget, numpy.ones(len(inModel.GetCoefficientDesignators())), method=inAlgorithmName, maxiter = len(inModel.estimatedCoefficients) * self.fminIterationLimit, disp = 0)
+            SSQ = inModel.CalculateAllDataFittingTarget(coeffs)
+            results.append([SSQ, coeffs])
         except:
-            LM1 = None
-            SSQ1 = 1.0E300
+            pass
             
-        # next try is with initial coefficients from DE
+        # try with initial coefficients from DE
         try:
-            LM2, unused = scipy.optimize.curve_fit(inModel.WrapperForScipyCurveFit, None, inModel.dataCache.allDataCacheDictionary['DependentData'], inModel.deEstimatedCoefficients, maxfev=1000000) # initial coefficients are all equal to 1
-            SSQ2 = inModel.CalculateAllDataFittingTarget(LM2)
-            results.append([SSQ2, LM2])
+            if inAlgorithmName == 'Levenberg-Marquardt':
+                coeffs, unused = scipy.optimize.curve_fit(inModel.WrapperForScipyCurveFit, None, inModel.dataCache.allDataCacheDictionary['DependentData'], inModel.deEstimatedCoefficients, maxfev=1000000) # initial coefficients are all equal to 1
+            else:
+                coeffs = scipy.optimize.minimize(inModel.CalculateAllDataFittingTarget, inModel.deEstimatedCoefficients, method=inAlgorithmName, maxiter = len(inModel.estimatedCoefficients) * self.fminIterationLimit, disp = 0)
+            SSQ = inModel.CalculateAllDataFittingTarget(coeffs)
+            results.append([SSQ, coeffs])
         except:
-            LM2 = None
-            SSQ2 = 1.0E300
+            pass
                 
-        # now try using estimated coefficients, if any
+        # try using estimated coefficients, if any
         if len(inModel.estimatedCoefficients) > 0:
-            estimatedOK = False
             try:
-                LM3 = inModel.estimatedCoefficients
-                SSQ3 = inModel.CalculateAllDataFittingTarget(LM3)
-                results.append([SSQ3, LM3])
+                coeffs = inModel.estimatedCoefficients
+                SSQ = inModel.CalculateAllDataFittingTarget(coeffs)
+                results.append([SSQ, coeffs])
             except:
-                LM3 = None
-                SSQ3 = 1.0E300
+                pass
+                
             try:
-                LM4, unused = scipy.optimize.curve_fit(inModel.WrapperForScipyCurveFit, None, inModel.dataCache.allDataCacheDictionary['DependentData'], inModel.estimatedCoefficients, maxfev=1000000)
-                SSQ4 = inModel.CalculateAllDataFittingTarget(LM4)
-                results.append([SSQ4, LM4])
+                if inAlgorithmName == 'Levenberg-Marquardt':
+                    coeffs, unused = scipy.optimize.curve_fit(inModel.WrapperForScipyCurveFit, None, inModel.dataCache.allDataCacheDictionary['DependentData'], inModel.estimatedCoefficients, maxfev=1000000)
+                else:
+                    coeffs = scipy.optimize.minimize(inModel.CalculateAllDataFittingTarget, inModel.estimatedCoefficients, method=inAlgorithmName, maxiter = len(inModel.estimatedCoefficients) * self.fminIterationLimit, disp = 0)
+                SSQ = inModel.CalculateAllDataFittingTarget(coeffs)
+                results.append([SSQ, coeffs])
             except:
-                LM4 = None
-                SSQ4 = 1.0E300
+                pass
                 
         if results == []:
             return numpy.ones(len(inModel.GetCoefficientDesignators()))
@@ -150,12 +167,65 @@ class SolverService(object):
         return results[0][1]
 
 
-    def ResultListSortFunction(selg, a, b): # utility function
-        if a[0] < b[0]:
-            return -1
-        if a[0] > b[0]:
-            return 1
-        return 0
+    def SolveUsingODR(self, inModel):
+
+        data = inModel.dataCache.FindOrCreateAllDataCache(inModel)
+        modelObject = scipy.odr.odrpack.Model(inModel.WrapperForODR)
+        dataObject = scipy.odr.odrpack.Data(inModel.dataCache.allDataCacheDictionary['IndependentData'], inModel.dataCache.allDataCacheDictionary['DependentData'])
+        
+        results = []
+        
+        # try with initial coefficients equal to 1
+        try:
+            myodr = scipy.odr.odrpack.ODR(dataObject, modelObject, beta0=numpy.ones(len(inModel.GetCoefficientDesignators())),  maxit=len(inModel.GetCoefficientDesignators()) * self.fminIterationLimit)
+            myodr.set_job(fit_type=0, deriv=0) # explicit ODR, faster forward-only finite differences for derivatives
+            out = myodr.run()
+            coeffs = out.beta
+            SSQ = out.sum_square
+            if not numpy.any(numpy.isnan(coeffs)):
+                results.append([SSQ, coeffs])
+        except:
+            pass
+            
+        # try with initial coefficients from DE
+        try:
+            myodr = scipy.odr.odrpack.ODR(dataObject, modelObject, beta0=inModel.deEstimatedCoefficients,  maxit=len(inModel.GetCoefficientDesignators()) * self.fminIterationLimit)
+            myodr.set_job(fit_type=0, deriv=0) # explicit ODR, faster forward-only finite differences for derivatives
+            out = myodr.run()
+            coeffs = out.beta
+            SSQ = out.sum_square
+            if not numpy.any(numpy.isnan(coeffs)):
+                results.append([SSQ, coeffs])
+        except:
+            pass
+            
+        # try using estimated coefficients, if any
+        if len(inModel.estimatedCoefficients) > 0:
+            try:
+                coeffs = inModel.estimatedCoefficients
+                SSQ = inModel.CalculateAllDataFittingTarget(coeffs)
+                results.append([SSQ, coeffs])
+            except:
+                pass
+                
+            try:
+                myodr = scipy.odr.odrpack.ODR(dataObject, modelObject, beta0=inModel.estimatedCoefficients,  maxit=len(inModel.GetCoefficientDesignators()) * self.fminIterationLimit)
+                myodr.set_job(fit_type=0, deriv=0) # explicit ODR, faster forward-only finite differences for derivatives
+                out = myodr.run()
+                coeffs = out.beta
+                SSQ = out.sum_square
+                if not numpy.any(numpy.isnan(coeffs)):
+                    results.append([SSQ, coeffs])
+            except:
+                pass
+                
+        if results == []:
+            return numpy.ones(len(inModel.GetCoefficientDesignators()))
+        
+        if len(results) > 1:
+            results.sort(self.ResultListSortFunction)
+            
+        return results[0][1]
 
 
 
@@ -168,43 +238,4 @@ class SolverService(object):
         else:
             inModel.scipySpline = scipy.interpolate.fitpack2.SmoothBivariateSpline(data[0], data[1], inModel.dataCache.allDataCacheDictionary['DependentData'], s=inModel.smoothingFactor, kx=inModel.xOrder, ky=inModel.yOrder)
             inModel.solvedCoefficients = inModel.scipySpline.tck
-            return inModel.solvedCoefficients
-
-
-    def SolveUsingODR(self, inModel):
-        ODR1 = None
-        SSQ1 = 1.0E300
-        ODR2 = None
-        SSQ2 = 1.0E300
-
-        data = inModel.dataCache.FindOrCreateAllDataCache(inModel)
-        modelObject = scipy.odr.odrpack.Model(inModel.WrapperForODR)
-        dataObject = scipy.odr.odrpack.Data(inModel.dataCache.allDataCacheDictionary['IndependentData'], inModel.dataCache.allDataCacheDictionary['DependentData'])
-        
-        # first try is with initial coefficients are equal to 1
-        myodr = scipy.odr.odrpack.ODR(dataObject, modelObject, beta0=numpy.ones(len(inModel.GetCoefficientDesignators())),  maxit=len(inModel.GetCoefficientDesignators()) * self.fminIterationLimit)
-        myodr.set_job(fit_type=0, deriv=0) # explicit ODR, faster forward-only finite differences for derivatives
-        out = myodr.run()
-        ODR1 = out.beta
-        SSQ1 = out.sum_square
-        if numpy.any(numpy.isnan(ODR1)):
-            ODR1 = None
-            SSQ1 = 1.0E300
-            
-        # now try using estimated coefficients, if any
-        if len(inModel.estimatedCoefficients) > 0:
-            myodr = scipy.odr.odrpack.ODR(dataObject, modelObject, beta0=inModel.estimatedCoefficients,  maxit=len(inModel.GetCoefficientDesignators()) * self.fminIterationLimit)
-            myodr.set_job(fit_type=0, deriv=0) # explicit ODR, faster forward-only finite differences for derivatives
-            out = myodr.run()
-            ODR2 = out.beta
-            SSQ2 = out.sum_square
-            if numpy.any(numpy.isnan(ODR1)):
-                ODR2 = None
-                SSQ2 = 1.0E300
-
-        if SSQ2 > SSQ1:
-            inModel.solvedCoefficients = ODR1
-            return inModel.solvedCoefficients
-        else:
-            inModel.solvedCoefficients = ODR2
             return inModel.solvedCoefficients

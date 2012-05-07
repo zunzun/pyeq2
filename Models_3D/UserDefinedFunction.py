@@ -179,7 +179,7 @@ class UserDefinedFunction(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
             return numpy.ones(len(inDataCacheDictionary['X'])) * 1.0E300
     
 
-    def Solve(self, inUserFunctionString = None):
+    def Solve(self, inUserFunctionString = None, inAlgorithmName="Levenberg-Marquardt"):
         if inUserFunctionString:
             self.ParseAndCompileUserFunctionString(inUserFunctionString)
 
@@ -190,5 +190,5 @@ class UserDefinedFunction(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
         if self.fittingTarget == 'ODR':
             return pyeq2.solverService().SolveUsingODR(self)
         
-        self.estimatedCoefficients = pyeq2.solverService().SolveUsingLevenbergMarquardt(self)
+        self.estimatedCoefficients = pyeq2.solverService().SolveUsingSelectedAlgorithm(self, inAlgorithmName=inAlgorithmName)
         return pyeq2.solverService().SolveUsingSimplex(self)
