@@ -105,7 +105,9 @@ class SolverService(object):
         sufficientSolution = (max(depData) - min(depData)) / guessDivisorForGA
         de = diffev.DiffEvolver(inModel.CalculateReducedDataFittingTarget, pop0, crossover_rate = crossoverProbabilityForGA, scale = diffScaleForGA, strategy = ('best', 1, 'bin'), prng = custom_prng_for_diffev())
         de.solve(sufficientSolution, maxGenerationsForGA)
-        return de.best_vector
+        
+        inModel.solvedCoefficients = de.best_vector
+        return inModel.solvedCoefficients
 
 
     def SolveUsingSelectedAlgorithm(self, inModel, inAlgorithmName):
@@ -164,7 +166,8 @@ class SolverService(object):
         if len(results) > 1:
             results.sort(self.ResultListSortFunction)
             
-        return results[0][1]
+        inModel.solvedCoefficients = results[0][1]
+        return inModel.solvedCoefficients
 
 
     def SolveUsingODR(self, inModel):
@@ -225,7 +228,8 @@ class SolverService(object):
         if len(results) > 1:
             results.sort(self.ResultListSortFunction)
             
-        return results[0][1]
+        inModel.solvedCoefficients = results[0][1]
+        return inModel.solvedCoefficients
 
 
 
