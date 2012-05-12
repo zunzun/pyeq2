@@ -93,7 +93,7 @@ class SolverService(object):
         numpy.random.seed(3) # yield repeatable results
         largeValuesArray = numpy.random.random(oneThirdOfPopulationSizeForGA * numberOfCoefficients) * 2000.0 - 1000.0
         smallValuesArray = numpy.random.random(oneThirdOfPopulationSizeForGA * numberOfCoefficients) * 2.0 - 1.0
-        tinyValuesArray = numpy.random.random(oneThirdOfPopulationSizeForGA * numberOfCoefficients) * .002 - .001
+        tinyValuesArray = numpy.random.random(oneThirdOfPopulationSizeForGA * numberOfCoefficients) * .002 - .001 
         pop0 = numpy.append(largeValuesArray, numpy.append(smallValuesArray, tinyValuesArray))
         numpy.random.shuffle(pop0)
         pop0 = pop0.reshape(oneThirdOfPopulationSizeForGA * 3, numberOfCoefficients)

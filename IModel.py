@@ -65,6 +65,8 @@ class IModel(object):
         self.rationalNumeratorFlags = []
         self.rationalDenominatorFlags = []
         self.fittingTarget = inFittingTarget
+        self.deEstimatedCoefficients = []
+
         
         self.independentData1CannotContainZeroFlag = False
         self.independentData1CannotContainPositiveFlag = False
@@ -388,27 +390,25 @@ class IModel(object):
     def Solve(self, inNonLinearSolverAlgorithmName='Levenberg-Marquardt'):
         
         solver = pyeq2.solverService()
-        
-        if self.splineFlag:
-            return solver.SolveUsingSpline(self)
-        
+                
+        # if any of these conditions exist, a linear solver cannot be used
         if self.fixedCoefficients != [] or self.upperCoefficientBounds != [] or self.lowerCoefficientBounds != [] or len(self.dataCache.allDataCacheDictionary['Weights']):
             self._canLinearSolverBeUsedForSSQABS = False
-            
-        if self.fittingTarget == 'SSQABS' and self.CanLinearSolverBeUsedForSSQABS() == True:
-                return solver.SolveUsingLinear(self)
+        
+        # selection of different solvers and algorithms.
+        if self.splineFlag:
+            return solver.SolveUsingSpline(self)
+        elif self.fittingTarget == 'SSQABS' and self.CanLinearSolverBeUsedForSSQABS() == True:
+            return solver.SolveUsingLinear(self)
+        elif self.fittingTarget == 'ODR':
+            if len(self.deEstimatedCoefficients) == 0:
+                self.deEstimatedCoefficients = solver.SolveUsingDE(self)
+            return solver.SolveUsingODR(self)
         else:
-            self.deEstimatedCoefficients = solver.SolveUsingDE(self)
+            if len(self.deEstimatedCoefficients) == 0:
+                self.deEstimatedCoefficients = solver.SolveUsingDE(self)
             self.estimatedCoefficients = solver.SolveUsingSelectedAlgorithm(self, inAlgorithmName=inNonLinearSolverAlgorithmName)
             return solver.SolveUsingSimplex(self)
-        
-        if self.fittingTarget == 'ODR':
-            self.deEstimatedCoefficients = solver.SolveUsingDE(self)
-            return solver.SolveUsingODR(self)
-        
-        # default
-        self.estimatedCoefficients = solver.SolveUsingDE(self)
-        return solver.SolveUsingSimplex(self)
 
 
     def AreCoefficientsWithinBounds(self, inCoeffs):
