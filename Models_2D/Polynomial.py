@@ -80,7 +80,7 @@ class Quintic(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
 
     def SpecificCodeCPP(self):
-        s = "\ttemp += a + b * x_in + c * pow(x_in, 2.0) + d * pow(x_in, 3.0) + f * pow(x_in, 4.0);\n"
+        s = "\ttemp += a + b * x_in + c * pow(x_in, 2.0) + d * pow(x_in, 3.0) + f * pow(x_in, 4.0) + g * pow(x_in, 5.0);\n"
         return s
 
 
