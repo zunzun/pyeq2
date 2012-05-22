@@ -1551,9 +1551,9 @@ class PseudoVoight(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 class PseudoVoight_Modified(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Pseudo-Voight Peak Modified"
-    _HTML = 'y = a * (d * (1/(1+((x-b)/c)<sup>e</sup>)) + (1-d) * exp(-0.5 * ((x-b)/c)<sup>f</sup>))'
+    _HTML = 'y = a * (d * (1/(1+((x-b)/c)<sup>f</sup>)) + (1-d) * exp(-0.5 * ((x-b)/c)<sup>g</sup>))'
     _leftSideHTML = 'y'
-    _coefficientDesignators = ['a', 'b', 'c', 'd', 'f']
+    _coefficientDesignators = ['a', 'b', 'c', 'd', 'f', 'g']
     _canLinearSolverBeUsedForSSQABS = False
     
     webReferenceURL = ''
@@ -1586,18 +1586,17 @@ class PseudoVoight_Modified(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         c = inCoeffs[2]
         d = inCoeffs[3]
         f = inCoeffs[4]
+        g = inCoeffs[5]
 
         try:
-            temp = numpy.power((x_in-b) / c, f)
-            temp = a * (d * (1.0 / (1.0 + temp)) + (1.0-d) * numpy.exp(-0.5 * temp))
+            temp = a * (d * (1.0 / (1.0 + numpy.power((x_in-b) / c, f))) + (1.0-d) * numpy.exp(-0.5 * numpy.power((x_in-b) / c, g)))
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
 
 
     def SpecificCodeCPP(self):
-        s = "\ttemp = pow((x_in-b) / c, f);\n"
-        s = "\ttemp = a * (d * (1.0 / (1.0 + temp)) + (1.0-d) * exp(-0.5 * temp));\n"
+        s = "\ttemp = a * (d * (1.0 / (1.0 + pow((x_in-b) / c, f))) + (1.0-d) * exp(-0.5 * pow((x_in-b) / c, g)));\n"
         return s
 
 
