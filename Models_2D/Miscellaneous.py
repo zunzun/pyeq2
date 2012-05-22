@@ -23,6 +23,212 @@ numpy.seterr(over = 'raise', divide = 'raise', invalid = 'raise', under = 'ignor
 import pyeq2.Model_2D_BaseClass
 
 
+class CissoidOfDiocles(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
+    
+    _baseName = "Cissoid Of Diocles"
+    _HTML = 'y = a(x<sup>3</sup> / (2b-x))<sup>0.5</sup>'
+    _leftSideHTML = 'y'
+    _coefficientDesignators = ['a', 'b']
+    _canLinearSolverBeUsedForSSQABS = False
+    
+    webReferenceURL = 'http://facstaff.bloomu.edu/skokoska/curves.pdf'
+
+    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = True
+    autoGenerateOffsetForm = True
+    autoGenerateReciprocalForm = True
+    autoGenerateInverseForms = True
+    autoGenerateGrowthAndDecayForms = True
+
+    independentData1CannotContainZeroFlag = False
+    independentData1CannotContainPositiveFlag = False
+    independentData1CannotContainNegativeFlag = False
+    independentData2CannotContainZeroFlag = False
+    independentData2CannotContainPositiveFlag = False
+    independentData2CannotContainNegativeFlag = False
+    
+
+    def GetDataCacheFunctions(self):
+        functionList = []
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.X(NameOrValueFlag=1), []])
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.PowX(NameOrValueFlag=1, args=[3.0]), [3.0]])
+        return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
+
+
+    def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
+        x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
+        x_PowX3 = inDataCacheDictionary['PowX_3.0'] # only need to perform this dictionary look-up once
+        
+        a = inCoeffs[0]
+        b = inCoeffs[1]
+
+        try:
+            temp = a * numpy.power(x_PowX3 / (2.0 * b - x_in), 0.5)
+            return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
+        except:
+            return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
+
+
+    def SpecificCodeCPP(self):
+        s = "\ttemp = a * pow(pow(x_in, 3.0) / (2.0 * b - x_in));\n"
+        return s
+
+
+
+class CissoidOfDioclesTransform(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
+    
+    _baseName = "Cissoid Of Diocles Transform"
+    _HTML = 'y = a((x*c-d)<sup>3</sup> / (2b-(x*c-d)))<sup>0.5</sup>'
+    _leftSideHTML = 'y'
+    _coefficientDesignators = ['a', 'b', 'c', 'd']
+    _canLinearSolverBeUsedForSSQABS = False
+    
+    webReferenceURL = 'http://facstaff.bloomu.edu/skokoska/curves.pdf'
+
+    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = True
+    autoGenerateOffsetForm = True
+    autoGenerateReciprocalForm = True
+    autoGenerateInverseForms = True
+    autoGenerateGrowthAndDecayForms = True
+
+    independentData1CannotContainZeroFlag = False
+    independentData1CannotContainPositiveFlag = False
+    independentData1CannotContainNegativeFlag = False
+    independentData2CannotContainZeroFlag = False
+    independentData2CannotContainPositiveFlag = False
+    independentData2CannotContainNegativeFlag = False
+    
+
+    def GetDataCacheFunctions(self):
+        functionList = []
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.X(NameOrValueFlag=1), []])
+        return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
+
+
+    def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
+        x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
+        
+        a = inCoeffs[0]
+        b = inCoeffs[1]
+        c = inCoeffs[2]
+        d = inCoeffs[3]
+
+        try:
+            temp = a * numpy.power(numpy.power(x_in*c-d, 3.0) / (2.0 * b - (x_in*c-d)), 0.5)
+            return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
+        except:
+            return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
+
+
+    def SpecificCodeCPP(self):
+        s = "\ttemp = a * pow(pow(x_in*c-d, 3.0) / (2.0 * b - (x_in*c-d));\n"
+        return s
+
+
+
+class KarplusNMRSpectroscopy(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
+    
+    _baseName = "Karplus NMR Spectroscopy"
+    _HTML = 'J(da) = Acos<sup>2</sup>(da) + Bcos(da) + C'
+    _leftSideHTML = 'J(da)'
+    _coefficientDesignators = ['A', 'B', 'C']
+    _canLinearSolverBeUsedForSSQABS = False
+    
+    webReferenceURL = 'http://en.wikipedia.org/wiki/Karplus_equation'
+
+    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
+    autoGenerateOffsetForm = False
+    autoGenerateReciprocalForm = True
+    autoGenerateInverseForms = True
+    autoGenerateGrowthAndDecayForms = True
+
+    independentData1CannotContainZeroFlag = False
+    independentData1CannotContainPositiveFlag = False
+    independentData1CannotContainNegativeFlag = False
+    independentData2CannotContainZeroFlag = False
+    independentData2CannotContainPositiveFlag = False
+    independentData2CannotContainNegativeFlag = False
+    
+
+    def GetDataCacheFunctions(self):
+        functionList = []
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.CosX(NameOrValueFlag=1), []])
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.Pow2CosX(NameOrValueFlag=1), []])
+        return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
+
+
+    def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
+        x_cosx = inDataCacheDictionary['CosX'] # only need to perform this dictionary look-up once
+        x_Pow2CosX = inDataCacheDictionary['Pow2CosX'] # only need to perform this dictionary look-up once
+        
+        a = inCoeffs[0]
+        b = inCoeffs[1]
+        c = inCoeffs[2]
+
+        try:
+            temp = a * x_Pow2CosX + b * x_cosx + c
+            return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
+        except:
+            return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
+
+
+    def SpecificCodeCPP(self):
+        s = "\ttemp = A * pow(cos(x_in), 2.0) + B * cos(x_in) + C;\n"
+        return s
+
+
+
+class KarplusNMRSpectroscopyScaled(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
+    
+    _baseName = "Karplus NMR Spectroscopy Scaled"
+    _HTML = 'J(da) = Acos<sup>2</sup>(s * da) + Bcos(s * da) + C'
+    _leftSideHTML = 'J(da)'
+    _coefficientDesignators = ['A', 'B', 'C', 's']
+    _canLinearSolverBeUsedForSSQABS = False
+    
+    webReferenceURL = 'http://en.wikipedia.org/wiki/Karplus_equation'
+
+    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
+    autoGenerateOffsetForm = False
+    autoGenerateReciprocalForm = True
+    autoGenerateInverseForms = True
+    autoGenerateGrowthAndDecayForms = True
+
+    independentData1CannotContainZeroFlag = False
+    independentData1CannotContainPositiveFlag = False
+    independentData1CannotContainNegativeFlag = False
+    independentData2CannotContainZeroFlag = False
+    independentData2CannotContainPositiveFlag = False
+    independentData2CannotContainNegativeFlag = False
+    
+
+    def GetDataCacheFunctions(self):
+        functionList = []
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.X(NameOrValueFlag=1), []])
+        return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
+
+
+    def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
+        x = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
+        
+        a = inCoeffs[0]
+        b = inCoeffs[1]
+        c = inCoeffs[2]
+        s = inCoeffs[3]
+        o = inCoeffs[3]
+
+        try:
+            temp = a * numpy.power(numpy.cos(s * x), 2.0) + b * numpy.cos(s * x) + c
+            return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
+        except:
+            return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
+
+
+    def SpecificCodeCPP(self):
+        s = "\ttemp = A * pow(cos(s * x_in), 2.0) + B * cos(s * x_in) + C;\n"
+        return s
+
+
+
 class ArrheniusRateConstantLaw(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Arrhenius Rate Constant Law"
