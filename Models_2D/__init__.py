@@ -24,6 +24,7 @@ import Polynomial
 import Power
 import Rational
 import Sigmoidal
+import Simple
 import Spline
 import Trigonometric
 import UserDefinedFunction
