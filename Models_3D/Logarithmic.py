@@ -378,7 +378,7 @@ class LinearLogarithmic(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
         c = inCoeffs[2]
 
         try:
-            temp =  + b * LogX + c * LogY
+            temp = a + b * LogX + c * LogY
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
