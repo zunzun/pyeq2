@@ -23,6 +23,7 @@ import Power
 import Rational
 import RomanSurfaces
 import Sigmoidal
+import Simple
 import Spline
 import TaylorSeries
 import Trigonometric
