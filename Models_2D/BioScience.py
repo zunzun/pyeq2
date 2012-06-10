@@ -2135,7 +2135,7 @@ class PlantDisease_Exponential(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
 
 
-class PlantDisease_Gompertz(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass): # randy
+class PlantDisease_Gompertz(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Plant Disease Gompertz Model"
     _HTML = 'Incidence = exp(ln(y0) * exp(-r * time))'
