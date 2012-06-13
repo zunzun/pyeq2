@@ -22,7 +22,109 @@ numpy.seterr(over = 'raise', divide = 'raise', invalid = 'raise', under = 'ignor
 
 import pyeq2.Model_2D_BaseClass
 
+sqr_root_two = numpy.power(2.0, 0.5)
+neg_sqr_root_two = -1.0 * numpy.power(2.0, 0.5)
 sqr_root_two_pi = numpy.power(2.0 * numpy.pi, 0.5)
+
+
+class LaplacePeak(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
+    
+    _baseName = "Laplace Peak"
+    _HTML = 'y = a * exp((-1.0 * pow(2.0, 0.5) * abs(x-b))/c)'
+    _leftSideHTML = 'y'
+    _coefficientDesignators = ['a', 'b', 'c']
+    _canLinearSolverBeUsedForSSQABS = False
+    
+    webReferenceURL = ''
+
+    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = True
+    autoGenerateOffsetForm = True
+    autoGenerateReciprocalForm = True
+    autoGenerateInverseForms = True
+    autoGenerateGrowthAndDecayForms = True
+
+    independentData1CannotContainZeroFlag = False
+    independentData1CannotContainPositiveFlag = False
+    independentData1CannotContainNegativeFlag = False
+    independentData2CannotContainZeroFlag = False
+    independentData2CannotContainPositiveFlag = False
+    independentData2CannotContainNegativeFlag = False
+    
+
+    def GetDataCacheFunctions(self):
+        functionList = []
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.X(NameOrValueFlag=1), []])
+        return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
+
+
+    def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
+        x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
+        
+        a = inCoeffs[0]
+        b = inCoeffs[1]
+        c = inCoeffs[2]
+
+        try:
+            temp = a * numpy.exp(neg_sqr_root_two * numpy.abs(x_in-b) / c)
+            return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
+        except:
+            return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
+
+
+    def SpecificCodeCPP(self):
+        s = "\ttemp = a * exp((-1.0 * pow(2.0, 0.5) * abs(x_in-b)) / c);\n"
+        return s
+
+
+
+class LaplaceArea(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
+    
+    _baseName = "Laplace Area"
+    _HTML = 'y = (a / (pow(2.0, 0.5) * c)) * exp((-1.0 * pow(2.0, 0.5) * abs(x-b))/c)'
+    _leftSideHTML = 'y'
+    _coefficientDesignators = ['a', 'b', 'c']
+    _canLinearSolverBeUsedForSSQABS = False
+    
+    webReferenceURL = ''
+
+    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = True
+    autoGenerateOffsetForm = True
+    autoGenerateReciprocalForm = True
+    autoGenerateInverseForms = True
+    autoGenerateGrowthAndDecayForms = True
+
+    independentData1CannotContainZeroFlag = False
+    independentData1CannotContainPositiveFlag = False
+    independentData1CannotContainNegativeFlag = False
+    independentData2CannotContainZeroFlag = False
+    independentData2CannotContainPositiveFlag = False
+    independentData2CannotContainNegativeFlag = False
+    
+
+    def GetDataCacheFunctions(self):
+        functionList = []
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.X(NameOrValueFlag=1), []])
+        return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
+
+
+    def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
+        x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
+        
+        a = inCoeffs[0]
+        b = inCoeffs[1]
+        c = inCoeffs[2]
+
+        try:
+            temp = (a / (sqr_root_two * c)) * numpy.exp(neg_sqr_root_two * numpy.abs(x_in-b) / c)
+            return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
+        except:
+            return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
+
+
+    def SpecificCodeCPP(self):
+        s = "\ttemp = (a / (pow(2.0, 0.5))) * exp((-1.0 * pow(2.0, 0.5) * abs(x_in-b)) / c);\n"
+        return s
+
 
 
 class Hamilton(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
@@ -897,10 +999,10 @@ class LogNormal_ModifiedShifted(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
 
 
-class Logistic(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
+class LogisticPeak(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Logistic Peak"
-    _HTML = 'y = 4a * exp(-1.0 * (x-b) / c) / (1.0 + exp(-1.0 * (x-b) / c))'
+    _HTML = 'y = 4a * exp(-1.0 * (x-b) / c) / (1.0 + exp(-1.0 * (x-b) / c))<sup>2</sup>'
     _leftSideHTML = 'y'
     _coefficientDesignators = ['a', 'b', 'c']
     _canLinearSolverBeUsedForSSQABS = False
@@ -935,14 +1037,64 @@ class Logistic(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         c = inCoeffs[2]
 
         try:
-            temp = 4.0 * a * numpy.exp(-1.0 * (x_in - b) / c) / (1.0 + numpy.exp(-1.0 * (x_in - b) / c))
+            temp = 4.0 * a * numpy.exp(-1.0 * (x_in - b) / c) / numpy.power(1.0 + numpy.exp(-1.0 * (x_in - b) / c), 2.0)
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
 
 
     def SpecificCodeCPP(self):
-        s = "\ttemp = 4.0 * a * exp(-1.0 * (x_in - b) / c) / (1.0 + exp(-1.0 * (x_in - b) / c));\n"
+        s = "\ttemp = 4.0 * a * exp(-1.0 * (x_in - b) / c) / pow(1.0 + exp(-1.0 * (x_in - b) / c), 2.0);\n"
+        return s
+
+
+
+class LogisticArea(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
+    
+    _baseName = "Logistic Area"
+    _HTML = 'y = a * exp(-1.0 * (x-b) / c) / (c * (1.0 + exp(-1.0 * (x-b) / c))<sup>2</sup>)'
+    _leftSideHTML = 'y'
+    _coefficientDesignators = ['a', 'b', 'c']
+    _canLinearSolverBeUsedForSSQABS = False
+    
+    webReferenceURL = ''
+
+    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = True
+    autoGenerateOffsetForm = True
+    autoGenerateReciprocalForm = True
+    autoGenerateInverseForms = True
+    autoGenerateGrowthAndDecayForms = True
+
+    independentData1CannotContainZeroFlag = False
+    independentData1CannotContainPositiveFlag = False
+    independentData1CannotContainNegativeFlag = False
+    independentData2CannotContainZeroFlag = False
+    independentData2CannotContainPositiveFlag = False
+    independentData2CannotContainNegativeFlag = False
+    
+
+    def GetDataCacheFunctions(self):
+        functionList = []
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.X(NameOrValueFlag=1), []])
+        return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
+
+
+    def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
+        x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
+        
+        a = inCoeffs[0]
+        b = inCoeffs[1]
+        c = inCoeffs[2]
+
+        try:
+            temp = a * numpy.exp(-1.0 * (x_in - b) / c) / (c * numpy.power(1.0 + numpy.exp(-1.0 * (x_in - b) / c), 2.0))
+            return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
+        except:
+            return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
+
+
+    def SpecificCodeCPP(self):
+        s = "\ttemp = a * exp(-1.0 * (x_in - b) / c) / (c * pow(1.0 + exp(-1.0 * (x_in - b) / c), 2.0));\n"
         return s
 
 
