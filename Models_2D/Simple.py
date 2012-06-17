@@ -571,67 +571,6 @@ class SimpleEquation_10(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
 
 
-class SimpleEquation_11(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
-    
-    _baseName = "Simple Equation 11"
-    _HTML = 'y = a*pow(x,b)*pow(1.0-x,c)'
-    _leftSideHTML = 'y'
-    _coefficientDesignators = ['a', 'b', 'c']
-    _canLinearSolverBeUsedForSSQABS = False
-    
-    webReferenceURL = ''
-
-    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = True
-    autoGenerateOffsetForm = True
-    autoGenerateReciprocalForm = True
-    autoGenerateInverseForms = True
-    autoGenerateGrowthAndDecayForms = True
-
-    independentData1CannotContainZeroFlag = False
-    independentData1CannotContainPositiveFlag = False
-    independentData1CannotContainNegativeFlag = True
-    independentData2CannotContainZeroFlag = False
-    independentData2CannotContainPositiveFlag = False
-    independentData2CannotContainNegativeFlag = False
-    
-
-    def __init__(self, inFittingTarget = 'SSQABS', inExtendedVersionName = 'Default'):
-        pyeq2.Model_2D_BaseClass.Model_2D_BaseClass.__init__(self, inFittingTarget, inExtendedVersionName)
-        self.exampleData = '''
-0.1 0.1
-0.2 0.2
-0.3 0.3
-0.4 0.4
-0.5 0.45
-'''
-
-
-    def GetDataCacheFunctions(self):
-        functionList = []
-        functionList.append([pyeq2.DataCache.DataCacheFunctions.X(NameOrValueFlag=1), []])
-        return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
-
-
-    def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
-        x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
-        
-        a = inCoeffs[0]
-        b = inCoeffs[1]
-        c = inCoeffs[2]
-
-        try:
-            temp = a*numpy.power(x_in,b)*numpy.power(1.0-x_in,c)
-            return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
-        except:
-            return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
-
-
-    def SpecificCodeCPP(self):
-        s = "\ttemp = a*pow(x_in,b)*pow(1.0-x_in,c);\n"
-        return s
-
-
-
 class SimpleEquation_13(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Simple Equation 13"
