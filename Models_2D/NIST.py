@@ -915,7 +915,7 @@ class NIST_Misra1d(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
 
     def SpecificCodeCPP(self):
-        s += "\ttemp += a * b * x_in / (1.0 + b * x_in);\n"
+        s = "\ttemp += a * b * x_in / (1.0 + b * x_in);\n"
         return s
 
 
@@ -965,7 +965,7 @@ class NIST_Rat42(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
 
     def SpecificCodeCPP(self):
-        s += "\ttemp += a / (1.0 + exp(b - c * x_in));\n"
+        s = "\ttemp += a / (1.0 + exp(b - c * x_in));\n"
         return s
 
 
@@ -1016,7 +1016,7 @@ class NIST_Rat43(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
 
     def SpecificCodeCPP(self):
-        s += "\ttemp += a / pow(1.0 + exp(b - c * x_in), 1.0 / d);\n"
+        s = "\ttemp += a / pow(1.0 + exp(b - c * x_in), 1.0 / d);\n"
         return s
 
 
