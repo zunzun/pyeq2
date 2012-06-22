@@ -76,7 +76,7 @@ class CoshA(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
 
 class CoshA_Transform(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
     
-    _baseName = "Cosh A [radians] Transform"
+    _baseName = "Transform Cosh A [radians]"
     _HTML = 'z = a * cosh(bx+c) + d * cosh(fy+g)'
     _leftSideHTML = 'z'
     _coefficientDesignators = ['a', 'b', 'c', 'd', 'f', 'g']
@@ -179,7 +179,7 @@ class CoshB(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
 
 class CoshB_Transform(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
     
-    _baseName = "Cosh B [radians] Transform"
+    _baseName = "Transform Cosh B [radians]"
     _HTML = 'z = a * cosh(bx+c) * cosh(dy+f)'
     _leftSideHTML = 'z'
     _coefficientDesignators = ['a', 'b', 'c', 'd', 'f']
@@ -281,7 +281,7 @@ class CoshXY(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
 
 class CoshXYTransform(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
     
-    _baseName = "Cosh XY [radians] Transform"
+    _baseName = "Transform Cosh XY [radians]"
     _HTML = 'z = a * cosh(b * xy + c)'
     _leftSideHTML = 'z'
     _coefficientDesignators = ['a', 'b', 'c']
@@ -498,7 +498,7 @@ class SineA(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
 
 class SineA_Transform(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
     
-    _baseName = "Sine A [radians] Transform"
+    _baseName = "Transform Sine A [radians]"
     _HTML = 'z = a * sin(bx+c) + d * sin(fy+g)'
     _leftSideHTML = 'z'
     _coefficientDesignators = ['a', 'b', 'c', 'd', 'f', 'g']
@@ -601,7 +601,7 @@ class SineB(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
 
 class SineB_Transform(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
     
-    _baseName = "Sine B [radians] Transform"
+    _baseName = "Transform Sine B [radians]"
     _HTML = 'z = a * sin(bx+c) * sin(dy+f)'
     _leftSideHTML = 'z'
     _coefficientDesignators = ['a', 'b', 'c', 'd', 'f']
@@ -703,7 +703,7 @@ class SineXY(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
 
 class SineXYTransform(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
     
-    _baseName = "Sine XY [radians] Transform"
+    _baseName = "Transform Sine XY [radians]"
     _HTML = 'z = a * sin(b * xy + c)'
     _leftSideHTML = 'z'
     _coefficientDesignators = ['a', 'b', 'c']
@@ -804,7 +804,7 @@ class TanA(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
 
 class TanATransform(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
     
-    _baseName = "Tan A [radians] Transform"
+    _baseName = "Transform Tan A [radians]"
     _HTML = 'z = a * tan(bx + c) + d * tan(fy + g)'
     _leftSideHTML = 'z'
     _coefficientDesignators = ['a', 'b', 'c', 'd', 'f', 'g']
@@ -907,7 +907,7 @@ class TanB(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
 
 class TanBTransform(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
     
-    _baseName = "Tan B [radians] Transform"
+    _baseName = "Transform Tan B [radians]"
     _HTML = 'z = a * tan(bx + c) *  tan(dy + f)'
     _leftSideHTML = 'z'
     _coefficientDesignators = ['a', 'b', 'c', 'd', 'f']
@@ -1009,7 +1009,7 @@ class TanXY(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
 
 class TanXYTransform(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
     
-    _baseName = "Tan XY [radians] Transform"
+    _baseName = "Transform Tan XY [radians]"
     _HTML = 'z = a * tan(b * xy + c)'
     _leftSideHTML = 'z'
     _coefficientDesignators = ['a', 'b', 'c']

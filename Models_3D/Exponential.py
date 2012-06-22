@@ -117,7 +117,7 @@ class FullCubicExponential(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
 
 class FullCubicExponentialTransform(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
     
-    _baseName = "Full Cubic Exponential Transform"
+    _baseName = "Transform Full Cubic Exponential"
     _HTML = 'z = a + b*exp(m*x+n) + c*exp(o*y+p) + d*exp(m*x+n)<sup>2</sup> + f*exp(o*y+p)<sup>2</sup> + g*exp(m*x+n)<sup>3</sup> + h*exp(o*y+p)<sup>3</sup> + i*exp(m*x+n)*exp(o*y+p) + j*exp(m*x+n)<sup>2</sup>*exp(o*y+p) + k*exp(m*x+n)*exp(o*y+p)<sup>2</sup>'
     _leftSideHTML = 'z'
     _coefficientDesignators = ['a', 'b', 'c', 'd', 'f', 'g', 'h', 'i', 'j', 'k', 'm', 'n', 'o', 'p']
@@ -270,7 +270,7 @@ class FullQuadraticExponential(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
 
 class FullQuadraticExponentialTransform(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
     
-    _baseName = "Full Quadratic Exponential Transform"
+    _baseName = "Transform Full Quadratic Exponential"
     _HTML = 'z = a + b*exp(h*x+i) + c*exp(j*y+k) + d*exp(h*x+i)<sup>2</sup> + e*exp(j*y+k)<sup>2</sup> + f*exp(h*x+i)*exp(j*y+k)'
     _leftSideHTML = 'z'
     _coefficientDesignators = ['a', 'b', 'c', 'd', 'f', 'g', 'h', 'i', 'j', 'k']
@@ -392,7 +392,7 @@ class LinearExponential(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
 
 class LinearExponentialTransform(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
     
-    _baseName = "Linear Exponential Transform"
+    _baseName = "Transform Linear Exponential"
     _HTML = 'z = a + b*exp(d*x+f) + c*exp(g*y+h)'
     _leftSideHTML = 'z'
     _coefficientDesignators = ['a', 'b', 'c', 'd', 'f', 'g', 'h']
@@ -525,7 +525,7 @@ class SimplifiedCubicExponential(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
 
 class SimplifiedCubicExponentialTransform(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
     
-    _baseName = "Simplified Cubic Exponential Transform"
+    _baseName = "Transform Simplified Cubic Exponential"
     _HTML = 'z = a + b*exp(i*x+j) + c*exp(k*y+m) + d*exp(i*x+j)<sup>2</sup> + f*exp(k*y+m)<sup>2</sup> + g*exp(i*x+j)<sup>3</sup> + h*exp(k*y+m)<sup>3</sup>'
     _leftSideHTML = 'z'
     _coefficientDesignators = ['a', 'b', 'c', 'd', 'f', 'g', 'h', 'i', 'j', 'k', 'm']
@@ -664,7 +664,7 @@ class SimplifiedQuadraticExponential(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass
 
 class SimplifiedQuadraticExponentialTransform(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
     
-    _baseName = "Simplified Quadratic Exponential Transform"
+    _baseName = "Transform Simplified Quadratic Exponential"
     _HTML = 'z = a + b*exp(g*x+h) + c*exp(i*y+j) + d*exp(g*x+h)<sup>2</sup> + f*exp(i*y+j)<sup>2</sup>'
     _leftSideHTML = 'z'
     _coefficientDesignators = ['a', 'b', 'c', 'd', 'f', 'g', 'h', 'i', 'j']

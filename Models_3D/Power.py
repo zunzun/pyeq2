@@ -77,7 +77,7 @@ class PowerA(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
 
 class PowerA_Transform(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
     
-    _baseName = "Power A Transform"
+    _baseName = "Transform Power A"
     _HTML = 'z = a * ((dx + f)<sup>b</sup> + (gy + h)<sup>c</sup>)'
     _leftSideHTML = 'z'
     _coefficientDesignators = ['a', 'b', 'c', 'd', 'f', 'g', 'h']
@@ -185,7 +185,7 @@ class PowerB(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
 
 class PowerB_Transform(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
     
-    _baseName = "Power B Transform"
+    _baseName = "Transform Power B"
     _HTML = 'z = a + (dx + f)<sup>b</sup> + (gy + h)<sup>c</sup>'
     _leftSideHTML = 'z'
     _coefficientDesignators = ['a', 'b', 'c', 'd', 'f', 'g', 'h']
@@ -293,7 +293,7 @@ class PowerC(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
 
 class PowerC_Transform(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
     
-    _baseName = "Power C Transform"
+    _baseName = "Transform Power C"
     _HTML = 'z = a + (dx + f)<sup>b</sup> * (gy + h)<sup>c</sup>'
     _leftSideHTML = 'z'
     _coefficientDesignators = ['a', 'b', 'c', 'd', 'f', 'g', 'h']
@@ -402,7 +402,7 @@ class PowerD(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
 
 class PowerD_Transform(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
     
-    _baseName = "Power D Transform"
+    _baseName = "Transform Power D"
     _HTML = 'z = a(fx + g)<sup>b</sup> + c(hy + i)<sup>d</sup>'
     _leftSideHTML = 'z'
     _coefficientDesignators = ['a', 'b', 'c', 'd', 'f', 'g', 'h', 'i']
@@ -511,7 +511,7 @@ class PowerE(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
 
 class PowerE_Transform(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
     
-    _baseName = "Power E Transform"
+    _baseName = "Transform Power E"
     _HTML = 'z = a * (dx + f)<sup>b</sup> * (gy + h)<sup>c</sup>'
     _leftSideHTML = 'z'
     _coefficientDesignators = ['a', 'b', 'c', 'd', 'f', 'g', 'h']
