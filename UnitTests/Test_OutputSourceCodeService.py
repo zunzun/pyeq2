@@ -1,12 +1,31 @@
 #    Version info: $Id$
 
 # the pyeq2 directory is located up one level from here
-import sys, os, unittest
+import sys, os, unittest, inspect
 if os.path.join(sys.path[0][:sys.path[0].rfind(os.sep)], '..') not in sys.path:
     sys.path.append(os.path.join(sys.path[0][:sys.path[0].rfind(os.sep)], '..'))
     
 import pyeq2
 import DataForUnitTests
+
+
+
+class TestGenerationOfOutputSourceCodeForAllEquations(unittest.TestCase):
+    
+    def test_GenerationOf_CPP_ForAllEquations(self): # ensure no coding errors in source code generation for any equation
+        for submodule in inspect.getmembers(pyeq2.Models_2D) + inspect.getmembers(pyeq2.Models_3D):
+            if inspect.ismodule(submodule[1]):
+                for equationClass in inspect.getmembers(submodule[1]):
+                    if inspect.isclass(equationClass[1]):
+                        try: # not all equation classes have a fixed number of coefficient designators
+                            equation = equationClass[1]()
+                            coeffCount = len(equation.GetCoefficientDesignators())
+                            equation.solvedCoefficients = [1.0] * len(equation.GetCoefficientDesignators())
+                        except:
+                            continue
+                        generated = pyeq2.outputSourceCodeService().GetOutputSourceCodeCPP(equation)
+                        self.assertIs(type(generated), type('')) # must be a striong
+                        self.assertTrue(len(generated) > 0) # must have a length > 0
 
 
 
