@@ -2629,9 +2629,9 @@ class ScaledPower_Transform(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
 
 
-class TobyBarrusCustomLogistic5Parameter(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
+class StandardLogistic5Parameter(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
-    _baseName = "Toby Barrus 5-Parameter Custom Logistic Equation"
+    _baseName = "Standard 5-Parameter Logistic Equation"
     _HTML = 'y = d + (a - d) / (1 + (x / c)<sup>b</sup> )<sup>f</sup>'
     _leftSideHTML = 'y'
     _coefficientDesignators = ['a', 'b', 'c', 'd', 'f']
@@ -2681,9 +2681,9 @@ class TobyBarrusCustomLogistic5Parameter(pyeq2.Model_2D_BaseClass.Model_2D_BaseC
 
 
 
-class TobyBarrusCustomLogistic4Parameter(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
+class StandardLogistic4Parameter(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
-    _baseName = "Toby Barrus 4-Parameter Custom Logistic Equation"
+    _baseName = "Standard 4-Parameter Logistic Equation"
     _HTML = 'y = d + (a - d) / (1 + (x / c)<sup>b</sup>)'
     _leftSideHTML = 'y'
     _coefficientDesignators = ['a', 'b', 'c', 'd']
@@ -2732,9 +2732,9 @@ class TobyBarrusCustomLogistic4Parameter(pyeq2.Model_2D_BaseClass.Model_2D_BaseC
 
 
 
-class TobyBarrusCustomLogistic3Parameter(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
+class StandardLogistic3Parameter(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
-    _baseName = "Toby Barrus 3-Parameter Custom Logistic Equation"
+    _baseName = "Standard 3-Parameter Logistic Equation"
     _HTML = 'y = d + (a - d) / (1 + (x / c))'
     _leftSideHTML = 'y'
     _coefficientDesignators = ['a', 'c', 'd']
