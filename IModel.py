@@ -132,6 +132,7 @@ class IModel(object):
         self.ncoef = 1.0 * len(self.solvedCoefficients)          # number of coef.
         self.df_e = self.nobs - self.ncoef                 # degrees of freedom, error
         self.df_r = self.ncoef - 1.0                              # degrees of freedom, regression
+        self.sumOfSquaredErrors = numpy.sum(self.modelAbsoluteError * self.modelAbsoluteError)
 
         try:
             self.r2 = 1.0 - self.modelAbsoluteError.var()/self.dataCache.allDataCacheDictionary['DependentData'].var()
@@ -139,7 +140,7 @@ class IModel(object):
             self.r2 = None
 
         try:
-            self.rmse = numpy.sqrt(numpy.sum(self.modelAbsoluteError * self.modelAbsoluteError) / self.nobs)
+            self.rmse = numpy.sqrt(self.sumOfSquaredErrors / self.nobs)
         except:
             self.rmse = None
 
