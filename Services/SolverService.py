@@ -174,7 +174,10 @@ class SolverService(object):
 
         data = inModel.dataCache.FindOrCreateAllDataCache(inModel)
         modelObject = scipy.odr.odrpack.Model(inModel.WrapperForODR)
-        dataObject = scipy.odr.odrpack.Data(inModel.dataCache.allDataCacheDictionary['IndependentData'], inModel.dataCache.allDataCacheDictionary['DependentData'])
+        if len(inModel.dataCache.allDataCacheDictionary['Weights']):
+            dataObject = scipy.odr.odrpack.Data(inModel.dataCache.allDataCacheDictionary['IndependentData'], inModel.dataCache.allDataCacheDictionary['DependentData'], inModel.dataCache.allDataCacheDictionary['Weights'])
+        else:
+            dataObject = scipy.odr.odrpack.Data(inModel.dataCache.allDataCacheDictionary['IndependentData'], inModel.dataCache.allDataCacheDictionary['DependentData'])
         
         results = []
         

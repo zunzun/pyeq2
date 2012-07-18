@@ -351,9 +351,10 @@ class IModel(object):
                 else:
                     return 1.0E300
 
+            # ODR does not use "error" above, which can be weighted, so weights are passed to ODR if used
             if self.fittingTarget == "ODR": # this is inefficient but works for every possible case
                 model = scipy.odr.odrpack.Model(self.WrapperForODR)
-                if self.dataCache.allDataCacheDictionary['Weights']:
+                if len(self.dataCache.allDataCacheDictionary['Weights']):
                     data = scipy.odr.odrpack.Data(self.dataCache.allDataCacheDictionary['IndependentData'],  self.dataCache.allDataCacheDictionary['DependentData'], we = self.dataCache.allDataCacheDictionary['Weights'])
                 else:
                     data = scipy.odr.odrpack.Data(self.dataCache.allDataCacheDictionary['IndependentData'],  self.dataCache.allDataCacheDictionary['DependentData'])
