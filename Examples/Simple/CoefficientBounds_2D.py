@@ -40,7 +40,7 @@ if __name__ == "__main__":
     
     ##########################################################
 
-    # now with an upper bound
+    # now with a lower bound
     equation.upperCoefficientBounds = [] # reset to have no upper bounds
     equation.lowerCoefficientBounds = [-8.0, None] # None means the parameter is unbounded
     

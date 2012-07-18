@@ -127,11 +127,11 @@ class IModel(object):
 
 
     def CalculateCoefficientAndFitStatistics(self):
-        # ensure integers are promoted to floating point with "1.0 * var"
-        self.nobs = 1.0 * len(self.dataCache.allDataCacheDictionary['DependentData'])  # number of observations
-        self.ncoef = 1.0 * len(self.solvedCoefficients)          # number of coef.
+        # unweighted values are always calculated, weighted values are calculated below if user supplied weights
+        self.nobs = len(self.dataCache.allDataCacheDictionary['DependentData'])  # number of observations
+        self.ncoef = len(self.solvedCoefficients)          # number of coef.
         self.df_e = self.nobs - self.ncoef                 # degrees of freedom, error
-        self.df_r = self.ncoef - 1.0                              # degrees of freedom, regression
+        self.df_r = self.ncoef - 1                              # degrees of freedom, regression
         self.sumOfSquaredErrors = numpy.sum(self.modelAbsoluteError * self.modelAbsoluteError)
 
         try:
@@ -176,7 +176,7 @@ class IModel(object):
         except:
             self.bic = None
 
-        if self.splineFlag == True: # not appicable to splines.  This might be better done with 
+        if self.splineFlag == True: # not appicable to splines
             self.cov_beta = None
             self.sd_beta = None
             self.tstat_beta = None
@@ -214,6 +214,113 @@ class IModel(object):
             except:
                 self.pstat_beta = None
 
+        if len(self.dataCache.allDataCacheDictionary['Weights']):
+            self.nobs_weighted = len(self.dataCache.allDataCacheDictionary['DependentData'])  # number of observations
+            self.ncoef_weighted = len(self.solvedCoefficients)          # number of coef.
+            self.df_e_weighted = self.nobs - self.ncoef                 # degrees of freedom, error
+            self.df_r_weighted = self.ncoef - 1                              # degrees of freedom, regression
+            absoluteErrorWeighted = self.modelAbsoluteError * self.dataCache.allDataCacheDictionary['Weights']
+            self.sumOfSquaredErrors_weighted = numpy.sum(absoluteErrorWeighted * absoluteErrorWeighted)
+    
+            try:
+                self.r2_weighted = 1.0 - absoluteErrorWeighted.var()/self.dataCache.allDataCacheDictionary['DependentData'].var()
+            except:
+                self.r2_weighted= None
+    
+            try:
+                self.rmse_weighted = numpy.sqrt(self.sumOfSquaredErrors_weighted / self.nobs_weighted)
+            except:
+                self.rmse_weighted = None
+    
+            try:
+                self.r2adj_weighted = 1.0 - (1.0 - self.r2_weighted)*((self.nobs_weighted - 1.0)/(self.nobs_weighted-self.ncoef_weighted))   # adjusted R-square
+            except:
+                self.r2adj_weighted = None
+    
+    
+            try:
+                self.Fstat_weighted = (self.r2_weighted/self.df_r_weighted) / ((1.0 - self.r2_weighted)/self.df_e_weighted)  # model F-statistic
+            except:
+                self.Fstat_weighted = None
+    
+            try:
+                self.Fpv_weighted = 1.0 - scipy.stats.f.cdf(self.Fstat_weighted, self.df_r_weighted, self.df_e_weighted)  # F-statistic p-value
+            except:
+                self.Fpv_weighted = None
+    
+            # Model log-likelihood, AIC, and BIC criterion values
+            try:
+                self.ll_weighted = -(self.nobs_weighted*0.5)*(1.0 + numpy.log(2.0*numpy.pi)) - (self.nobs_weighted*0.5)*numpy.log(numpy.dot(absoluteErrorWeighted,absoluteErrorWeighted)/self.nobs_weighted)
+            except:
+                self.ll_weighted = None
+    
+            try:
+                self.aic_weighted = -2.0*self.ll_weighted/self.nobs_weighted + (2.0*self.ncoef_weighted/self.nobs_weighted)
+            except:
+                self.aic_weighted = None
+    
+            try:
+                self.bic_weighted = -2.0*self.ll_weighted/self.nobs_weighted + (self.ncoef_weighted*numpy.log(self.nobs_weighted))/self.nobs_weighted
+            except:
+                self.bic_weighted = None
+    
+            if self.splineFlag == True: # not appicable to splines
+                self.cov_beta_weighted = None
+                self.sd_beta_weighted = None
+                self.tstat_beta_weighted = None
+                self.pstat_beta_weighted = None
+                self.ci_weighted = None
+                return
+            else:
+                # see both scipy.odr.odrpack and http://www.scipy.org/Cookbook/OLS
+                # this is inefficient but works for every possible case
+                model_weighted = scipy.odr.odrpack.Model(self.WrapperForODR)
+                self.dataCache.FindOrCreateAllDataCache(self)
+                data_weighted = scipy.odr.odrpack.Data(self.dataCache.allDataCacheDictionary['IndependentData'], self.dataCache.allDataCacheDictionary['DependentData'], self.dataCache.allDataCacheDictionary['Weights'])
+                myodr_weighted = scipy.odr.odrpack.ODR(data_weighted, model_weighted, beta0=self.solvedCoefficients,  maxit=0)
+                myodr_weighted.set_job(fit_type=2)
+                parameterStatistics_weighted = myodr_weighted.run()
+                self.cov_beta_weighted = parameterStatistics.cov_beta # parameter covariance matrix
+                try:
+                    self.sd_beta_weighted = parameterStatistics_weighted.sd_beta * parameterStatistics_weighted.sd_beta
+                except:
+                    self.sd_beta_weighted = None
+                self.ci_weighted = []
+                
+                t_df_weighted = scipy.stats.t.ppf(0.975, self.df_e_weighted)
+                
+                for i in range(len(self.solvedCoefficients)):
+                    self.ci_weighted.append([self.solvedCoefficients[i] - t_df_weighted * parameterStatistics_weighted.sd_beta[i], self.solvedCoefficients[i] + t_df_weighted * parameterStatistics_weighted.sd_beta[i]])
+    
+                try:
+                    self.tstat_beta_weighted = self.solvedCoefficients / parameterStatistics_weighted.sd_beta # coeff t-statistics
+                except:
+                    self.tstat_beta_weighted = None
+    
+                try:
+                    self.pstat_beta_weighted = (1.0 - scipy.stats.t.cdf(numpy.abs(self.tstat_beta_weighted), self.df_e_weighted)) * 2.0    # coef. p-values
+                except:
+                    self.pstat_beta_weighted = None
+        else:
+            self.nobs_weighted = None
+            self.ncoef_weighted = None
+            self.df_e_weighted = None
+            self.df_r_weighted = None
+            self.sumOfSquaredErrors_weighted = None
+            self.r2_weighted = None
+            self.rmse_weighted = None
+            self.r2adj_weighted = None
+            self.Fstat_weighted = None
+            self.Fpv_weighted = None
+            self.ll_weighted = None
+            self.aic_weighted = None
+            self.bic_weighted = None
+            self.cov_beta_weighted = None
+            self.sd_beta_weighted = None
+            self.tstat_beta_weighted = None
+            self.pstat_beta_weighted = None
+            self.ci_weighted = None
+                    
 
     def CalculateModelErrors(self, inCoeffs, inDictionary):
         if self.upperCoefficientBounds != []:
