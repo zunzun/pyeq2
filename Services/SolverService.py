@@ -235,7 +235,6 @@ class SolverService(object):
         return inModel.solvedCoefficients
 
 
-
     def SolveUsingSpline(self, inModel):
         data = inModel.dataCache.FindOrCreateAllDataCache(inModel)
         if inModel.GetDimensionality() == 2:
@@ -246,3 +245,139 @@ class SolverService(object):
             inModel.scipySpline = scipy.interpolate.fitpack2.SmoothBivariateSpline(data[0], data[1], inModel.dataCache.allDataCacheDictionary['DependentData'], s=inModel.smoothingFactor, kx=inModel.xOrder, ky=inModel.yOrder)
             inModel.solvedCoefficients = inModel.scipySpline.tck
             return inModel.solvedCoefficients
+
+
+    # directly passing the distribution instance directly can yield "can't pickle
+    # instancemethod" exceptions, so the distribution name is passed instead
+    def SolveStatisticalDistribution(self, distributionName, data, criteria):
+        
+        criteriaList = ['AIC', 'AICc_BA', 'nnlf']
+        if criteria not in criteriaList:
+            raise Exception('Criteria to calculate for use in sorting was not in', str(criteriaList))
+    
+        try:
+            exec('distribution = scipy.stats.' + distributionName)
+        except:
+            return 0
+
+        # only need to calculate these once
+        eps = numpy.finfo(float).eps * 2.0
+        data_min = data.min()
+        data_max = data.max()
+        data_mean = data.mean()
+        data_range = data_max - data_min
+        data_std_dev = numpy.std(data, dtype=numpy.float32) # note on precision http://docs.scipy.org/doc/numpy/reference/generated/numpy.std.html        
+        
+            
+        # Try different starting parameters
+        best_nnlf = 1.0E300
+        best_parameters = None
+    
+        if distribution.name in ['beta']:
+            try:
+                rangeData = (data - data_min) / data_range
+                data_mean = rangeData.mean()
+                data_var = rangeData.var()
+                
+                par_a = data_mean * ((data_mean * (1.0 - data_mean) / data_var) - 1.0)
+                par_b = (1.0 - data_mean) * ((data_mean * (1.0 - data_mean) / data_var) - 1.0)
+                par0 = (par_a, par_b, data_min - 0.001*data_min, data_range * 1.001)
+                par_est = tuple(distribution.fit(data, *(par0[:-2]), loc = data_min - 0.01*data_min, scale = data_range * 1.01))
+                nnlf = distribution.nnlf(par_est, data)
+                if numpy.isfinite(nnlf) and nnlf < best_nnlf and nnlf > 0.0:
+                    best_parameters = par_est
+                    best_nnlf = nnlf
+            except:
+                pass
+    
+        if distribution.name in ['truncnorm','betaprime','reciprocal']:
+            try:
+                par0 = (data_mean-2.0*data_std_dev, data_mean+2.0*data_std_dev)
+                par_est = tuple(distribution.fit(data, loc=data_mean, scale=data_std_dev, *par0))
+                nnlf = distribution.nnlf(par_est, data)
+                if numpy.isfinite(nnlf) and nnlf < best_nnlf and nnlf > 0.0:
+                    best_parameters = par_est
+                    best_nnlf = nnlf
+            except:
+                pass
+            
+        try:
+            par_est = tuple(distribution.fit(data))
+            nnlf = distribution.nnlf(par_est, data)
+            if numpy.isfinite(nnlf) and nnlf < best_nnlf and nnlf > 0.0:
+                best_parameters = par_est
+                best_nnlf = nnlf
+        except:
+            pass
+    
+        try:
+            par_est = tuple(distribution.fit(data, loc=0.0, scale=1.0))
+            nnlf = distribution.nnlf(par_est, data)
+            if numpy.isfinite(nnlf) and nnlf < best_nnlf and nnlf > 0.0:
+                best_parameters = par_est
+                best_nnlf = nnlf
+        except:
+            pass
+            
+        try:
+            par_est = tuple(distribution.fit(data, loc=data_mean, scale=data_std_dev))
+            nnlf = distribution.nnlf(par_est, data)
+            if numpy.isfinite(nnlf) and nnlf < best_nnlf and nnlf > 0.0:
+                best_parameters = par_est
+                best_nnlf = nnlf
+        except:
+            pass
+    
+        try:
+            par_est = tuple(distribution.fit(data, loc=data_max+eps, scale=data_std_dev))
+            nnlf = distribution.nnlf(par_est, data)
+            if numpy.isfinite(nnlf) and nnlf < best_nnlf and nnlf > 0.0:
+                best_parameters = par_est
+                best_nnlf = nnlf
+        except:
+            pass
+    
+        try:
+            par_est = tuple(distribution.fit(data, loc=data_min-eps, scale=data_std_dev))
+            nnlf = distribution.nnlf(par_est, data)
+            if numpy.isfinite(nnlf) and nnlf < best_nnlf and nnlf > 0.0:
+                best_parameters = par_est
+                best_nnlf = nnlf
+        except:
+            pass
+    
+        try:
+            par_est = tuple(distribution.fit(data, loc=data_max+eps, scale=data_range))
+            nnlf = distribution.nnlf(par_est, data)
+            if numpy.isfinite(nnlf) and nnlf < best_nnlf and nnlf > 0.0:
+                best_parameters = par_est
+                best_nnlf = nnlf
+        except:
+            pass
+    
+        try:
+            par_est = tuple(distribution.fit(data, loc=data_min-eps, scale=data_range))
+            nnlf = distribution.nnlf(par_est, data)
+            if numpy.isfinite(nnlf) and nnlf < best_nnlf and nnlf > 0.0:
+                best_parameters = par_est
+                best_nnlf = nnlf
+        except:
+            pass
+    
+        if (best_nnlf < 1.0E300) and (best_parameters is not None):
+            try:
+                if criteria == 'nnlf':
+                    return [best_nnlf, distributionName, best_parameters]
+                    
+                k = len(best_parameters)
+                AIC = 2.0*k + 2.0 * best_nnlf
+                if criteria == 'AIC':
+                    return [AIC, distributionName, best_parameters]
+                else:
+                    n = len(data)
+                    AICc_BA = AIC + ( (2.0 * k * (k+1.0)) / (n - k - 1.0))
+                    return [AICc_BA, distributionName, best_parameters]
+            except:
+                return 0
+        else:
+            return 0
