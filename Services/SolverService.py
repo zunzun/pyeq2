@@ -247,12 +247,12 @@ class SolverService(object):
             return inModel.solvedCoefficients
 
 
-    # directly passing the distribution instance directly can yield "can't pickle
-    # instancemethod" exceptions, so the distribution name is passed instead
-    def SolveStatisticalDistribution(self, distributionName, data, criteria):
+    # directly passing the distribution instance can yield "can't pickle instancemethod"
+    # exceptions, so the distribution name is passed instead
+    def SolveStatisticalDistribution(self, distributionName, data, inCriteriaForUseInListSorting):
         
         criteriaList = ['AIC', 'AICc_BA', 'nnlf']
-        if criteria not in criteriaList:
+        if inCriteriaForUseInListSorting not in criteriaList:
             raise Exception('Criteria to calculate for use in sorting was not in', str(criteriaList))
     
         try:
@@ -366,17 +366,24 @@ class SolverService(object):
     
         if (best_nnlf < 1.0E300) and (best_parameters is not None):
             try:
-                if criteria == 'nnlf':
-                    return [best_nnlf, distributionName, best_parameters]
-                    
                 k = len(best_parameters)
                 AIC = 2.0*k + 2.0 * best_nnlf
-                if criteria == 'AIC':
-                    return [AIC, distributionName, best_parameters]
+                n = len(data)
+                AICc_BA = AIC + ( (2.0 * k * (k+1.0)) / (n - k - 1.0))
+
+                temp = {}
+                temp['distributionName'] = distributionName
+                temp['fittedParameters'] = best_parameters
+                temp['nnlf'] = best_nnlf
+                temp['AIC'] = AIC
+                temp['AICc_BA'] = AICc_BA
+                
+                if inCriteriaForUseInListSorting == 'nnlf':
+                    return [best_nnlf, temp]
+                elif inCriteriaForUseInListSorting == 'AIC':
+                    return [AIC, temp]
                 else:
-                    n = len(data)
-                    AICc_BA = AIC + ( (2.0 * k * (k+1.0)) / (n - k - 1.0))
-                    return [AICc_BA, distributionName, best_parameters]
+                    return [AICc_BA, temp]
             except:
                 return 0
         else:

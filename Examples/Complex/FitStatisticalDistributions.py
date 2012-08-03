@@ -169,14 +169,17 @@ if __name__ == "__main__":
 '''
 
     pyeq2.dataConvertorService().ConvertAndSortColumnarASCII(asciiTextData, simpleObject, False)
-   
+    
     resultList = []
     solver = pyeq2.solverService()
-    calculateCriteriaForUseInListSorting = 'AIC' # ['AIC', 'AICc_BA', 'nnlf'] from SolverService.SolveStatisticalDistribution()
+    criteriaForUseInListSorting = 'AIC' # ['AIC', 'AICc_BA', 'nnlf'] from top of SolverService.SolveStatisticalDistribution()
     for distribution in inspect.getmembers(scipy.stats): # try to fit every distribution
         if isinstance(distribution[1], scipy.stats.rv_continuous):
             print "Fitting", distribution[0]
-            result = solver.SolveStatisticalDistribution(distribution[0], simpleObject.dataCache.allDataCacheDictionary['IndependentData'][0], calculateCriteriaForUseInListSorting)
+            try:
+                result = solver.SolveStatisticalDistribution(distribution[0], simpleObject.dataCache.allDataCacheDictionary['IndependentData'][0], criteriaForUseInListSorting)
+            except:
+                continue
             if result:
                 resultList.append(result)
     
