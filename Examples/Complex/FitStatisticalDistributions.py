@@ -2,7 +2,7 @@
 
 import os, sys, inspect, scipy.stats
 
-# ensure pyeq2 can be imported
+# ensure pyeq2 can be imported 
 if os.path.join(sys.path[0][:sys.path[0].rfind(os.sep)], '../..') not in sys.path:
     sys.path.append(os.path.join(sys.path[0][:sys.path[0].rfind(os.sep)], '../..'))
 import pyeq2
