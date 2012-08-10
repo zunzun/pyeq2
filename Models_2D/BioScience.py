@@ -301,6 +301,8 @@ class BioScienceB(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     independentData2CannotContainPositiveFlag = False
     independentData2CannotContainNegativeFlag = False
     
+    independentData1CannotContainBothPositiveAndNegativeFlag = True
+    
 
     def GetDataCacheFunctions(self):
         functionList = []
@@ -680,6 +682,7 @@ class DoseResponseE(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     independentData2CannotContainPositiveFlag = False
     independentData2CannotContainNegativeFlag = False
     
+    independentData1CannotContainBothPositiveAndNegativeFlag = True
 
     def GetDataCacheFunctions(self):
         functionList = []
@@ -2651,6 +2654,8 @@ class StandardLogistic5Parameter(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     independentData2CannotContainZeroFlag = False
     independentData2CannotContainPositiveFlag = False
     independentData2CannotContainNegativeFlag = False
+
+    independentData1CannotContainBothPositiveAndNegativeFlag = True
     
 
     def GetDataCacheFunctions(self):
@@ -2703,7 +2708,8 @@ class StandardLogistic4Parameter(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     independentData2CannotContainZeroFlag = False
     independentData2CannotContainPositiveFlag = False
     independentData2CannotContainNegativeFlag = False
-    
+
+    independentData1CannotContainBothPositiveAndNegativeFlag = True
 
     def GetDataCacheFunctions(self):
         functionList = []

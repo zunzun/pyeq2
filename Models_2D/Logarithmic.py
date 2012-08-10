@@ -301,6 +301,8 @@ class CubicLogarithmicScaled(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     independentData2CannotContainZeroFlag = False
     independentData2CannotContainPositiveFlag = False
     independentData2CannotContainNegativeFlag = False
+
+    independentData1CannotContainBothPositiveAndNegativeFlag = True
     
 
     def GetDataCacheFunctions(self):
@@ -456,6 +458,8 @@ class LinearLogarithmicScaled(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     independentData2CannotContainZeroFlag = False
     independentData2CannotContainPositiveFlag = False
     independentData2CannotContainNegativeFlag = False
+
+    independentData1CannotContainBothPositiveAndNegativeFlag = True
     
 
     def GetDataCacheFunctions(self):
@@ -610,6 +614,8 @@ class QuadraticLogarithmicScaled(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     independentData2CannotContainZeroFlag = False
     independentData2CannotContainPositiveFlag = False
     independentData2CannotContainNegativeFlag = False
+
+    independentData1CannotContainBothPositiveAndNegativeFlag = True
     
 
     def GetDataCacheFunctions(self):
@@ -772,6 +778,8 @@ class QuarticLogarithmicScaled(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     independentData2CannotContainZeroFlag = False
     independentData2CannotContainPositiveFlag = False
     independentData2CannotContainNegativeFlag = False
+
+    independentData1CannotContainBothPositiveAndNegativeFlag = True
     
 
     def GetDataCacheFunctions(self):
@@ -941,6 +949,8 @@ class QuinticLogarithmicScaled(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     independentData2CannotContainZeroFlag = False
     independentData2CannotContainPositiveFlag = False
     independentData2CannotContainNegativeFlag = False
+
+    independentData1CannotContainBothPositiveAndNegativeFlag = True
     
 
     def GetDataCacheFunctions(self):

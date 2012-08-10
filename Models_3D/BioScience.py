@@ -45,6 +45,8 @@ class ChenClayton(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
     independentData2CannotContainZeroFlag = False
     independentData2CannotContainPositiveFlag = False
     independentData2CannotContainNegativeFlag = False
+
+    independentData1CannotContainBothPositiveAndNegativeFlag = True
     
 
     def GetDataCacheFunctions(self):

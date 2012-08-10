@@ -593,6 +593,8 @@ class SimpleEquation_13(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     independentData2CannotContainZeroFlag = False
     independentData2CannotContainPositiveFlag = False
     independentData2CannotContainNegativeFlag = False
+
+    independentData1CannotContainBothPositiveAndNegativeFlag = True
     
 
     def GetDataCacheFunctions(self):

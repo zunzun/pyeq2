@@ -711,6 +711,9 @@ class SimpleEquation_14(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
     independentData2CannotContainZeroFlag = False
     independentData2CannotContainPositiveFlag = False
     independentData2CannotContainNegativeFlag = False
+
+    independentData1CannotContainBothPositiveAndNegativeFlag = True
+    independentData2CannotContainBothPositiveAndNegativeFlag = True
     
 
     def GetDataCacheFunctions(self):
@@ -760,6 +763,9 @@ class SimpleEquation_15(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
     independentData2CannotContainZeroFlag = True
     independentData2CannotContainPositiveFlag = False
     independentData2CannotContainNegativeFlag = False
+
+    independentData1CannotContainBothPositiveAndNegativeFlag = True
+    independentData2CannotContainBothPositiveAndNegativeFlag = True
     
 
     def GetDataCacheFunctions(self):
@@ -913,6 +919,8 @@ class SimpleEquation_18(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
     independentData2CannotContainZeroFlag = False
     independentData2CannotContainPositiveFlag = False
     independentData2CannotContainNegativeFlag = False
+
+    independentData1CannotContainBothPositiveAndNegativeFlag = True
     
 
     def GetDataCacheFunctions(self):
@@ -965,6 +973,8 @@ class SimpleEquation_19(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
     independentData2CannotContainZeroFlag = False
     independentData2CannotContainPositiveFlag = False
     independentData2CannotContainNegativeFlag = False
+
+    independentData2CannotContainBothPositiveAndNegativeFlag = True
     
 
     def GetDataCacheFunctions(self):

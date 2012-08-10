@@ -46,6 +46,10 @@ class IExtendedVersionHandler(object):
             return True
         if (inModel.independentData2CannotContainNegativeFlag == True) and (inModel.dataCache.independentData2ContainsNegativeFlag == True):
             return True
+        if (inModel.independentData1CannotContainBothPositiveAndNegativeFlag == True) and (inModel.dataCache.independentData1ContainsPositiveFlag == True) and (inModel.dataCache.independentData1ContainsNegativeFlag == True):
+            return True
+        if (inModel.independentData2CannotContainBothPositiveAndNegativeFlag == True) and (inModel.dataCache.independentData2ContainsPositiveFlag == True) and (inModel.dataCache.independentData2ContainsNegativeFlag == True):
+            return True
         return False
 
 

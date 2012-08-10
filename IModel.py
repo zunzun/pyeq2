@@ -23,6 +23,16 @@ class IModel(object):
     userSelectablePolyfunctionalFlag = False
     userSelectableRationalFlag = False
     userDefinedFunctionFlag = False
+    
+    independentData1CannotContainZeroFlag = False
+    independentData1CannotContainPositiveFlag = False
+    independentData1CannotContainNegativeFlag = False
+    independentData2CannotContainZeroFlag = False
+    independentData2CannotContainPositiveFlag = False
+    independentData2CannotContainNegativeFlag = False
+    
+    independentData1CannotContainBothPositiveAndNegativeFlag = False
+    independentData2CannotContainBothPositiveAndNegativeFlag = False    
 
     # "e" is removed so it is not mistaken for Euler's constant "e"
     # "l" is removed so it is not mistaken for the number "1" - some fonts make these appear the same or very similar
@@ -66,14 +76,6 @@ class IModel(object):
         self.rationalDenominatorFlags = []
         self.fittingTarget = inFittingTarget
         self.deEstimatedCoefficients = []
-
-        
-        self.independentData1CannotContainZeroFlag = False
-        self.independentData1CannotContainPositiveFlag = False
-        self.independentData1CannotContainNegativeFlag = False
-        self.independentData2CannotContainZeroFlag = False
-        self.independentData2CannotContainPositiveFlag = False
-        self.independentData2CannotContainNegativeFlag = False
         
         try:
             if self._dimensionality == 2:

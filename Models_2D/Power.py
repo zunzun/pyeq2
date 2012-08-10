@@ -45,6 +45,8 @@ class Geometric_Modified(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     independentData2CannotContainZeroFlag = False
     independentData2CannotContainPositiveFlag = False
     independentData2CannotContainNegativeFlag = False
+
+    independentData1CannotContainBothPositiveAndNegativeFlag = True
     
 
     def GetDataCacheFunctions(self):
@@ -393,7 +395,7 @@ class PowerLawExponentialCutoff(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
     independentData1CannotContainZeroFlag = False
     independentData1CannotContainPositiveFlag = False
-    independentData1CannotContainNegativeFlag = False
+    independentData1CannotContainNegativeFlag = True
     independentData2CannotContainZeroFlag = False
     independentData2CannotContainPositiveFlag = False
     independentData2CannotContainNegativeFlag = False
@@ -539,7 +541,7 @@ class StandardGeometric(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
     independentData1CannotContainZeroFlag = False
     independentData1CannotContainPositiveFlag = False
-    independentData1CannotContainNegativeFlag = False
+    independentData1CannotContainNegativeFlag = True
     independentData2CannotContainZeroFlag = False
     independentData2CannotContainPositiveFlag = False
     independentData2CannotContainNegativeFlag = False
