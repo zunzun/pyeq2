@@ -1,5 +1,3 @@
-#    Version info: $Id$
-
 Copyright (C) 2012 James R. Phillips
 2548 Vera Cruz Drive
 Birmingham, AL 35235 USA

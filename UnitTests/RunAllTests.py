@@ -1,5 +1,3 @@
-#    Version info: $Id$
-
 import unittest
 import Test_IndividualPolyFunctions
 import Test_OutputSourceCodeService

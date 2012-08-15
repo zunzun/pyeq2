@@ -1,7 +1,4 @@
-#    Version info: $Id$
-
 The Python Equations project is dedicated to Jesus of Nazareth, son of the living God.
-
 
 Ephesians 4:28
 

@@ -8,7 +8,6 @@
 #    web: http://zunzun.com
 #
 #    License: BSD-style (see LICENSE.txt in main source directory)
-#    Version info: $Id$
 
 import DataCache
 import DataCacheFunctions

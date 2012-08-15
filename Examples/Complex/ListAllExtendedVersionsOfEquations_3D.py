@@ -1,5 +1,3 @@
-#    Version info: $Id$
-
 import os, sys, inspect
 
 if os.path.join(sys.path[0][:sys.path[0].rfind(os.sep)], '../..') not in sys.path:

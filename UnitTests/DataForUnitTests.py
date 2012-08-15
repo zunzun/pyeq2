@@ -1,6 +1,3 @@
-#    Version info: $Id$
-
-
 asciiDataInFourColumns_small = '''
  3.017  2.175   0.320  0.1
  2.822  2.624   2.753  0.2

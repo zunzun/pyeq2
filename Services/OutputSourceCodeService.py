@@ -8,7 +8,6 @@
 #    web: http://zunzun.com
 #
 #    License: BSD-style (see LICENSE.txt in main source directory)
-#    Version info: $Id$
 
 cppOutputSourceCodeUpperComment = '''// To the best of my knowledge this code is correct.
 // If you find any errors or problems please contact

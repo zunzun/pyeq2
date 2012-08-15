@@ -8,7 +8,6 @@
 #    web: http://zunzun.com
 #
 #    License: BSD-style (see LICENSE.txt in main source directory)
-#    Version info: $Id$
 
 import StringIO # cStringIO is not safe for Unicode comments, use StringIO instead
 import string

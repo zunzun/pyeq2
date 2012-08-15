@@ -8,7 +8,6 @@
 #    web: http://zunzun.com
 #
 #    License: BSD-style (see LICENSE.txt in main source directory)
-#    Version info: $Id$
 
 import numpy
 numpy.seterr(over = 'raise', divide = 'raise', invalid = 'raise', under = 'ignore') # numpy raises warnings, convert to exceptions to trap them

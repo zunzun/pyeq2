@@ -1,5 +1,3 @@
-#    Version info: $Id:  $
-
 import os, sys, inspect, scipy.stats
 
 # ensure pyeq2 can be imported 

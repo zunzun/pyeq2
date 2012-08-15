@@ -1,8 +1,6 @@
-#    Version info: $Id$
-
 import os, sys, unittest
 
-# ensure pyeq2 can be imported
+# the pyeq2 directory is located up one level from here
 if os.path.join(sys.path[0][:sys.path[0].rfind(os.sep)], '..') not in sys.path:
     sys.path.append(os.path.join(sys.path[0][:sys.path[0].rfind(os.sep)], '..'))
 import pyeq2
