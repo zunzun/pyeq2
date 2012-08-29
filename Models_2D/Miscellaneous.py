@@ -1536,58 +1536,6 @@ class Misc1(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
 
 
-class Nelder(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
-    
-    _baseName = "Nelder"
-    _HTML = 'y = (a + x) / (b + c(a + x) + d(a + x)<sup>2</sup>'
-    _leftSideHTML = 'y'
-    _coefficientDesignators = ['a', 'b', 'c', 'd']
-    _canLinearSolverBeUsedForSSQABS = False
-    
-    webReferenceURL = ''
-
-    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
-    autoGenerateOffsetForm = True
-    autoGenerateReciprocalForm = True
-    autoGenerateInverseForms = True
-    autoGenerateGrowthAndDecayForms = True
-
-    independentData1CannotContainZeroFlag = False
-    independentData1CannotContainPositiveFlag = False
-    independentData1CannotContainNegativeFlag = False
-    independentData2CannotContainZeroFlag = False
-    independentData2CannotContainPositiveFlag = False
-    independentData2CannotContainNegativeFlag = False
-    
-
-    def GetDataCacheFunctions(self):
-        functionList = []
-        functionList.append([pyeq2.DataCache.DataCacheFunctions.X(NameOrValueFlag=1), []])
-        return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
-
-
-    def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
-        x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
-        
-        a = inCoeffs[0]
-        b = inCoeffs[1]
-        c = inCoeffs[2]
-        d = inCoeffs[3]
-
-        try:
-            a_plus_x = a + x_in
-            temp = a_plus_x / (b + c * a_plus_x + d * a_plus_x * a_plus_x)
-            return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
-        except:
-            return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
-
-
-    def SpecificCodeCPP(self):
-        s = "\ttemp = (a + x_in) / (b + c * (a + x_in) + d * (a + x_in) * (a + x_in));\n"
-        return s
-
-
-
 class ParetoA(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Pareto A"

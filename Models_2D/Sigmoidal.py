@@ -124,9 +124,9 @@ class BET_Sigmoidal_B(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
 
 
-class BoltzmannSigmoid(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
+class BoltzmannSigmoidA(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
-    _baseName = "Boltzmann Sigmoid"
+    _baseName = "Boltzmann Sigmoid A"
     _HTML = 'y = (a - b) / (1.0 + exp((x-c)/d)) + b'
     _leftSideHTML = 'y'
     _coefficientDesignators = ['a', 'b', 'c', 'd']
@@ -171,6 +171,57 @@ class BoltzmannSigmoid(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
     def SpecificCodeCPP(self):
         s = "\ttemp = (a - b) / (1.0 + exp((x_in - c) / d)) + b;\n"
+        return s
+
+
+
+class BoltzmannSigmoidB(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
+    
+    _baseName = "Boltzmann Sigmoid B"
+    _HTML = 'y = (a - b) / (1.0 + exp((x-c)/(dx))) + b'
+    _leftSideHTML = 'y'
+    _coefficientDesignators = ['a', 'b', 'c', 'd']
+    _canLinearSolverBeUsedForSSQABS = False
+    
+    webReferenceURL = ''
+
+    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
+    autoGenerateOffsetForm = False
+    autoGenerateReciprocalForm = True
+    autoGenerateInverseForms = True
+    autoGenerateGrowthAndDecayForms = True
+
+    independentData1CannotContainZeroFlag = False
+    independentData1CannotContainPositiveFlag = False
+    independentData1CannotContainNegativeFlag = False
+    independentData2CannotContainZeroFlag = False
+    independentData2CannotContainPositiveFlag = False
+    independentData2CannotContainNegativeFlag = False
+    
+
+    def GetDataCacheFunctions(self):
+        functionList = []
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.X(NameOrValueFlag=1), []])
+        return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
+
+
+    def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
+        x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
+        
+        a = inCoeffs[0]
+        b = inCoeffs[1]
+        c = inCoeffs[2]
+        d = inCoeffs[3]
+
+        try:
+            temp = (a - b) / (1.0 + numpy.exp((x_in - c) / (d*x_in))) + b
+            return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
+        except:
+            return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
+
+
+    def SpecificCodeCPP(self):
+        s = "\ttemp = (a - b) / (1.0 + exp((x_in - c) / (d * x_in))) + b;\n"
         return s
 
 

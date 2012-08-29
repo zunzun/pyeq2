@@ -175,6 +175,57 @@ class AsymptoticExponentialB(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
 
 
+class DoubleAsymptoticExponentialB(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
+    
+    _baseName = "Double Asymptotic Exponential B"
+    _HTML = 'y = a * (1.0 - exp(bx)) + c * (1.0 - exp(dx))'
+    _leftSideHTML = 'y'
+    _coefficientDesignators = ['a', 'b', 'c', 'd']
+    _canLinearSolverBeUsedForSSQABS = False
+    
+    webReferenceURL = ''
+
+    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
+    autoGenerateOffsetForm = True
+    autoGenerateReciprocalForm = True
+    autoGenerateInverseForms = True
+    autoGenerateGrowthAndDecayForms = True
+
+    independentData1CannotContainZeroFlag = False
+    independentData1CannotContainPositiveFlag = False
+    independentData1CannotContainNegativeFlag = False
+    independentData2CannotContainZeroFlag = False
+    independentData2CannotContainPositiveFlag = False
+    independentData2CannotContainNegativeFlag = False
+    
+
+    def GetDataCacheFunctions(self):
+        functionList = []
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.X(NameOrValueFlag=1), []])
+        return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
+
+
+    def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
+        x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
+        
+        a = inCoeffs[0]
+        b = inCoeffs[1]
+        c = inCoeffs[2]
+        d = inCoeffs[3]
+
+        try:
+            temp = a * (1.0 - numpy.exp(b * x_in)) + c * (1.0 - numpy.exp(d * x_in))
+            return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
+        except:
+            return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
+
+
+    def SpecificCodeCPP(self):
+        s = "\ttemp = a * (1.0 - exp(b * x_in)) + c * (1.0 - exp(d * x_in));\n"
+        return s
+
+
+
 class BrunoTorremansQuadrupleExponential(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Bruno Torremans Quadruple Exponential"
