@@ -1,11 +1,12 @@
 import os, sys, inspect
 
 # ensure pyeq2 can be imported
-if os.path.join(sys.path[0][:sys.path[0].rfind(os.sep)], '../..') not in sys.path:
-    sys.path.append(os.path.join(sys.path[0][:sys.path[0].rfind(os.sep)], '../..'))
-import pyeq2
-
-
+exampleFileDirectory = sys.path[0][:sys.path[0].rfind(os.sep)]
+pyeq2IimportDirectory =  os.path.join(os.path.join(exampleFileDirectory, '..'), '..')
+if pyeq2IimportDirectory not in sys.path:
+    sys.path.append(pyeq2IimportDirectory)
+    
+    import pyeq2
 
 if __name__ == "__main__":
     fittingTargetText = 'SSQABS'

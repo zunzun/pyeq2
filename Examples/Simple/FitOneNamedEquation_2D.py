@@ -1,10 +1,11 @@
 import os, sys, inspect
 
 # ensure pyeq2 can be imported
-if os.path.join(sys.path[0][:sys.path[0].rfind(os.sep)], '../..') not in sys.path:
-    sys.path.append(os.path.join(sys.path[0][:sys.path[0].rfind(os.sep)], '../..'))
-import pyeq2
-
+importDir =  os.path.join(os.path.join(sys.path[0][:sys.path[0].rfind(os.sep)], '..'), '..')
+if importDir not in sys.path:
+    sys.path.append(importDir)
+    
+    import pyeq2
 
 
 if __name__ == "__main__":
