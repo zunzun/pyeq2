@@ -58,8 +58,26 @@ class IModel(object):
             
         if inFittingTarget not in self.fittingTargetDictionary.keys():
             raise Exception, str(inFittingTarget) + ' is not in the IModel class fitting target dictionary.'
+        self.fittingTarget = inFittingTarget
         
-        self.extendedVersionHandler = eval('pyeq2.ExtendedVersionHandlers.ExtendedVersionHandler_' + inExtendedVersionName.replace(' ', '') + '.ExtendedVersionHandler_' + inExtendedVersionName.replace(' ', '') + '()')
+        inExtendedVersionName = inExtendedVersionName.replace(' ', '')
+        if inExtendedVersionName not in  pyeq2.ExtendedVersionHandlers.extendedVersionHandlerNameList:
+            raise Exception(inExtendedVersionName + ' is not in the list of extended version handler names.')
+        
+        allowedExtendedVersion = True
+        if (-1 != inExtendedVersionName.find('Offset')) and (self.autoGenerateOffsetForm == False):
+            allowedExtendedVersion = False
+        if (-1 != inExtendedVersionName.find('Reciprocal')) and (self.autoGenerateReciprocalForm == False):
+            allowedExtendedVersion = False
+        if (-1 != inExtendedVersionName.find('Inverse')) and (self.autoGenerateInverseForms == False):
+            allowedExtendedVersion = False
+        if (-1 != inExtendedVersionName.find('Growth')) and (self.autoGenerateGrowthAndDecayForms == False):
+            allowedExtendedVersion = False
+        if (-1 != inExtendedVersionName.find('Decay')) and (self.autoGenerateGrowthAndDecayForms == False):
+            allowedExtendedVersion = False
+        if allowedExtendedVersion == False:
+            raise Exception('This equation does not allow an extended version named  "' + inExtendedVersionName + '".')            
+        self.extendedVersionHandler = eval('pyeq2.ExtendedVersionHandlers.ExtendedVersionHandler_' + inExtendedVersionName + '.ExtendedVersionHandler_' + inExtendedVersionName + '()')
         
         self.dataCache = pyeq2.dataCache()
         self.upperCoefficientBounds = []
@@ -73,7 +91,6 @@ class IModel(object):
         self.yPolynomialOrder = None
         self.rationalNumeratorFlags = []
         self.rationalDenominatorFlags = []
-        self.fittingTarget = inFittingTarget
         self.deEstimatedCoefficients = []
         
         try:
