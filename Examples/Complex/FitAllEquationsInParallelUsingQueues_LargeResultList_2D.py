@@ -223,191 +223,190 @@ def serialWorker(inputQueue, outputQueue):
 
 
 
-if __name__ == "__main__":
 
-    os.nice(10) ####################### I use this during development
-    
-    global globalDataCache 
-    globalDataCache = pyeq2.dataCache()
+os.nice(10) ####################### I use this during development
 
-    global globalReducedDataCache
-    globalReducedDataCache = {}
-    
-    global globalRawData
-    globalRawData = '''
-    5.357    0.376
-    5.457    0.489
-    5.797    0.874
-    5.936    1.049
-    6.161    1.327
-    6.697    2.054
-    6.731    2.077
-    6.775    2.138
-    8.442    4.744
-    9.769    7.068
-    9.861    7.104
-    '''
-    
-    # Standard lowest sum-of-squared errors in this example, see IModel.fittingTargetDictionary
-    fittingTargetText = 'SSQABS'
-        
-    
-    #####################################################
-    # this value is used to make the example run faster #
-    #####################################################
-    smoothnessControl = 3
-    
-    
-    ##################################################
-    # this list will hold the results of all fitting #
-    ##################################################
-    allResults = []
-    
-    
-    
-    ##############################################
-    # Serial region begins
-    ##############################################
+global globalDataCache 
+globalDataCache = pyeq2.dataCache()
 
-    # linear fits are very fast - run these in the existing process which saves on interprocess communication overhead
-    fittingTasksQueue = Queue.Queue(0)
-    fittingResultsQueue = Queue.Queue(0)
-    numberOfSerialTasksSubmitted = SubmitTasksToQueue(fittingTasksQueue, fittingTargetText, smoothnessControl, True)
-    if numberOfSerialTasksSubmitted > 0:
-        serialWorker(fittingTasksQueue, fittingResultsQueue)
-        for i in range(numberOfSerialTasksSubmitted):
+global globalReducedDataCache
+globalReducedDataCache = {}
+
+global globalRawData
+globalRawData = '''
+5.357    0.376
+5.457    0.489
+5.797    0.874
+5.936    1.049
+6.161    1.327
+6.697    2.054
+6.731    2.077
+6.775    2.138
+8.442    4.744
+9.769    7.068
+9.861    7.104
+'''
+
+# Standard lowest sum-of-squared errors in this example, see IModel.fittingTargetDictionary
+fittingTargetText = 'SSQABS'
+    
+
+#####################################################
+# this value is used to make the example run faster #
+#####################################################
+smoothnessControl = 3
+
+
+##################################################
+# this list will hold the results of all fitting #
+##################################################
+allResults = []
+
+
+
+##############################################
+# Serial region begins
+##############################################
+
+# linear fits are very fast - run these in the existing process which saves on interprocess communication overhead
+fittingTasksQueue = Queue.Queue(0)
+fittingResultsQueue = Queue.Queue(0)
+numberOfSerialTasksSubmitted = SubmitTasksToQueue(fittingTasksQueue, fittingTargetText, smoothnessControl, True)
+if numberOfSerialTasksSubmitted > 0:
+    serialWorker(fittingTasksQueue, fittingResultsQueue)
+    for i in range(numberOfSerialTasksSubmitted):
+        allResults.append(fittingResultsQueue.get())
+
+print str(numberOfSerialTasksSubmitted), 'total linear fits performed in series'
+
+##############################################
+# Serial region ends
+##############################################
+
+
+
+##############################################
+# Parallel region begins
+##############################################
+
+fittingTasksQueue = multiprocessing.Queue()
+fittingResultsQueue = multiprocessing.Queue()
+
+# how many CPU cores are on this computer?
+number_of_cpu_cores = multiprocessing.cpu_count()
+
+# submit nonlinear fitting tasks to the queue for parallel processing
+numberOfParallelTasksSubmitted = SubmitTasksToQueue(fittingTasksQueue, fittingTargetText, smoothnessControl, False)
+
+if numberOfParallelTasksSubmitted > 0:
+    processList = []
+    
+    # run worker processes
+    try:
+        for i in range(number_of_cpu_cores):
+            p = multiprocessing.Process(target=parallelWorker, args=(fittingTasksQueue, fittingResultsQueue))
+            p.start()
+            processList.append(p)
+    
+        # gather all results from the process pool
+        for i in range(numberOfParallelTasksSubmitted):
             allResults.append(fittingResultsQueue.get())
+            if i%10 == 0 and i > 0:
+                print i, 'non-linear fits performed in parallel'
+            
+    # terminate all worker processes
+    finally:
+        for p in processList:
+            try: # use try/except block for termination
+                p.terminate()
+            except:
+                pass
 
-    print str(numberOfSerialTasksSubmitted), 'total linear fits performed in series'
-    
-    ##############################################
-    # Serial region ends
-    ##############################################
-    
-    
-    
-    ##############################################
-    # Parallel region begins
-    ##############################################
-    
-    fittingTasksQueue = multiprocessing.Queue()
-    fittingResultsQueue = multiprocessing.Queue()
+print str(numberOfParallelTasksSubmitted), 'total non-linear fits performed in parallel'
 
-    # how many CPU cores are on this computer?
-    number_of_cpu_cores = multiprocessing.cpu_count()
+##############################################
+# Parallel region ends
+##############################################
 
-    # submit nonlinear fitting tasks to the queue for parallel processing
-    numberOfParallelTasksSubmitted = SubmitTasksToQueue(fittingTasksQueue, fittingTargetText, smoothnessControl, False)
 
-    if numberOfParallelTasksSubmitted > 0:
-        processList = []
-        
-        # run worker processes
-        try:
-            for i in range(number_of_cpu_cores):
-                p = multiprocessing.Process(target=parallelWorker, args=(fittingTasksQueue, fittingResultsQueue))
-                p.start()
-                processList.append(p)
-        
-            # gather all results from the process pool
-            for i in range(numberOfParallelTasksSubmitted):
-                allResults.append(fittingResultsQueue.get())
-                if i%10 == 0 and i > 0:
-                    print i, 'non-linear fits performed in parallel'
-                
-        # terminate all worker processes
-        finally:
-            for p in processList:
-                try: # use try/except block for termination
-                    p.terminate()
-                except:
-                    pass
-    
-    print str(numberOfParallelTasksSubmitted), 'total non-linear fits performed in parallel'
-    
-    ##############################################
-    # Parallel region ends
-    ##############################################
-    
-    
-    
-    print 'Completed fitting', str(numberOfSerialTasksSubmitted + numberOfParallelTasksSubmitted), 'equations.'
 
-    # find the best result of all the parallel runs
-    bestResult = []
-    for result in allResults:
-        if result != None:
-            if (not bestResult) or (result[3] < bestResult[3]):
-                bestResult = result
-    
+print 'Completed fitting', str(numberOfSerialTasksSubmitted + numberOfParallelTasksSubmitted), 'equations.'
+
+# find the best result of all the parallel runs
+bestResult = []
+for result in allResults:
+    if result != None:
+        if (not bestResult) or (result[3] < bestResult[3]):
+            bestResult = result
+
+print
+print
+print 'While \"Best Fit\" may be the lowest fitting target value,'
+print 'it requires further evaluation to determine if it is the best'
+print 'for your needs.  For example, it may interpolate badly.'
+print
+print '"Smoothness Control" allowed a maximum of ' + str(smoothnessControl) + ' parameters'
+
+moduleName = bestResult[0]
+className = bestResult[1]
+extendedVersionHandlerName = bestResult[2]
+fittingTarget = bestResult[3]
+solvedCoefficients = bestResult[4]
+polyfunctional2DFlags = bestResult[5]
+polynomialOrderX = bestResult[6]
+rationalNumeratorFlags = bestResult[7]
+rationalDenominatorFlags = bestResult[8]
+
+
+# now instantiate the "best fit" equation based on the name stored in the result list
+if polyfunctional2DFlags:
+    equation = eval(moduleName + "." + className + "('" + fittingTargetText + "', '" + extendedVersionHandlerName + "', " + str(polyfunctional2DFlags) + ")")
+elif polynomialOrderX != None:
+    equation = eval(moduleName + "." + className + "('" + fittingTargetText + "', '" + extendedVersionHandlerName + "', " + str(polynomialOrderX) + ")")
+elif rationalNumeratorFlags and rationalDenominatorFlags:
+    equation = eval(moduleName + "." + className + "('" + fittingTargetText + "', '" + extendedVersionHandlerName + "', " + str(rationalNumeratorFlags) + ", " + str(rationalDenominatorFlags) + ")")
+else:
+    equation = eval(moduleName + "." + className + "('" + fittingTargetText + "', '" + extendedVersionHandlerName + "')")
+
+
+pyeq2.dataConvertorService().ConvertAndSortColumnarASCII(globalRawData, equation, False)
+equation.fittingTarget = fittingTargetText
+equation.solvedCoefficients = solvedCoefficients
+equation.dataCache.FindOrCreateAllDataCache(equation)
+equation.CalculateModelErrors(equation.solvedCoefficients, equation.dataCache.allDataCacheDictionary)
+
+
+print
+print '\"Best fit\" was', moduleName + "." + className
+
+print 'Fitting target value', equation.fittingTarget + ":", equation.CalculateAllDataFittingTarget(equation.solvedCoefficients)
+
+if polyfunctional2DFlags:
     print
+    print 'Polyfunctional flags:', polyfunctional2DFlags
     print
-    print 'While \"Best Fit\" may be the lowest fitting target value,'
-    print 'it requires further evaluation to determine if it is the best'
-    print 'for your needs.  For example, it may interpolate badly.'
+if polynomialOrderX != None:
     print
-    print '"Smoothness Control" allowed a maximum of ' + str(smoothnessControl) + ' parameters'
-    
-    moduleName = bestResult[0]
-    className = bestResult[1]
-    extendedVersionHandlerName = bestResult[2]
-    fittingTarget = bestResult[3]
-    solvedCoefficients = bestResult[4]
-    polyfunctional2DFlags = bestResult[5]
-    polynomialOrderX = bestResult[6]
-    rationalNumeratorFlags = bestResult[7]
-    rationalDenominatorFlags = bestResult[8]
-    
-    
-    # now instantiate the "best fit" equation based on the name stored in the result list
-    if polyfunctional2DFlags:
-        equation = eval(moduleName + "." + className + "('" + fittingTargetText + "', '" + extendedVersionHandlerName + "', " + str(polyfunctional2DFlags) + ")")
-    elif polynomialOrderX != None:
-        equation = eval(moduleName + "." + className + "('" + fittingTargetText + "', '" + extendedVersionHandlerName + "', " + str(polynomialOrderX) + ")")
-    elif rationalNumeratorFlags and rationalDenominatorFlags:
-        equation = eval(moduleName + "." + className + "('" + fittingTargetText + "', '" + extendedVersionHandlerName + "', " + str(rationalNumeratorFlags) + ", " + str(rationalDenominatorFlags) + ")")
+    print 'Polynomial order:', polynomialOrderX
+    print
+if rationalNumeratorFlags and rationalDenominatorFlags:
+    print
+    print 'Rational numerator flags:', rationalNumeratorFlags
+    print 'Rational denominator flags:', rationalDenominatorFlags
+    if extendedVersionHandlerName == 'Offset':
+        print 'with offset'
+    print
+
+for i in range(len(equation.solvedCoefficients)):
+    print "Coefficient " + equation.GetCoefficientDesignators()[i] + ": " + str(equation.solvedCoefficients[i])
+print
+for i in range(len(equation.dataCache.allDataCacheDictionary['DependentData'])):
+    print 'X:', equation.dataCache.allDataCacheDictionary['IndependentData'][0][i],
+    print 'Y', equation.dataCache.allDataCacheDictionary['DependentData'][i],
+    print 'Model:', equation.modelPredictions[i],
+    print 'Abs. Error:', equation.modelAbsoluteError[i],
+    if not equation.dataCache.DependentDataContainsZeroFlag:
+        print 'Rel. Error:', equation.modelRelativeError[i],
+        print 'Percent Error:', equation.modelPercentError[i]
     else:
-        equation = eval(moduleName + "." + className + "('" + fittingTargetText + "', '" + extendedVersionHandlerName + "')")
-    
-    
-    pyeq2.dataConvertorService().ConvertAndSortColumnarASCII(globalRawData, equation, False)
-    equation.fittingTarget = fittingTargetText
-    equation.solvedCoefficients = solvedCoefficients
-    equation.dataCache.FindOrCreateAllDataCache(equation)
-    equation.CalculateModelErrors(equation.solvedCoefficients, equation.dataCache.allDataCacheDictionary)
-    
-    
-    print
-    print '\"Best fit\" was', moduleName + "." + className
-    
-    print 'Fitting target value', equation.fittingTarget + ":", equation.CalculateAllDataFittingTarget(equation.solvedCoefficients)
-    
-    if polyfunctional2DFlags:
         print
-        print 'Polyfunctional flags:', polyfunctional2DFlags
-        print
-    if polynomialOrderX != None:
-        print
-        print 'Polynomial order:', polynomialOrderX
-        print
-    if rationalNumeratorFlags and rationalDenominatorFlags:
-        print
-        print 'Rational numerator flags:', rationalNumeratorFlags
-        print 'Rational denominator flags:', rationalDenominatorFlags
-        if extendedVersionHandlerName == 'Offset':
-            print 'with offset'
-        print
-    
-    for i in range(len(equation.solvedCoefficients)):
-        print "Coefficient " + equation.GetCoefficientDesignators()[i] + ": " + str(equation.solvedCoefficients[i])
-    print
-    for i in range(len(equation.dataCache.allDataCacheDictionary['DependentData'])):
-        print 'X:', equation.dataCache.allDataCacheDictionary['IndependentData'][0][i],
-        print 'Y', equation.dataCache.allDataCacheDictionary['DependentData'][i],
-        print 'Model:', equation.modelPredictions[i],
-        print 'Abs. Error:', equation.modelAbsoluteError[i],
-        if not equation.dataCache.DependentDataContainsZeroFlag:
-            print 'Rel. Error:', equation.modelRelativeError[i],
-            print 'Percent Error:', equation.modelPercentError[i]
-        else:
-            print

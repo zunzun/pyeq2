@@ -8,18 +8,17 @@ if pyeq2IimportDirectory not in sys.path:
     
     import pyeq2
 
-if __name__ == "__main__":
 
-    for submodule in inspect.getmembers(pyeq2.Models_3D):
-        if inspect.ismodule(submodule[1]):
-            for equationClass in inspect.getmembers(submodule[1]):
-                if inspect.isclass(equationClass[1]):
-                    for extendedVersionName in ['Default', 'Offset']:
-                        
-                        if (-1 != extendedVersionName.find('Offset')) and (equationClass[1].autoGenerateOffsetForm == False):
-                            continue
-                        
-                        equation = equationClass[1]('SSQABS', extendedVersionName)
-                        print '3D ' + submodule[0] + ' --- ' + equation.GetDisplayName()
-                        
-    print 'Done.'
+for submodule in inspect.getmembers(pyeq2.Models_3D):
+    if inspect.ismodule(submodule[1]):
+        for equationClass in inspect.getmembers(submodule[1]):
+            if inspect.isclass(equationClass[1]):
+                for extendedVersionName in ['Default', 'Offset']:
+                    
+                    if (-1 != extendedVersionName.find('Offset')) and (equationClass[1].autoGenerateOffsetForm == False):
+                        continue
+                    
+                    equation = equationClass[1]('SSQABS', extendedVersionName)
+                    print '3D ' + submodule[0] + ' --- ' + equation.GetDisplayName()
+                    
+print 'Done.'

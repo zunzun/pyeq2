@@ -8,7 +8,6 @@ if pyeq2IimportDirectory not in sys.path:
     
     import pyeq2
 
-if __name__ == "__main__":
 
     simpleObject = pyeq2.IModel.IModel()
     simpleObject._dimensionality = 1

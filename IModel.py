@@ -179,6 +179,7 @@ class IModel(object):
             self.Fpv = None
 
         # Model log-likelihood, AIC, and BIC criterion values
+        # from http://stackoverflow.com/questions/7458391/python-multiple-linear-regression-using-ols-code-with-specific-data
         try:
             self.ll = -(self.nobs*0.5)*(1.0 + numpy.log(2.0*numpy.pi)) - (self.nobs*0.5)*numpy.log(numpy.dot(self.modelAbsoluteError,self.modelAbsoluteError)/self.nobs)
         except:

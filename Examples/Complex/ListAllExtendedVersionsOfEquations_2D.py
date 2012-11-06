@@ -8,17 +8,16 @@ if pyeq2IimportDirectory not in sys.path:
     
     import pyeq2
 
-if __name__ == "__main__":
 
-    for submodule in inspect.getmembers(pyeq2.Models_2D):
-        if inspect.ismodule(submodule[1]):
-            for equationClass in inspect.getmembers(submodule[1]):
-                if inspect.isclass(equationClass[1]):
-                    for extendedVersionName in pyeq2.ExtendedVersionHandlers.extendedVersionHandlerNameList:
-                        try:
-                            equation = equationClass[1]('SSQABS', extendedVersionName)
-                        except:
-                            continue
-                        print '2D ' + submodule[0] + ' --- ' + equation.GetDisplayName()
-                        
-    print 'Done.'
+for submodule in inspect.getmembers(pyeq2.Models_2D):
+    if inspect.ismodule(submodule[1]):
+        for equationClass in inspect.getmembers(submodule[1]):
+            if inspect.isclass(equationClass[1]):
+                for extendedVersionName in pyeq2.ExtendedVersionHandlers.extendedVersionHandlerNameList:
+                    try:
+                        equation = equationClass[1]('SSQABS', extendedVersionName)
+                    except:
+                        continue
+                    print '2D ' + submodule[0] + ' --- ' + equation.GetDisplayName()
+                    
+print 'Done.'
