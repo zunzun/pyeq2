@@ -1,3 +1,7 @@
+from __future__ import print_function # prepare for conversion to Python 3
+from __future__ import unicode_literals # prepare for conversion to Python 3
+from __future__ import absolute_import # prepare for conversion to Python 3
+
 #    pyeq2 is a collection of equations expressed as Python classes
 #
 #    Copyright (C) 2012 James R. Phillips
@@ -9,21 +13,21 @@
 #
 #    License: BSD-style (see LICENSE.txt in main source directory)
 
-import BioScience
-import EnzymeKinetics
-import Exponential
-import Logarithmic
-import Miscellaneous
-import Optical
-import Peak
-import Polyfunctional
-import Polynomial
-import Power
-import Rational
-import RomanSurfaces
-import Sigmoidal
-import Simple
-import Spline
-import TaylorSeries
-import Trigonometric
-import UserDefinedFunction
+from . import BioScience
+from . import EnzymeKinetics
+from . import Exponential
+from . import Logarithmic
+from . import Miscellaneous
+from . import Optical
+from . import Peak
+from . import Polyfunctional
+from . import Polynomial
+from . import Power
+from . import Rational
+from . import RomanSurfaces
+from . import Sigmoidal
+from . import Simple
+from . import Spline
+from . import TaylorSeries
+from . import Trigonometric
+from . import UserDefinedFunction

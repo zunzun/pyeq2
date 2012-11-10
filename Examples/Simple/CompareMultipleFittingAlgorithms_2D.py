@@ -1,3 +1,7 @@
+from __future__ import print_function # prepare for conversion to Python 3
+from __future__ import unicode_literals # prepare for conversion to Python 3
+from __future__ import absolute_import # prepare for conversion to Python 3
+
 import os, sys, inspect
 
 # ensure pyeq2 can be imported
@@ -12,9 +16,9 @@ fittingTargetText = 'SSQABS'
 
 deEstimatedCoefficients = []
 
-print 'It is very rare for an algorithm to fit better than Levenberg-Marquardt,'
-print 'however this particular example shows that it is at least barely possible.'
-print
+print('It is very rare for an algorithm to fit better than Levenberg-Marquardt,')
+print('however this particular example shows that it is at least barely possible.')
+print()
 
 for fittingAlgorithmName in pyeq2.solverService.ListOfNonLinearSolverAlgorithmNames[:2]: # only two algorithms used in this example
     equation = pyeq2.Models_2D.BioScience.AphidPopulationGrowth(fittingTargetText, 'Offset')
@@ -33,7 +37,7 @@ for fittingAlgorithmName in pyeq2.solverService.ListOfNonLinearSolverAlgorithmNa
     equation.Solve(inNonLinearSolverAlgorithmName=fittingAlgorithmName)
     deEstimatedCoefficients = equation.deEstimatedCoefficients # no need to re-run DE
     
-    print fittingTargetText, 'of', equation.CalculateAllDataFittingTarget(equation.solvedCoefficients), 'for the fitting algorithm', fittingAlgorithmName
-    print 'Coefficients:', equation.solvedCoefficients
-    print
+    print(fittingTargetText, 'of', equation.CalculateAllDataFittingTarget(equation.solvedCoefficients), 'for the fitting algorithm', fittingAlgorithmName)
+    print('Coefficients:', equation.solvedCoefficients)
+    ()
     sys.stdout.flush()

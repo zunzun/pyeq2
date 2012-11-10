@@ -1,3 +1,7 @@
+from __future__ import print_function # prepare for conversion to Python 3
+from __future__ import unicode_literals # prepare for conversion to Python 3
+from __future__ import absolute_import # prepare for conversion to Python 3
+
 asciiDataInFourColumns_small = '''
  3.017  2.175   0.320  0.1
  2.822  2.624   2.753  0.2

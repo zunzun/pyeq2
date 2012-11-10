@@ -1,3 +1,7 @@
+from __future__ import print_function # prepare for conversion to Python 3
+from __future__ import unicode_literals # prepare for conversion to Python 3
+from __future__ import absolute_import # prepare for conversion to Python 3
+
 import os, sys
 
 # ensure pyeq2 can be imported
@@ -82,19 +86,19 @@ def CalculateAndPrintResults(equation, nistDataObject, inStartValues, inStartVal
     
     
     if inPrintFlag:
-        print equation.GetDisplayName(), str(equation.GetDimensionality()) + "D", '- using "' + inStartValuesString + '" values'
-        print equation.fittingTargetDictionary[equation.fittingTarget], '=',
-        print ssqString + ', should be',
-        print nistDataObject.ResidualSumOfSquaresValue, compareString
+        print(equation.GetDisplayName(), str(equation.GetDimensionality()) + "D", '- using "' + inStartValuesString + '" values')
+        print(equation.fittingTargetDictionary[equation.fittingTarget], '=',)
+        print(ssqString + ', should be',)
+        print(nistDataObject.ResidualSumOfSquaresValue, compareString)
         
-        print "Parameters:"
+        print("Parameters:")
         for i in range(len(equation.solvedCoefficients)):
             spacer = ' '
             if equation.solvedCoefficients[i] < 0.0:
                 spacer = ''
-            print "    %s = %s%-.10E" % (equation.GetCoefficientDesignators()[i], spacer, equation.solvedCoefficients[i]),
-            print '(NIST Cert. %s%-.10E, NIST est. %s%-.5E' % (spacer, nistDataObject.CertifiedValues[i], spacer, inStartValues[i])
+            print("    %s = %s%-.10E" % (equation.GetCoefficientDesignators()[i], spacer, equation.solvedCoefficients[i]),)
+            print('(NIST Cert. %s%-.10E, NIST est. %s%-.5E' % (spacer, nistDataObject.CertifiedValues[i], spacer, inStartValues[i]))
         
-        print
+        print()
     
     return betterThanOrEqualToNIST

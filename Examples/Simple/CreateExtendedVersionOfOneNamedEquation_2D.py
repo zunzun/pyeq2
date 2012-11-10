@@ -1,3 +1,7 @@
+from __future__ import print_function # prepare for conversion to Python 3
+from __future__ import unicode_literals # prepare for conversion to Python 3
+from __future__ import absolute_import # prepare for conversion to Python 3
+
 import os, sys, inspect
 
 # ensure pyeq2 can be imported
@@ -10,11 +14,11 @@ if pyeq2IimportDirectory not in sys.path:
 
 
 # print all possible extended version names
-print "List of all possible extended version names"
+print("List of all possible extended version names")
 for extendedVersionName in pyeq2.ExtendedVersionHandlers.extendedVersionHandlerNameList:
-    print extendedVersionName
+    print(extendedVersionName)
     
-print
+print()
 
 # create an extended version of one equation
 equation = pyeq2.Models_2D.BioScience.HyperbolicLogistic('SSQABS', 'InverseWithOffset')
@@ -22,9 +26,9 @@ equation = pyeq2.Models_2D.BioScience.HyperbolicLogistic('SSQABS', 'InverseWithO
 # note that the extended version name can contain spaces
 equation = pyeq2.Models_2D.BioScience.HyperbolicLogistic('SSQABS', 'Inverse With Offset')
 
-print "Instantiated", equation.GetDisplayName()
+print("Instantiated", equation.GetDisplayName())
 
-print
+print()
 
-#print "This should raise an exception"
+#print("This should raise an exception")
 #equation = pyeq2.Models_2D.BioScience.HyperbolicLogistic('SSQABS', 'Bad Extended Version Name')

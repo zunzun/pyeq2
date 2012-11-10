@@ -1,3 +1,7 @@
+from __future__ import print_function # prepare for conversion to Python 3
+from __future__ import unicode_literals # prepare for conversion to Python 3
+from __future__ import absolute_import # prepare for conversion to Python 3
+
 #    pyeq2 is a collection of equations expressed as Python classes
 #
 #    Copyright (C) 2012 James R. Phillips
@@ -10,7 +14,7 @@
 #    License: BSD-style (see LICENSE.txt in main source directory)
 
 import pyeq2
-import IExtendedVersionHandler
+from . import IExtendedVersionHandler
 
 import numpy
 numpy.seterr(over = 'raise', divide = 'raise', invalid = 'raise', under = 'ignore') # numpy raises warnings, convert to exceptions to trap them

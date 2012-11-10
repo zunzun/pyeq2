@@ -1,3 +1,7 @@
+from __future__ import print_function # prepare for conversion to Python 3
+from __future__ import unicode_literals # prepare for conversion to Python 3
+from __future__ import absolute_import # prepare for conversion to Python 3
+
 #    pyeq2 is a collection of equations expressed as Python classes
 #
 #    Copyright (C) 2012 James R. Phillips
@@ -9,20 +13,20 @@
 #
 #    License: BSD-style (see LICENSE.txt in main source directory)
 
-import ExtendedVersionHandler_Default
-import ExtendedVersionHandler_Offset
-import ExtendedVersionHandler_Reciprocal
-import ExtendedVersionHandler_ReciprocalWithOffset
-import ExtendedVersionHandler_Inverse
-import ExtendedVersionHandler_InverseWithOffset
-import ExtendedVersionHandler_LinearDecay
-import ExtendedVersionHandler_LinearDecayAndOffset
-import ExtendedVersionHandler_LinearGrowth
-import ExtendedVersionHandler_LinearGrowthAndOffset
-import ExtendedVersionHandler_ExponentialGrowth
-import ExtendedVersionHandler_ExponentialGrowthAndOffset
-import ExtendedVersionHandler_ExponentialDecay
-import ExtendedVersionHandler_ExponentialDecayAndOffset
+from . import ExtendedVersionHandler_Default
+from . import ExtendedVersionHandler_Offset
+from . import ExtendedVersionHandler_Reciprocal
+from . import ExtendedVersionHandler_ReciprocalWithOffset
+from . import ExtendedVersionHandler_Inverse
+from . import ExtendedVersionHandler_InverseWithOffset
+from . import ExtendedVersionHandler_LinearDecay
+from . import ExtendedVersionHandler_LinearDecayAndOffset
+from . import ExtendedVersionHandler_LinearGrowth
+from . import ExtendedVersionHandler_LinearGrowthAndOffset
+from . import ExtendedVersionHandler_ExponentialGrowth
+from . import ExtendedVersionHandler_ExponentialGrowthAndOffset
+from . import ExtendedVersionHandler_ExponentialDecay
+from . import ExtendedVersionHandler_ExponentialDecayAndOffset
 
 extendedVersionHandlerNameList = []
 for i in dir():

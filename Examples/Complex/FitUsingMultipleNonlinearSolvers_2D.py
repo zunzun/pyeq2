@@ -1,3 +1,7 @@
+from __future__ import print_function # prepare for conversion to Python 3
+from __future__ import unicode_literals # prepare for conversion to Python 3
+from __future__ import absolute_import # prepare for conversion to Python 3
+
 from __future__ import generators
 import os, sys, inspect, copy
 
@@ -47,7 +51,7 @@ def SetParametersAndFit(inEquation, inBestResult, inPrintStatus, inFittingAlgori
             return None
 
         if inPrintStatus and inFittingAlgorithmName == 'Levenberg-Marquardt':
-            print 'Fitting', inEquation.__module__, "'" + inEquation.GetDisplayName() + "'"
+            print('Fitting', inEquation.__module__, "'" + inEquation.GetDisplayName() + "'")
         
         inEquation.Solve(inNonLinearSolverAlgorithmName=inFittingAlgorithmName)
         
@@ -55,7 +59,7 @@ def SetParametersAndFit(inEquation, inBestResult, inPrintStatus, inFittingAlgori
         if target > 1.0E290: # error too large
             return None
     except:
-        print "Exception in " + inEquation.__class__.__name__ + '\n' + str(sys.exc_info()[0]) + '\n' + str(sys.exc_info()[1]) + '\n'
+        print("Exception in " + inEquation.__class__.__name__ + '\n' + str(sys.exc_info()[0]) + '\n' + str(sys.exc_info()[1]) + '\n')
         return None
 
     if (not inBestResult) or (target < inBestResult[3]):
@@ -113,8 +117,8 @@ smoothnessControl = 3
 
 ##########################
 # fit named equations here
-print
-print 'Fitting named equations that use non-linear solvers for a fitting target of', fittingTargetText
+print()
+print('Fitting named equations that use non-linear solvers for a fitting target of', fittingTargetText)
 for submodule in inspect.getmembers(pyeq2.Models_2D):
     if inspect.ismodule(submodule[1]):
         for equationClass in inspect.getmembers(submodule[1]):
@@ -164,8 +168,8 @@ for submodule in inspect.getmembers(pyeq2.Models_2D):
                         if result:
                             bestResult = result
                             if bestResult[9] != 'Levenberg-Marquardt':
-                                print 'The', bestResult[9], 'algorithm yielded better results than Levenberg-Marquardt on this data set for a fitting target of', fittingTargetText
-                                print
+                                print('The', bestResult[9], 'algorithm yielded better results than Levenberg-Marquardt on this data set for a fitting target of', fittingTargetText)
+                                print()
                     
                         if not reducedDataCache.has_key(equationInstance.numberOfReducedDataPoints):
                             reducedDataCache[equationInstance.numberOfReducedDataPoints] = equationInstance.dataCache.reducedDataCacheDictionary
@@ -174,8 +178,8 @@ for submodule in inspect.getmembers(pyeq2.Models_2D):
 
 ##########################
 # fit polyfunctionals here
-print
-print 'Fitting polyfunctionals that use non-linear solvers for a fitting target of', fittingTargetText
+print()
+print('Fitting polyfunctionals that use non-linear solvers for a fitting target of', fittingTargetText)
 equationCount = 0
 maxPolyfunctionalCoefficients = 4 # this value was chosen to make this example more convenient
 polyfunctionalEquationList = pyeq2.PolyFunctions.GenerateListForPolyfunctionals_2D()
@@ -216,22 +220,22 @@ for coeffCount in range(1, maxPolyfunctionalCoefficients+1):
             if result:
                 bestResult = result
                 if bestResult[9] != 'Levenberg-Marquardt':
-                    print 'The', bestResult[9], 'algorithm yielded better results than Levenberg-Marquardt on this data set for a fitting target of', fittingTargetText
-                    print
+                    print('The', bestResult[9], 'algorithm yielded better results than Levenberg-Marquardt on this data set for a fitting target of', fittingTargetText)
+                    print()
 
             if not reducedDataCache.has_key(equationInstance.numberOfReducedDataPoints):
                 reducedDataCache[equationInstance.numberOfReducedDataPoints] = equationInstance.dataCache.reducedDataCacheDictionary
         
         equationCount += 1
         if (equationCount % 250) == 0:
-            print '    ', equationCount, '...'
+            print('    ', equationCount, '...')
 
 
 
 ######################
 # fit user-selectable polynomials here
-print
-print 'Fitting user-selectable polynomials that use non-linear solvers for a fitting target of', fittingTargetText
+print()
+print('Fitting user-selectable polynomials that use non-linear solvers for a fitting target of', fittingTargetText
 maxPolynomialOrderX = 5 # this value was chosen to make this example more convenient
 
 for polynomialOrderX in range(maxPolynomialOrderX+1):
@@ -267,8 +271,8 @@ for polynomialOrderX in range(maxPolynomialOrderX+1):
         if result:
             bestResult = result
             if bestResult[9] != 'Levenberg-Marquardt':
-                print 'The', bestResult[9], 'algorithm yielded better results than Levenberg-Marquardt on this data set for a fitting target of', fittingTargetText
-                print
+                print('The', bestResult[9], 'algorithm yielded better results than Levenberg-Marquardt on this data set for a fitting target of', fittingTargetText)
+                print()
 
         if not reducedDataCache.has_key(equationInstance.numberOfReducedDataPoints):
             reducedDataCache[equationInstance.numberOfReducedDataPoints] = equationInstance.dataCache.reducedDataCacheDictionary
@@ -277,8 +281,8 @@ for polynomialOrderX in range(maxPolynomialOrderX+1):
 
 ######################
 # fit user-selectable rationals here
-print
-print 'Fitting user-selectable rationals that use non-linear solvers for a fitting target of', fittingTargetText
+print()
+print('Fitting user-selectable rationals that use non-linear solvers for a fitting target of', fittingTargetText)
 equationCount = 0
 maxCoeffs = 3 # arbitrary choice of maximum total coefficients for this example
 functionList = pyeq2.PolyFunctions.GenerateListForRationals_2D()
@@ -328,17 +332,17 @@ for numeratorCoeffCount in range(1, maxCoeffs):
                         if result:
                             bestResult = result
                             if bestResult[9] != 'Levenberg-Marquardt':
-                                print 'The', bestResult[9], 'algorithm yielded better results than Levenberg-Marquardt on this data set for a fitting target of', fittingTargetText
-                                print
+                                print('The', bestResult[9], 'algorithm yielded better results than Levenberg-Marquardt on this data set for a fitting target of', fittingTargetText)
+                                print()
                     
                         if not reducedDataCache.has_key(equationInstance.numberOfReducedDataPoints):
                             reducedDataCache[equationInstance.numberOfReducedDataPoints] = equationInstance.dataCache.reducedDataCacheDictionary
     
                     equationCount += 1
                     if (equationCount % 5) == 0:
-                        print '    ', equationCount, 'rationals, current flags:', equationInstance.rationalNumeratorFlags, equationInstance.rationalDenominatorFlags,
+                        print('    ', equationCount, 'rationals, current flags:', equationInstance.rationalNumeratorFlags, equationInstance.rationalDenominatorFlags,)
                         if extendedVersion == 'Offset':
-                            print 'with offset'
+                            print('with offset')()
                         else:
-                            print
+                            print()
 

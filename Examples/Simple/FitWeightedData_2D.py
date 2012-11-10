@@ -1,3 +1,7 @@
+from __future__ import print_function # prepare for conversion to Python 3
+from __future__ import unicode_literals # prepare for conversion to Python 3
+from __future__ import absolute_import # prepare for conversion to Python 3
+
 import os, sys, inspect
 
 # ensure pyeq2 can be imported
@@ -33,26 +37,26 @@ equation.Solve()
 ##########################################################
 
 
-print "Equation:", equation.GetDisplayName(), str(equation.GetDimensionality()) + "D"
-print "Fitting target of", equation.fittingTargetDictionary[equation.fittingTarget], '=', equation.CalculateAllDataFittingTarget(equation.solvedCoefficients)
-print "Fitted Parameters:"
+print("Equation:", equation.GetDisplayName(), str(equation.GetDimensionality()) + "D")
+print("Fitting target of", equation.fittingTargetDictionary[equation.fittingTarget], '=', equation.CalculateAllDataFittingTarget(equation.solvedCoefficients))
+print("Fitted Parameters:")
 for i in range(len(equation.solvedCoefficients)):
-    print "    %s = %-.16E" % (equation.GetCoefficientDesignators()[i], equation.solvedCoefficients[i])
+    print("    %s = %-.16E" % (equation.GetCoefficientDesignators()[i], equation.solvedCoefficients[i]))
 
 
 equation.CalculateModelErrors(equation.solvedCoefficients, equation.dataCache.allDataCacheDictionary)
-print
+print()
 for i in range(len(equation.dataCache.allDataCacheDictionary['DependentData'])):
-    print 'X:', equation.dataCache.allDataCacheDictionary['IndependentData'][0][i],
-    print 'Y:', equation.dataCache.allDataCacheDictionary['DependentData'][i],
-    print 'Model:', equation.modelPredictions[i],
-    print 'Abs. Error:', equation.modelAbsoluteError[i],
+    print('X:', equation.dataCache.allDataCacheDictionary['IndependentData'][0][i],)
+    print('Y:', equation.dataCache.allDataCacheDictionary['DependentData'][i],)
+    print('Model:', equation.modelPredictions[i],)
+    print('Abs. Error:', equation.modelAbsoluteError[i],)
     if not equation.dataCache.DependentDataContainsZeroFlag:
-        print 'Rel. Error:', equation.modelRelativeError[i],
-        print 'Percent Error:', equation.modelPercentError[i]
+        print('Rel. Error:', equation.modelRelativeError[i],)
+        print('Percent Error:', equation.modelPercentError[i])
     else:
-        print
-print
+        print()
+print()
 
 
 ##########################################################
@@ -61,52 +65,52 @@ print
 equation.CalculateCoefficientAndFitStatistics()
 
 
-print 'Degress of freedom error',  equation.df_e_weighted
-print 'Degress of freedom regression',  equation.df_r_weighted
+print('Degress of freedom error',  equation.df_e_weighted)
+print('Degress of freedom regression',  equation.df_r_weighted)
 
 if equation.rmse_weighted == None:
-    print 'Root Mean Squared Error (RMSE) (weighted): n/a'
+    print('Root Mean Squared Error (RMSE) (weighted): n/a')
 else:
-    print 'Root Mean Squared Error (RMSE) (weighted):',  equation.rmse_weighted
+    print('Root Mean Squared Error (RMSE) (weighted):',  equation.rmse_weighted)
 
 if equation.r2_weighted == None:
-    print 'R-squared (weighted): n/a'
+    print('R-squared (weighted): n/a')
 else:
-    print 'R-squared (weighted):',  equation.r2_weighted
+    print('R-squared (weighted):',  equation.r2_weighted)
 
 if equation.r2adj_weighted == None:
-    print 'R-squared adjusted (weighted): n/a'
+    print('R-squared adjusted (weighted): n/a')
 else:
-    print 'R-squared adjusted (weighted):',  equation.r2adj_weighted
+    print('R-squared adjusted (weighted):',  equation.r2adj_weighted)
 
 if equation.Fstat_weighted == None:
-    print 'Model F-statistic (weighted): n/a'
+    print('Model F-statistic (weighted): n/a')
 else:
-    print 'Model F-statistic (weighted):',  equation.Fstat_weighted
+    print('Model F-statistic (weighted):',  equation.Fstat_weighted)
 
 if equation.Fpv_weighted == None:
-    print 'Model F-statistic p-value (weighted): n/a'
+    print('Model F-statistic p-value (weighted): n/a')
 else:
-    print 'Model F-statistic p-value (weighted):',  equation.Fpv_weighted
+    print('Model F-statistic p-value (weighted):',  equation.Fpv_weighted)
 
 if equation.ll_weighted == None:
-    print 'Model log-likelihood (weighted): n/a'
+    print('Model log-likelihood (weighted): n/a')
 else:
-    print 'Model log-likelihood (weighted):',  equation.ll_weighted
+    print('Model log-likelihood (weighted):',  equation.ll_weighted)
 
 if equation.aic_weighted == None:
-    print 'Model AIC (weighted): n/a'
+    print('Model AIC (weighted): n/a')
 else:
-    print 'Model AIC (weighted):',  equation.aic_weighted
+    print('Model AIC (weighted):',  equation.aic_weighted)
 
 if equation.bic_weighted == None:
-    print 'Model BIC (weighted): n/a'
+    print('Model BIC (weighted): n/a')
 else:
-    print 'Model BIC (weighted):',  equation.bic_weighted
+    print('Model BIC (weighted):',  equation.bic_weighted)
 
 
-print
-print "Individual Parameter Statistics:"
+print()
+print("Individual Parameter Statistics:")
 for i in range(len(equation.solvedCoefficients)):
     if equation.tstat_beta_weighted == None:
         tstat = 'n/a'
@@ -119,13 +123,13 @@ for i in range(len(equation.solvedCoefficients)):
         pstat = '%-.5E' %  ( equation.pstat_beta_weighted[i])
 
     if equation.sd_beta_weighted != None:
-        print "Coefficient %s = %-.16E, std error squared (weighted): %-.5E" % (equation.GetCoefficientDesignators()[i], equation.solvedCoefficients[i], equation.sd_beta_weighted[i])
+        print("Coefficient %s = %-.16E, std error squared (weighted): %-.5E" % (equation.GetCoefficientDesignators()[i], equation.solvedCoefficients[i], equation.sd_beta_weighted[i]))
     else:
-        print "Coefficient %s = %-.16E, std error squared (weighted): n/a" % (equation.GetCoefficientDesignators()[i], equation.solvedCoefficients[i])
-    print "          t-stat (weighted): %s, p-stat (weighted): %s, 95 percent confidence intervals (weighted): [%-.5E, %-.5E]" % (tstat,  pstat, equation.ci_weighted[i][0], equation.ci_weighted[i][1])
+        print("Coefficient %s = %-.16E, std error squared (weighted): n/a" % (equation.GetCoefficientDesignators()[i], equation.solvedCoefficients[i]))
+    print("          t-stat (weighted): %s, p-stat (weighted): %s, 95 percent confidence intervals (weighted): [%-.5E, %-.5E]" % (tstat,  pstat, equation.ci_weighted[i][0], equation.ci_weighted[i][1]))
 
 
-print
-print "Coefficient Covariance Matrix (weighted):"
+print()
+print("Coefficient Covariance Matrix (weighted):")
 for i in  equation.cov_beta_weighted:
-    print i
+    print(i)

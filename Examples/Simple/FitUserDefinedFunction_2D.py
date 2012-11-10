@@ -1,3 +1,7 @@
+from __future__ import print_function # prepare for conversion to Python 3
+from __future__ import unicode_literals # prepare for conversion to Python 3
+from __future__ import absolute_import # prepare for conversion to Python 3
+
 import os, sys, inspect
 
 # ensure pyeq2 can be imported
@@ -22,9 +26,9 @@ equation.Solve()
 ##########################################################
 
 
-print equation.GetDisplayName(), str(equation.GetDimensionality()) + "D"
-print 'User Defined Function:', functionString
-print equation.fittingTargetDictionary[equation.fittingTarget], '=', equation.CalculateAllDataFittingTarget(equation.solvedCoefficients)
-print "Fitted Parameters:"
+print(equation.GetDisplayName(), str(equation.GetDimensionality()) + "D")
+print('User Defined Function:', functionString)
+print(equation.fittingTargetDictionary[equation.fittingTarget], '=', equation.CalculateAllDataFittingTarget(equation.solvedCoefficients))
+print("Fitted Parameters:")
 for i in range(len(equation.solvedCoefficients)):
-    print "    %s = %-.16E" % (equation.GetCoefficientDesignators()[i], equation.solvedCoefficients[i])
+    print("    %s = %-.16E" % (equation.GetCoefficientDesignators()[i], equation.solvedCoefficients[i]))

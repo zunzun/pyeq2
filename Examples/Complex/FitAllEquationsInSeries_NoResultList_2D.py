@@ -1,3 +1,7 @@
+from __future__ import print_function # prepare for conversion to Python 3
+from __future__ import unicode_literals # prepare for conversion to Python 3
+from __future__ import absolute_import # prepare for conversion to Python 3
+
 from __future__ import generators
 import os, sys, inspect, copy
 
@@ -47,7 +51,7 @@ def SetParametersAndFit(inEquation, inBestResult, inPrintStatus): # utility func
             return
 
         if inPrintStatus:
-            print 'Fitting', inEquation.__module__, "'" + inEquation.GetDisplayName() + "'"
+            print('Fitting', inEquation.__module__, "'" + inEquation.GetDisplayName() + "'")
         
         inEquation.Solve()
         
@@ -55,7 +59,7 @@ def SetParametersAndFit(inEquation, inBestResult, inPrintStatus): # utility func
         if target > 1.0E290: # error too large
             return
     except:
-        print "Exception in " + inEquation.__class__.__name__ + '\n' + str(sys.exc_info()[0]) + '\n' + str(sys.exc_info()[1]) + '\n'
+        print("Exception in " + inEquation.__class__.__name__ + '\n' + str(sys.exc_info()[0]) + '\n' + str(sys.exc_info()[1]) + '\n')
         return None
 
     if (not inBestResult) or (target < inBestResult[3]):
@@ -156,8 +160,8 @@ for submodule in inspect.getmembers(pyeq2.Models_2D):
 
 ##########################
 # fit polyfunctionals here
-print
-print 'Fitting polyfunctionals:'
+print()
+print('Fitting polyfunctionals:'()
 equationCount = 0
 maxPolyfunctionalCoefficients = 4 # this value was chosen to make this example more convenient
 polyfunctionalEquationList = pyeq2.PolyFunctions.GenerateListForPolyfunctionals_2D()
@@ -192,14 +196,14 @@ for coeffCount in range(1, maxPolyfunctionalCoefficients+1):
         
         equationCount += 1
         if (equationCount % 250) == 0:
-            print '    ', equationCount, '...'
+            print('    ', equationCount, '...')
 
 
 
 ######################
 # fit user-selectable polynomials here
-print
-print 'Fitting user-selectable polynomials:'
+print()
+print('Fitting user-selectable polynomials:')
 maxPolynomialOrderX = 5 # this value was chosen to make this example more convenient
 
 for polynomialOrderX in range(maxPolynomialOrderX+1):
@@ -231,8 +235,8 @@ for polynomialOrderX in range(maxPolynomialOrderX+1):
 
 ######################
 # fit user-selectable rationals here
-print
-print 'Fitting user-selectable rationals:'
+print()
+print('Fitting user-selectable rationals:')
 equationCount = 0
 maxCoeffs = smoothnessControl # arbitrary choice of maximum total coefficients for this example
 functionList = pyeq2.PolyFunctions.GenerateListForRationals_2D()
@@ -276,21 +280,21 @@ for numeratorCoeffCount in range(1, maxCoeffs):
     
                     equationCount += 1
                     if (equationCount % 5) == 0:
-                        print '    ', equationCount, 'rationals, current flags:', equationInstance.rationalNumeratorFlags, equationInstance.rationalDenominatorFlags,
+                        print('    ', equationCount, 'rationals, current flags:', equationInstance.rationalNumeratorFlags, equationInstance.rationalDenominatorFlags,)
                         if extendedVersion == 'Offset':
-                            print 'with offset'
+                            print('with offset')
                         else:
-                            print
+                            print()
 
 
 
-print
-print
-print 'While \"Best Fit\" may be the lowest fitting target value,'
-print 'it requires further evaluation to determine if it is the best'
-print 'for your needs.  For example, it may interpolate badly.'
-print
-print '"Smoothness Control" allowed a maximum of ' + str(smoothnessControl) + ' parameters'
+print()
+print()
+print('While \"Best Fit\" may be the lowest fitting target value,')
+print('it requires further evaluation to determine if it is the best')
+print('for your needs.  For example, it may interpolate badly.')
+print()
+print('"Smoothness Control" allowed a maximum of ' + str(smoothnessControl) + ' parameters')
 
 moduleName = bestResult[0]
 className = bestResult[1]
@@ -321,37 +325,37 @@ equation.dataCache.FindOrCreateAllDataCache(equation)
 equation.CalculateModelErrors(equation.solvedCoefficients, equation.dataCache.allDataCacheDictionary)
 
 
-print
-print '\"Best fit\" was', moduleName + "." + className
+print()
+print('\"Best fit\" was', moduleName + "." + className)
 
-print 'Fitting target value', equation.fittingTarget + ":", equation.CalculateAllDataFittingTarget(equation.solvedCoefficients)
+print('Fitting target value', equation.fittingTarget + ":", equation.CalculateAllDataFittingTarget(equation.solvedCoefficients))
 
 if polyfunctional2DFlags:
-    print
-    print 'Polyfunctional flags:', polyfunctional2DFlags
-    print
+    print()
+    print('Polyfunctional flags:', polyfunctional2DFlags)
+    print()
 if polynomialOrderX != None:
-    print
-    print 'Polynomial order:', polynomialOrderX
-    print
+    print()
+    print('Polynomial order:', polynomialOrderX)
+    print()
 if rationalNumeratorFlags and rationalDenominatorFlags:
-    print
-    print 'Rational numerator flags:', rationalNumeratorFlags
-    print 'Rational denominator flags:', rationalDenominatorFlags
+    print()
+    print('Rational numerator flags:', rationalNumeratorFlags)
+    print('Rational denominator flags:', rationalDenominatorFlags)
     if extendedVersionHandlerName == 'Offset':
-        print 'with offset'
-    print
+        print('with offset')
+    print()
 
 for i in range(len(equation.solvedCoefficients)):
-    print "Coefficient " + equation.GetCoefficientDesignators()[i] + ": " + str(equation.solvedCoefficients[i])
-print
+    print("Coefficient " + equation.GetCoefficientDesignators()[i] + ": " + str(equation.solvedCoefficients[i]))
+print()
 for i in range(len(equation.dataCache.allDataCacheDictionary['DependentData'])):
-    print 'X:', equation.dataCache.allDataCacheDictionary['IndependentData'][0][i],
-    print 'Y', equation.dataCache.allDataCacheDictionary['DependentData'][i],
-    print 'Model:', equation.modelPredictions[i],
-    print 'Abs. Error:', equation.modelAbsoluteError[i],
+    print('X:', equation.dataCache.allDataCacheDictionary['IndependentData'][0][i],)
+    print('Y', equation.dataCache.allDataCacheDictionary['DependentData'][i],)
+    print('Model:', equation.modelPredictions[i],)
+    print('Abs. Error:', equation.modelAbsoluteError[i],)
     if not equation.dataCache.DependentDataContainsZeroFlag:
-        print 'Rel. Error:', equation.modelRelativeError[i],
-        print 'Percent Error:', equation.modelPercentError[i]
+        print('Rel. Error:', equation.modelRelativeError[i],)
+        print('Percent Error:', equation.modelPercentError[i])
     else:
-        print
+        print()

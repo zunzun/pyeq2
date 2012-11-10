@@ -1,3 +1,7 @@
+from __future__ import print_function # prepare for conversion to Python 3
+from __future__ import unicode_literals # prepare for conversion to Python 3
+from __future__ import absolute_import # prepare for conversion to Python 3
+
 #    pyeq2 is a collection of equations expressed as Python classes
 #
 #    Copyright (C) 2012 James R. Phillips
@@ -13,7 +17,7 @@ import numpy, scipy.interpolate, scipy.optimize, scipy.odr.odrpack, copy
 numpy.seterr(over = 'raise', divide = 'raise', invalid = 'raise', under = 'ignore') # numpy raises warnings, convert to exceptions to trap them
 
 import pyeq2
-import diffev
+from . import diffev
 
 class custom_prng_for_diffev(numpy.random.mtrand.RandomState):
     

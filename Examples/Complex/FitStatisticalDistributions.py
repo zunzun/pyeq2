@@ -1,3 +1,7 @@
+from __future__ import print_function # prepare for conversion to Python 3
+from __future__ import unicode_literals # prepare for conversion to Python 3
+from __future__ import absolute_import # prepare for conversion to Python 3
+
 import os, sys, inspect, scipy
 
 # ensure pyeq2 can be imported
@@ -173,7 +177,7 @@ if pyeq2IimportDirectory not in sys.path:
     criteriaForUseInListSorting = 'AIC' # ['AIC', 'AICc_BA', 'nnlf'] from top of SolverService.SolveStatisticalDistribution()
     for distribution in inspect.getmembers(scipy.stats): # try to fit every distribution
         if isinstance(distribution[1], scipy.stats.rv_continuous):
-            print "Fitting", distribution[0]
+            print("Fitting", distribution[0])
             try:
                 result = solver.SolveStatisticalDistribution(distribution[0], simpleObject.dataCache.allDataCacheDictionary['IndependentData'][0], criteriaForUseInListSorting)
             except:
@@ -181,6 +185,6 @@ if pyeq2IimportDirectory not in sys.path:
             if result:
                 resultList.append(result)
     
-    print
+    print()
     resultList.sort()
-    print resultList[0]
+    print(resultList[0])

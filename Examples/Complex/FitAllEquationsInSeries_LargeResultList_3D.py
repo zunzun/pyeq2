@@ -1,3 +1,7 @@
+from __future__ import print_function # prepare for conversion to Python 3
+from __future__ import unicode_literals # prepare for conversion to Python 3
+from __future__ import absolute_import # prepare for conversion to Python 3
+
 from __future__ import generators
 import os, sys, inspect, copy
 
@@ -39,7 +43,7 @@ def SetParametersAndFit(inEquation, resultList, inPrintStatus): # utility functi
             return
 
         if inPrintStatus:
-            print 'Fitting', inEquation.__module__, "'" + inEquation.GetDisplayName() + "'"
+            print('Fitting', inEquation.__module__, "'" + inEquation.GetDisplayName() + "'")
         
         inEquation.Solve()
         
@@ -47,7 +51,7 @@ def SetParametersAndFit(inEquation, resultList, inPrintStatus): # utility functi
         if target > 1.0E290: # error too large
             return
     except:
-        print "Exception in " + inEquation.__class__.__name__ + '\n' + str(sys.exc_info()[0]) + '\n' + str(sys.exc_info()[1]) + '\n'
+        print("Exception in " + inEquation.__class__.__name__ + '\n' + str(sys.exc_info()[0]) + '\n' + str(sys.exc_info()[1]) + '\n')
         return
 
     t0 = copy.deepcopy(inEquation.__module__)
@@ -162,13 +166,13 @@ resultList.sort(ResultListSortFunction) # ResultListSortFunction() currently req
 bestResult = resultList[0]
 
 
-print
-print
-print 'While \"Best Fit\" may be the lowest fitting target value,'
-print 'it requires further evaluation to determine if it is the best'
-print 'for your needs.  For example, it may interpolate badly.'
-print
-print '"Smoothness Control" allowed a maximum of ' + str(smoothnessControl) + ' parameters'
+print()
+print()
+print('While \"Best Fit\" may be the lowest fitting target value,')
+print('it requires further evaluation to determine if it is the best')
+print('for your needs.  For example, it may interpolate badly.')
+print()
+print('"Smoothness Control" allowed a maximum of ' + str(smoothnessControl) + ' parameters')
 
 moduleName = bestResult[0]
 className = bestResult[1]
@@ -196,31 +200,31 @@ equation.dataCache.FindOrCreateAllDataCache(equation)
 equation.CalculateModelErrors(equation.solvedCoefficients, equation.dataCache.allDataCacheDictionary)
 
 
-print
-print '\"Best fit\" was', moduleName + "." + className
+print()
+print('\"Best fit\" was', moduleName + "." + className)
 
-print 'Fitting target value', equation.fittingTarget + ":", equation.CalculateAllDataFittingTarget(equation.solvedCoefficients)
+print('Fitting target value', equation.fittingTarget + ":", equation.CalculateAllDataFittingTarget(equation.solvedCoefficients))
 
 if polyfunctional3DFlags:
-    print
-    print 'Polyfunctional flags:', polyfunctional3DFlags
-    print
+    print()
+    print('Polyfunctional flags:', polyfunctional3DFlags)
+    print()
 if polynomialOrderX != None:
-    print
-    print 'Polynomial order:', polynomialOrderX
-    print
+    print()
+    print('Polynomial order:', polynomialOrderX)
+    print()
 
 for i in range(len(equation.solvedCoefficients)):
-    print "Coefficient " + equation.GetCoefficientDesignators()[i] + ": " + str(equation.solvedCoefficients[i])
-print
+    print("Coefficient " + equation.GetCoefficientDesignators()[i] + ": " + str(equation.solvedCoefficients[i]))
+print()
 for i in range(len(equation.dataCache.allDataCacheDictionary['DependentData'])):
-    print 'X:', equation.dataCache.allDataCacheDictionary['IndependentData'][0][i],
-    print 'Y:', equation.dataCache.allDataCacheDictionary['IndependentData'][1][i],
-    print 'Z', equation.dataCache.allDataCacheDictionary['DependentData'][i],
-    print 'Model:', equation.modelPredictions[i],
-    print 'Abs. Error:', equation.modelAbsoluteError[i],
+    print('X:', equation.dataCache.allDataCacheDictionary['IndependentData'][0][i],)
+    print('Y:', equation.dataCache.allDataCacheDictionary['IndependentData'][1][i],)
+    print('Z', equation.dataCache.allDataCacheDictionary['DependentData'][i],)
+    print('Model:', equation.modelPredictions[i],)
+    print('Abs. Error:', equation.modelAbsoluteError[i],)
     if not equation.dataCache.DependentDataContainsZeroFlag:
-        print 'Rel. Error:', equation.modelRelativeError[i],
-        print 'Percent Error:', equation.modelPercentError[i]
+        print('Rel. Error:', equation.modelRelativeError[i],)
+        print('Percent Error:', equation.modelPercentError[i])
     else:
-        print
+        print()

@@ -1,3 +1,7 @@
+from __future__ import print_function # prepare for conversion to Python 3
+from __future__ import unicode_literals # prepare for conversion to Python 3
+from __future__ import absolute_import # prepare for conversion to Python 3
+
 import os, sys, inspect
 
 # ensure pyeq2 can be imported
@@ -27,6 +31,6 @@ for submodule in inspect.getmembers(pyeq2.Models_3D):
                         continue
                     
                     equation = equationClass[1]('SSQABS', extendedVersionName)
-                    print '3D ' + submodule[0] + ' --- ' + equation.GetDisplayName()
+                    print('3D ' + submodule[0] + ' --- ' + equation.GetDisplayName())
                     
-print 'Done.'
+print('Done.')
