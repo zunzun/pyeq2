@@ -1,6 +1,6 @@
-from __future__ import print_function # prepare for conversion to Python 3
-from __future__ import unicode_literals # prepare for conversion to Python 3
-from __future__ import absolute_import # prepare for conversion to Python 3
+from __future__ import print_function
+from __future__ import unicode_literals
+from __future__ import absolute_import
 
 import os, sys, inspect
 
@@ -113,7 +113,7 @@ for i in range(len(equation.solvedCoefficients)):
         print("Coefficient %s = %-.16E, std error squared: %-.5E" % (equation.GetCoefficientDesignators()[i], equation.solvedCoefficients[i], equation.sd_beta[i]))
     else:
         print("Coefficient %s = %-.16E, std error squared: n/a" % (equation.GetCoefficientDesignators()[i], equation.solvedCoefficients[i]))
-    print("          t-stat: %s, p-stat: %s, 95 percent confidence intervals: [%-.5E, %-.5E]" % (tstat,  pstat, equation.ci[i][0], equation.ci[i][1])
+    print("          t-stat: %s, p-stat: %s, 95 percent confidence intervals: [%-.5E, %-.5E]" % (tstat,  pstat, equation.ci[i][0], equation.ci[i][1]))
 
 
 print()

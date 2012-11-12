@@ -1,6 +1,6 @@
-from __future__ import print_function # prepare for conversion to Python 3
-from __future__ import unicode_literals # prepare for conversion to Python 3
-from __future__ import absolute_import # prepare for conversion to Python 3
+from __future__ import print_function
+from __future__ import unicode_literals
+from __future__ import absolute_import
 
 from __future__ import generators
 import os, sys, inspect, copy
@@ -161,7 +161,7 @@ for submodule in inspect.getmembers(pyeq2.Models_2D):
 ##########################
 # fit polyfunctionals here
 print()
-print('Fitting polyfunctionals:'()
+print('Fitting polyfunctionals:'())
 equationCount = 0
 maxPolyfunctionalCoefficients = 4 # this value was chosen to make this example more convenient
 polyfunctionalEquationList = pyeq2.PolyFunctions.GenerateListForPolyfunctionals_2D()

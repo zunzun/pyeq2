@@ -1,6 +1,6 @@
-from __future__ import print_function # prepare for conversion to Python 3
-from __future__ import unicode_literals # prepare for conversion to Python 3
-from __future__ import absolute_import # prepare for conversion to Python 3
+from __future__ import print_function
+from __future__ import unicode_literals
+from __future__ import absolute_import
 
 #    pyeq2 is a collection of equations expressed as Python classes
 #
@@ -71,8 +71,8 @@ class Spline(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
         
         
     def GetCoefficientDesignators(self):
-        raise NotImplementedError, 'The Spline class does not implement ' + inspect.stack()[0][3]
+        raise NotImplementedError('The Spline class does not implement ' + inspect.stack()[0][3])
 
 
     def CalculateFittingTarget(self, in_coeffArray):
-        raise NotImplementedError, 'Not implemented for splines'
+        raise NotImplementedError('Not implemented for splines')

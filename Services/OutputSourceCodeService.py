@@ -1,6 +1,6 @@
-from __future__ import print_function # prepare for conversion to Python 3
-from __future__ import unicode_literals # prepare for conversion to Python 3
-from __future__ import absolute_import # prepare for conversion to Python 3
+from __future__ import print_function
+from __future__ import unicode_literals
+from __future__ import absolute_import
 
 #    pyeq2 is a collection of equations expressed as Python classes
 #
@@ -149,7 +149,7 @@ class OutputSourceCodeService(object):
 
     def GetOutputSourceCodeCSHARP(self, inEquation, inDigitsOfPrecisionString = '16'):
 	if inEquation.splineFlag == True:
-	    raise NotImplementedError, 'Not implemented for splines'
+	    raise NotImplementedError('Not implemented for splines')
 	
         s = self.ConvertCppToCSHARP(cppOutputSourceCodeUpperComment)
         s += '\nusing System;\n\n'
@@ -179,7 +179,7 @@ class OutputSourceCodeService(object):
 
     def GetOutputSourceCodeVBA(self, inEquation, inDigitsOfPrecisionString = '16'):
 	if inEquation.splineFlag == True:
-	    raise NotImplementedError, 'Not implemented for splines'
+	    raise NotImplementedError('Not implemented for splines')
 
         s = self.ConvertCppToVBA(cppOutputSourceCodeUpperComment)
         s += '\' Fitting target: lowest ' + inEquation.fittingTargetDictionary[inEquation.fittingTarget] + '\n'
@@ -271,7 +271,7 @@ class OutputSourceCodeService(object):
 
     def GetOutputSourceCodeSCILAB(self, inEquation, inDigitsOfPrecisionString = '16'):
 	if inEquation.splineFlag == True:
-	    raise NotImplementedError, 'Not implemented for splines'
+	    raise NotImplementedError('Not implemented for splines')
 
         s = self.ConvertCppToSCILAB(cppOutputSourceCodeUpperComment)
         s += '\n'
@@ -302,7 +302,7 @@ class OutputSourceCodeService(object):
 
     def GetOutputSourceCodeMATLAB(self, inEquation, inDigitsOfPrecisionString = '16'):
 	if inEquation.splineFlag == True:
-	    raise NotImplementedError, 'Not implemented for splines'
+	    raise NotImplementedError('Not implemented for splines')
 
         s = self.ConvertCppToMATLAB(cppOutputSourceCodeUpperComment)
         s += '\n'

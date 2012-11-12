@@ -1,6 +1,6 @@
-from __future__ import print_function # prepare for conversion to Python 3
-from __future__ import unicode_literals # prepare for conversion to Python 3
-from __future__ import absolute_import # prepare for conversion to Python 3
+from __future__ import print_function
+from __future__ import unicode_literals
+from __future__ import absolute_import
 
 #    pyeq2 is a collection of equations expressed as Python classes
 #
@@ -21,19 +21,19 @@ class IExtendedVersionHandler(object):
 
     @abc.abstractmethod
     def AssembleDisplayHTML(self):
-        raise NotImplementedError, 'The IExtendedVersionHandler abstract base class does not implement ' + inspect.stack()[0][3]
+        raise NotImplementedError('The IExtendedVersionHandler abstract base class does not implement ' + inspect.stack()[0][3])
 
     @abc.abstractmethod
     def AssembleDisplayName(self, inModel):
-        raise NotImplementedError, 'The IExtendedVersionHandler abstract base class does not implement ' + inspect.stack()[0][3]
+        raise NotImplementedError('The IExtendedVersionHandler abstract base class does not implement ' + inspect.stack()[0][3])
 
     @abc.abstractmethod
     def AssembleCoefficientDesignators(self):
-        raise NotImplementedError, 'The IExtendedVersionHandler abstract base class does not implement ' + inspect.stack()[0][3]
+        raise NotImplementedError('The IExtendedVersionHandler abstract base class does not implement ' + inspect.stack()[0][3])
 
     @abc.abstractmethod
     def AssembleOutputSourceCodeCPP(self, IModel):
-        raise NotImplementedError, 'The IExtendedVersionHandler abstract base class does not implement ' + inspect.stack()[0][3]
+        raise NotImplementedError('The IExtendedVersionHandler abstract base class does not implement ' + inspect.stack()[0][3])
 
 
     def ShouldDataBeRejected(self, inModel):
@@ -78,12 +78,12 @@ class IExtendedVersionHandler(object):
 
     @abc.abstractmethod
     def GetAdditionalModelPredictions(self, inBaseModelCalculation, inCoeffs, inDataCacheDictionary, inModel):
-        raise NotImplementedError, 'The IExtendedVersionHandler abstract base class does not implement ' + inspect.stack()[0][3]
+        raise NotImplementedError('The IExtendedVersionHandler abstract base class does not implement ' + inspect.stack()[0][3])
 
 
     @abc.abstractmethod
     def AppendAdditionalCoefficientBounds(self, inModel):
-        raise NotImplementedError, 'The IExtendedVersionHandler abstract base class does not implement ' + inspect.stack()[0][3]
+        raise NotImplementedError('The IExtendedVersionHandler abstract base class does not implement ' + inspect.stack()[0][3])
 
 
     # duplicated in Polyfunctions.py

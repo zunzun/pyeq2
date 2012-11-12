@@ -1,6 +1,6 @@
-from __future__ import print_function # prepare for conversion to Python 3
-from __future__ import unicode_literals # prepare for conversion to Python 3
-from __future__ import absolute_import # prepare for conversion to Python 3
+from __future__ import print_function
+from __future__ import unicode_literals
+from __future__ import absolute_import
 
 from __future__ import generators
 import os, sys, inspect, copy
@@ -235,7 +235,7 @@ for coeffCount in range(1, maxPolyfunctionalCoefficients+1):
 ######################
 # fit user-selectable polynomials here
 print()
-print('Fitting user-selectable polynomials that use non-linear solvers for a fitting target of', fittingTargetText
+print('Fitting user-selectable polynomials that use non-linear solvers for a fitting target of', fittingTargetText)
 maxPolynomialOrderX = 5 # this value was chosen to make this example more convenient
 
 for polynomialOrderX in range(maxPolynomialOrderX+1):

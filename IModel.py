@@ -1,6 +1,6 @@
-from __future__ import print_function # prepare for conversion to Python 3
-from __future__ import unicode_literals # prepare for conversion to Python 3
-from __future__ import absolute_import # prepare for conversion to Python 3
+from __future__ import print_function
+from __future__ import unicode_literals
+from __future__ import absolute_import
 
 #    pyeq2 is a collection of equations expressed as Python classes
 #
@@ -60,8 +60,8 @@ class IModel(object):
         if inExtendedVersionName == '':
             inExtendedVersionName = 'Default'
             
-        if inFittingTarget not in self.fittingTargetDictionary.keys():
-            raise Exception, str(inFittingTarget) + ' is not in the IModel class fitting target dictionary.'
+        if inFittingTarget not in list(self.fittingTargetDictionary.keys()):
+            raise Exception(str(inFittingTarget) + ' is not in the IModel class fitting target dictionary.')
         self.fittingTarget = inFittingTarget
         
         inExtendedVersionName = inExtendedVersionName.replace(' ', '')

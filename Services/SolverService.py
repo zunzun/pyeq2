@@ -1,6 +1,6 @@
-from __future__ import print_function # prepare for conversion to Python 3
-from __future__ import unicode_literals # prepare for conversion to Python 3
-from __future__ import absolute_import # prepare for conversion to Python 3
+from __future__ import print_function
+from __future__ import unicode_literals
+from __future__ import absolute_import
 
 #    pyeq2 is a collection of equations expressed as Python classes
 #
@@ -62,7 +62,7 @@ class SolverService(object):
 
     def SolveUsingLinear(self, inModel):
         if (inModel.CanLinearSolverBeUsedForSSQABS()) == False and (inModel.fittingTarget == "SSQABS"):
-            raise Excpetion, 'This equation cannot use a linear SSQ solver'
+            raise Excpetion('This equation cannot use a linear SSQ solver')
         inModel.solvedCoefficients = numpy.linalg.lstsq(inModel.dataCache.FindOrCreateAllDataCache(inModel).T, inModel.dataCache.allDataCacheDictionary['DependentData'])[0]
         return inModel.solvedCoefficients
 
