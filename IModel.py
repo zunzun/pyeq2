@@ -546,11 +546,11 @@ class IModel(object):
     def AreCoefficientsWithinBounds(self, inCoeffs):
         if self.upperCoefficientBounds != []:
             for index in range(len(inCoeffs)):
-                if inCoeffs[index] > self.upperCoefficientBounds[index]:
+                if  (self.upperCoefficientBounds[index] != None) and  (inCoeffs[index] > self.upperCoefficientBounds[index]):
                     return False
         if self.lowerCoefficientBounds != []:
             for index in range(len(inCoeffs)):
-                if inCoeffs[index] < self.lowerCoefficientBounds[index]:
+                if (self.lowerCoefficientBounds[index] != None) and (inCoeffs[index] < self.lowerCoefficientBounds[index]):
                     return False
         return True
 
