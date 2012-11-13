@@ -14,7 +14,6 @@ from __future__ import absolute_import
 #    License: BSD-style (see LICENSE.txt in main source directory)
 
 import StringIO # cStringIO is not safe for Unicode comments, use StringIO instead
-import string
 
 import numpy
 numpy.seterr(over = 'raise', divide = 'raise', invalid = 'raise', under = 'ignore') # numpy raises warnings, convert to exceptions to trap them
@@ -26,7 +25,7 @@ class DataConverterService(object):
     # data is in columns
     def ConvertAndSortColumnarASCII(self, inRawData, inModel, inUseWeightsFlag):
         # you should first process commas before calling this method,
-        # as it uses the default token delimiters in string.split()
+        # as it uses the default token delimiters in string split()
         #
         # For example, convert $1,234.56 to 1234.56 or 1,23 to 1.23
         # Different number systems have commas in different places
@@ -57,8 +56,8 @@ class DataConverterService(object):
         dataLists = [[], [], [], []]
         for line in rawData:
 
-            # split the line into string tokens using the default string.split() delimiters
-            tokenlist = string.split(line)
+            # split the line into string tokens using the default string split() delimiters
+            tokenlist = line.split()
 
             # test this line for minimum required number of string tokens
             if len(tokenlist) < minimumNumberOfTokens:

@@ -114,32 +114,32 @@ class OutputSourceCodeService(object):
 
 
     def GetOutputSourceCodeCPP(self, inEquation, inDigitsOfPrecisionString = '16'):
-	if inEquation.splineFlag == True:
-	    if inEquation.GetDimensionality() == 2:
-		return self.SplineCodeCPP_2D(inEquation)
-	    if inEquation.GetDimensionality() == 3:
-		return self.SplineCodeCPP_3D(inEquation)
-	    
+        if inEquation.splineFlag == True:
+            if inEquation.GetDimensionality() == 2:
+                return self.SplineCodeCPP_2D(inEquation)
+            if inEquation.GetDimensionality() == 3:
+                return self.SplineCodeCPP_3D(inEquation)
+    
         s = cppOutputSourceCodeUpperComment
         s += '\n#include <math.h>\n\n'
         s += '// Fitting target: lowest ' + inEquation.fittingTargetDictionary[inEquation.fittingTarget] + '\n'
         s += '// Fitting target value = ' + str(inEquation.CalculateAllDataFittingTarget(inEquation.solvedCoefficients)) + '\n\n'
-	s += 'double ' + inEquation.extendedVersionHandler.AssembleSourceCodeName(inEquation)
+        s += 'double ' + inEquation.extendedVersionHandler.AssembleSourceCodeName(inEquation)
         if inEquation.GetDimensionality() == 2:
-	    s += '_model(double x_in)'
-	else:
-	    s += '_model(double x_in, double y_in)'
-	s += '''
+            s += '_model(double x_in)'
+        else:
+            s += '_model(double x_in, double y_in)'
+        s += '''
 {
 	double temp;
 	temp = 0.0;
 
 	// coefficients
 '''
-	cd = inEquation.extendedVersionHandler.AssembleCoefficientDesignators(inEquation)
-	tempString = " = %-." + inDigitsOfPrecisionString + "E"
-	for i in range(len(cd)):
-	    s += '	double ' + cd[i] + tempString % (inEquation.solvedCoefficients[i]) + ';\n'
+        cd = inEquation.extendedVersionHandler.AssembleCoefficientDesignators(inEquation)
+        tempString = " = %-." + inDigitsOfPrecisionString + "E"
+        for i in range(len(cd)):
+            s += '	double ' + cd[i] + tempString % (inEquation.solvedCoefficients[i]) + ';\n'
         s += '\n' + inEquation.extendedVersionHandler.AssembleOutputSourceCodeCPP(inEquation)
         s += '''	return temp;
 }
@@ -148,9 +148,9 @@ class OutputSourceCodeService(object):
 
 
     def GetOutputSourceCodeCSHARP(self, inEquation, inDigitsOfPrecisionString = '16'):
-	if inEquation.splineFlag == True:
-	    raise NotImplementedError('Not implemented for splines')
-	
+        if inEquation.splineFlag == True:
+            raise NotImplementedError('Not implemented for splines')
+
         s = self.ConvertCppToCSHARP(cppOutputSourceCodeUpperComment)
         s += '\nusing System;\n\n'
         s += '// Fitting target: lowest ' + inEquation.fittingTargetDictionary[inEquation.fittingTarget] + '\n'
@@ -165,9 +165,9 @@ class OutputSourceCodeService(object):
 
 \t\t// coefficients
 '''
-	cd = inEquation.extendedVersionHandler.AssembleCoefficientDesignators(inEquation)
-	tempString = " = %-." + inDigitsOfPrecisionString + "E"
-	for i in range(len(cd)):
+        cd = inEquation.extendedVersionHandler.AssembleCoefficientDesignators(inEquation)
+        tempString = " = %-." + inDigitsOfPrecisionString + "E"
+        for i in range(len(cd)):
             s += "\t\tdouble " + cd[i] + tempString % (inEquation.solvedCoefficients[i]) + ";\n"
         s += "\n"
         
@@ -178,8 +178,8 @@ class OutputSourceCodeService(object):
 
 
     def GetOutputSourceCodeVBA(self, inEquation, inDigitsOfPrecisionString = '16'):
-	if inEquation.splineFlag == True:
-	    raise NotImplementedError('Not implemented for splines')
+        if inEquation.splineFlag == True:
+            raise NotImplementedError('Not implemented for splines')
 
         s = self.ConvertCppToVBA(cppOutputSourceCodeUpperComment)
         s += '\' Fitting target: lowest ' + inEquation.fittingTargetDictionary[inEquation.fittingTarget] + '\n'
@@ -192,9 +192,9 @@ class OutputSourceCodeService(object):
 
 \t' coefficients
 '''
-	cd = inEquation.extendedVersionHandler.AssembleCoefficientDesignators(inEquation)
-	tempString = " = %-." + inDigitsOfPrecisionString + "E"
-	for i in range(len(cd)):
+        cd = inEquation.extendedVersionHandler.AssembleCoefficientDesignators(inEquation)
+        tempString = " = %-." + inDigitsOfPrecisionString + "E"
+        for i in range(len(cd)):
             s += "\tConst " + cd[i] + tempString % (inEquation.solvedCoefficients[i]) + "\n"
         s += "\n"
 
@@ -206,12 +206,12 @@ class OutputSourceCodeService(object):
 
 
     def GetOutputSourceCodePYTHON(self, inEquation, inDigitsOfPrecisionString = '16'):
-	if inEquation.splineFlag == True:
-	    if inEquation.GetDimensionality() == 2:
-		return self.SplineCodePYTHON_2D(inEquation)
-	    if inEquation.GetDimensionality() == 3:
-		return self.SplineCodePYTHON_3D(inEquation)
-	    
+        if inEquation.splineFlag == True:
+            if inEquation.GetDimensionality() == 2:
+                return self.SplineCodePYTHON_2D(inEquation)
+            if inEquation.GetDimensionality() == 3:
+                return self.SplineCodePYTHON_3D(inEquation)
+    
         s = self.ConvertCppToPYTHON(cppOutputSourceCodeUpperComment)
         s += '\nimport math\n\n'
         s += '# Fitting target: lowest ' + inEquation.fittingTargetDictionary[inEquation.fittingTarget] + '\n'
@@ -224,9 +224,9 @@ class OutputSourceCodeService(object):
 
     # coefficients
 '''
-	cd = inEquation.extendedVersionHandler.AssembleCoefficientDesignators(inEquation)
-	tempString = " = %-." + inDigitsOfPrecisionString + "E"
-	for i in range(len(cd)):
+        cd = inEquation.extendedVersionHandler.AssembleCoefficientDesignators(inEquation)
+        tempString = " = %-." + inDigitsOfPrecisionString + "E"
+        for i in range(len(cd)):
             s += "    " + cd[i] + tempString % (inEquation.solvedCoefficients[i]) + "\n"
         s += "\n"
 
@@ -237,12 +237,12 @@ class OutputSourceCodeService(object):
 
 
     def GetOutputSourceCodeJAVA(self, inEquation, inDigitsOfPrecisionString = '16'):
-	if inEquation.splineFlag == True:
-	    if inEquation.GetDimensionality() == 2:
-		return self.SplineCodeJAVA_2D(inEquation)
-	    if inEquation.GetDimensionality() == 3:
-		return self.SplineCodeJAVA_3D(inEquation)
-	    
+        if inEquation.splineFlag == True:
+            if inEquation.GetDimensionality() == 2:
+                return self.SplineCodeJAVA_2D(inEquation)
+            if inEquation.GetDimensionality() == 3:
+                return self.SplineCodeJAVA_3D(inEquation)
+    
         s = self.ConvertCppToJAVA(cppOutputSourceCodeUpperComment)        
         s += '\nimport java.lang.Math;\n\n'
         s += '// Fitting target: lowest ' + inEquation.fittingTargetDictionary[inEquation.fittingTarget] + '\n'
@@ -257,9 +257,9 @@ class OutputSourceCodeService(object):
 
 \t\t// coefficients
 '''
-	cd = inEquation.extendedVersionHandler.AssembleCoefficientDesignators(inEquation)
-	tempString = " = %-." + inDigitsOfPrecisionString + "E"
-	for i in range(len(cd)):
+        cd = inEquation.extendedVersionHandler.AssembleCoefficientDesignators(inEquation)
+        tempString = " = %-." + inDigitsOfPrecisionString + "E"
+        for i in range(len(cd)):
             s += "\t\tdouble " + cd[i] + tempString % (inEquation.solvedCoefficients[i]) + ";\n"
         s += "\n"
         
@@ -270,8 +270,8 @@ class OutputSourceCodeService(object):
 
 
     def GetOutputSourceCodeSCILAB(self, inEquation, inDigitsOfPrecisionString = '16'):
-	if inEquation.splineFlag == True:
-	    raise NotImplementedError('Not implemented for splines')
+        if inEquation.splineFlag == True:
+            raise NotImplementedError('Not implemented for splines')
 
         s = self.ConvertCppToSCILAB(cppOutputSourceCodeUpperComment)
         s += '\n'
@@ -284,9 +284,9 @@ class OutputSourceCodeService(object):
         s += "\ttemp = 0.0;\n\n"
 
         s += "\t// coefficients\n"
-	cd = inEquation.extendedVersionHandler.AssembleCoefficientDesignators(inEquation)
-	tempString = " = %-." + inDigitsOfPrecisionString + "E"
-	for i in range(len(cd)):
+        cd = inEquation.extendedVersionHandler.AssembleCoefficientDesignators(inEquation)
+        tempString = " = %-." + inDigitsOfPrecisionString + "E"
+        for i in range(len(cd)):
             s += "\t" + cd[i] + tempString % (inEquation.solvedCoefficients[i]) + ";\n"
         s += "\n"
         
@@ -301,8 +301,8 @@ class OutputSourceCodeService(object):
 
 
     def GetOutputSourceCodeMATLAB(self, inEquation, inDigitsOfPrecisionString = '16'):
-	if inEquation.splineFlag == True:
-	    raise NotImplementedError('Not implemented for splines')
+        if inEquation.splineFlag == True:
+            raise NotImplementedError('Not implemented for splines')
 
         s = self.ConvertCppToMATLAB(cppOutputSourceCodeUpperComment)
         s += '\n'
@@ -315,9 +315,9 @@ class OutputSourceCodeService(object):
         s += "\ttemp = 0.0;\n\n"
 
         s += "\t% coefficients\n"
-	cd = inEquation.extendedVersionHandler.AssembleCoefficientDesignators(inEquation)
-	tempString = " = %-." + inDigitsOfPrecisionString + "E"
-	for i in range(len(cd)):
+        cd = inEquation.extendedVersionHandler.AssembleCoefficientDesignators(inEquation)
+        tempString = " = %-." + inDigitsOfPrecisionString + "E"
+        for i in range(len(cd)):
             s += "\t" + cd[i] + tempString % (inEquation.solvedCoefficients[i]) + ";\n"
         s += "\n"
 
