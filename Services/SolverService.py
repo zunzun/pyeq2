@@ -52,13 +52,6 @@ class SolverService(object):
         self.fmin_FunctionLimit = 2500
         
 
-    def ResultListSortFunction(self, a, b): # utility function
-        if a[0] < b[0]:
-            return -1
-        if a[0] > b[0]:
-            return 1
-        return 0
-
 
     def SolveUsingLinear(self, inModel):
         if (inModel.CanLinearSolverBeUsedForSSQABS()) == False and (inModel.fittingTarget == "SSQABS"):
@@ -167,7 +160,7 @@ class SolverService(object):
             return numpy.ones(len(inModel.GetCoefficientDesignators()))
         
         if len(results) > 1:
-            results.sort(self.ResultListSortFunction)
+            results.sort(key=lambda item: item[0])
             
         inModel.solvedCoefficients = results[0][1]
         return inModel.solvedCoefficients
@@ -232,7 +225,7 @@ class SolverService(object):
             return numpy.ones(len(inModel.GetCoefficientDesignators()))
         
         if len(results) > 1:
-            results.sort(self.ResultListSortFunction)
+            results.sort(key=lambda item: item[0])
             
         inModel.solvedCoefficients = results[0][1]
         return inModel.solvedCoefficients

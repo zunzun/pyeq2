@@ -15,13 +15,6 @@ if pyeq2IimportDirectory not in sys.path:
 
 
 
-def ResultListSortFunction(a, b): # utility function
-    if a[3] < b[3]:
-        return -1
-    if a[3] > b[3]:
-        return 1
-    return 0
-
 def UniqueCombinations(items, n): # utility function
     if n==0:
         yield []
@@ -162,7 +155,7 @@ for submodule in inspect.getmembers(pyeq2.Models_3D):
 
 
 # Sort the result list by fitting target value
-resultList.sort(ResultListSortFunction) # ResultListSortFunction() currently requires the 4th result element to be fitting target
+resultList.sort(key=lambda item: item[3]) # currently requires the 4th result element to be fitting target
 bestResult = resultList[0]
 
 
