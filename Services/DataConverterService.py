@@ -49,7 +49,7 @@ class DataConverterService(object):
         else:
             minimumNumberOfTokens = inModel.GetDimensionality()
 
-        # StringIO.StringIO() allows using file methods on text
+        # StringIO() allows using file methods on text
         rawData = StringIO.StringIO(inRawData).readlines()
 
         # OK, now load in the data

@@ -98,7 +98,7 @@ class UserDefinedFunction(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         for token in numpySafeTokenList:
             exec(token + ' = numpy.' + token)
        
-        # no blank lines of text, StringIO.StringIO() allows using file methods on text
+        # no blank lines of text, StringIO() allows using file methods on text
         stringToConvert = ''
         rawData = StringIO.StringIO(inString).readlines()
        
