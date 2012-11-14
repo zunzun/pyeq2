@@ -25,7 +25,10 @@ class NistDataObject(object):
 
 def LoadDataFileFromNIST(inFileName):
     
-    fileLines = open(inFileName, 'rt').readlines()
+    f = open(inFileName, 'rt')
+    fileLines = f.readlines()
+    f.close()
+    
     nistDataObject = NistDataObject()
     
     # starting values
