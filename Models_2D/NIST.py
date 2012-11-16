@@ -722,7 +722,7 @@ class NIST_MGH17(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
 
     def SpecificCodeCPP(self):
-        s = "\ttemp += a + b * exp(-1.0 * x_in * c) + d * exp(-1.0 * x_in * f);\n"
+        s = "\ttemp += a + b * exp(-1.0 * x_in * d) + c * exp(-1.0 * x_in * f);\n"
         return s
 
 
