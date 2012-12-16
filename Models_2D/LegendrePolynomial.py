@@ -27,7 +27,7 @@ import pyeq2.Model_2D_BaseClass
 
 
 def cppCodeGeneratorForLegendrePolynomials(n, cosineFlag):
-    # see http://en.wikipedia.org/wiki/Legendre_polynomials'
+    # see http://mathworld.wolfram.com/LegendrePolynomial.html
     if cosineFlag:
         x = 'cos(x_in)'
     else:
@@ -67,7 +67,7 @@ class EighthDegreeLegendrePolynomial(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass
     _coefficientDesignators = ['a', 'b', 'c', 'd', 'f', 'g', 'h', 'i', 'j']
     _canLinearSolverBeUsedForSSQABS = True
     
-    webReferenceURL = 'http://en.wikipedia.org/wiki/Legendre_polynomials'
+    webReferenceURL = 'http://mathworld.wolfram.com/LegendrePolynomial.html'
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = False
@@ -132,7 +132,7 @@ class EighthDegreeLegendrePolynomial(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass
 
 
     def SpecificCodeCPP(self):
-        s  = "\t// see http://en.wikipedia.org/wiki/Legendre_polynomials\n"
+        s  = "\t// see http://mathworld.wolfram.com/LegendrePolynomial.html\n"
         s += "\ttemp += a + b * x_in;\n"
         s += "\ttemp += c * (" + cppCodeGeneratorForLegendrePolynomials(2, 0) + ");\n"
         s += "\ttemp += d * (" + cppCodeGeneratorForLegendrePolynomials(3, 0) + ");\n"
@@ -153,7 +153,7 @@ class FifthDegreeLegendrePolynomial(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass)
     _coefficientDesignators = ['a', 'b', 'c', 'd', 'f', 'g']
     _canLinearSolverBeUsedForSSQABS = True
     
-    webReferenceURL = 'http://en.wikipedia.org/wiki/Legendre_polynomials'
+    webReferenceURL = 'http://mathworld.wolfram.com/LegendrePolynomial.html'
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = False
@@ -206,7 +206,7 @@ class FifthDegreeLegendrePolynomial(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass)
 
 
     def SpecificCodeCPP(self):
-        s  = "\t// see http://en.wikipedia.org/wiki/Legendre_polynomials\n"
+        s  = "\t// see http://mathworld.wolfram.com/LegendrePolynomial.html\n"
         s += "\ttemp += a + b * x_in;\n"
         s += "\ttemp += c * (" + cppCodeGeneratorForLegendrePolynomials(2, 0) + ");\n"
         s += "\ttemp += d * (" + cppCodeGeneratorForLegendrePolynomials(3, 0) + ");\n"
@@ -224,7 +224,7 @@ class FourthDegreeLegendrePolynomial(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass
     _coefficientDesignators = ['a', 'b', 'c', 'd', 'f']
     _canLinearSolverBeUsedForSSQABS = True
     
-    webReferenceURL = 'http://en.wikipedia.org/wiki/Legendre_polynomials'
+    webReferenceURL = 'http://mathworld.wolfram.com/LegendrePolynomial.html'
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = False
@@ -273,7 +273,7 @@ class FourthDegreeLegendrePolynomial(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass
 
 
     def SpecificCodeCPP(self):
-        s  = "\t// see http://en.wikipedia.org/wiki/Legendre_polynomials\n"
+        s  = "\t// see http://mathworld.wolfram.com/LegendrePolynomial.html\n"
         s += "\ttemp += a + b * x_in;\n"
         s += "\ttemp += c * (" + cppCodeGeneratorForLegendrePolynomials(2, 0) + ");\n"
         s += "\ttemp += d * (" + cppCodeGeneratorForLegendrePolynomials(3, 0) + ");\n"
@@ -327,7 +327,7 @@ class GammaRayAngularDistributionDegreesA(pyeq2.Model_2D_BaseClass.Model_2D_Base
 
 
     def SpecificCodeCPP(self):
-        s  = "\t// see http://en.wikipedia.org/wiki/Legendre_polynomials\n"
+        s  = "\t// see http://mathworld.wolfram.com/LegendrePolynomial.html\n"
         s += "\ttemp += A0 + A2 * (" + cppCodeGeneratorForLegendrePolynomials(2, 2) + ");\n"
         return s
 
@@ -381,7 +381,7 @@ class GammaRayAngularDistributionDegreesB(pyeq2.Model_2D_BaseClass.Model_2D_Base
 
 
     def SpecificCodeCPP(self):
-        s  = "\t// see http://en.wikipedia.org/wiki/Legendre_polynomials\n"
+        s  = "\t// see http://mathworld.wolfram.com/LegendrePolynomial.html\n"
         s += "\ttemp += A0 + A2 * (" + cppCodeGeneratorForLegendrePolynomials(2, 2) + ") + A4 * (" + cppCodeGeneratorForLegendrePolynomials(4, 2) + ");\n"
         return s
 
@@ -432,7 +432,7 @@ class GammaRayAngularDistributionRadiansA(pyeq2.Model_2D_BaseClass.Model_2D_Base
 
 
     def SpecificCodeCPP(self):
-        s  = "\t// see http://en.wikipedia.org/wiki/Legendre_polynomials\n"
+        s  = "\t// see http://mathworld.wolfram.com/LegendrePolynomial.html\n"
         s += "\ttemp += A0 + A2 * (" + cppCodeGeneratorForLegendrePolynomials(2, 1) + ");\n"
         return s
 
@@ -486,7 +486,7 @@ class GammaRayAngularDistributionRadiansB(pyeq2.Model_2D_BaseClass.Model_2D_Base
 
 
     def SpecificCodeCPP(self):
-        s  = "\t// see http://en.wikipedia.org/wiki/Legendre_polynomials\n"
+        s  = "\t// see http://mathworld.wolfram.com/LegendrePolynomial.html\n"
         s += "\ttemp += A0 + A2 * (" + cppCodeGeneratorForLegendrePolynomials(2, 1) + ") + A4 * (" + cppCodeGeneratorForLegendrePolynomials(4, 1) + ");\n"
         return s
 
@@ -500,7 +500,7 @@ class NinthDegreeLegendrePolynomial(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass)
     _coefficientDesignators = ['a', 'b', 'c', 'd', 'f', 'g', 'h', 'i', 'j', 'k']
     _canLinearSolverBeUsedForSSQABS = True
     
-    webReferenceURL = 'http://en.wikipedia.org/wiki/Legendre_polynomials'
+    webReferenceURL = 'http://mathworld.wolfram.com/LegendrePolynomial.html'
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = False
@@ -569,7 +569,7 @@ class NinthDegreeLegendrePolynomial(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass)
 
 
     def SpecificCodeCPP(self):
-        s  = "\t// see http://en.wikipedia.org/wiki/Legendre_polynomials\n"
+        s  = "\t// see http://mathworld.wolfram.com/LegendrePolynomial.html\n"
         s += "\ttemp += a + b * x_in;\n"
         s += "\ttemp += c * (" + cppCodeGeneratorForLegendrePolynomials(2, 0) + ");\n"
         s += "\ttemp += d * (" + cppCodeGeneratorForLegendrePolynomials(3, 0) + ");\n"
@@ -591,7 +591,7 @@ class SecondDegreeLegendrePolynomial(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass
     _coefficientDesignators = ['a', 'b', 'c']
     _canLinearSolverBeUsedForSSQABS = True
     
-    webReferenceURL = 'http://en.wikipedia.org/wiki/Legendre_polynomials'
+    webReferenceURL = 'http://mathworld.wolfram.com/LegendrePolynomial.html'
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = False
@@ -632,7 +632,7 @@ class SecondDegreeLegendrePolynomial(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass
 
 
     def SpecificCodeCPP(self):
-        s  = "\t// see http://en.wikipedia.org/wiki/Legendre_polynomials\n"
+        s  = "\t// see http://mathworld.wolfram.com/LegendrePolynomial.html\n"
         s += "\ttemp += a + b * x_in;\n"
         s += "\ttemp += c * (" + cppCodeGeneratorForLegendrePolynomials(2, 0) + ");\n"
         return s
@@ -647,7 +647,7 @@ class SeventhDegreeLegendrePolynomial(pyeq2.Model_2D_BaseClass.Model_2D_BaseClas
     _coefficientDesignators = ['a', 'b', 'c', 'd', 'f', 'g', 'h', 'i']
     _canLinearSolverBeUsedForSSQABS = True
     
-    webReferenceURL = 'http://en.wikipedia.org/wiki/Legendre_polynomials'
+    webReferenceURL = 'http://mathworld.wolfram.com/LegendrePolynomial.html'
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = False
@@ -708,7 +708,7 @@ class SeventhDegreeLegendrePolynomial(pyeq2.Model_2D_BaseClass.Model_2D_BaseClas
 
 
     def SpecificCodeCPP(self):
-        s  = "\t// see http://en.wikipedia.org/wiki/Legendre_polynomials\n"
+        s  = "\t// see http://mathworld.wolfram.com/LegendrePolynomial.html\n"
         s += "\ttemp += a + b * x_in;\n"
         s += "\ttemp += c * (" + cppCodeGeneratorForLegendrePolynomials(2, 0) + ");\n"
         s += "\ttemp += d * (" + cppCodeGeneratorForLegendrePolynomials(3, 0) + ");\n"
@@ -728,7 +728,7 @@ class SixthDegreeLegendrePolynomial(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass)
     _coefficientDesignators = ['a', 'b', 'c', 'd', 'f', 'g', 'h']
     _canLinearSolverBeUsedForSSQABS = True
     
-    webReferenceURL = 'http://en.wikipedia.org/wiki/Legendre_polynomials'
+    webReferenceURL = 'http://mathworld.wolfram.com/LegendrePolynomial.html'
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = False
@@ -785,7 +785,7 @@ class SixthDegreeLegendrePolynomial(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass)
 
 
     def SpecificCodeCPP(self):
-        s  = "\t// see http://en.wikipedia.org/wiki/Legendre_polynomials\n"
+        s  = "\t// see http://mathworld.wolfram.com/LegendrePolynomial.html\n"
         s += "\ttemp += a + b * x_in;\n"
         s += "\ttemp += c * (" + cppCodeGeneratorForLegendrePolynomials(2, 0) + ");\n"
         s += "\ttemp += d * (" + cppCodeGeneratorForLegendrePolynomials(3, 0) + ");\n"
@@ -804,7 +804,7 @@ class TenthDegreeLegendrePolynomial(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass)
     _coefficientDesignators = ['a', 'b', 'c', 'd', 'f', 'g', 'h', 'i', 'j', 'k', 'm']
     _canLinearSolverBeUsedForSSQABS = True
     
-    webReferenceURL = 'http://en.wikipedia.org/wiki/Legendre_polynomials'
+    webReferenceURL = 'http://mathworld.wolfram.com/LegendrePolynomial.html'
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = False
@@ -877,7 +877,7 @@ class TenthDegreeLegendrePolynomial(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass)
 
 
     def SpecificCodeCPP(self):
-        s  = "\t// see http://en.wikipedia.org/wiki/Legendre_polynomials\n"
+        s  = "\t// see http://mathworld.wolfram.com/LegendrePolynomial.html\n"
         s += "\ttemp += a + b * x_in;\n"
         s += "\ttemp += c * (" + cppCodeGeneratorForLegendrePolynomials(2, 0) + ");\n"
         s += "\ttemp += d * (" + cppCodeGeneratorForLegendrePolynomials(3, 0) + ");\n"
@@ -900,7 +900,7 @@ class ThirdDegreeLegendrePolynomial(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass)
     _coefficientDesignators = ['a', 'b', 'c', 'd']
     _canLinearSolverBeUsedForSSQABS = True
     
-    webReferenceURL = 'http://en.wikipedia.org/wiki/Legendre_polynomials'
+    webReferenceURL = 'http://mathworld.wolfram.com/LegendrePolynomial.html'
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = False
@@ -945,7 +945,7 @@ class ThirdDegreeLegendrePolynomial(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass)
 
 
     def SpecificCodeCPP(self):
-        s  = "\t// see http://en.wikipedia.org/wiki/Legendre_polynomials\n"
+        s  = "\t// see http://mathworld.wolfram.com/LegendrePolynomial.html\n"
         s += "\ttemp += a + b * x_in;\n"
         s += "\ttemp += c * (" + cppCodeGeneratorForLegendrePolynomials(2, 0) + ");\n"
         s += "\ttemp += d * (" + cppCodeGeneratorForLegendrePolynomials(3, 0) + ");\n"

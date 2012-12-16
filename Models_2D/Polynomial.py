@@ -28,7 +28,7 @@ import pyeq2.Model_2D_BaseClass
 
 class Quintic(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
-    _baseName = "Quintic"
+    _baseName = "5th Order (Quintic)"
     _HTML = 'y = a + bx + cx<sup>2</sup> + dx<sup>3</sup> + fx<sup>4</sup> + gx<sup>5</sup>'
     _leftSideHTML = 'y'
     _coefficientDesignators = ['a', 'b', 'c', 'd', 'f', 'g']
@@ -90,7 +90,7 @@ class Quintic(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
 class Quartic(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
-    _baseName = "Quartic"
+    _baseName = "4th Order (Quartic)"
     _HTML = 'y = a + bx + cx<sup>2</sup> + dx<sup>3</sup> + fx<sup>4</sup>'
     _leftSideHTML = 'y'
     _coefficientDesignators = ['a', 'b', 'c', 'd', 'f']
@@ -149,7 +149,7 @@ class Quartic(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
 class Cubic(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
-    _baseName = "Cubic"
+    _baseName = "3rd Order (Cubic)"
     _HTML = 'y = a + bx + cx<sup>2</sup> + dx<sup>3</sup>'
     _leftSideHTML = 'y'
     _coefficientDesignators = ['a', 'b', 'c', 'd']
@@ -205,7 +205,7 @@ class Cubic(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
 class Linear(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
-    _baseName = "Linear"
+    _baseName = "1st Order (Linear)"
     _HTML = 'y = a + bx'
     _leftSideHTML = 'y'
     _coefficientDesignators = ['a', 'b']
@@ -305,7 +305,7 @@ class MarcPlanteQuadratic(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
 class Quadratic(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
-    _baseName = "Quadratic"
+    _baseName = "2nd Order (Quadratic)"
     _HTML = 'y = a + bx + cx<sup>2</sup>'
     _leftSideHTML = 'y'
     _coefficientDesignators = ['a', 'b', 'c']

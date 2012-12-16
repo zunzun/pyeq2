@@ -542,7 +542,7 @@ class KarplusNMRSpectroscopy(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     _coefficientDesignators = ['A', 'B', 'C']
     _canLinearSolverBeUsedForSSQABS = False
     
-    webReferenceURL = 'http://en.wikipedia.org/wiki/Karplus_equation'
+    webReferenceURL = 'http://pubs.acs.org/cen/science/8151/8151karplus.html'
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = False
@@ -594,7 +594,7 @@ class KarplusNMRSpectroscopyScaled(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     _coefficientDesignators = ['A', 'B', 'C', 's']
     _canLinearSolverBeUsedForSSQABS = False
     
-    webReferenceURL = 'http://en.wikipedia.org/wiki/Karplus_equation'
+    webReferenceURL = 'http://pubs.acs.org/cen/science/8151/8151karplus.html'
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = False

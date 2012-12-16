@@ -733,7 +733,7 @@ def LogX_Y(data=None, args=None, eqInstance=None, NameOrValueFlag=0):
         return 1.0E300 * numpy.ones_like(data[0])
 
 
-# see http://en.wikipedia.org/wiki/Legendre_polynomials
+# see http://mathworld.wolfram.com/LegendrePolynomial.html
 def LegendreX(data=None, args=None, eqInstance=None, NameOrValueFlag=0):
     n = args[0]
     cosineFlag = args[1]

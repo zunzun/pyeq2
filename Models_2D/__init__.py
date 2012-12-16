@@ -16,6 +16,7 @@ from __future__ import absolute_import
 from . import BioScience
 from . import Engineering
 from . import Exponential
+from . import FourierSeries
 from . import LegendrePolynomial
 from . import Logarithmic
 from . import Miscellaneous
