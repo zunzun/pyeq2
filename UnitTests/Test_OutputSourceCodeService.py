@@ -187,7 +187,7 @@ class TestGenerationOfOutputSourceCode(unittest.TestCase):
 // Fitting target: lowest sum of squared absolute error
 // Fitting target value = 0.223837322455
 
-double Linear_model(double x_in)
+double Polynomial_Linear_model(double x_in)
 {
 	double temp;
 	temp = 0.0;
@@ -217,7 +217,7 @@ double Linear_model(double x_in)
 ' Fitting target: lowest sum of squared absolute error
 ' Fitting target value = 0.223837322455
 
-Public Function Linear_model(x_in)
+Public Function Polynomial_Linear_model(x_in)
 \ttemp = 0.0
 
 \t' coefficients
@@ -225,7 +225,7 @@ Public Function Linear_model(x_in)
 \tConst b = 1.52644729419E+00
 
 \ttemp = temp + a + b * x_in
-\tLinear_model = temp
+\tPolynomial_Linear_model = temp
 End Function
 '''
         equation = pyeq2.Models_2D.Polynomial.Linear('SSQABS')
@@ -248,7 +248,7 @@ import math
 # Fitting target: lowest sum of squared absolute error
 # Fitting target value = 0.223837322455
 
-def Linear_model(x_in):
+def Polynomial_Linear_model(x_in):
     temp = 0.0
 
     # coefficients
@@ -278,9 +278,9 @@ import java.lang.Math;
 // Fitting target: lowest sum of squared absolute error
 // Fitting target value = 0.223837322455
 
-class Linear
+class Polynomial_Linear
 {
-\tdouble Linear_model(double x_in)
+\tdouble Polynomial_Linear_model(double x_in)
 \t{
 \t\tdouble temp;
 \t\ttemp = 0.0;
@@ -314,9 +314,9 @@ using System;
 // Fitting target: lowest sum of squared absolute error
 // Fitting target value = 0.223837322455
 
-class Linear
+class Polynomial_Linear
 {
-\tdouble Linear_model(double x_in)
+\tdouble Polynomial_Linear_model(double x_in)
 \t{
 \t\tdouble temp;
 \t\ttemp = 0.0;
@@ -348,7 +348,7 @@ class Linear
 // Fitting target: lowest sum of squared absolute error
 // Fitting target value = 0.223837322455
 
-function y = Linear_model(x_in)
+function y = Polynomial_Linear_model(x_in)
 \ttemp = 0.0;
 
 \t// coefficients
@@ -378,7 +378,7 @@ endfunction
 % Fitting target: lowest sum of squared absolute error
 % Fitting target value = 0.223837322455
 
-function y = Linear_model(x_in)
+function y = Polynomial_Linear_model(x_in)
 \ttemp = 0.0;
 
 \t% coefficients
