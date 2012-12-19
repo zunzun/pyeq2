@@ -35,11 +35,11 @@ class ExtendedVersionHandler_LinearDecayAndOffset(IExtendedVersionHandler.IExten
 
 
     def AssembleDisplayName(self, inModel):
-        return inModel._baseName + ' With Linear Decay And Offset'
+        return '(' + inModel.__module__.split('.')[-1] + ') ' + inModel._baseName + ' With Linear Decay And Offset'
 
 
     def AssembleSourceCodeName(self, inModel):
-        return inModel.__class__.__name__ + "_LinearDecayAndOffset"
+        return inModel.__module__.split('.')[-1] + '_' + inModel.__class__.__name__ + "_LinearDecayAndOffset"
 
 
     def AssembleCoefficientDesignators(self, inModel):

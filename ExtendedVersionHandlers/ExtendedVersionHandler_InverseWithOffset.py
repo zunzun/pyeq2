@@ -27,11 +27,11 @@ class ExtendedVersionHandler_InverseWithOffset(IExtendedVersionHandler.IExtended
 
 
     def AssembleDisplayName(self, inModel):
-        return 'Inverse ' + inModel._baseName + ' With Offset'
+        return '(' + inModel.__module__.split('.')[-1] + ') ' + 'Inverse ' + inModel._baseName + ' With Offset'
 
 
     def AssembleSourceCodeName(self, inModel):
-        return inModel.__class__.__name__ + "_InverseWithOffset"
+        return inModel.__module__.split('.')[-1] + '_' + inModel.__class__.__name__ + "_InverseWithOffset"
 
 
     def AssembleCoefficientDesignators(self, inModel):

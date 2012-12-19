@@ -35,11 +35,11 @@ class ExtendedVersionHandler_LinearGrowth(IExtendedVersionHandler.IExtendedVersi
 
 
     def AssembleDisplayName(self, inModel):
-        return inModel._baseName + ' With Linear Growth'
+        return '(' + inModel.__module__.split('.')[-1] + ') ' + inModel._baseName + ' With Linear Growth'
 
 
     def AssembleSourceCodeName(self, inModel):
-        return inModel.__class__.__name__ + "_LinearGrowth"
+        return inModel.__module__.split('.')[-1] + '_' + inModel.__class__.__name__ + "_LinearGrowth"
 
 
     def AssembleCoefficientDesignators(self, inModel):

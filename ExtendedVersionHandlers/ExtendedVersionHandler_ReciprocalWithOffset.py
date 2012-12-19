@@ -24,11 +24,11 @@ class ExtendedVersionHandler_ReciprocalWithOffset(IExtendedVersionHandler.IExten
 
 
     def AssembleDisplayName(self, inModel):
-        return 'Reciprocal ' + inModel._baseName + ' With Offset'
+        return '(' + inModel.__module__.split('.')[-1] + ') ' + 'Reciprocal ' + inModel._baseName + ' With Offset'
 
 
     def AssembleSourceCodeName(self, inModel):
-        return inModel.__class__.__name__ + "_ReciprocalWithOffset"
+        return inModel.__module__.split('.')[-1] + '_' + inModel.__class__.__name__ + "_ReciprocalWithOffset"
 
 
     def AssembleCoefficientDesignators(self, inModel):

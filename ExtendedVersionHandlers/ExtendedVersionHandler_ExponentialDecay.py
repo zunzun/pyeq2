@@ -38,11 +38,11 @@ class ExtendedVersionHandler_ExponentialDecay(IExtendedVersionHandler.IExtendedV
 
 
     def AssembleDisplayName(self, inModel):
-        return inModel._baseName + ' With Exponential Decay'
+        return '(' + inModel.__module__.split('.')[-1] + ') ' + inModel._baseName + ' With Exponential Decay'
 
 
     def AssembleSourceCodeName(self, inModel):
-        return inModel.__class__.__name__ + "_ExponentialDecay"
+        return inModel.__module__.split('.')[-1] + '_' + inModel.__class__.__name__ + "_ExponentialDecay"
 
 
     def AssembleCoefficientDesignators(self, inModel):

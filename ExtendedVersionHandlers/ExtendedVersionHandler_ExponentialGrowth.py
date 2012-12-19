@@ -38,11 +38,11 @@ class ExtendedVersionHandler_ExponentialGrowth(IExtendedVersionHandler.IExtended
 
 
     def AssembleDisplayName(self, inModel):
-        return inModel._baseName + ' With Exponential Growth'
+        return '(' + inModel.__module__.split('.')[-1] + ') ' + inModel._baseName + ' With Exponential Growth'
 
 
     def AssembleSourceCodeName(self, inModel):
-        return inModel.__class__.__name__ + "_ExponentialGrowth"
+        return inModel.__module__.split('.')[-1] + '_' + inModel.__class__.__name__ + "_ExponentialGrowth"
 
 
     def AssembleCoefficientDesignators(self, inModel):

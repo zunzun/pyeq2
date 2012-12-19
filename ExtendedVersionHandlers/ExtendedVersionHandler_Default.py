@@ -25,11 +25,11 @@ class ExtendedVersionHandler_Default(IExtendedVersionHandler.IExtendedVersionHan
 
 
     def AssembleDisplayName(self, inModel):
-        return inModel._baseName
+        return '(' + inModel.__module__.split('.')[-1] + ') ' + inModel._baseName
 
 
     def AssembleSourceCodeName(self, inModel):
-        return inModel.__class__.__name__
+        return inModel.__module__.split('.')[-1] + '_' + inModel.__class__.__name__
 
 
     def AssembleCoefficientDesignators(self, inModel):
