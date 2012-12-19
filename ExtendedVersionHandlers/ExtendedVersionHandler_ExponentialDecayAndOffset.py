@@ -38,7 +38,7 @@ class ExtendedVersionHandler_ExponentialDecayAndOffset(IExtendedVersionHandler.I
 
 
     def AssembleDisplayName(self, inModel):
-        return '(' + inModel.__module__.split('.')[-1] + ') ' + inModel._baseName + ' With Exponential Decay And Offset'
+        return inModel._baseName + ' With Exponential Decay And Offset'
 
 
     def AssembleSourceCodeName(self, inModel):

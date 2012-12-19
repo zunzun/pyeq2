@@ -24,7 +24,7 @@ class ExtendedVersionHandler_Reciprocal(IExtendedVersionHandler.IExtendedVersion
 
 
     def AssembleDisplayName(self, inModel):
-        return '(' + inModel.__module__.split('.')[-1] + ') ' + 'Reciprocal ' + inModel._baseName
+        return 'Reciprocal ' + inModel._baseName
 
 
     def AssembleSourceCodeName(self, inModel):

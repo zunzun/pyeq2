@@ -38,7 +38,7 @@ class ExtendedVersionHandler_ExponentialGrowthAndOffset(IExtendedVersionHandler.
 
 
     def AssembleDisplayName(self, inModel):
-        return '(' + inModel.__module__.split('.')[-1] + ') ' + inModel._baseName + ' With Exponential Growth And Offset'
+        return inModel._baseName + ' With Exponential Growth And Offset'
 
 
     def AssembleSourceCodeName(self, inModel):

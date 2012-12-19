@@ -24,7 +24,7 @@ class ExtendedVersionHandler_Offset(IExtendedVersionHandler.IExtendedVersionHand
 
 
     def AssembleDisplayName(self, inModel):
-        return '(' + inModel.__module__.split('.')[-1] + ') ' + inModel._baseName + " With Offset"
+        return inModel._baseName + " With Offset"
 
 
     def AssembleSourceCodeName(self, inModel):

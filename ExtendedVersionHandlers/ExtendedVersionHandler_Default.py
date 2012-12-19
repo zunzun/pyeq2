@@ -25,7 +25,7 @@ class ExtendedVersionHandler_Default(IExtendedVersionHandler.IExtendedVersionHan
 
 
     def AssembleDisplayName(self, inModel):
-        return '(' + inModel.__module__.split('.')[-1] + ') ' + inModel._baseName
+        return inModel._baseName
 
 
     def AssembleSourceCodeName(self, inModel):

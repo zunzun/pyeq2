@@ -27,7 +27,7 @@ class ExtendedVersionHandler_Inverse(IExtendedVersionHandler.IExtendedVersionHan
 
 
     def AssembleDisplayName(self, inModel):
-        return '(' + inModel.__module__.split('.')[-1] + ') ' + 'Inverse ' + inModel._baseName
+        return'Inverse ' + inModel._baseName
 
 
     def AssembleSourceCodeName(self, inModel):

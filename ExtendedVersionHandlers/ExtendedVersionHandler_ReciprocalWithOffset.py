@@ -24,7 +24,7 @@ class ExtendedVersionHandler_ReciprocalWithOffset(IExtendedVersionHandler.IExten
 
 
     def AssembleDisplayName(self, inModel):
-        return '(' + inModel.__module__.split('.')[-1] + ') ' + 'Reciprocal ' + inModel._baseName + ' With Offset'
+        return 'Reciprocal ' + inModel._baseName + ' With Offset'
 
 
     def AssembleSourceCodeName(self, inModel):

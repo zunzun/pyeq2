@@ -35,7 +35,7 @@ class ExtendedVersionHandler_LinearGrowthAndOffset(IExtendedVersionHandler.IExte
 
 
     def AssembleDisplayName(self, inModel):
-        return '(' + inModel.__module__.split('.')[-1] + ') ' + inModel._baseName + ' With Linear Growth And Offset'
+        return inModel._baseName + ' With Linear Growth And Offset'
 
 
     def AssembleSourceCodeName(self, inModel):

@@ -35,7 +35,7 @@ class ExtendedVersionHandler_LinearDecay(IExtendedVersionHandler.IExtendedVersio
 
 
     def AssembleDisplayName(self, inModel):
-        return '(' + inModel.__module__.split('.')[-1] + ') ' + inModel._baseName + ' With Linear Decay'
+        return inModel._baseName + ' With Linear Decay'
 
 
     def AssembleSourceCodeName(self, inModel):
