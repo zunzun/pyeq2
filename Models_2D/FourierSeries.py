@@ -26,7 +26,7 @@ numpy.seterr(over = 'raise', divide = 'raise', invalid = 'raise', under = 'ignor
 import pyeq2.Model_2D_BaseClass
 
 
-class Scaled_X_1Term(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
+class ScaledX_1Term(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "1 Term (Scaled X)"
     _HTML = 'y = a0 + a1*sin(c1*x)+b1*cos(c1*x)'
