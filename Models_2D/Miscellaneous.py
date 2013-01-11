@@ -26,6 +26,61 @@ numpy.seterr(over = 'raise', divide = 'raise', invalid = 'raise', under = 'ignor
 import pyeq2.Model_2D_BaseClass
 
 
+class TimothyStrobelCustomEquation(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
+    
+    _baseName = "Timothy Strobel's Custom Equation"
+    _HTML = 'y = (A-B*X**C)*(1-(0.5+(arctan((X-D)/E))/pi))+(F-G*X**H)*(0.5+(arctan((X-D)/E))/pi)'
+    _leftSideHTML = 'y'
+    _coefficientDesignators = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
+    _canLinearSolverBeUsedForSSQABS = False
+    
+    webReferenceURL = 'https://www.gl.ciw.edu/bios/tstrobel'
+
+    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = True
+    autoGenerateOffsetForm = True
+    autoGenerateReciprocalForm = True
+    autoGenerateInverseForms = True
+    autoGenerateGrowthAndDecayForms = True
+
+    independentData1CannotContainZeroFlag = False
+    independentData1CannotContainPositiveFlag = False
+    independentData1CannotContainNegativeFlag = False
+    independentData2CannotContainZeroFlag = False
+    independentData2CannotContainPositiveFlag = False
+    independentData2CannotContainNegativeFlag = False
+    
+
+    def GetDataCacheFunctions(self):
+        functionList = []
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.X(NameOrValueFlag=1), []])
+        return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
+
+
+    def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
+        x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
+        
+        A = inCoeffs[0]
+        B = inCoeffs[1]
+        C = inCoeffs[2]
+        D = inCoeffs[3]
+        E = inCoeffs[4]
+        F = inCoeffs[5]
+        G = inCoeffs[6]
+        H = inCoeffs[7]
+
+        try:
+            temp = (A-B*numpy.power(x_in,C))*(1-(0.5+(numpy.arctan((x_in-D)/E))/numpy.pi))+(F-G*numpy.power(x_in,H))*(0.5+(numpy.arctan((x_in-D)/E))/numpy.pi)
+            return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
+        except:
+            return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
+
+
+    def SpecificCodeCPP(self):
+        s = "\ttemp =(A-B*pow(x_in,C))*(1-(0.5+(atan((x_in-D)/E))/3.14159265358979323846))+(F-G*pow(x_in,H))*(0.5+(atan((x_in-D)/E))/3.14159265358979323846);\n"
+        return s
+
+
+
 class FigureEight(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Figure Eight Curve"
