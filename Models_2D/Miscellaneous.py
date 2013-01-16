@@ -26,6 +26,57 @@ numpy.seterr(over = 'raise', divide = 'raise', invalid = 'raise', under = 'ignor
 import pyeq2.Model_2D_BaseClass
 
 
+class PhysicistPeterCustomEquation(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
+    
+    _baseName = "Physicist Peter's Custom Equation"
+    _HTML = 'y = A + B*(X-C) + 0.5*G*(X-C)**2'
+    _leftSideHTML = 'y'
+    _coefficientDesignators = ['A', 'B', 'C', 'G']
+    _canLinearSolverBeUsedForSSQABS = False
+    
+    webReferenceURL = ''
+
+    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
+    autoGenerateOffsetForm = False
+    autoGenerateReciprocalForm = True
+    autoGenerateInverseForms = True
+    autoGenerateGrowthAndDecayForms = True
+
+    independentData1CannotContainZeroFlag = False
+    independentData1CannotContainPositiveFlag = False
+    independentData1CannotContainNegativeFlag = False
+    independentData2CannotContainZeroFlag = False
+    independentData2CannotContainPositiveFlag = False
+    independentData2CannotContainNegativeFlag = False
+    
+
+    def GetDataCacheFunctions(self):
+        functionList = []
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.X(NameOrValueFlag=1), []])
+        return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
+
+
+    def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
+        x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
+        
+        A = inCoeffs[0]
+        B = inCoeffs[1]
+        C = inCoeffs[2]
+        G = inCoeffs[3]
+
+        try:
+            temp = A + B*(x_in-C) + 0.5*G*numpy.power(x_in-C, 2.0)
+            return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
+        except:
+            return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
+
+
+    def SpecificCodeCPP(self):
+        s = "\ttemp = A + B*(x_in-C) + 0.5*G*pow(x_in-C, 2.0);\n"
+        return s
+
+
+
 class TimothyStrobelCustomEquation(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Timothy Strobel's Custom Equation"
@@ -36,7 +87,7 @@ class TimothyStrobelCustomEquation(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     webReferenceURL = 'https://www.gl.ciw.edu/bios/tstrobel'
 
-    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = True
+    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = True
     autoGenerateReciprocalForm = True
     autoGenerateInverseForms = True
@@ -76,7 +127,7 @@ class TimothyStrobelCustomEquation(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
 
     def SpecificCodeCPP(self):
-        s = "\ttemp =(A-B*pow(x_in,C))*(1-(0.5+(atan((x_in-D)/E))/3.14159265358979323846))+(F-G*pow(x_in,H))*(0.5+(atan((x_in-D)/E))/3.14159265358979323846);\n"
+        s = "\ttemp = (A-B*pow(x_in,C))*(1-(0.5+(atan((x_in-D)/E))/3.14159265358979323846))+(F-G*pow(x_in,H))*(0.5+(atan((x_in-D)/E))/3.14159265358979323846);\n"
         return s
 
 
