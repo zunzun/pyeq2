@@ -34,7 +34,7 @@ class Cauchy(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     _coefficientDesignators = ['A', 'B', 'C']
     _canLinearSolverBeUsedForSSQABS = False
     
-    webReferenceURL = 'http://www.optics.arizona.edu/palmer/cgi-bin/index/dispeqns.pdf'
+    webReferenceURL = 'http://home.comcast.net/~mbiegert/Blog/DispersionCoefficient/dispeqns.pdf'
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = False
@@ -86,7 +86,7 @@ class Conrady1(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     _coefficientDesignators = ['A', 'B', 'C']
     _canLinearSolverBeUsedForSSQABS = False
     
-    webReferenceURL = 'http://www.optics.arizona.edu/palmer/cgi-bin/index/dispeqns.pdf'
+    webReferenceURL = 'http://home.comcast.net/~mbiegert/Blog/DispersionCoefficient/dispeqns.pdf'
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = False
@@ -138,7 +138,7 @@ class Conrady2(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     _coefficientDesignators = ['A', 'B', 'C']
     _canLinearSolverBeUsedForSSQABS = False
     
-    webReferenceURL = 'http://www.optics.arizona.edu/palmer/cgi-bin/index/dispeqns.pdf'
+    webReferenceURL = 'http://home.comcast.net/~mbiegert/Blog/DispersionCoefficient/dispeqns.pdf'
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = False
@@ -190,7 +190,7 @@ class Hartmann1(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     _coefficientDesignators = ['A', 'B', 'C']
     _canLinearSolverBeUsedForSSQABS = False
     
-    webReferenceURL = 'http://www.optics.arizona.edu/palmer/cgi-bin/index/dispeqns.pdf'
+    webReferenceURL = 'http://home.comcast.net/~mbiegert/Blog/DispersionCoefficient/dispeqns.pdf'
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = False
@@ -240,7 +240,7 @@ class Hartmann2(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     _coefficientDesignators = ['A', 'B', 'C']
     _canLinearSolverBeUsedForSSQABS = False
     
-    webReferenceURL = 'http://www.optics.arizona.edu/palmer/cgi-bin/index/dispeqns.pdf'
+    webReferenceURL = 'http://home.comcast.net/~mbiegert/Blog/DispersionCoefficient/dispeqns.pdf'
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = False
@@ -290,7 +290,7 @@ class Hartmann3a(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     _coefficientDesignators = ['A', 'B', 'C']
     _canLinearSolverBeUsedForSSQABS = False
     
-    webReferenceURL = 'http://www.optics.arizona.edu/palmer/cgi-bin/index/dispeqns.pdf'
+    webReferenceURL = 'http://home.comcast.net/~mbiegert/Blog/DispersionCoefficient/dispeqns.pdf'
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = False
@@ -340,7 +340,7 @@ class Hartmann3b(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     _coefficientDesignators = ['A', 'B']
     _canLinearSolverBeUsedForSSQABS = False
     
-    webReferenceURL = 'http://www.optics.arizona.edu/palmer/cgi-bin/index/dispeqns.pdf'
+    webReferenceURL = 'http://home.comcast.net/~mbiegert/Blog/DispersionCoefficient/dispeqns.pdf'
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = True
     autoGenerateOffsetForm = True
@@ -389,7 +389,7 @@ class Hartmann4(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     _coefficientDesignators = ['A', 'B', 'C', 'D', 'E']
     _canLinearSolverBeUsedForSSQABS = False
     
-    webReferenceURL = 'http://www.optics.arizona.edu/palmer/cgi-bin/index/dispeqns.pdf'
+    webReferenceURL = 'http://home.comcast.net/~mbiegert/Blog/DispersionCoefficient/dispeqns.pdf'
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = False
@@ -441,7 +441,7 @@ class Herzberger2X2(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     _coefficientDesignators = ['A', 'B', 'C', 'D']
     _canLinearSolverBeUsedForSSQABS = False
     
-    webReferenceURL = 'http://www.optics.arizona.edu/palmer/cgi-bin/index/dispeqns.pdf'
+    webReferenceURL = 'http://home.comcast.net/~mbiegert/Blog/DispersionCoefficient/dispeqns.pdf'
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = False
@@ -492,7 +492,7 @@ class Herzberger3X2(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     _coefficientDesignators = ['A', 'B', 'C', 'D', 'E']
     _canLinearSolverBeUsedForSSQABS = False
     
-    webReferenceURL = 'http://www.optics.arizona.edu/palmer/cgi-bin/index/dispeqns.pdf'
+    webReferenceURL = 'http://home.comcast.net/~mbiegert/Blog/DispersionCoefficient/dispeqns.pdf'
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = False
@@ -546,7 +546,7 @@ class Herzberger3X3(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     _coefficientDesignators = ['A', 'B', 'C', 'D', 'E', 'F']
     _canLinearSolverBeUsedForSSQABS = False
     
-    webReferenceURL = 'http://www.optics.arizona.edu/palmer/cgi-bin/index/dispeqns.pdf'
+    webReferenceURL = 'http://home.comcast.net/~mbiegert/Blog/DispersionCoefficient/dispeqns.pdf'
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = False
@@ -601,7 +601,7 @@ class Herzberger4X2(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     _coefficientDesignators = ['A', 'B', 'C', 'D', 'E', 'F']
     _canLinearSolverBeUsedForSSQABS = False
     
-    webReferenceURL = 'http://www.optics.arizona.edu/palmer/cgi-bin/index/dispeqns.pdf'
+    webReferenceURL = 'http://home.comcast.net/~mbiegert/Blog/DispersionCoefficient/dispeqns.pdf'
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = False
@@ -658,7 +658,7 @@ class Herzberger5X2(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     _coefficientDesignators = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
     _canLinearSolverBeUsedForSSQABS = False
     
-    webReferenceURL = 'http://www.optics.arizona.edu/palmer/cgi-bin/index/dispeqns.pdf'
+    webReferenceURL = 'http://home.comcast.net/~mbiegert/Blog/DispersionCoefficient/dispeqns.pdf'
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = False
@@ -718,7 +718,7 @@ class HerzbergerJK(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     _coefficientDesignators = ['A', 'B', 'C', 'D', 'E', 'F', 'J', 'K']
     _canLinearSolverBeUsedForSSQABS = False
     
-    webReferenceURL = 'http://www.optics.arizona.edu/palmer/cgi-bin/index/dispeqns.pdf'
+    webReferenceURL = 'http://home.comcast.net/~mbiegert/Blog/DispersionCoefficient/dispeqns.pdf'
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = False
@@ -777,7 +777,7 @@ class HoO1(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     _coefficientDesignators = ['A', 'B', 'C', 'D']
     _canLinearSolverBeUsedForSSQABS = False
     
-    webReferenceURL = 'http://www.optics.arizona.edu/palmer/cgi-bin/index/dispeqns.pdf'
+    webReferenceURL = 'http://home.comcast.net/~mbiegert/Blog/DispersionCoefficient/dispeqns.pdf'
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = False
@@ -828,7 +828,7 @@ class HoO2(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     _coefficientDesignators = ['A', 'B', 'C', 'D']
     _canLinearSolverBeUsedForSSQABS = False
     
-    webReferenceURL = 'http://www.optics.arizona.edu/palmer/cgi-bin/index/dispeqns.pdf'
+    webReferenceURL = 'http://home.comcast.net/~mbiegert/Blog/DispersionCoefficient/dispeqns.pdf'
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = False
@@ -879,7 +879,7 @@ class Kingslake1(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     _coefficientDesignators = ['A', 'B', 'C', 'D', 'E']
     _canLinearSolverBeUsedForSSQABS = False
     
-    webReferenceURL = 'http://www.optics.arizona.edu/palmer/cgi-bin/index/dispeqns.pdf'
+    webReferenceURL = 'http://home.comcast.net/~mbiegert/Blog/DispersionCoefficient/dispeqns.pdf'
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = False
@@ -931,7 +931,7 @@ class Kingslake2(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     _coefficientDesignators = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
     _canLinearSolverBeUsedForSSQABS = False
     
-    webReferenceURL = 'http://www.optics.arizona.edu/palmer/cgi-bin/index/dispeqns.pdf'
+    webReferenceURL = 'http://home.comcast.net/~mbiegert/Blog/DispersionCoefficient/dispeqns.pdf'
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = False
@@ -985,7 +985,7 @@ class Misc01(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     _coefficientDesignators = ['A', 'B', 'C']
     _canLinearSolverBeUsedForSSQABS = False
     
-    webReferenceURL = 'http://www.optics.arizona.edu/palmer/cgi-bin/index/dispeqns.pdf'
+    webReferenceURL = 'http://home.comcast.net/~mbiegert/Blog/DispersionCoefficient/dispeqns.pdf'
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = False
@@ -1035,7 +1035,7 @@ class Misc02(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     _coefficientDesignators = ['A', 'B', 'C', 'D']
     _canLinearSolverBeUsedForSSQABS = False
     
-    webReferenceURL = 'http://www.optics.arizona.edu/palmer/cgi-bin/index/dispeqns.pdf'
+    webReferenceURL = 'http://home.comcast.net/~mbiegert/Blog/DispersionCoefficient/dispeqns.pdf'
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = False
@@ -1086,7 +1086,7 @@ class Misc03(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     _coefficientDesignators = ['A', 'B', 'C', 'D']
     _canLinearSolverBeUsedForSSQABS = False
     
-    webReferenceURL = 'http://www.optics.arizona.edu/palmer/cgi-bin/index/dispeqns.pdf'
+    webReferenceURL = 'http://home.comcast.net/~mbiegert/Blog/DispersionCoefficient/dispeqns.pdf'
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = False
@@ -1137,7 +1137,7 @@ class Misc04(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     _coefficientDesignators = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
     _canLinearSolverBeUsedForSSQABS = False
     
-    webReferenceURL = 'http://www.optics.arizona.edu/palmer/cgi-bin/index/dispeqns.pdf'
+    webReferenceURL = 'http://home.comcast.net/~mbiegert/Blog/DispersionCoefficient/dispeqns.pdf'
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = False
@@ -1193,7 +1193,7 @@ class Schott2X3(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     _coefficientDesignators = ['A', 'B', 'C', 'D', 'E']
     _canLinearSolverBeUsedForSSQABS = False
     
-    webReferenceURL = 'http://www.optics.arizona.edu/palmer/cgi-bin/index/dispeqns.pdf'
+    webReferenceURL = 'http://home.comcast.net/~mbiegert/Blog/DispersionCoefficient/dispeqns.pdf'
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = False
@@ -1249,7 +1249,7 @@ class Schott2X4(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     _coefficientDesignators = ['A', 'B', 'C', 'D', 'E', 'F']
     _canLinearSolverBeUsedForSSQABS = False
     
-    webReferenceURL = 'http://www.optics.arizona.edu/palmer/cgi-bin/index/dispeqns.pdf'
+    webReferenceURL = 'http://home.comcast.net/~mbiegert/Blog/DispersionCoefficient/dispeqns.pdf'
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = False
@@ -1308,7 +1308,7 @@ class Schott2X5(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     _coefficientDesignators = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
     _canLinearSolverBeUsedForSSQABS = False
     
-    webReferenceURL = 'http://www.optics.arizona.edu/palmer/cgi-bin/index/dispeqns.pdf'
+    webReferenceURL = 'http://home.comcast.net/~mbiegert/Blog/DispersionCoefficient/dispeqns.pdf'
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = False
@@ -1370,7 +1370,7 @@ class Schott2X6(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     _coefficientDesignators = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
     _canLinearSolverBeUsedForSSQABS = False
     
-    webReferenceURL = 'http://www.optics.arizona.edu/palmer/cgi-bin/index/dispeqns.pdf'
+    webReferenceURL = 'http://home.comcast.net/~mbiegert/Blog/DispersionCoefficient/dispeqns.pdf'
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = False
@@ -1437,7 +1437,7 @@ class Schott3X3(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     _coefficientDesignators = ['A', 'B', 'C', 'D', 'E', 'F']
     _canLinearSolverBeUsedForSSQABS = False
     
-    webReferenceURL = 'http://www.optics.arizona.edu/palmer/cgi-bin/index/dispeqns.pdf'
+    webReferenceURL = 'http://home.comcast.net/~mbiegert/Blog/DispersionCoefficient/dispeqns.pdf'
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = False
@@ -1496,7 +1496,7 @@ class Schott3X4(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     _coefficientDesignators = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
     _canLinearSolverBeUsedForSSQABS = False
     
-    webReferenceURL = 'http://www.optics.arizona.edu/palmer/cgi-bin/index/dispeqns.pdf'
+    webReferenceURL = 'http://home.comcast.net/~mbiegert/Blog/DispersionCoefficient/dispeqns.pdf'
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = False
@@ -1556,7 +1556,7 @@ class Schott3X5(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     _coefficientDesignators = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
     _canLinearSolverBeUsedForSSQABS = False
     
-    webReferenceURL = 'http://www.optics.arizona.edu/palmer/cgi-bin/index/dispeqns.pdf'
+    webReferenceURL = 'http://home.comcast.net/~mbiegert/Blog/DispersionCoefficient/dispeqns.pdf'
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = False
@@ -1619,7 +1619,7 @@ class Schott4X4(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     _coefficientDesignators = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
     _canLinearSolverBeUsedForSSQABS = False
     
-    webReferenceURL = 'http://www.optics.arizona.edu/palmer/cgi-bin/index/dispeqns.pdf'
+    webReferenceURL = 'http://home.comcast.net/~mbiegert/Blog/DispersionCoefficient/dispeqns.pdf'
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = False
@@ -1680,7 +1680,7 @@ class Schott5X5(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     _coefficientDesignators = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K']
     _canLinearSolverBeUsedForSSQABS = False
     
-    webReferenceURL = 'http://www.optics.arizona.edu/palmer/cgi-bin/index/dispeqns.pdf'
+    webReferenceURL = 'http://home.comcast.net/~mbiegert/Blog/DispersionCoefficient/dispeqns.pdf'
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = False
@@ -1745,7 +1745,7 @@ class Sell1TA(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     _coefficientDesignators = ['A', 'B', 'C']
     _canLinearSolverBeUsedForSSQABS = False
     
-    webReferenceURL = 'http://www.optics.arizona.edu/palmer/cgi-bin/index/dispeqns.pdf'
+    webReferenceURL = 'http://home.comcast.net/~mbiegert/Blog/DispersionCoefficient/dispeqns.pdf'
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = False
@@ -1795,7 +1795,7 @@ class Sell1T(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     _coefficientDesignators = ['A', 'B']
     _canLinearSolverBeUsedForSSQABS = False
     
-    webReferenceURL = 'http://www.optics.arizona.edu/palmer/cgi-bin/index/dispeqns.pdf'
+    webReferenceURL = 'http://home.comcast.net/~mbiegert/Blog/DispersionCoefficient/dispeqns.pdf'
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = False
@@ -1844,7 +1844,7 @@ class Sell2TA(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     _coefficientDesignators = ['A', 'B', 'C', 'D', 'E']
     _canLinearSolverBeUsedForSSQABS = False
     
-    webReferenceURL = 'http://www.optics.arizona.edu/palmer/cgi-bin/index/dispeqns.pdf'
+    webReferenceURL = 'http://home.comcast.net/~mbiegert/Blog/DispersionCoefficient/dispeqns.pdf'
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = False
@@ -1896,7 +1896,7 @@ class Sell2T(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     _coefficientDesignators = ['A', 'B', 'C', 'D']
     _canLinearSolverBeUsedForSSQABS = False
     
-    webReferenceURL = 'http://www.optics.arizona.edu/palmer/cgi-bin/index/dispeqns.pdf'
+    webReferenceURL = 'http://home.comcast.net/~mbiegert/Blog/DispersionCoefficient/dispeqns.pdf'
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = False
@@ -1947,7 +1947,7 @@ class Sell3TA(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     _coefficientDesignators = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
     _canLinearSolverBeUsedForSSQABS = False
     
-    webReferenceURL = 'http://www.optics.arizona.edu/palmer/cgi-bin/index/dispeqns.pdf'
+    webReferenceURL = 'http://home.comcast.net/~mbiegert/Blog/DispersionCoefficient/dispeqns.pdf'
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = False
@@ -2001,7 +2001,7 @@ class Sell3T(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     _coefficientDesignators = ['A', 'B', 'C', 'D', 'E', 'F']
     _canLinearSolverBeUsedForSSQABS = False
     
-    webReferenceURL = 'http://www.optics.arizona.edu/palmer/cgi-bin/index/dispeqns.pdf'
+    webReferenceURL = 'http://home.comcast.net/~mbiegert/Blog/DispersionCoefficient/dispeqns.pdf'
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = False
@@ -2054,7 +2054,7 @@ class Sell4TA(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     _coefficientDesignators = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J']
     _canLinearSolverBeUsedForSSQABS = False
     
-    webReferenceURL = 'http://www.optics.arizona.edu/palmer/cgi-bin/index/dispeqns.pdf'
+    webReferenceURL = 'http://home.comcast.net/~mbiegert/Blog/DispersionCoefficient/dispeqns.pdf'
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = False
@@ -2110,7 +2110,7 @@ class Sell4T(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     _coefficientDesignators = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
     _canLinearSolverBeUsedForSSQABS = False
     
-    webReferenceURL = 'http://www.optics.arizona.edu/palmer/cgi-bin/index/dispeqns.pdf'
+    webReferenceURL = 'http://home.comcast.net/~mbiegert/Blog/DispersionCoefficient/dispeqns.pdf'
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = False
@@ -2165,7 +2165,7 @@ class Sell5TA(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     _coefficientDesignators = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K', 'M']
     _canLinearSolverBeUsedForSSQABS = False
     
-    webReferenceURL = 'http://www.optics.arizona.edu/palmer/cgi-bin/index/dispeqns.pdf'
+    webReferenceURL = 'http://home.comcast.net/~mbiegert/Blog/DispersionCoefficient/dispeqns.pdf'
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = False
@@ -2223,7 +2223,7 @@ class Sell5T(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     _coefficientDesignators = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K']
     _canLinearSolverBeUsedForSSQABS = False
     
-    webReferenceURL = 'http://www.optics.arizona.edu/palmer/cgi-bin/index/dispeqns.pdf'
+    webReferenceURL = 'http://home.comcast.net/~mbiegert/Blog/DispersionCoefficient/dispeqns.pdf'
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = False
@@ -2280,7 +2280,7 @@ class Sell6TA(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     _coefficientDesignators = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K', 'M', 'N', 'P']
     _canLinearSolverBeUsedForSSQABS = False
     
-    webReferenceURL = 'http://www.optics.arizona.edu/palmer/cgi-bin/index/dispeqns.pdf'
+    webReferenceURL = 'http://home.comcast.net/~mbiegert/Blog/DispersionCoefficient/dispeqns.pdf'
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = False
@@ -2340,7 +2340,7 @@ class Sell7TA(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     _coefficientDesignators = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K', 'M', 'N', 'P', 'Q', 'R']
     _canLinearSolverBeUsedForSSQABS = False
     
-    webReferenceURL = 'http://www.optics.arizona.edu/palmer/cgi-bin/index/dispeqns.pdf'
+    webReferenceURL = 'http://home.comcast.net/~mbiegert/Blog/DispersionCoefficient/dispeqns.pdf'
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = False
@@ -2402,7 +2402,7 @@ class Sellmod1A(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     _coefficientDesignators = ['A', 'B', 'C', 'D', 'E']
     _canLinearSolverBeUsedForSSQABS = False
     
-    webReferenceURL = 'http://www.optics.arizona.edu/palmer/cgi-bin/index/dispeqns.pdf'
+    webReferenceURL = 'http://home.comcast.net/~mbiegert/Blog/DispersionCoefficient/dispeqns.pdf'
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = False
@@ -2456,7 +2456,7 @@ class Sellmod1(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     _coefficientDesignators = ['A', 'B', 'C', 'D', 'E']
     _canLinearSolverBeUsedForSSQABS = False
     
-    webReferenceURL = 'http://www.optics.arizona.edu/palmer/cgi-bin/index/dispeqns.pdf'
+    webReferenceURL = 'http://home.comcast.net/~mbiegert/Blog/DispersionCoefficient/dispeqns.pdf'
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = False
@@ -2510,7 +2510,7 @@ class Sellmod2A(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     _coefficientDesignators = ['A', 'B', 'C', 'D', 'E']
     _canLinearSolverBeUsedForSSQABS = False
     
-    webReferenceURL = 'http://www.optics.arizona.edu/palmer/cgi-bin/index/dispeqns.pdf'
+    webReferenceURL = 'http://home.comcast.net/~mbiegert/Blog/DispersionCoefficient/dispeqns.pdf'
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = False
@@ -2564,7 +2564,7 @@ class Sellmod2(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     _coefficientDesignators = ['A', 'B', 'C', 'D', 'E']
     _canLinearSolverBeUsedForSSQABS = False
     
-    webReferenceURL = 'http://www.optics.arizona.edu/palmer/cgi-bin/index/dispeqns.pdf'
+    webReferenceURL = 'http://home.comcast.net/~mbiegert/Blog/DispersionCoefficient/dispeqns.pdf'
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = False
@@ -2618,7 +2618,7 @@ class Sellmod3(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     _coefficientDesignators = ['A', 'B', 'C', 'D', 'E']
     _canLinearSolverBeUsedForSSQABS = False
     
-    webReferenceURL = 'http://www.optics.arizona.edu/palmer/cgi-bin/index/dispeqns.pdf'
+    webReferenceURL = 'http://home.comcast.net/~mbiegert/Blog/DispersionCoefficient/dispeqns.pdf'
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = True
@@ -2670,7 +2670,7 @@ class Sellmod4A(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     _coefficientDesignators = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
     _canLinearSolverBeUsedForSSQABS = False
     
-    webReferenceURL = 'http://www.optics.arizona.edu/palmer/cgi-bin/index/dispeqns.pdf'
+    webReferenceURL = 'http://home.comcast.net/~mbiegert/Blog/DispersionCoefficient/dispeqns.pdf'
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = False
@@ -2724,7 +2724,7 @@ class Sellmod4(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     _coefficientDesignators = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
     _canLinearSolverBeUsedForSSQABS = False
     
-    webReferenceURL = 'http://www.optics.arizona.edu/palmer/cgi-bin/index/dispeqns.pdf'
+    webReferenceURL = 'http://home.comcast.net/~mbiegert/Blog/DispersionCoefficient/dispeqns.pdf'
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = False
@@ -2778,7 +2778,7 @@ class Sellmod5(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     _coefficientDesignators = ['A', 'B', 'C', 'D', 'E', 'F']
     _canLinearSolverBeUsedForSSQABS = False
     
-    webReferenceURL = 'http://www.optics.arizona.edu/palmer/cgi-bin/index/dispeqns.pdf'
+    webReferenceURL = 'http://home.comcast.net/~mbiegert/Blog/DispersionCoefficient/dispeqns.pdf'
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = False
@@ -2831,7 +2831,7 @@ class Sellmod6(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     _coefficientDesignators = ['A', 'B', 'C', 'D', 'E']
     _canLinearSolverBeUsedForSSQABS = False
     
-    webReferenceURL = 'http://www.optics.arizona.edu/palmer/cgi-bin/index/dispeqns.pdf'
+    webReferenceURL = 'http://home.comcast.net/~mbiegert/Blog/DispersionCoefficient/dispeqns.pdf'
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = False
@@ -2883,7 +2883,7 @@ class Sellmod7A(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     _coefficientDesignators = ['A', 'B', 'C', 'D', 'E', 'F']
     _canLinearSolverBeUsedForSSQABS = False
     
-    webReferenceURL = 'http://www.optics.arizona.edu/palmer/cgi-bin/index/dispeqns.pdf'
+    webReferenceURL = 'http://home.comcast.net/~mbiegert/Blog/DispersionCoefficient/dispeqns.pdf'
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = False
@@ -2940,7 +2940,7 @@ class Sellmod7(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     _coefficientDesignators = ['A', 'B', 'C', 'D', 'E', 'F']
     _canLinearSolverBeUsedForSSQABS = False
     
-    webReferenceURL = 'http://www.optics.arizona.edu/palmer/cgi-bin/index/dispeqns.pdf'
+    webReferenceURL = 'http://home.comcast.net/~mbiegert/Blog/DispersionCoefficient/dispeqns.pdf'
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = False
@@ -2997,7 +2997,7 @@ class Sellmod8(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     _coefficientDesignators = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
     _canLinearSolverBeUsedForSSQABS = False
     
-    webReferenceURL = 'http://www.optics.arizona.edu/palmer/cgi-bin/index/dispeqns.pdf'
+    webReferenceURL = 'http://home.comcast.net/~mbiegert/Blog/DispersionCoefficient/dispeqns.pdf'
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = False
@@ -3053,7 +3053,7 @@ class Sellmod9(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     _coefficientDesignators = ['A', 'B', 'C', 'D', 'E', 'F']
     _canLinearSolverBeUsedForSSQABS = False
     
-    webReferenceURL = 'http://www.optics.arizona.edu/palmer/cgi-bin/index/dispeqns.pdf'
+    webReferenceURL = 'http://home.comcast.net/~mbiegert/Blog/DispersionCoefficient/dispeqns.pdf'
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = False
