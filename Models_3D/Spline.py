@@ -47,7 +47,7 @@ class Spline(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
     
     
     def GetDisplayHTML(self):
-        return 'z = B-Spline Interpolation Curve'
+        return 'z = B-Spline Interpolation Surface'
 
 
     def GetDataCacheFunctions(self):
