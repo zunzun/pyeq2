@@ -4,7 +4,7 @@ from __future__ import absolute_import
 
 #    pyeq2 is a collection of equations expressed as Python classes
 #
-#    Copyright (C) 2012 James R. Phillips
+#    Copyright (C) 2013 James R. Phillips
 #    2548 Vera Cruz Drive
 #    Birmingham, AL 35235 USA
 #
@@ -22,6 +22,54 @@ def ConvertInfAndNanToLargeNumber(inArray):
     inArray[numpy.isnan(inArray)] = 1.0E300
     inArray[numpy.isinf(inArray)] = 1.0E300
     return inArray
+
+
+class PowerTerm(object):
+
+    def __init__(self, variableName, codeName, powerString, logFlag):
+        self.power = float(powerString)
+        self.logFlag = logFlag
+        
+        # data flags
+        self.cannotAcceptDataWith_Zero = False
+        self.cannotAcceptDataWith_Negative = False
+        self.cannotAcceptDataWith_Positive = False
+        if self.logFlag:
+            self.cannotAcceptDataWith_Zero = True
+            self.cannotAcceptDataWith_Negative = True
+        if  numpy.modf(self.power)[0]: # fractional power
+            self.cannotAcceptDataWith_Negative = True
+        if self.power < 0.0:
+            self.cannotAcceptDataWith_Zero = True
+            self.cannotAcceptDataWith_Negative = True
+
+            # code
+        if self.logFlag:
+            self.HTML = 'ln(' + variableName + ')<sup>' + powerString + '</sup>'
+            self.JAVA = 'Math.pow(Math.log(' + codeName + '), ' + powerString + ')'
+            self.CPP = 'pow(log(' + codeName + '), ' + powerString + ')'
+            self.CSHARP = 'Math.Pow(Math.Log(' + codeName + '), ' + powerString + ')'
+            self.PYTHON = 'math.pow(math.log(' + codeName + '), ' + powerString + ')'
+            self.SCILAB = '(log(' + codeName + ') ^ ' + powerString + ')'
+        else:
+            self.HTML = variableName + '<sup>' + powerString + '</sup>'
+            self.JAVA = 'Math.pow(' + codeName + ', ' + powerString + ')'
+            self.CPP = 'pow(' + codeName + ', ' + powerString + ')'
+            self.CSHARP = 'Math.Pow(' + codeName + ', ' + powerString + ')'
+            self.PYTHON = 'math.pow(' + codeName + ', ' + powerString + ')'
+            self.PYTHON = 'math.pow(' + codeName + ', ' + powerString + ')'
+            self.SCILAB = '(' + codeName + ' ^ ' + powerString + ')'
+
+    def value(self, x):
+        try:
+            if self.logFlag:
+                returnValue = numpy.power(numpy.log(x), self.power)
+            else:
+                returnValue = numpy.power(x, self.power)
+            return ConvertInfAndNanToLargeNumber(returnValue)
+        except:
+            return 1.0E300 * numpy.ones_like(x)
+
 
 
 class Offset_Term(object):
@@ -62,27 +110,6 @@ class ArcTangent_Term(object):
             return 1.0E300 * numpy.ones_like(x)
 
 
-class Power_NegativeOne_Term(object):
-    cannotAcceptDataWith_Zero = True
-    cannotAcceptDataWith_Negative = False
-    cannotAcceptDataWith_Positive = False
-
-    def __init__(self, variableName, codeName):
-        self.HTML = variableName + "<sup>-1</sup>"
-        self.JAVA = 'Math.pow(' + codeName + ', -1.0)'
-        self.CPP = 'pow(' + codeName + ', -1.0)'
-        self.CSHARP = 'Math.Pow(' + codeName + ', -1.0)'
-        self.PYTHON = 'math.pow(' + codeName + ', -1.0)'
-        self.SCILAB = '(' + codeName + ' ^ -1.0)'
-
-    def value(self, x):
-        try:
-            returnValue = numpy.power(x, -1.0)
-            return ConvertInfAndNanToLargeNumber(returnValue)
-        except:
-            return 1.0E300 * numpy.ones_like(x)
-
-
 class HyperbolicCosine_Term(object):
     cannotAcceptDataWith_Zero = False
     cannotAcceptDataWith_Negative = False
@@ -104,48 +131,6 @@ class HyperbolicCosine_Term(object):
             return 1.0E300 * numpy.ones_like(x)
 
 
-class Power_OnePointFive_Term(object):
-    cannotAcceptDataWith_Zero = False
-    cannotAcceptDataWith_Negative = True
-    cannotAcceptDataWith_Positive = False
-
-    def __init__(self, variableName, codeName):
-        self.HTML = variableName + "<sup>1.5</sup>"
-        self.JAVA = 'Math.pow(' + codeName + ', 1.5)'
-        self.CPP = 'pow(' + codeName + ', 1.5)'
-        self.CSHARP = 'Math.Pow(' + codeName + ', 1.5)'
-        self.PYTHON = 'math.pow(' + codeName + ', 1.5)'
-        self.SCILAB = '(' + codeName + ' ^ 1.5)'
-
-    def value(self, x):
-        try:
-            returnValue = numpy.power(x, 1.5)
-            return ConvertInfAndNanToLargeNumber(returnValue)
-        except:
-            return 1.0E300 * numpy.ones_like(x)
-
-
-class Power_ZeroPointFive_Term(object):
-    cannotAcceptDataWith_Zero = False
-    cannotAcceptDataWith_Negative = False
-    cannotAcceptDataWith_Positive = False
-
-    def __init__(self, variableName, codeName):
-        self.HTML = variableName + "<sup>0.5</sup>"
-        self.JAVA = 'Math.pow(' + codeName + ', 0.5)'
-        self.CPP = 'pow(' + codeName + ', 0.5)'
-        self.CSHARP = 'Math.Pow(' + codeName + ', 0.5)'
-        self.PYTHON = 'math.pow(' + codeName + ', 0.5)'
-        self.SCILAB = '(' + codeName + ' ^ 0.5)'
-
-    def value(self, x):
-        try:
-            returnValue = numpy.power(x, 0.5)
-            return ConvertInfAndNanToLargeNumber(returnValue)
-        except:
-            return 1.0E300 * numpy.ones_like(x)
-
-
 class VariableUnchanged_Term(object):
     cannotAcceptDataWith_Zero = False
     cannotAcceptDataWith_Negative = False
@@ -161,27 +146,6 @@ class VariableUnchanged_Term(object):
 
     def value(self, x):
         return x
-
-
-class Power_Two_Term(object):
-    cannotAcceptDataWith_Zero = False
-    cannotAcceptDataWith_Negative = False
-    cannotAcceptDataWith_Positive = False
-
-    def __init__(self, variableName, codeName):
-        self.HTML = variableName + "<sup>2</sup>"
-        self.JAVA = 'Math.pow(' + codeName + ', 2.0)'
-        self.CPP = 'pow(' + codeName + ', 2.0)'
-        self.CSHARP = 'Math.Pow(' + codeName + ', 2.0)'
-        self.PYTHON = 'math.pow(' + codeName + ', 2.0)'
-        self.SCILAB = '(' + codeName + ' ^ 2.0)'
-
-    def value(self, x):
-        try:
-            returnValue = numpy.power(x, 2.0)
-            return ConvertInfAndNanToLargeNumber(returnValue)
-        except:
-            return 1.0E300 * numpy.ones_like(x)
 
 
 class HyperbolicSine_Term(object):
@@ -333,48 +297,6 @@ class HyperbolicTangent_Term(object):
             return 1.0E300 * numpy.ones_like(x)
 
 
-class Power_NegativeZeroPointFive_Term(object):
-    cannotAcceptDataWith_Zero = True
-    cannotAcceptDataWith_Negative = True
-    cannotAcceptDataWith_Positive = False
-
-    def __init__(self, variableName, codeName):
-        self.HTML = variableName + "<sup>-0.5</sup>"
-        self.JAVA = 'Math.pow(' + codeName + ', -0.5)'
-        self.CPP = 'pow(' + codeName + ', -0.5)'
-        self.CSHARP = 'Math.Pow(' + codeName + ', -0.5)'
-        self.PYTHON = 'math.pow(' + codeName + ', -0.5)'
-        self.SCILAB = '(' + codeName + ' ^ -0.5)'
-
-    def value(self, x):
-        try:
-            returnValue = numpy.power(x, -0.5)
-            return ConvertInfAndNanToLargeNumber(returnValue)
-        except:
-            return 1.0E300 * numpy.ones_like(x)
-
-
-class Power_NegativeTwo_Term(object):
-    cannotAcceptDataWith_Zero = True
-    cannotAcceptDataWith_Negative = False
-    cannotAcceptDataWith_Positive = False
-
-    def __init__(self, variableName, codeName):
-        self.HTML = variableName + "<sup>-2.0</sup>"
-        self.JAVA = 'Math.pow(' + codeName + ', -2.0)'
-        self.CPP = 'pow(' + codeName + ', -2.0)'
-        self.CSHARP = 'Math.Pow(' + codeName + ', -2.0)'
-        self.PYTHON = 'math.pow(' + codeName + ', -2.0)'
-        self.SCILAB = '(' + codeName + ' ^ -2.0)'
-
-    def value(self, x):
-        try:
-            returnValue = numpy.power(x, -2.0)
-            return ConvertInfAndNanToLargeNumber(returnValue)
-        except:
-            return 1.0E300 * numpy.ones_like(x)
-
-
 class Log_Term(object):
     cannotAcceptDataWith_Zero = True
     cannotAcceptDataWith_Negative = True
@@ -396,88 +318,24 @@ class Log_Term(object):
             return 1.0E300 * numpy.ones_like(x)
 
 
-class Power_NegativeOne_OfLog_Term(object):
-    cannotAcceptDataWith_Zero = True
-    cannotAcceptDataWith_Negative = True
-    cannotAcceptDataWith_Positive = False
-
-    def __init__(self, variableName, codeName):
-        self.HTML = 'ln(' + variableName + ")<sup>-1</sup>"
-        self.JAVA = 'Math.pow(Math.log(' + codeName + '), -1.0)'
-        self.CPP = 'pow(log(' + codeName + '), -1.0)'
-        self.CSHARP = 'Math.Pow(Math.Log(' + codeName + '), -1.0)'
-        self.PYTHON = 'math.pow(math.log(' + codeName + '), -1.0)'
-        self.SCILAB = '(log(' + codeName + ') ^ -1.0)'
-
-    def value(self, x):
-        try:
-            returnValue = numpy.power(numpy.log(x), -1.0)
-            return ConvertInfAndNanToLargeNumber(returnValue)
-        except:
-            return 1.0E300 * numpy.ones_like(x)
-
-
-class Power_Two_OfLog_Term(object):
-    cannotAcceptDataWith_Zero = True
-    cannotAcceptDataWith_Negative = True
-    cannotAcceptDataWith_Positive = False
-
-    def __init__(self, variableName, codeName):
-        self.HTML = 'ln(' + variableName + ")<sup>2</sup>"
-        self.JAVA = 'Math.pow(Math.log(' + codeName + '), 2.0)'
-        self.CPP = 'pow(log(' + codeName + '), 2.0)'
-        self.CSHARP = 'Math.Pow(Math.Log(' + codeName + '), 2.0)'
-        self.PYTHON = 'math.pow(math.log(' + codeName + '), 2.0)'
-        self.SCILAB = '(log(' + codeName + ') ^ 2.0)'
-
-    def value(self, x):
-        try:
-            returnValue = numpy.power(numpy.log(x), 2.0)
-            return ConvertInfAndNanToLargeNumber(returnValue)
-        except:
-            return 1.0E300 * numpy.ones_like(x)
-
-
-class Power_NegativeTwo_OfLog_Term(object):
-    cannotAcceptDataWith_Zero = True
-    cannotAcceptDataWith_Negative = True
-    cannotAcceptDataWith_Positive = False
-
-    def __init__(self, variableName, codeName):
-        self.HTML = 'ln(' + variableName + ")<sup>-2</sup>"
-        self.JAVA = 'Math.pow(Math.log(' + codeName + '), -2.0)'
-        self.CPP = 'pow(log(' + codeName + '), -2.0)'
-        self.CSHARP = 'Math.Pow(Math.Log(' + codeName + '), -2.0)'
-        self.PYTHON = 'math.pow(math.log(' + codeName + '), -2.0)'
-        self.SCILAB = '(log(' + codeName + ') ^ -2.0)'
-
-    def value(self, x):
-        try:
-            returnValue = numpy.power(numpy.log(x), -2.0)
-            return ConvertInfAndNanToLargeNumber(returnValue)
-        except:
-            return 1.0E300 * numpy.ones_like(x)
-
-
-
 # the order of occurrence in this list is the order of display
 def GenerateListForPolyfunctionals_WithParameters(variableName, codeName, dimensionality):
     termList = []
     
     termList.append(Offset_Term(variableName, codeName))
     
-    termList.append(Power_ZeroPointFive_Term(variableName, codeName))
+    termList.append(PowerTerm(variableName, codeName, powerString='0.5', logFlag=False))
     termList.append(VariableUnchanged_Term(variableName, codeName))
-    termList.append(Power_OnePointFive_Term(variableName, codeName))
-    termList.append(Power_Two_Term(variableName, codeName))
-    termList.append(Power_NegativeZeroPointFive_Term(variableName, codeName))
-    termList.append(Power_NegativeOne_Term(variableName, codeName))
-    termList.append(Power_NegativeTwo_Term(variableName, codeName))
+    termList.append(PowerTerm(variableName, codeName, powerString='1.5', logFlag=False))
+    termList.append(PowerTerm(variableName, codeName, powerString='2.0', logFlag=False))
+    termList.append(PowerTerm(variableName, codeName, powerString='-0.5', logFlag=False))
+    termList.append(PowerTerm(variableName, codeName, powerString='-1.0', logFlag=False))
+    termList.append(PowerTerm(variableName, codeName, powerString='-2.0', logFlag=False))
     
     termList.append(Log_Term(variableName, codeName))
-    termList.append(Power_Two_OfLog_Term(variableName, codeName))
-    termList.append(Power_NegativeOne_OfLog_Term(variableName, codeName))
-    termList.append(Power_NegativeTwo_OfLog_Term(variableName, codeName))
+    termList.append(PowerTerm(variableName, codeName, powerString='2.0', logFlag=True))
+    termList.append(PowerTerm(variableName, codeName, powerString='-1.0', logFlag=True))
+    termList.append(PowerTerm(variableName, codeName, powerString='-2.0', logFlag=True))
     
     termList.append(Exponential_VariableUnchanged_Term(variableName, codeName))
     termList.append(Exponential_VariableTimesNegativeOne_Term(variableName, codeName))
@@ -515,13 +373,13 @@ def GenerateListForRationals_2D(variableName = 'x', codeName = 'x_in'):
     termList.append(Offset_Term(variableName, codeName))
     
     termList.append(VariableUnchanged_Term(variableName, codeName))
-    termList.append(Power_NegativeOne_Term(variableName, codeName))
+    termList.append(PowerTerm(variableName, codeName, powerString='-1.0', logFlag=False))
     
-    termList.append(Power_Two_Term(variableName, codeName))
-    termList.append(Power_NegativeTwo_Term(variableName, codeName))
+    termList.append(PowerTerm(variableName, codeName, powerString='2.0', logFlag=False))
+    termList.append(PowerTerm(variableName, codeName, powerString='-2.0', logFlag=False))
     
     termList.append(Log_Term(variableName, codeName))
-    termList.append(Power_NegativeOne_OfLog_Term(variableName, codeName))
+    termList.append(PowerTerm(variableName, codeName, powerString='-1.0', logFlag=True))
 
     termList.append(Exponential_VariableUnchanged_Term(variableName, codeName))
     termList.append(Exponential_VariableTimesNegativeOne_Term(variableName, codeName))

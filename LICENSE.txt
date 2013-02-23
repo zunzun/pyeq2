@@ -1,4 +1,4 @@
-Copyright (C) 2012 James R. Phillips
+Copyright (C) 2013 James R. Phillips
 2548 Vera Cruz Drive
 Birmingham, AL 35235 USA
 email: zunzun@zunzun.com

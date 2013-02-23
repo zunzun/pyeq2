@@ -46,9 +46,9 @@ class TestPolyFunctions(unittest.TestCase):
 
 
     def test_Power_NegativeOne_Term(self):
-        term = pyeq2.PolyFunctions.Power_NegativeOne_Term('varName', 'codeName')
+        term = pyeq2.PolyFunctions.PowerTerm('varName', 'codeName', powerString='-1.0', logFlag=False)
         
-        htmlShouldBe = 'varName<sup>-1</sup>'
+        htmlShouldBe = 'varName<sup>-1.0</sup>'
         self.assertEqual(term.HTML, htmlShouldBe)
         
         cppShouldBe = 'pow(codeName, -1.0)'
@@ -74,7 +74,7 @@ class TestPolyFunctions(unittest.TestCase):
 
 
     def test_Power_OnePointFive_Term(self):
-        term = pyeq2.PolyFunctions.Power_OnePointFive_Term('varName', 'codeName')
+        term = pyeq2.PolyFunctions.PowerTerm('varName', 'codeName', powerString='1.5', logFlag=False)
         
         htmlShouldBe = 'varName<sup>1.5</sup>'
         self.assertEqual(term.HTML, htmlShouldBe)
@@ -88,7 +88,7 @@ class TestPolyFunctions(unittest.TestCase):
 
 
     def test_Power_ZeroPointFive_Term(self):
-        term = pyeq2.PolyFunctions.Power_ZeroPointFive_Term('varName', 'codeName')
+        term = pyeq2.PolyFunctions.PowerTerm('varName', 'codeName', powerString='0.5', logFlag=False)
         
         htmlShouldBe = 'varName<sup>0.5</sup>'
         self.assertEqual(term.HTML, htmlShouldBe)
@@ -116,9 +116,9 @@ class TestPolyFunctions(unittest.TestCase):
 
 
     def test_Power_Two_Term(self):
-        term = pyeq2.PolyFunctions.Power_Two_Term('varName', 'codeName')
+        term = pyeq2.PolyFunctions.PowerTerm('varName', 'codeName', powerString='2.0', logFlag=False)
         
-        htmlShouldBe = 'varName<sup>2</sup>'
+        htmlShouldBe = 'varName<sup>2.0</sup>'
         self.assertEqual(term.HTML, htmlShouldBe)
         
         cppShouldBe = 'pow(codeName, 2.0)'
@@ -228,7 +228,7 @@ class TestPolyFunctions(unittest.TestCase):
 
 
     def test_Power_NegativeZeroPointFive_Term(self):
-        term = pyeq2.PolyFunctions.Power_NegativeZeroPointFive_Term('varName', 'codeName')
+        term = pyeq2.PolyFunctions.PowerTerm('varName', 'codeName', powerString='-0.5', logFlag=False)
         
         htmlShouldBe = 'varName<sup>-0.5</sup>'
         self.assertEqual(term.HTML, htmlShouldBe)
@@ -242,7 +242,7 @@ class TestPolyFunctions(unittest.TestCase):
 
 
     def test_Power_NegativeTwo_Term(self):
-        term = pyeq2.PolyFunctions.Power_NegativeTwo_Term('varName', 'codeName')
+        term = pyeq2.PolyFunctions.PowerTerm('varName', 'codeName', powerString='-2.0', logFlag=False)
         
         htmlShouldBe = 'varName<sup>-2.0</sup>'
         self.assertEqual(term.HTML, htmlShouldBe)
@@ -270,9 +270,9 @@ class TestPolyFunctions(unittest.TestCase):
 
 
     def test_Power_NegativeOne_OfLog_Term(self):
-        term = pyeq2.PolyFunctions.Power_NegativeOne_OfLog_Term('varName', 'codeName')
+        term = pyeq2.PolyFunctions.PowerTerm('varName', 'codeName', powerString='-1.0', logFlag=True)
         
-        htmlShouldBe = 'ln(varName)<sup>-1</sup>'
+        htmlShouldBe = 'ln(varName)<sup>-1.0</sup>'
         self.assertEqual(term.HTML, htmlShouldBe)
         
         cppShouldBe = 'pow(log(codeName), -1.0)'
@@ -284,9 +284,9 @@ class TestPolyFunctions(unittest.TestCase):
 
 
     def test_Power_Two_OfLog_Term(self):
-        term = pyeq2.PolyFunctions.Power_Two_OfLog_Term('varName', 'codeName')
+        term = pyeq2.PolyFunctions.PowerTerm('varName', 'codeName', powerString='2.0', logFlag=True)
         
-        htmlShouldBe = 'ln(varName)<sup>2</sup>'
+        htmlShouldBe = 'ln(varName)<sup>2.0</sup>'
         self.assertEqual(term.HTML, htmlShouldBe)
         
         cppShouldBe = 'pow(log(codeName), 2.0)'
@@ -298,9 +298,9 @@ class TestPolyFunctions(unittest.TestCase):
 
 
     def test_Power_NegativeTwo_OfLog_Term(self):
-        term = pyeq2.PolyFunctions.Power_NegativeTwo_OfLog_Term('varName', 'codeName')
+        term = pyeq2.PolyFunctions.PowerTerm('varName', 'codeName', powerString='-2.0', logFlag=True)
         
-        htmlShouldBe = 'ln(varName)<sup>-2</sup>'
+        htmlShouldBe = 'ln(varName)<sup>-2.0</sup>'
         self.assertEqual(term.HTML, htmlShouldBe)
         
         cppShouldBe = 'pow(log(codeName), -2.0)'
