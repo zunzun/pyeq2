@@ -385,3 +385,14 @@ def GenerateListForRationals_2D(variableName = 'x', codeName = 'x_in'):
     termList.append(Exponential_VariableTimesNegativeOne_Term(variableName, codeName))
 
     return termList
+
+# the order of occurrence in this list is the order of display
+def GenerateListForCustomPolynomials_WithParameters(variableName, codeName):
+    termList = []
+    for i in range(-8, 9):
+        termList.append(PowerTerm(variableName, codeName, powerString=str(i), logFlag=False))
+    return termList
+
+
+def GenerateListForCustomPolynomials_2D():
+    return GenerateListForCustomPolynomials_WithParameters('x', 'x_in')
