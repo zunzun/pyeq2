@@ -327,15 +327,15 @@ def GenerateListForPolyfunctionals_WithParameters(variableName, codeName, dimens
     termList.append(PowerTerm(variableName, codeName, powerString='0.5', logFlag=False))
     termList.append(VariableUnchanged_Term(variableName, codeName))
     termList.append(PowerTerm(variableName, codeName, powerString='1.5', logFlag=False))
-    termList.append(PowerTerm(variableName, codeName, powerString='2.0', logFlag=False))
+    termList.append(PowerTerm(variableName, codeName, powerString='2', logFlag=False))
     termList.append(PowerTerm(variableName, codeName, powerString='-0.5', logFlag=False))
-    termList.append(PowerTerm(variableName, codeName, powerString='-1.0', logFlag=False))
-    termList.append(PowerTerm(variableName, codeName, powerString='-2.0', logFlag=False))
+    termList.append(PowerTerm(variableName, codeName, powerString='-1', logFlag=False))
+    termList.append(PowerTerm(variableName, codeName, powerString='-2', logFlag=False))
     
     termList.append(Log_Term(variableName, codeName))
-    termList.append(PowerTerm(variableName, codeName, powerString='2.0', logFlag=True))
-    termList.append(PowerTerm(variableName, codeName, powerString='-1.0', logFlag=True))
-    termList.append(PowerTerm(variableName, codeName, powerString='-2.0', logFlag=True))
+    termList.append(PowerTerm(variableName, codeName, powerString='2', logFlag=True))
+    termList.append(PowerTerm(variableName, codeName, powerString='-1', logFlag=True))
+    termList.append(PowerTerm(variableName, codeName, powerString='-2', logFlag=True))
     
     termList.append(Exponential_VariableUnchanged_Term(variableName, codeName))
     termList.append(Exponential_VariableTimesNegativeOne_Term(variableName, codeName))
@@ -373,13 +373,13 @@ def GenerateListForRationals_2D(variableName = 'x', codeName = 'x_in'):
     termList.append(Offset_Term(variableName, codeName))
     
     termList.append(VariableUnchanged_Term(variableName, codeName))
-    termList.append(PowerTerm(variableName, codeName, powerString='-1.0', logFlag=False))
+    termList.append(PowerTerm(variableName, codeName, powerString='-1', logFlag=False))
     
-    termList.append(PowerTerm(variableName, codeName, powerString='2.0', logFlag=False))
-    termList.append(PowerTerm(variableName, codeName, powerString='-2.0', logFlag=False))
+    termList.append(PowerTerm(variableName, codeName, powerString='2', logFlag=False))
+    termList.append(PowerTerm(variableName, codeName, powerString='-2', logFlag=False))
     
     termList.append(Log_Term(variableName, codeName))
-    termList.append(PowerTerm(variableName, codeName, powerString='-1.0', logFlag=True))
+    termList.append(PowerTerm(variableName, codeName, powerString='-1', logFlag=True))
 
     termList.append(Exponential_VariableUnchanged_Term(variableName, codeName))
     termList.append(Exponential_VariableTimesNegativeOne_Term(variableName, codeName))

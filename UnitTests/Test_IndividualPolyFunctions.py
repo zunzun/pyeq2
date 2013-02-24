@@ -242,12 +242,12 @@ class TestPolyFunctions(unittest.TestCase):
 
 
     def test_Power_NegativeTwo_Term(self):
-        term = pyeq2.PolyFunctions.PowerTerm('varName', 'codeName', powerString='-2.0', logFlag=False)
+        term = pyeq2.PolyFunctions.PowerTerm('varName', 'codeName', powerString='-2', logFlag=False)
         
-        htmlShouldBe = 'varName<sup>-2.0</sup>'
+        htmlShouldBe = 'varName<sup>-2</sup>'
         self.assertEqual(term.HTML, htmlShouldBe)
         
-        cppShouldBe = 'pow(codeName, -2.0)'
+        cppShouldBe = 'pow(codeName, -2)'
         self.assertEqual(term.CPP, cppShouldBe)
         
         testArray = numpy.array([1.5])
