@@ -27,8 +27,62 @@ import pyeq2.Model_2D_BaseClass
 
 
 
-class Sine(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
+class GreatCircle(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
+    _baseName = "Great Circle [radians]"
+    _HTML = 'latitude = arctan(A*cos(B + longitude))'
+    _leftSideHTML = 'latitude'
+    _coefficientDesignators = ['A', 'B']
+    _canLinearSolverBeUsedForSSQABS = False
     
+    webReferenceURL = ''
+
+    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = True
+    autoGenerateOffsetForm = True
+    autoGenerateReciprocalForm = True
+    autoGenerateInverseForms = True
+    autoGenerateGrowthAndDecayForms = True
+
+    independentData1CannotContainZeroFlag = False
+    independentData1CannotContainPositiveFlag = False
+    independentData1CannotContainNegativeFlag = False
+    independentData2CannotContainZeroFlag = False
+    independentData2CannotContainPositiveFlag = False
+    independentData2CannotContainNegativeFlag = False
+    
+
+    def __init__(self, inFittingTarget = 'SSQABS', inExtendedVersionName = 'Default'):
+        pyeq2.Model_2D_BaseClass.Model_2D_BaseClass.__init__(self, inFittingTarget, inExtendedVersionName)
+        self.lowerCoefficientBounds = [None, -6.2831853072]
+        self.upperCoefficientBounds = [None, 6.2831853072]
+        self.extendedVersionHandler.AppendAdditionalCoefficientBounds(self)
+
+
+    def GetDataCacheFunctions(self):
+        functionList = []
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.X(NameOrValueFlag=1), []])
+        return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
+
+
+    def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
+        x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
+        
+        A = inCoeffs[0]
+        B = inCoeffs[1]
+
+        try:
+            temp = numpy.arctan(A*numpy.cos(B + x_in))
+            return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
+        except:
+            return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
+
+
+    def SpecificCodeCPP(self):
+        s = "\ttemp = atan(A*cos(B + x_in));\n"
+        return s
+
+
+
+class Sine(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     _baseName = "Sine [radians]"
     _HTML = 'y = amplitude * sin(pi * (x - center) / width)'
     _leftSideHTML = 'y'
@@ -84,7 +138,6 @@ class Sine(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
 
 class SineSquared(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
-    
     _baseName = "Sine Squared [radians]"
     _HTML = 'y = amplitude * sin(pi * (x - center) / width)<sup>2</sup>'
     _leftSideHTML = 'y'
@@ -140,7 +193,6 @@ class SineSquared(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
 
 class Tangent(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
-    
     _baseName = "Tangent [radians]"
     _HTML = 'y = amplitude * tan(pi * (x - center) / width)'
     _leftSideHTML = 'y'
@@ -196,7 +248,6 @@ class Tangent(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
 
 class HyperbolicCosine(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
-    
     _baseName = "Hyperbolic Cosine [radians]"
     _HTML = 'y = amplitude * cosh(pi * (x - center) / width)'
     _leftSideHTML = 'y'
@@ -252,7 +303,6 @@ class HyperbolicCosine(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
 
 class Sinc(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
-    
     _baseName = "Cardinal Sine (sinc) [radians]"
     _HTML = 'y = amplitude * sin(pi * (x - center) / width) / (pi * (x - center) / width)'
     _leftSideHTML = 'y'
@@ -308,7 +358,6 @@ class Sinc(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
 
 class SincSquared(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
-    
     _baseName = "Cardinal Sine (sinc) Squared [radians]"
     _HTML = 'y = amplitude * sin(pi * (x - center) / width)<sup>2</sup> / (pi * (x - center) / width)'
     _leftSideHTML = 'y'

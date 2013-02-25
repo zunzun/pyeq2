@@ -31,7 +31,11 @@ class OutputSourceCodeService(object):
         newString = newString.replace('exp(', 'Math.Exp(')
         newString = newString.replace('sin(', 'Math.Sin(')
         newString = newString.replace('cos(', 'Math.Cos(')
+        
+        newString = newString.replace('atan(', 'ATAN(') # so tan is not confused with atan
         newString = newString.replace('tan(', 'Math.Tan(')
+        newString = newString.replace('ATAN(', 'Math.Atan(')
+                        
         newString = newString.replace('tanh(', 'Math.Tanh(')
         newString = newString.replace('cosh(', 'Math.Cosh(')
         if newString[0] == '\t':
@@ -69,7 +73,11 @@ class OutputSourceCodeService(object):
         newString = newString.replace('exp(', 'math.exp(')
         newString = newString.replace('sin(', 'math.sin(')
         newString = newString.replace('cos(', 'math.cos(')
+        
+        newString = newString.replace('atan(', 'ATAN(') # so tan is not confused with atan
         newString = newString.replace('tan(', 'math.tan(')
+        newString = newString.replace('ATAN(', 'math.atan(')
+        
         newString = newString.replace('tanh(', 'math.tanh(')
         newString = newString.replace('cosh(', 'math.cosh(')
         newString = newString.replace('//', '#') # comment token
@@ -85,7 +93,11 @@ class OutputSourceCodeService(object):
         newString = newString.replace('exp(', 'Math.exp(')
         newString = newString.replace('sin(', 'Math.sin(')
         newString = newString.replace('cos(', 'Math.cos(')
+        
+        newString = newString.replace('atan(', 'ATAN(') # so tan is not confused with atan
         newString = newString.replace('tan(', 'Math.tan(')
+        newString = newString.replace('ATAN(', 'Math.atan(')
+        
         newString = newString.replace('tanh(', 'Math.tanh(')
         newString = newString.replace('cosh(', 'Math.cosh(')
         if newString[0] == '\t':
