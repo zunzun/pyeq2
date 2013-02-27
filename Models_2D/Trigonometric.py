@@ -27,7 +27,62 @@ import pyeq2.Model_2D_BaseClass
 
 
 
-class GreatCircle(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
+class GreatCircleDegrees(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
+    _baseName = "Great Circle [Degrees]"
+    _HTML = 'latitude = arctan(A*cos((B + longitude) / 57.2957795131)) * 57.2957795131'
+    _leftSideHTML = 'latitude'
+    _coefficientDesignators = ['A', 'B']
+    _canLinearSolverBeUsedForSSQABS = False
+    
+    webReferenceURL = ''
+
+    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
+    autoGenerateOffsetForm = False
+    autoGenerateReciprocalForm = True
+    autoGenerateInverseForms = True
+    autoGenerateGrowthAndDecayForms = True
+
+    independentData1CannotContainZeroFlag = False
+    independentData1CannotContainPositiveFlag = False
+    independentData1CannotContainNegativeFlag = False
+    independentData2CannotContainZeroFlag = False
+    independentData2CannotContainPositiveFlag = False
+    independentData2CannotContainNegativeFlag = False
+    
+
+    def __init__(self, inFittingTarget = 'SSQABS', inExtendedVersionName = 'Default'):
+        pyeq2.Model_2D_BaseClass.Model_2D_BaseClass.__init__(self, inFittingTarget, inExtendedVersionName)
+        self.lowerCoefficientBounds = [None, -360.0]
+        self.upperCoefficientBounds = [None, 360.0]
+        self.extendedVersionHandler.AppendAdditionalCoefficientBounds(self)
+
+
+    def GetDataCacheFunctions(self):
+        functionList = []
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.X(NameOrValueFlag=1), []])
+        return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
+
+
+    def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
+        x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
+        
+        A = inCoeffs[0]
+        B = inCoeffs[1]
+
+        try:
+            temp = numpy.arctan(A*numpy.cos((B + x_in) / 57.2957795131)) * 57.2957795131
+            return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
+        except:
+            return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
+
+
+    def SpecificCodeCPP(self):
+        s = "\ttemp = atan(A*cos((B + x_in) / 57.2957795131)) * 57.2957795131;\n"
+        return s
+
+
+
+class GreatCircleRadians(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     _baseName = "Great Circle [radians]"
     _HTML = 'latitude = arctan(A*cos(B + longitude))'
     _leftSideHTML = 'latitude'
@@ -36,7 +91,7 @@ class GreatCircle(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     webReferenceURL = ''
 
-    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = True
+    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = False
     autoGenerateReciprocalForm = True
     autoGenerateInverseForms = True
