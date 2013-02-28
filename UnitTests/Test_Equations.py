@@ -112,6 +112,13 @@ class Test_Polynomials(unittest.TestCase):
         pyeq2.dataConvertorService().ConvertAndSortColumnarASCII(equation.exampleData, equation, False)
         self.assertTrue(2.92E-04 >= equation.CalculateAllDataFittingTarget(equation.Solve()))
 
+
+    def test_UserCustomizablePolynomial2D(self):
+        flags = [8,9, 10]
+        equation = pyeq2.Models_2D.Polynomial.UserCustomizablePolynomial('SSQABS', inPolynomial2DFlags=flags) # SSQABS by default
+        pyeq2.dataConvertorService().ConvertAndSortColumnarASCII(equation.exampleData, equation, False)
+        self.assertTrue(0.015 >= equation.CalculateAllDataFittingTarget(equation.Solve()))
+
         
         
 class Test_InstantiationOfAllEquations(unittest.TestCase):

@@ -103,6 +103,7 @@ def ParallelFittingFunction(rawData, fittingTargetText, smoothnessControl, modul
                     # special classes
                     if equationClass[1].splineFlag or \
                        equationClass[1].userSelectablePolynomialFlag or \
+                       equationClass[1].userCustomizablePolynomialFlag or \
                        equationClass[1].userSelectablePolyfunctionalFlag or \
                        equationClass[1].userSelectableRationalFlag or \
                        equationClass[1].userDefinedFunctionFlag:

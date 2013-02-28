@@ -241,6 +241,18 @@ def Polyfunctional2D(data=None, args=None, eqInstance=None, NameOrValueFlag=0):
         return 1.0E300 * numpy.ones_like(data[0])
 
 
+def Polynomial2D(data=None, args=None, eqInstance=None, NameOrValueFlag=0):
+    if NameOrValueFlag: # name used by cache, must be distinct
+        return sys._getframe().f_code.co_name + '_' + str(args)
+    try:
+        returnValue = eqInstance.polynomialEquationList[args].value(data[0])
+        if numpy.alltrue(numpy.isfinite(returnValue)):
+            return returnValue
+        return 1.0E300 * numpy.ones_like(data[0])
+    except:
+        return 1.0E300 * numpy.ones_like(data[0])
+
+
 def Rational2D(data=None, args=None, eqInstance=None, NameOrValueFlag=0):
     if NameOrValueFlag: # name used by cache, must be distinct
         return sys._getframe().f_code.co_name + '_' + str(args)

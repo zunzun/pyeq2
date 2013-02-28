@@ -23,6 +23,7 @@ numpy.seterr(over = 'raise', divide = 'raise', invalid = 'raise', under = 'ignor
 class IModel(object):
     splineFlag = False
     userSelectablePolynomialFlag = False
+    userCustomizablePolynomialFlag = False
     userSelectablePolyfunctionalFlag = False
     userSelectableRationalFlag = False
     userDefinedFunctionFlag = False
