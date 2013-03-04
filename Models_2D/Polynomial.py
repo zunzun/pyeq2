@@ -473,7 +473,7 @@ class UserCustomizablePolynomial(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         
     def GetDisplayHTML(self):                
         if not self.polynomial2DFlags:
-            self._HTML = "y = user-selectable function"
+            self._HTML = "y = user-customizable polynomial"
         else:
             self._HTML = 'y = </b>' # turn off any bolding
             cd = self.GetCoefficientDesignators()
