@@ -26,6 +26,55 @@ numpy.seterr(over = 'raise', divide = 'raise', invalid = 'raise', under = 'ignor
 import pyeq2.Model_2D_BaseClass
 
 
+class PhysicistPeterPendulumTraversal(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
+    
+    _baseName = "Physicist Peter's Pendulum Traversal"
+    _HTML = 'y = a*(x + b)<sup>1/2</sup>'
+    _leftSideHTML = 'y'
+    _coefficientDesignators = ['a', 'b']
+    _canLinearSolverBeUsedForSSQABS = False
+    
+    webReferenceURL = ''
+
+    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = True
+    autoGenerateOffsetForm = True
+    autoGenerateReciprocalForm = True
+    autoGenerateInverseForms = True
+    autoGenerateGrowthAndDecayForms = True
+
+    independentData1CannotContainZeroFlag = False
+    independentData1CannotContainPositiveFlag = False
+    independentData1CannotContainNegativeFlag = False
+    independentData2CannotContainZeroFlag = False
+    independentData2CannotContainPositiveFlag = False
+    independentData2CannotContainNegativeFlag = False
+    
+
+    def GetDataCacheFunctions(self):
+        functionList = []
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.X(NameOrValueFlag=1), []])
+        return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
+
+
+    def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
+        x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
+        
+        a = inCoeffs[0]
+        b = inCoeffs[1]
+
+        try:
+            temp = a*numpy.power(x_in+b, 0.5)
+            return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
+        except:
+            return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
+
+
+    def SpecificCodeCPP(self):
+        s = "\ttemp = a*pow(x_in+b, 0.5);\n"
+        return s
+
+
+
 class PhysicistPeterCustomEquation(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Physicist Peter's Custom Equation"
