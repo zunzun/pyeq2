@@ -517,3 +517,65 @@ class SagForAsphere3_Transform(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
         s += '\ttemp += A6 * pow(s_sq, 6.0);\n'
         s += '\ttemp += A8 * pow(s_sq, 8.0);\n'
         return s
+
+
+
+class SagForAsphere0_Borisovsky(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
+    
+    _baseName = "Sag For Asphere 0 Borisovsky"
+    _HTML = 's<sup>2</sup> = (x - a)<sup>2</sup> + (y - b)<sup>2</sup><br>'
+    _HTML += 'z = (s<sup>2</sup>/r) / (1+(1-(k+1)(s/r)<sup>2</sup>)<sup>1/2</sup>) + offset'
+    _leftSideHTML = 'z'
+    _coefficientDesignators = ['a', 'b', 'k', 'r', 'offset']
+    _canLinearSolverBeUsedForSSQABS = False
+    
+    webReferenceURL = ''
+
+    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
+    autoGenerateOffsetForm = True
+    autoGenerateReciprocalForm = True
+    autoGenerateInverseForms = True
+    autoGenerateGrowthAndDecayForms = True
+
+    independentData1CannotContainZeroFlag = False
+    independentData1CannotContainPositiveFlag = False
+    independentData1CannotContainNegativeFlag = False
+    independentData2CannotContainZeroFlag = False
+    independentData2CannotContainPositiveFlag = False
+    independentData2CannotContainNegativeFlag = False
+    
+
+    def GetDataCacheFunctions(self):
+        functionList = []
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.X(NameOrValueFlag=1), []])
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.Y(NameOrValueFlag=1), []])
+        return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
+
+
+    def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
+        x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
+        y_in = inDataCacheDictionary['Y'] # only need to perform this dictionary look-up once
+        
+        a = inCoeffs[0]
+        b = inCoeffs[1]
+        k = inCoeffs[2]
+        r = inCoeffs[3]
+        offset = inCoeffs[4]
+
+        try:
+            s_sq = (x_in - a) * (x_in - a) + (y_in - b) * (y_in - b)
+            s_over_r = pow(s_sq, 0.5) / r
+            temp = (s_sq / r) / (1.0 + pow(1.0 - (k + 1.0) * s_over_r * s_over_r, 0.5)) + offset
+            return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
+        except:
+            return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
+
+
+    def SpecificCodeCPP(self):
+        s = '\tdouble s_sq = (x_in - a) * (x_in - a) + (y_in - b) * (y_in - b);\n'
+        s += '\tdouble s_over_r = pow(s_sq, 0.5) / r;\n'
+        s += '\ttemp = (s_sq / r) / (1.0 + pow(1.0 - (k + 1.0) * s_over_r * s_over_r, 0.5)) + offset;\n'
+        return s
+
+
+
