@@ -153,8 +153,18 @@ class UserDefinedFunction(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
         # now compile code object using safe tokens
         self.safe_dict = dict([ (k, locals().get(k, None)) for k in numpySafeTokenList ])
            
+
+        # now compile code object using safe tokens with integer conversion
+        self.safe_dict = dict([ (k, locals().get(k, None)) for k in numpySafeTokenList ])
+           
+        # convert integer use such as (3/2) into floats such as (3.0/2.0)
+        st = parser.expr(stringToConvert)
+        stList = parser.st2list(st)
+        stList = self.RecursivelyConvertIntStringsToFloatStrings(stList)
+        st = parser.sequence2st(stList)
+
         # later evals re-use this compiled code for improved performance in EvaluateCachedData() methods
-        self.userFunctionCodeObject = compile(stringToConvert, '<string>', 'eval')
+        self.userFunctionCodeObject  = parser.compilest(st)
 
 
     def ShouldDataBeRejected(self, inModel):

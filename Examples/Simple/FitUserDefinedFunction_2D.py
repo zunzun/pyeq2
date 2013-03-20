@@ -13,7 +13,7 @@ if pyeq2IimportDirectory not in sys.path:
     import pyeq2
 
 
-functionString = 'm*X+B'
+functionString = 'm*X+B * (3/2)'
 
 # note that the constructor is passed the function string here
 equation = pyeq2.Models_2D.UserDefinedFunction.UserDefinedFunction(inUserFunctionString = functionString)

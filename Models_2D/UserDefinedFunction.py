@@ -146,13 +146,19 @@ class UserDefinedFunction(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         if len(self._coefficientDesignators) == 0:
             raise Exception('I could not find any equation parameter or coefficient names, please check the function text')
 
-        # now compile code object using safe tokens
+        # now compile code object using safe tokens with integer conversion
         self.safe_dict = dict([ (k, locals().get(k, None)) for k in numpySafeTokenList ])
            
+        # convert integer use such as (3/2) into floats such as (3.0/2.0)
+        st = parser.expr(stringToConvert)
+        stList = parser.st2list(st)
+        stList = self.RecursivelyConvertIntStringsToFloatStrings(stList)
+        st = parser.sequence2st(stList)
+
         # later evals re-use this compiled code for improved performance in EvaluateCachedData() methods
-        self.userFunctionCodeObject = compile(stringToConvert, '<string>', 'eval')
+        self.userFunctionCodeObject  = parser.compilest(st)
 
-
+        
     def ShouldDataBeRejected(self, inModel):
         return False
 

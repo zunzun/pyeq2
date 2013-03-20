@@ -638,3 +638,19 @@ class IModel(object):
     
     def ShouldDataBeRejected(self, unused):
         return self.extendedVersionHandler.ShouldDataBeRejected(self)
+
+
+    def RecursivelyConvertIntStringsToFloatStrings(self, inList):
+        returnList = []
+        for item in inList:
+            if type(item) == type([]): # is this item another list?
+                returnList.append(self.RecursivelyConvertIntStringsToFloatStrings(item))
+            else:
+                if type(item) == type(str('')): # is this item a string?
+                    if  item.isdigit():
+                        returnList.append(str(float(item))) # convert the integer to its floating point representation
+                    else:
+                        returnList.append(item)
+                else:
+                    returnList.append(item)
+        return returnList
