@@ -76,79 +76,71 @@ class arcsin_cdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
 
     def SpecificCodeCPP(self):
-        s = "\ttemp = amplitude * sin(3.14159265358979323846 * (x_in - center) / width) / (3.14159265358979323846 * (x_in - center) / width);\n"
         s = "\ttemp = a * asin( (b * x_in + c) / d) / 3.14159265358979323846;\n"
         return s
-
-
-
-
-
-
-
-
-undefinedString = ''
-undefinedBoolean = False
-undefinedList = []
-
-
-
 
 
 
 class arcsin_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Arcsin PDF Based"
-    _HTML = undefinedString
-    _leftSideHTML = undefinedString
-    _coefficientDesignators = undefinedList
-    _canLinearSolverBeUsedForSSQABS = undefinedBoolean
+    _HTML = 'y = a / ( pi * sqrt( b<sup>2</sup> - x<sup>2</sup>))'
+    __leftSideHTML = 'y'
+    _coefficientDesignators = ['a', 'b']
+    _canLinearSolverBeUsedForSSQABS = False
     
     webReferenceURL = BurkhardtCollectionWebReference_1
+    
+    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = True
+    autoGenerateOffsetForm = True
+    autoGenerateReciprocalForm = False
+    autoGenerateInverseForms = False
+    autoGenerateGrowthAndDecayForms = True
 
-    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = undefinedBoolean
-    autoGenerateOffsetForm = undefinedBoolean
-    autoGenerateReciprocalForm = undefinedBoolean
-    autoGenerateInverseForms = undefinedBoolean
-    autoGenerateGrowthAndDecayForms = undefinedBoolean
-
-    independentData1CannotContainZeroFlag = undefinedBoolean
-    independentData1CannotContainPositiveFlag = undefinedBoolean
-    independentData1CannotContainNegativeFlag = undefinedBoolean
+    independentData1CannotContainZeroFlag = False
+    independentData1CannotContainPositiveFlag = False
+    independentData1CannotContainNegativeFlag = False
     independentData2CannotContainZeroFlag = False
     independentData2CannotContainPositiveFlag = False
     independentData2CannotContainNegativeFlag = False
     
 
     def GetDataCacheFunctions(self):
-        undefined
         functionList = []
         functionList.append([pyeq2.DataCache.DataCacheFunctions.X(NameOrValueFlag=1), []])
         return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
 
 
     def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
-        undefined
         x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
         
-        a0 = inCoeffs[0]
-        a1 = inCoeffs[1]
-        b1 = inCoeffs[2]
-        c1 = inCoeffs[3]
+        a = inCoeffs[0]
+        b = inCoeffs[1]
 
         try:
-            temp = a0
-            temp += a1 *numpy.sin(c1 * x_in) + b1 *numpy.cos(c1 * x_in)
+            temp = a / ( numpy.pi * numpy.power(b*b - x_in*x_in, 0.5))
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
 
 
     def SpecificCodeCPP(self):
-        undefined
-        s = "\ttemp = a0;\n"
-        s += "\ttemp +=  a1 *sin(c1 * x_in) + b1 *cos(c1 * x_in);\n"
+        s = "\ttemp =  a / (3.14159265358979323846 * pow(b*b - x_in*x_in, 0.5));\n"
         return s
+
+    
+    
+    
+    
+    
+    
+
+undefinedString = ''
+undefinedBoolean = False
+undefinedList = []
+
+    
+    
 
 
 
@@ -156,7 +148,7 @@ class bradford_cdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Bradford CDF Based"
     _HTML = undefinedString
-    _leftSideHTML = undefinedString
+    __leftSideHTML = 'y'
     _coefficientDesignators = undefinedList
     _canLinearSolverBeUsedForSSQABS = undefinedBoolean
     
@@ -222,7 +214,7 @@ class bradford_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Bradford PDF Based"
     _HTML = undefinedString
-    _leftSideHTML = undefinedString
+    __leftSideHTML = 'y'
     _coefficientDesignators = undefinedList
     _canLinearSolverBeUsedForSSQABS = undefinedBoolean
     
@@ -288,7 +280,7 @@ class burr_cdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Burr CDF Based"
     _HTML = undefinedString
-    _leftSideHTML = undefinedString
+    __leftSideHTML = 'y'
     _coefficientDesignators = undefinedList
     _canLinearSolverBeUsedForSSQABS = undefinedBoolean
     
@@ -352,7 +344,7 @@ class burr_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Burr PDF Based"
     _HTML = undefinedString
-    _leftSideHTML = undefinedString
+    __leftSideHTML = 'y'
     _coefficientDesignators = undefinedList
     _canLinearSolverBeUsedForSSQABS = undefinedBoolean
     
@@ -417,7 +409,7 @@ class cardioid_cdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Cardioid CDF Based"
     _HTML = undefinedString
-    _leftSideHTML = undefinedString
+    __leftSideHTML = 'y'
     _coefficientDesignators = undefinedList
     _canLinearSolverBeUsedForSSQABS = undefinedBoolean
     
@@ -483,7 +475,7 @@ class cardioid_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Cardioid PDF Based"
     _HTML = undefinedString
-    _leftSideHTML = undefinedString
+    __leftSideHTML = 'y'
     _coefficientDesignators = undefinedList
     _canLinearSolverBeUsedForSSQABS = undefinedBoolean
     
@@ -544,7 +536,7 @@ class cauchy_cdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Cauchy CDF Based"
     _HTML = undefinedString
-    _leftSideHTML = undefinedString
+    __leftSideHTML = 'y'
     _coefficientDesignators = undefinedList
     _canLinearSolverBeUsedForSSQABS = undefinedBoolean
     
@@ -606,7 +598,7 @@ class cauchy_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Cauchy PDF Based"
     _HTML = undefinedString
-    _leftSideHTML = undefinedString
+    __leftSideHTML = 'y'
     _coefficientDesignators = undefinedList
     _canLinearSolverBeUsedForSSQABS = undefinedBoolean
     
@@ -668,7 +660,7 @@ class circular_normal_01_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Circular Normal 01 PDF Based"
     _HTML = undefinedString
-    _leftSideHTML = undefinedString
+    __leftSideHTML = 'y'
     _coefficientDesignators = undefinedList
     _canLinearSolverBeUsedForSSQABS = undefinedBoolean
     
@@ -729,7 +721,7 @@ class circular_normal_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Circular Normal PDF Based"
     _HTML = undefinedString
-    _leftSideHTML = undefinedString
+    __leftSideHTML = 'y'
     _coefficientDesignators = undefinedList
     _canLinearSolverBeUsedForSSQABS = undefinedBoolean
     
@@ -791,7 +783,7 @@ class cosine_cdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Cosine CDF Based"
     _HTML = undefinedString
-    _leftSideHTML = undefinedString
+    __leftSideHTML = 'y'
     _coefficientDesignators = undefinedList
     _canLinearSolverBeUsedForSSQABS = undefinedBoolean
     
@@ -858,7 +850,7 @@ class cosine_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Cosine PDF Based"
     _HTML = undefinedString
-    _leftSideHTML = undefinedString
+    __leftSideHTML = 'y'
     _coefficientDesignators = undefinedList
     _canLinearSolverBeUsedForSSQABS = undefinedBoolean
     
@@ -925,7 +917,7 @@ class dipole_cdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Dipole CDF Based"
     _HTML = undefinedString
-    _leftSideHTML = undefinedString
+    __leftSideHTML = 'y'
     _coefficientDesignators = undefinedList
     _canLinearSolverBeUsedForSSQABS = undefinedBoolean
     
@@ -987,7 +979,7 @@ class dipole_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Dipole PDF Based"
     _HTML = undefinedString
-    _leftSideHTML = undefinedString
+    __leftSideHTML = 'y'
     _coefficientDesignators = undefinedList
     _canLinearSolverBeUsedForSSQABS = undefinedBoolean
     
@@ -1050,7 +1042,7 @@ class exponential_01_cdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Exponential 01 CDF Based"
     _HTML = undefinedString
-    _leftSideHTML = undefinedString
+    __leftSideHTML = 'y'
     _coefficientDesignators = undefinedList
     _canLinearSolverBeUsedForSSQABS = undefinedBoolean
     
@@ -1114,7 +1106,7 @@ class exponential_01_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Exponential 01 PDF Based"
     _HTML = undefinedString
-    _leftSideHTML = undefinedString
+    __leftSideHTML = 'y'
     _coefficientDesignators = undefinedList
     _canLinearSolverBeUsedForSSQABS = undefinedBoolean
     
@@ -1178,7 +1170,7 @@ class exponential_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Exponential PDF Based"
     _HTML = undefinedString
-    _leftSideHTML = undefinedString
+    __leftSideHTML = 'y'
     _coefficientDesignators = undefinedList
     _canLinearSolverBeUsedForSSQABS = undefinedBoolean
     
@@ -1242,7 +1234,7 @@ class extreme_values_cdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Extreme Values CDF Based"
     _HTML = undefinedString
-    _leftSideHTML = undefinedString
+    __leftSideHTML = 'y'
     _coefficientDesignators = undefinedList
     _canLinearSolverBeUsedForSSQABS = undefinedBoolean
     
@@ -1304,7 +1296,7 @@ class extreme_values_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Extreme Values PDF Based"
     _HTML = undefinedString
-    _leftSideHTML = undefinedString
+    __leftSideHTML = 'y'
     _coefficientDesignators = undefinedList
     _canLinearSolverBeUsedForSSQABS = undefinedBoolean
     
@@ -1365,7 +1357,7 @@ class fisk_cdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Fisk CDF Based"
     _HTML = undefinedString
-    _leftSideHTML = undefinedString
+    __leftSideHTML = 'y'
     _coefficientDesignators = undefinedList
     _canLinearSolverBeUsedForSSQABS = undefinedBoolean
     
@@ -1429,7 +1421,7 @@ class fisk_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Fisk PDF Based"
     _HTML = undefinedString
-    _leftSideHTML = undefinedString
+    __leftSideHTML = 'y'
     _coefficientDesignators = undefinedList
     _canLinearSolverBeUsedForSSQABS = undefinedBoolean
     
@@ -1494,7 +1486,7 @@ class folded_normal_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Folded Normal PDF Based"
     _HTML = undefinedString
-    _leftSideHTML = undefinedString
+    __leftSideHTML = 'y'
     _coefficientDesignators = undefinedList
     _canLinearSolverBeUsedForSSQABS = undefinedBoolean
     
@@ -1559,7 +1551,7 @@ class frechet_cdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Frechet CDF Based"
     _HTML = undefinedString
-    _leftSideHTML = undefinedString
+    __leftSideHTML = 'y'
     _coefficientDesignators = undefinedList
     _canLinearSolverBeUsedForSSQABS = undefinedBoolean
     
@@ -1628,7 +1620,7 @@ class frechet_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Frechet PDF Based"
     _HTML = undefinedString
-    _leftSideHTML = undefinedString
+    __leftSideHTML = 'y'
     _coefficientDesignators = undefinedList
     _canLinearSolverBeUsedForSSQABS = undefinedBoolean
     
@@ -1694,7 +1686,7 @@ class genlogistic_cdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Genlogistic CDF Based"
     _HTML = undefinedString
-    _leftSideHTML = undefinedString
+    __leftSideHTML = 'y'
     _coefficientDesignators = undefinedList
     _canLinearSolverBeUsedForSSQABS = undefinedBoolean
     
@@ -1756,7 +1748,7 @@ class genlogistic_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Genlogistic PDF Based"
     _HTML = undefinedString
-    _leftSideHTML = undefinedString
+    __leftSideHTML = 'y'
     _coefficientDesignators = undefinedList
     _canLinearSolverBeUsedForSSQABS = undefinedBoolean
     
@@ -1818,7 +1810,7 @@ class gompertz_cdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Gompertz CDF Based"
     _HTML = undefinedString
-    _leftSideHTML = undefinedString
+    __leftSideHTML = 'y'
     _coefficientDesignators = undefinedList
     _canLinearSolverBeUsedForSSQABS = undefinedBoolean
     
@@ -1882,7 +1874,7 @@ class gompertz_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Gompertz PDF Based"
     _HTML = undefinedString
-    _leftSideHTML = undefinedString
+    __leftSideHTML = 'y'
     _coefficientDesignators = undefinedList
     _canLinearSolverBeUsedForSSQABS = undefinedBoolean
     
@@ -1946,7 +1938,7 @@ class gumbel_cdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Gumbel CDF Based"
     _HTML = undefinedString
-    _leftSideHTML = undefinedString
+    __leftSideHTML = 'y'
     _coefficientDesignators = undefinedList
     _canLinearSolverBeUsedForSSQABS = undefinedBoolean
     
@@ -2007,7 +1999,7 @@ class gumbel_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Gumbel PDF Based"
     _HTML = undefinedString
-    _leftSideHTML = undefinedString
+    __leftSideHTML = 'y'
     _coefficientDesignators = undefinedList
     _canLinearSolverBeUsedForSSQABS = undefinedBoolean
     
@@ -2068,7 +2060,7 @@ class half_normal_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Half Normal PDF Based"
     _HTML = undefinedString
-    _leftSideHTML = undefinedString
+    __leftSideHTML = 'y'
     _coefficientDesignators = undefinedList
     _canLinearSolverBeUsedForSSQABS = undefinedBoolean
     
@@ -2133,7 +2125,7 @@ class inverse_gaussian_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Inverse_gaussian PDF Based"
     _HTML = undefinedString
-    _leftSideHTML = undefinedString
+    __leftSideHTML = 'y'
     _coefficientDesignators = undefinedList
     _canLinearSolverBeUsedForSSQABS = undefinedBoolean
     
@@ -2198,7 +2190,7 @@ class laplace_cdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Laplace CDF Based"
     _HTML = undefinedString
-    _leftSideHTML = undefinedString
+    __leftSideHTML = 'y'
     _coefficientDesignators = undefinedList
     _canLinearSolverBeUsedForSSQABS = undefinedBoolean
     
@@ -2263,7 +2255,7 @@ class laplace_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Laplace PDF Based"
     _HTML = undefinedString
-    _leftSideHTML = undefinedString
+    __leftSideHTML = 'y'
     _coefficientDesignators = undefinedList
     _canLinearSolverBeUsedForSSQABS = undefinedBoolean
     
@@ -2324,7 +2316,7 @@ class levy_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Levy PDF Based"
     _HTML = undefinedString
-    _leftSideHTML = undefinedString
+    __leftSideHTML = 'y'
     _coefficientDesignators = undefinedList
     _canLinearSolverBeUsedForSSQABS = undefinedBoolean
     
@@ -2395,7 +2387,7 @@ class log_normal_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Log Normal PDF Based"
     _HTML = undefinedString
-    _leftSideHTML = undefinedString
+    __leftSideHTML = 'y'
     _coefficientDesignators = undefinedList
     _canLinearSolverBeUsedForSSQABS = undefinedBoolean
     
@@ -2460,7 +2452,7 @@ class log_uniform_cdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Log_uniform CDF Based"
     _HTML = undefinedString
-    _leftSideHTML = undefinedString
+    __leftSideHTML = 'y'
     _coefficientDesignators = undefinedList
     _canLinearSolverBeUsedForSSQABS = undefinedBoolean
     
@@ -2526,7 +2518,7 @@ class log_uniform_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Log_uniform PDF Based"
     _HTML = undefinedString
-    _leftSideHTML = undefinedString
+    __leftSideHTML = 'y'
     _coefficientDesignators = undefinedList
     _canLinearSolverBeUsedForSSQABS = undefinedBoolean
     
@@ -2592,7 +2584,7 @@ class logistic_cdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Logistic CDF Based"
     _HTML = undefinedString
-    _leftSideHTML = undefinedString
+    __leftSideHTML = 'y'
     _coefficientDesignators = undefinedList
     _canLinearSolverBeUsedForSSQABS = undefinedBoolean
     
@@ -2653,7 +2645,7 @@ class logistic_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Logistic PDF Based"
     _HTML = undefinedString
-    _leftSideHTML = undefinedString
+    __leftSideHTML = 'y'
     _coefficientDesignators = undefinedList
     _canLinearSolverBeUsedForSSQABS = undefinedBoolean
     
@@ -2715,7 +2707,7 @@ class lorentz_cdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Lorentz CDF Based"
     _HTML = undefinedString
-    _leftSideHTML = undefinedString
+    __leftSideHTML = 'y'
     _coefficientDesignators = undefinedList
     _canLinearSolverBeUsedForSSQABS = undefinedBoolean
     
@@ -2776,7 +2768,7 @@ class lorentz_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Lorentz PDF Based"
     _HTML = undefinedString
-    _leftSideHTML = undefinedString
+    __leftSideHTML = 'y'
     _coefficientDesignators = undefinedList
     _canLinearSolverBeUsedForSSQABS = undefinedBoolean
     
@@ -2837,7 +2829,7 @@ class normal_01_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Normal 01 PDF Based"
     _HTML = undefinedString
-    _leftSideHTML = undefinedString
+    __leftSideHTML = 'y'
     _coefficientDesignators = undefinedList
     _canLinearSolverBeUsedForSSQABS = undefinedBoolean
     
@@ -2898,7 +2890,7 @@ class normal_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Normal PDF Based"
     _HTML = undefinedString
-    _leftSideHTML = undefinedString
+    __leftSideHTML = 'y'
     _coefficientDesignators = undefinedList
     _canLinearSolverBeUsedForSSQABS = undefinedBoolean
     
@@ -2959,7 +2951,7 @@ class pareto_cdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Pareto CDF Based"
     _HTML = undefinedString
-    _leftSideHTML = undefinedString
+    __leftSideHTML = 'y'
     _coefficientDesignators = undefinedList
     _canLinearSolverBeUsedForSSQABS = undefinedBoolean
     
@@ -3023,7 +3015,7 @@ class pareto_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Pareto PDF Based"
     _HTML = undefinedString
-    _leftSideHTML = undefinedString
+    __leftSideHTML = 'y'
     _coefficientDesignators = undefinedList
     _canLinearSolverBeUsedForSSQABS = undefinedBoolean
     
@@ -3087,7 +3079,7 @@ class power_cdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Power CDF Based"
     _HTML = undefinedString
-    _leftSideHTML = undefinedString
+    __leftSideHTML = 'y'
     _coefficientDesignators = undefinedList
     _canLinearSolverBeUsedForSSQABS = undefinedBoolean
     
@@ -3153,7 +3145,7 @@ class power_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Power PDF Based"
     _HTML = undefinedString
-    _leftSideHTML = undefinedString
+    __leftSideHTML = 'y'
     _coefficientDesignators = undefinedList
     _canLinearSolverBeUsedForSSQABS = undefinedBoolean
     
@@ -3217,7 +3209,7 @@ class rayleigh_cdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Rayleigh CDF Based"
     _HTML = undefinedString
-    _leftSideHTML = undefinedString
+    __leftSideHTML = 'y'
     _coefficientDesignators = undefinedList
     _canLinearSolverBeUsedForSSQABS = undefinedBoolean
     
@@ -3281,7 +3273,7 @@ class rayleigh_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Rayleigh PDF Based"
     _HTML = undefinedString
-    _leftSideHTML = undefinedString
+    __leftSideHTML = 'y'
     _coefficientDesignators = undefinedList
     _canLinearSolverBeUsedForSSQABS = undefinedBoolean
     
@@ -3345,7 +3337,7 @@ class reciprocal_cdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Reciprocal CDF Based"
     _HTML = undefinedString
-    _leftSideHTML = undefinedString
+    __leftSideHTML = 'y'
     _coefficientDesignators = undefinedList
     _canLinearSolverBeUsedForSSQABS = undefinedBoolean
     
@@ -3409,7 +3401,7 @@ class reciprocal_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Reciprocal PDF Based"
     _HTML = undefinedString
-    _leftSideHTML = undefinedString
+    __leftSideHTML = 'y'
     _coefficientDesignators = undefinedList
     _canLinearSolverBeUsedForSSQABS = undefinedBoolean
     
@@ -3473,7 +3465,7 @@ class sech_cdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Sech CDF Based"
     _HTML = undefinedString
-    _leftSideHTML = undefinedString
+    __leftSideHTML = 'y'
     _coefficientDesignators = undefinedList
     _canLinearSolverBeUsedForSSQABS = undefinedBoolean
     
@@ -3535,7 +3527,7 @@ class semicircular_cdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Semicircular CDF Based"
     _HTML = undefinedString
-    _leftSideHTML = undefinedString
+    __leftSideHTML = 'y'
     _coefficientDesignators = undefinedList
     _canLinearSolverBeUsedForSSQABS = undefinedBoolean
     
@@ -3602,7 +3594,7 @@ class semicircular_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Semicircular PDF Based"
     _HTML = undefinedString
-    _leftSideHTML = undefinedString
+    __leftSideHTML = 'y'
     _coefficientDesignators = undefinedList
     _canLinearSolverBeUsedForSSQABS = undefinedBoolean
     
@@ -3669,7 +3661,7 @@ class triangle_cdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Triangle CDF Based"
     _HTML = undefinedString
-    _leftSideHTML = undefinedString
+    __leftSideHTML = 'y'
     _coefficientDesignators = undefinedList
     _canLinearSolverBeUsedForSSQABS = undefinedBoolean
     
@@ -3740,7 +3732,7 @@ class triangle_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Triangle PDF Based"
     _HTML = undefinedString
-    _leftSideHTML = undefinedString
+    __leftSideHTML = 'y'
     _coefficientDesignators = undefinedList
     _canLinearSolverBeUsedForSSQABS = undefinedBoolean
     
@@ -3814,7 +3806,7 @@ class triangular_cdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Triangular CDF Based"
     _HTML = undefinedString
-    _leftSideHTML = undefinedString
+    __leftSideHTML = 'y'
     _coefficientDesignators = undefinedList
     _canLinearSolverBeUsedForSSQABS = undefinedBoolean
     
@@ -3883,7 +3875,7 @@ class uniform_cdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Uniform CDF Based"
     _HTML = undefinedString
-    _leftSideHTML = undefinedString
+    __leftSideHTML = 'y'
     _coefficientDesignators = undefinedList
     _canLinearSolverBeUsedForSSQABS = undefinedBoolean
     
@@ -3949,7 +3941,7 @@ class weibull_cdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Weibull CDF Based"
     _HTML = undefinedString
-    _leftSideHTML = undefinedString
+    __leftSideHTML = 'y'
     _coefficientDesignators = undefinedList
     _canLinearSolverBeUsedForSSQABS = undefinedBoolean
     
@@ -4014,7 +4006,7 @@ class weibull_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Weibull PDF Based"
     _HTML = undefinedString
-    _leftSideHTML = undefinedString
+    __leftSideHTML = 'y'
     _coefficientDesignators = undefinedList
     _canLinearSolverBeUsedForSSQABS = undefinedBoolean
     
