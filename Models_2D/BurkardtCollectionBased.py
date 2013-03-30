@@ -128,85 +128,69 @@ class arcsin_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         s = "\ttemp =  a / (3.14159265358979323846 * pow(b*b - x_in*x_in, 0.5));\n"
         return s
 
-    
-    
-    
-    
-    
-    
-
-undefinedString = ''
-undefinedBoolean = False
-undefinedList = []
 
     
-    
-
-
-
 class bradford_cdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Bradford CDF Based"
-    _HTML = undefinedString
+    _HTML = 'ln(1.0+c*(x-a)/(b-a)) / ln(c+1.0)'
     __leftSideHTML = 'y'
-    _coefficientDesignators = undefinedList
-    _canLinearSolverBeUsedForSSQABS = undefinedBoolean
+    _coefficientDesignators = ['a','b', 'c']
+    _canLinearSolverBeUsedForSSQABS = False
     
     webReferenceURL = BurkhardtCollectionWebReference_1
+    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
+    autoGenerateOffsetForm = True
+    autoGenerateReciprocalForm = True
+    autoGenerateInverseForms = True
+    autoGenerateGrowthAndDecayForms = True
 
-    '''
-function cdf = bradford_cdf ( x, a, b, c )
-  if ( x <= a )
-    cdf = 0.0;
-  elseif ( x <= b )
-    cdf = log ( 1.0 + c * ( x - a ) / ( b - a ) ) / log ( c + 1.0 );
-  elseif ( b < x )
-    cdf = 1.0;
-'''
-
-    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = undefinedBoolean
-    autoGenerateOffsetForm = undefinedBoolean
-    autoGenerateReciprocalForm = undefinedBoolean
-    autoGenerateInverseForms = undefinedBoolean
-    autoGenerateGrowthAndDecayForms = undefinedBoolean
-
-    independentData1CannotContainZeroFlag = undefinedBoolean
-    independentData1CannotContainPositiveFlag = undefinedBoolean
-    independentData1CannotContainNegativeFlag = undefinedBoolean
+    independentData1CannotContainZeroFlag = False
+    independentData1CannotContainPositiveFlag = False
+    independentData1CannotContainNegativeFlag = False
     independentData2CannotContainZeroFlag = False
     independentData2CannotContainPositiveFlag = False
     independentData2CannotContainNegativeFlag = False
     
 
     def GetDataCacheFunctions(self):
-        undefined
         functionList = []
         functionList.append([pyeq2.DataCache.DataCacheFunctions.X(NameOrValueFlag=1), []])
         return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
 
 
     def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
-        undefined
         x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
         
-        a0 = inCoeffs[0]
-        a1 = inCoeffs[1]
-        b1 = inCoeffs[2]
-        c1 = inCoeffs[3]
+        a = inCoeffs[0]
+        b = inCoeffs[1]
+        c = inCoeffs[2]
 
         try:
-            temp = a0
-            temp += a1 *numpy.sin(c1 * x_in) + b1 *numpy.cos(c1 * x_in)
+            temp = numpy.log(1.0+c*(x_in-a)/(b-a)) / numpy.log(c+1.0)
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
 
 
     def SpecificCodeCPP(self):
-        undefined
-        s = "\ttemp = a0;\n"
-        s += "\ttemp +=  a1 *sin(c1 * x_in) + b1 *cos(c1 * x_in);\n"
+        s = "\ttemp = log(1.0+c*(x_in-a)/(b-a)) / log(c+1.0);\n"
         return s
+
+        
+        
+        
+        
+        
+    
+undefinedString = ''
+undefinedBoolean = False
+undefinedList = []
+    
+        
+        
+    
+    
 
 
 
@@ -234,7 +218,7 @@ function pdf = bradford_pdf ( x, a, b, c )
     autoGenerateOffsetForm = undefinedBoolean
     autoGenerateReciprocalForm = undefinedBoolean
     autoGenerateInverseForms = undefinedBoolean
-    autoGenerateGrowthAndDecayForms = undefinedBoolean
+    autoGenerateGrowthAndDecayForms = True
 
     independentData1CannotContainZeroFlag = undefinedBoolean
     independentData1CannotContainPositiveFlag = undefinedBoolean
@@ -298,7 +282,7 @@ function cdf = burr_cdf ( x, a, b, c, d )
     autoGenerateOffsetForm = undefinedBoolean
     autoGenerateReciprocalForm = undefinedBoolean
     autoGenerateInverseForms = undefinedBoolean
-    autoGenerateGrowthAndDecayForms = undefinedBoolean
+    autoGenerateGrowthAndDecayForms = True
 
     independentData1CannotContainZeroFlag = undefinedBoolean
     independentData1CannotContainPositiveFlag = undefinedBoolean
@@ -363,7 +347,7 @@ function pdf = burr_pdf ( x, a, b, c, d )
     autoGenerateOffsetForm = undefinedBoolean
     autoGenerateReciprocalForm = undefinedBoolean
     autoGenerateInverseForms = undefinedBoolean
-    autoGenerateGrowthAndDecayForms = undefinedBoolean
+    autoGenerateGrowthAndDecayForms = True
 
     independentData1CannotContainZeroFlag = undefinedBoolean
     independentData1CannotContainPositiveFlag = undefinedBoolean
@@ -429,7 +413,7 @@ function cdf = cardioid_cdf ( x, a, b )
     autoGenerateOffsetForm = undefinedBoolean
     autoGenerateReciprocalForm = undefinedBoolean
     autoGenerateInverseForms = undefinedBoolean
-    autoGenerateGrowthAndDecayForms = undefinedBoolean
+    autoGenerateGrowthAndDecayForms = True
 
     independentData1CannotContainZeroFlag = undefinedBoolean
     independentData1CannotContainPositiveFlag = undefinedBoolean
@@ -490,7 +474,7 @@ function pdf = cardioid_pdf ( x, a, b )
     autoGenerateOffsetForm = undefinedBoolean
     autoGenerateReciprocalForm = undefinedBoolean
     autoGenerateInverseForms = undefinedBoolean
-    autoGenerateGrowthAndDecayForms = undefinedBoolean
+    autoGenerateGrowthAndDecayForms = True
 
     independentData1CannotContainZeroFlag = undefinedBoolean
     independentData1CannotContainPositiveFlag = undefinedBoolean
@@ -552,7 +536,7 @@ function cdf = cauchy_cdf ( x, a, b )
     autoGenerateOffsetForm = undefinedBoolean
     autoGenerateReciprocalForm = undefinedBoolean
     autoGenerateInverseForms = undefinedBoolean
-    autoGenerateGrowthAndDecayForms = undefinedBoolean
+    autoGenerateGrowthAndDecayForms = True
 
     independentData1CannotContainZeroFlag = undefinedBoolean
     independentData1CannotContainPositiveFlag = undefinedBoolean
@@ -614,7 +598,7 @@ function pdf = cauchy_pdf ( x, a, b )
     autoGenerateOffsetForm = undefinedBoolean
     autoGenerateReciprocalForm = undefinedBoolean
     autoGenerateInverseForms = undefinedBoolean
-    autoGenerateGrowthAndDecayForms = undefinedBoolean
+    autoGenerateGrowthAndDecayForms = True
 
     independentData1CannotContainZeroFlag = undefinedBoolean
     independentData1CannotContainPositiveFlag = undefinedBoolean
@@ -675,7 +659,7 @@ function pdf = circular_normal_01_pdf ( x, pdf )
     autoGenerateOffsetForm = undefinedBoolean
     autoGenerateReciprocalForm = undefinedBoolean
     autoGenerateInverseForms = undefinedBoolean
-    autoGenerateGrowthAndDecayForms = undefinedBoolean
+    autoGenerateGrowthAndDecayForms = True
 
     independentData1CannotContainZeroFlag = undefinedBoolean
     independentData1CannotContainPositiveFlag = undefinedBoolean
@@ -737,7 +721,7 @@ function pdf = circular_normal_pdf ( x, a, b )
     autoGenerateOffsetForm = undefinedBoolean
     autoGenerateReciprocalForm = undefinedBoolean
     autoGenerateInverseForms = undefinedBoolean
-    autoGenerateGrowthAndDecayForms = undefinedBoolean
+    autoGenerateGrowthAndDecayForms = True
 
     independentData1CannotContainZeroFlag = undefinedBoolean
     independentData1CannotContainPositiveFlag = undefinedBoolean
@@ -804,7 +788,7 @@ function cdf = cosine_cdf ( x, a, b )
     autoGenerateOffsetForm = undefinedBoolean
     autoGenerateReciprocalForm = undefinedBoolean
     autoGenerateInverseForms = undefinedBoolean
-    autoGenerateGrowthAndDecayForms = undefinedBoolean
+    autoGenerateGrowthAndDecayForms = True
 
     independentData1CannotContainZeroFlag = undefinedBoolean
     independentData1CannotContainPositiveFlag = undefinedBoolean
@@ -871,7 +855,7 @@ function pdf = cosine_pdf ( x, a, b )
     autoGenerateOffsetForm = undefinedBoolean
     autoGenerateReciprocalForm = undefinedBoolean
     autoGenerateInverseForms = undefinedBoolean
-    autoGenerateGrowthAndDecayForms = undefinedBoolean
+    autoGenerateGrowthAndDecayForms = True
 
     independentData1CannotContainZeroFlag = undefinedBoolean
     independentData1CannotContainPositiveFlag = undefinedBoolean
@@ -933,7 +917,7 @@ function cdf = dipole_cdf ( x, a, b )
     autoGenerateOffsetForm = undefinedBoolean
     autoGenerateReciprocalForm = undefinedBoolean
     autoGenerateInverseForms = undefinedBoolean
-    autoGenerateGrowthAndDecayForms = undefinedBoolean
+    autoGenerateGrowthAndDecayForms = True
 
     independentData1CannotContainZeroFlag = undefinedBoolean
     independentData1CannotContainPositiveFlag = undefinedBoolean
@@ -996,7 +980,7 @@ function pdf = dipole_pdf ( x, a, b )
     autoGenerateOffsetForm = undefinedBoolean
     autoGenerateReciprocalForm = undefinedBoolean
     autoGenerateInverseForms = undefinedBoolean
-    autoGenerateGrowthAndDecayForms = undefinedBoolean
+    autoGenerateGrowthAndDecayForms = True
 
     independentData1CannotContainZeroFlag = undefinedBoolean
     independentData1CannotContainPositiveFlag = undefinedBoolean
@@ -1060,7 +1044,7 @@ function cdf = exponential_01_cdf ( x )
     autoGenerateOffsetForm = undefinedBoolean
     autoGenerateReciprocalForm = undefinedBoolean
     autoGenerateInverseForms = undefinedBoolean
-    autoGenerateGrowthAndDecayForms = undefinedBoolean
+    autoGenerateGrowthAndDecayForms = True
 
     independentData1CannotContainZeroFlag = undefinedBoolean
     independentData1CannotContainPositiveFlag = undefinedBoolean
@@ -1124,7 +1108,7 @@ function pdf = exponential_01_pdf ( x )
     autoGenerateOffsetForm = undefinedBoolean
     autoGenerateReciprocalForm = undefinedBoolean
     autoGenerateInverseForms = undefinedBoolean
-    autoGenerateGrowthAndDecayForms = undefinedBoolean
+    autoGenerateGrowthAndDecayForms = True
 
     independentData1CannotContainZeroFlag = undefinedBoolean
     independentData1CannotContainPositiveFlag = undefinedBoolean
@@ -1188,7 +1172,7 @@ function pdf = exponential_pdf ( x, a, b )
     autoGenerateOffsetForm = undefinedBoolean
     autoGenerateReciprocalForm = undefinedBoolean
     autoGenerateInverseForms = undefinedBoolean
-    autoGenerateGrowthAndDecayForms = undefinedBoolean
+    autoGenerateGrowthAndDecayForms = True
 
     independentData1CannotContainZeroFlag = undefinedBoolean
     independentData1CannotContainPositiveFlag = undefinedBoolean
@@ -1250,7 +1234,7 @@ function cdf = extreme_values_cdf ( x, a, b )
     autoGenerateOffsetForm = undefinedBoolean
     autoGenerateReciprocalForm = undefinedBoolean
     autoGenerateInverseForms = undefinedBoolean
-    autoGenerateGrowthAndDecayForms = undefinedBoolean
+    autoGenerateGrowthAndDecayForms = True
 
     independentData1CannotContainZeroFlag = undefinedBoolean
     independentData1CannotContainPositiveFlag = undefinedBoolean
@@ -1311,7 +1295,7 @@ function pdf = extreme_values_pdf ( x, a, b )
     autoGenerateOffsetForm = undefinedBoolean
     autoGenerateReciprocalForm = undefinedBoolean
     autoGenerateInverseForms = undefinedBoolean
-    autoGenerateGrowthAndDecayForms = undefinedBoolean
+    autoGenerateGrowthAndDecayForms = True
 
     independentData1CannotContainZeroFlag = undefinedBoolean
     independentData1CannotContainPositiveFlag = undefinedBoolean
@@ -1375,7 +1359,7 @@ function cdf = fisk_cdf ( x, a, b, c )
     autoGenerateOffsetForm = undefinedBoolean
     autoGenerateReciprocalForm = undefinedBoolean
     autoGenerateInverseForms = undefinedBoolean
-    autoGenerateGrowthAndDecayForms = undefinedBoolean
+    autoGenerateGrowthAndDecayForms = True
 
     independentData1CannotContainZeroFlag = undefinedBoolean
     independentData1CannotContainPositiveFlag = undefinedBoolean
@@ -1440,7 +1424,7 @@ function pdf = fisk_pdf ( x, a, b, c )
     autoGenerateOffsetForm = undefinedBoolean
     autoGenerateReciprocalForm = undefinedBoolean
     autoGenerateInverseForms = undefinedBoolean
-    autoGenerateGrowthAndDecayForms = undefinedBoolean
+    autoGenerateGrowthAndDecayForms = True
 
     independentData1CannotContainZeroFlag = undefinedBoolean
     independentData1CannotContainPositiveFlag = undefinedBoolean
@@ -1505,7 +1489,7 @@ function pdf = folded_normal_pdf ( x, a, b )
     autoGenerateOffsetForm = undefinedBoolean
     autoGenerateReciprocalForm = undefinedBoolean
     autoGenerateInverseForms = undefinedBoolean
-    autoGenerateGrowthAndDecayForms = undefinedBoolean
+    autoGenerateGrowthAndDecayForms = True
 
     independentData1CannotContainZeroFlag = undefinedBoolean
     independentData1CannotContainPositiveFlag = undefinedBoolean
@@ -1574,7 +1558,7 @@ function cdf = frechet_cdf ( x, alpha )
     autoGenerateOffsetForm = undefinedBoolean
     autoGenerateReciprocalForm = undefinedBoolean
     autoGenerateInverseForms = undefinedBoolean
-    autoGenerateGrowthAndDecayForms = undefinedBoolean
+    autoGenerateGrowthAndDecayForms = True
 
     independentData1CannotContainZeroFlag = undefinedBoolean
     independentData1CannotContainPositiveFlag = undefinedBoolean
@@ -1640,7 +1624,7 @@ function pdf = frechet_pdf ( x, alpha )
     autoGenerateOffsetForm = undefinedBoolean
     autoGenerateReciprocalForm = undefinedBoolean
     autoGenerateInverseForms = undefinedBoolean
-    autoGenerateGrowthAndDecayForms = undefinedBoolean
+    autoGenerateGrowthAndDecayForms = True
 
     independentData1CannotContainZeroFlag = undefinedBoolean
     independentData1CannotContainPositiveFlag = undefinedBoolean
@@ -1702,7 +1686,7 @@ function cdf = genlogistic_cdf ( x, a, b, c )
     autoGenerateOffsetForm = undefinedBoolean
     autoGenerateReciprocalForm = undefinedBoolean
     autoGenerateInverseForms = undefinedBoolean
-    autoGenerateGrowthAndDecayForms = undefinedBoolean
+    autoGenerateGrowthAndDecayForms = True
 
     independentData1CannotContainZeroFlag = undefinedBoolean
     independentData1CannotContainPositiveFlag = undefinedBoolean
@@ -1764,7 +1748,7 @@ function pdf = genlogistic_pdf ( x, a, b, c )
     autoGenerateOffsetForm = undefinedBoolean
     autoGenerateReciprocalForm = undefinedBoolean
     autoGenerateInverseForms = undefinedBoolean
-    autoGenerateGrowthAndDecayForms = undefinedBoolean
+    autoGenerateGrowthAndDecayForms = True
 
     independentData1CannotContainZeroFlag = undefinedBoolean
     independentData1CannotContainPositiveFlag = undefinedBoolean
@@ -1828,7 +1812,7 @@ function cdf = gompertz_cdf ( x, a, b )
     autoGenerateOffsetForm = undefinedBoolean
     autoGenerateReciprocalForm = undefinedBoolean
     autoGenerateInverseForms = undefinedBoolean
-    autoGenerateGrowthAndDecayForms = undefinedBoolean
+    autoGenerateGrowthAndDecayForms = True
 
     independentData1CannotContainZeroFlag = undefinedBoolean
     independentData1CannotContainPositiveFlag = undefinedBoolean
@@ -1892,7 +1876,7 @@ function pdf = gompertz_pdf ( x, a, b )
     autoGenerateOffsetForm = undefinedBoolean
     autoGenerateReciprocalForm = undefinedBoolean
     autoGenerateInverseForms = undefinedBoolean
-    autoGenerateGrowthAndDecayForms = undefinedBoolean
+    autoGenerateGrowthAndDecayForms = True
 
     independentData1CannotContainZeroFlag = undefinedBoolean
     independentData1CannotContainPositiveFlag = undefinedBoolean
@@ -1953,7 +1937,7 @@ function cdf = gumbel_cdf ( x )
     autoGenerateOffsetForm = undefinedBoolean
     autoGenerateReciprocalForm = undefinedBoolean
     autoGenerateInverseForms = undefinedBoolean
-    autoGenerateGrowthAndDecayForms = undefinedBoolean
+    autoGenerateGrowthAndDecayForms = True
 
     independentData1CannotContainZeroFlag = undefinedBoolean
     independentData1CannotContainPositiveFlag = undefinedBoolean
@@ -2014,7 +1998,7 @@ function pdf = gumbel_pdf ( x )
     autoGenerateOffsetForm = undefinedBoolean
     autoGenerateReciprocalForm = undefinedBoolean
     autoGenerateInverseForms = undefinedBoolean
-    autoGenerateGrowthAndDecayForms = undefinedBoolean
+    autoGenerateGrowthAndDecayForms = True
 
     independentData1CannotContainZeroFlag = undefinedBoolean
     independentData1CannotContainPositiveFlag = undefinedBoolean
@@ -2079,7 +2063,7 @@ function pdf = half_normal_pdf ( x, a, b )
     autoGenerateOffsetForm = undefinedBoolean
     autoGenerateReciprocalForm = undefinedBoolean
     autoGenerateInverseForms = undefinedBoolean
-    autoGenerateGrowthAndDecayForms = undefinedBoolean
+    autoGenerateGrowthAndDecayForms = True
 
     independentData1CannotContainZeroFlag = undefinedBoolean
     independentData1CannotContainPositiveFlag = undefinedBoolean
@@ -2144,7 +2128,7 @@ function pdf = inverse_gaussian_pdf ( x, a, b )
     autoGenerateOffsetForm = undefinedBoolean
     autoGenerateReciprocalForm = undefinedBoolean
     autoGenerateInverseForms = undefinedBoolean
-    autoGenerateGrowthAndDecayForms = undefinedBoolean
+    autoGenerateGrowthAndDecayForms = True
 
     independentData1CannotContainZeroFlag = undefinedBoolean
     independentData1CannotContainPositiveFlag = undefinedBoolean
@@ -2209,7 +2193,7 @@ function cdf = laplace_cdf ( x, a, b )
     autoGenerateOffsetForm = undefinedBoolean
     autoGenerateReciprocalForm = undefinedBoolean
     autoGenerateInverseForms = undefinedBoolean
-    autoGenerateGrowthAndDecayForms = undefinedBoolean
+    autoGenerateGrowthAndDecayForms = True
 
     independentData1CannotContainZeroFlag = undefinedBoolean
     independentData1CannotContainPositiveFlag = undefinedBoolean
@@ -2270,7 +2254,7 @@ function pdf = laplace_pdf ( x, a, b )
     autoGenerateOffsetForm = undefinedBoolean
     autoGenerateReciprocalForm = undefinedBoolean
     autoGenerateInverseForms = undefinedBoolean
-    autoGenerateGrowthAndDecayForms = undefinedBoolean
+    autoGenerateGrowthAndDecayForms = True
 
     independentData1CannotContainZeroFlag = undefinedBoolean
     independentData1CannotContainPositiveFlag = undefinedBoolean
@@ -2341,7 +2325,7 @@ function pdf = levy_pdf ( x, a, b )
     autoGenerateOffsetForm = undefinedBoolean
     autoGenerateReciprocalForm = undefinedBoolean
     autoGenerateInverseForms = undefinedBoolean
-    autoGenerateGrowthAndDecayForms = undefinedBoolean
+    autoGenerateGrowthAndDecayForms = True
 
     independentData1CannotContainZeroFlag = undefinedBoolean
     independentData1CannotContainPositiveFlag = undefinedBoolean
@@ -2406,7 +2390,7 @@ function pdf = log_normal_pdf ( x, a, b )
     autoGenerateOffsetForm = undefinedBoolean
     autoGenerateReciprocalForm = undefinedBoolean
     autoGenerateInverseForms = undefinedBoolean
-    autoGenerateGrowthAndDecayForms = undefinedBoolean
+    autoGenerateGrowthAndDecayForms = True
 
     independentData1CannotContainZeroFlag = undefinedBoolean
     independentData1CannotContainPositiveFlag = undefinedBoolean
@@ -2472,7 +2456,7 @@ function cdf = log_uniform_cdf ( x, a, b )
     autoGenerateOffsetForm = undefinedBoolean
     autoGenerateReciprocalForm = undefinedBoolean
     autoGenerateInverseForms = undefinedBoolean
-    autoGenerateGrowthAndDecayForms = undefinedBoolean
+    autoGenerateGrowthAndDecayForms = True
 
     independentData1CannotContainZeroFlag = undefinedBoolean
     independentData1CannotContainPositiveFlag = undefinedBoolean
@@ -2538,7 +2522,7 @@ function pdf = log_uniform_pdf ( x, a, b )
     autoGenerateOffsetForm = undefinedBoolean
     autoGenerateReciprocalForm = undefinedBoolean
     autoGenerateInverseForms = undefinedBoolean
-    autoGenerateGrowthAndDecayForms = undefinedBoolean
+    autoGenerateGrowthAndDecayForms = True
 
     independentData1CannotContainZeroFlag = undefinedBoolean
     independentData1CannotContainPositiveFlag = undefinedBoolean
@@ -2599,7 +2583,7 @@ function cdf = logistic_cdf ( x, a, b )
     autoGenerateOffsetForm = undefinedBoolean
     autoGenerateReciprocalForm = undefinedBoolean
     autoGenerateInverseForms = undefinedBoolean
-    autoGenerateGrowthAndDecayForms = undefinedBoolean
+    autoGenerateGrowthAndDecayForms = True
 
     independentData1CannotContainZeroFlag = undefinedBoolean
     independentData1CannotContainPositiveFlag = undefinedBoolean
@@ -2661,7 +2645,7 @@ function pdf = logistic_pdf ( x, a, b )
     autoGenerateOffsetForm = undefinedBoolean
     autoGenerateReciprocalForm = undefinedBoolean
     autoGenerateInverseForms = undefinedBoolean
-    autoGenerateGrowthAndDecayForms = undefinedBoolean
+    autoGenerateGrowthAndDecayForms = True
 
     independentData1CannotContainZeroFlag = undefinedBoolean
     independentData1CannotContainPositiveFlag = undefinedBoolean
@@ -2722,7 +2706,7 @@ function cdf = lorentz_cdf ( x )
     autoGenerateOffsetForm = undefinedBoolean
     autoGenerateReciprocalForm = undefinedBoolean
     autoGenerateInverseForms = undefinedBoolean
-    autoGenerateGrowthAndDecayForms = undefinedBoolean
+    autoGenerateGrowthAndDecayForms = True
 
     independentData1CannotContainZeroFlag = undefinedBoolean
     independentData1CannotContainPositiveFlag = undefinedBoolean
@@ -2783,7 +2767,7 @@ function pdf = lorentz_pdf ( x )
     autoGenerateOffsetForm = undefinedBoolean
     autoGenerateReciprocalForm = undefinedBoolean
     autoGenerateInverseForms = undefinedBoolean
-    autoGenerateGrowthAndDecayForms = undefinedBoolean
+    autoGenerateGrowthAndDecayForms = True
 
     independentData1CannotContainZeroFlag = undefinedBoolean
     independentData1CannotContainPositiveFlag = undefinedBoolean
@@ -2844,7 +2828,7 @@ function pdf = normal_01_pdf ( x )
     autoGenerateOffsetForm = undefinedBoolean
     autoGenerateReciprocalForm = undefinedBoolean
     autoGenerateInverseForms = undefinedBoolean
-    autoGenerateGrowthAndDecayForms = undefinedBoolean
+    autoGenerateGrowthAndDecayForms = True
 
     independentData1CannotContainZeroFlag = undefinedBoolean
     independentData1CannotContainPositiveFlag = undefinedBoolean
@@ -2905,7 +2889,7 @@ function pdf = normal_pdf ( x, a, b )
     autoGenerateOffsetForm = undefinedBoolean
     autoGenerateReciprocalForm = undefinedBoolean
     autoGenerateInverseForms = undefinedBoolean
-    autoGenerateGrowthAndDecayForms = undefinedBoolean
+    autoGenerateGrowthAndDecayForms = True
 
     independentData1CannotContainZeroFlag = undefinedBoolean
     independentData1CannotContainPositiveFlag = undefinedBoolean
@@ -2969,7 +2953,7 @@ function cdf = pareto_cdf ( x, a, b )
     autoGenerateOffsetForm = undefinedBoolean
     autoGenerateReciprocalForm = undefinedBoolean
     autoGenerateInverseForms = undefinedBoolean
-    autoGenerateGrowthAndDecayForms = undefinedBoolean
+    autoGenerateGrowthAndDecayForms = True
 
     independentData1CannotContainZeroFlag = undefinedBoolean
     independentData1CannotContainPositiveFlag = undefinedBoolean
@@ -3033,7 +3017,7 @@ function pdf = pareto_pdf ( x, a, b )
     autoGenerateOffsetForm = undefinedBoolean
     autoGenerateReciprocalForm = undefinedBoolean
     autoGenerateInverseForms = undefinedBoolean
-    autoGenerateGrowthAndDecayForms = undefinedBoolean
+    autoGenerateGrowthAndDecayForms = True
 
     independentData1CannotContainZeroFlag = undefinedBoolean
     independentData1CannotContainPositiveFlag = undefinedBoolean
@@ -3099,7 +3083,7 @@ function cdf = power_cdf ( x, a, b )
     autoGenerateOffsetForm = undefinedBoolean
     autoGenerateReciprocalForm = undefinedBoolean
     autoGenerateInverseForms = undefinedBoolean
-    autoGenerateGrowthAndDecayForms = undefinedBoolean
+    autoGenerateGrowthAndDecayForms = True
 
     independentData1CannotContainZeroFlag = undefinedBoolean
     independentData1CannotContainPositiveFlag = undefinedBoolean
@@ -3163,7 +3147,7 @@ function pdf = power_pdf ( x, a, b )
     autoGenerateOffsetForm = undefinedBoolean
     autoGenerateReciprocalForm = undefinedBoolean
     autoGenerateInverseForms = undefinedBoolean
-    autoGenerateGrowthAndDecayForms = undefinedBoolean
+    autoGenerateGrowthAndDecayForms = True
 
     independentData1CannotContainZeroFlag = undefinedBoolean
     independentData1CannotContainPositiveFlag = undefinedBoolean
@@ -3227,7 +3211,7 @@ function cdf = rayleigh_cdf ( x, a )
     autoGenerateOffsetForm = undefinedBoolean
     autoGenerateReciprocalForm = undefinedBoolean
     autoGenerateInverseForms = undefinedBoolean
-    autoGenerateGrowthAndDecayForms = undefinedBoolean
+    autoGenerateGrowthAndDecayForms = True
 
     independentData1CannotContainZeroFlag = undefinedBoolean
     independentData1CannotContainPositiveFlag = undefinedBoolean
@@ -3291,7 +3275,7 @@ function pdf = rayleigh_pdf ( x, a )
     autoGenerateOffsetForm = undefinedBoolean
     autoGenerateReciprocalForm = undefinedBoolean
     autoGenerateInverseForms = undefinedBoolean
-    autoGenerateGrowthAndDecayForms = undefinedBoolean
+    autoGenerateGrowthAndDecayForms = True
 
     independentData1CannotContainZeroFlag = undefinedBoolean
     independentData1CannotContainPositiveFlag = undefinedBoolean
@@ -3355,7 +3339,7 @@ function cdf = reciprocal_cdf ( x, a, b )
     autoGenerateOffsetForm = undefinedBoolean
     autoGenerateReciprocalForm = undefinedBoolean
     autoGenerateInverseForms = undefinedBoolean
-    autoGenerateGrowthAndDecayForms = undefinedBoolean
+    autoGenerateGrowthAndDecayForms = True
 
     independentData1CannotContainZeroFlag = undefinedBoolean
     independentData1CannotContainPositiveFlag = undefinedBoolean
@@ -3419,7 +3403,7 @@ function pdf = reciprocal_pdf ( x, a, b )
     autoGenerateOffsetForm = undefinedBoolean
     autoGenerateReciprocalForm = undefinedBoolean
     autoGenerateInverseForms = undefinedBoolean
-    autoGenerateGrowthAndDecayForms = undefinedBoolean
+    autoGenerateGrowthAndDecayForms = True
 
     independentData1CannotContainZeroFlag = undefinedBoolean
     independentData1CannotContainPositiveFlag = undefinedBoolean
@@ -3481,7 +3465,7 @@ function cdf = sech_cdf ( x, a, b )
     autoGenerateOffsetForm = undefinedBoolean
     autoGenerateReciprocalForm = undefinedBoolean
     autoGenerateInverseForms = undefinedBoolean
-    autoGenerateGrowthAndDecayForms = undefinedBoolean
+    autoGenerateGrowthAndDecayForms = True
 
     independentData1CannotContainZeroFlag = undefinedBoolean
     independentData1CannotContainPositiveFlag = undefinedBoolean
@@ -3548,7 +3532,7 @@ function cdf = semicircular_cdf ( x, a, b )
     autoGenerateOffsetForm = undefinedBoolean
     autoGenerateReciprocalForm = undefinedBoolean
     autoGenerateInverseForms = undefinedBoolean
-    autoGenerateGrowthAndDecayForms = undefinedBoolean
+    autoGenerateGrowthAndDecayForms = True
 
     independentData1CannotContainZeroFlag = undefinedBoolean
     independentData1CannotContainPositiveFlag = undefinedBoolean
@@ -3615,7 +3599,7 @@ function pdf = semicircular_pdf ( x, a, b )
     autoGenerateOffsetForm = undefinedBoolean
     autoGenerateReciprocalForm = undefinedBoolean
     autoGenerateInverseForms = undefinedBoolean
-    autoGenerateGrowthAndDecayForms = undefinedBoolean
+    autoGenerateGrowthAndDecayForms = True
 
     independentData1CannotContainZeroFlag = undefinedBoolean
     independentData1CannotContainPositiveFlag = undefinedBoolean
@@ -3686,7 +3670,7 @@ function cdf = triangle_cdf ( x, a, b, c )
     autoGenerateOffsetForm = undefinedBoolean
     autoGenerateReciprocalForm = undefinedBoolean
     autoGenerateInverseForms = undefinedBoolean
-    autoGenerateGrowthAndDecayForms = undefinedBoolean
+    autoGenerateGrowthAndDecayForms = True
 
     independentData1CannotContainZeroFlag = undefinedBoolean
     independentData1CannotContainPositiveFlag = undefinedBoolean
@@ -3760,7 +3744,7 @@ function pdf = triangle_pdf ( x, a, b, c )
     autoGenerateOffsetForm = undefinedBoolean
     autoGenerateReciprocalForm = undefinedBoolean
     autoGenerateInverseForms = undefinedBoolean
-    autoGenerateGrowthAndDecayForms = undefinedBoolean
+    autoGenerateGrowthAndDecayForms = True
 
     independentData1CannotContainZeroFlag = undefinedBoolean
     independentData1CannotContainPositiveFlag = undefinedBoolean
@@ -3829,7 +3813,7 @@ function cdf = triangular_cdf ( x, a, b )
     autoGenerateOffsetForm = undefinedBoolean
     autoGenerateReciprocalForm = undefinedBoolean
     autoGenerateInverseForms = undefinedBoolean
-    autoGenerateGrowthAndDecayForms = undefinedBoolean
+    autoGenerateGrowthAndDecayForms = True
 
     independentData1CannotContainZeroFlag = undefinedBoolean
     independentData1CannotContainPositiveFlag = undefinedBoolean
@@ -3895,7 +3879,7 @@ function cdf = uniform_cdf ( x, a, b )
     autoGenerateOffsetForm = undefinedBoolean
     autoGenerateReciprocalForm = undefinedBoolean
     autoGenerateInverseForms = undefinedBoolean
-    autoGenerateGrowthAndDecayForms = undefinedBoolean
+    autoGenerateGrowthAndDecayForms = True
 
     independentData1CannotContainZeroFlag = undefinedBoolean
     independentData1CannotContainPositiveFlag = undefinedBoolean
@@ -3960,7 +3944,7 @@ function cdf = weibull_cdf ( x, a, b, c )
     autoGenerateOffsetForm = undefinedBoolean
     autoGenerateReciprocalForm = undefinedBoolean
     autoGenerateInverseForms = undefinedBoolean
-    autoGenerateGrowthAndDecayForms = undefinedBoolean
+    autoGenerateGrowthAndDecayForms = True
 
     independentData1CannotContainZeroFlag = undefinedBoolean
     independentData1CannotContainPositiveFlag = undefinedBoolean
@@ -4025,7 +4009,7 @@ function pdf = weibull_pdf ( x, a, b, c )
     autoGenerateOffsetForm = undefinedBoolean
     autoGenerateReciprocalForm = undefinedBoolean
     autoGenerateInverseForms = undefinedBoolean
-    autoGenerateGrowthAndDecayForms = undefinedBoolean
+    autoGenerateGrowthAndDecayForms = True
 
     independentData1CannotContainZeroFlag = undefinedBoolean
     independentData1CannotContainPositiveFlag = undefinedBoolean
