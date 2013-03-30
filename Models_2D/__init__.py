@@ -17,6 +17,7 @@ from . import BioScience
 from . import Engineering
 from . import Exponential
 from . import FourierSeries
+from . import BurkardtCollectionBased
 from . import LegendrePolynomial
 from . import Logarithmic
 from . import Miscellaneous
