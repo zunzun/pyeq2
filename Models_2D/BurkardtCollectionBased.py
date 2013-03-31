@@ -93,8 +93,8 @@ class arcsin_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = True
     autoGenerateOffsetForm = True
-    autoGenerateReciprocalForm = False
-    autoGenerateInverseForms = False
+    autoGenerateReciprocalForm = True
+    autoGenerateInverseForms = True
     autoGenerateGrowthAndDecayForms = True
 
     independentData1CannotContainZeroFlag = False
@@ -177,88 +177,67 @@ class bradford_cdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         s = "\ttemp = log(1.0+c*(x_in-a)/(b-a)) / log(c+1.0);\n"
         return s
 
-        
-        
-        
-        
-        
-    
-undefinedString = ''
-undefinedBoolean = False
-undefinedList = []
-    
-        
-        
-    
-    
-
 
 
 class bradford_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Bradford PDF Based"
-    _HTML = undefinedString
+    _HTML = 'y = c / (( c * (x-a) + b-a) * ln(c + 1.0))'
     __leftSideHTML = 'y'
-    _coefficientDesignators = undefinedList
-    _canLinearSolverBeUsedForSSQABS = undefinedBoolean
+    _coefficientDesignators = ['a', 'b', 'c']
+    _canLinearSolverBeUsedForSSQABS = False
     
     webReferenceURL = BurkhardtCollectionWebReference_1
-
-    '''
-function pdf = bradford_pdf ( x, a, b, c )
-  if ( x <= a )
-    pdf = 0.0;
-  elseif ( x <= b )
-    pdf = c / ( ( c * ( x - a ) + b - a ) * log ( c + 1.0 ) );
-  elseif ( b < x )
-    pdf = 0.0;
-'''
-
-    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = undefinedBoolean
-    autoGenerateOffsetForm = undefinedBoolean
-    autoGenerateReciprocalForm = undefinedBoolean
-    autoGenerateInverseForms = undefinedBoolean
+    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = True
+    autoGenerateOffsetForm = True
+    autoGenerateReciprocalForm = True
+    autoGenerateInverseForms = True
     autoGenerateGrowthAndDecayForms = True
 
-    independentData1CannotContainZeroFlag = undefinedBoolean
-    independentData1CannotContainPositiveFlag = undefinedBoolean
-    independentData1CannotContainNegativeFlag = undefinedBoolean
+    independentData1CannotContainZeroFlag = False
+    independentData1CannotContainPositiveFlag = False
+    independentData1CannotContainNegativeFlag = False
     independentData2CannotContainZeroFlag = False
     independentData2CannotContainPositiveFlag = False
     independentData2CannotContainNegativeFlag = False
     
 
     def GetDataCacheFunctions(self):
-        undefined
         functionList = []
         functionList.append([pyeq2.DataCache.DataCacheFunctions.X(NameOrValueFlag=1), []])
         return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
 
 
     def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
-        undefined
         x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
         
-        a0 = inCoeffs[0]
-        a1 = inCoeffs[1]
-        b1 = inCoeffs[2]
-        c1 = inCoeffs[3]
+        a = inCoeffs[0]
+        b = inCoeffs[1]
+        c = inCoeffs[2]
 
         try:
-            temp = a0
-            temp += a1 *numpy.sin(c1 * x_in) + b1 *numpy.cos(c1 * x_in)
+            temp = c / (( c * (x_in-a) + b-a) * numpy.log(c + 1.0))
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
 
 
     def SpecificCodeCPP(self):
-        undefined
-        s = "\ttemp = a0;\n"
-        s += "\ttemp +=  a1 *sin(c1 * x_in) + b1 *cos(c1 * x_in);\n"
+        s = "\ttemp = c / (( c * (x_in-a) + b-a) * log(c + 1.0));\n"
         return s
 
 
+
+    
+    
+    
+undefinedString = ''
+undefinedBoolean = False
+undefinedList = []
+    
+    
+    
+    
 
 class burr_cdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
