@@ -228,24 +228,13 @@ class bradford_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
 
 
-    
-    
-    
-undefinedString = ''
-undefinedBoolean = False
-undefinedList = []
-    
-    
-    
-    
-
 class burr_cdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Burr CDF Based"
-    _HTML = undefinedString
+    _HTML = 'y = 1.0 / ( 1.0 + ( b / ( x-a ))<sup>c</sup>)<sup>d</sup>'
     __leftSideHTML = 'y'
-    _coefficientDesignators = undefinedList
-    _canLinearSolverBeUsedForSSQABS = undefinedBoolean
+    _coefficientDesignators = ['a', 'b', 'c', 'd']
+    _canLinearSolverBeUsedForSSQABS = False
     
     webReferenceURL = BurkhardtCollectionWebReference_1
 
@@ -257,49 +246,61 @@ function cdf = burr_cdf ( x, a, b, c, d )
     cdf = 1.0 / ( 1.0 + ( b / ( x - a ) )^c  )^d;
 '''
 
-    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = undefinedBoolean
-    autoGenerateOffsetForm = undefinedBoolean
-    autoGenerateReciprocalForm = undefinedBoolean
-    autoGenerateInverseForms = undefinedBoolean
+    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
+    autoGenerateOffsetForm = True
+    autoGenerateReciprocalForm = False
+    autoGenerateInverseForms = False
     autoGenerateGrowthAndDecayForms = True
 
-    independentData1CannotContainZeroFlag = undefinedBoolean
-    independentData1CannotContainPositiveFlag = undefinedBoolean
-    independentData1CannotContainNegativeFlag = undefinedBoolean
+    independentData1CannotContainZeroFlag = False
+    independentData1CannotContainPositiveFlag = False
+    independentData1CannotContainNegativeFlag = False
     independentData2CannotContainZeroFlag = False
     independentData2CannotContainPositiveFlag = False
     independentData2CannotContainNegativeFlag = False
     
 
     def GetDataCacheFunctions(self):
-        undefined
         functionList = []
         functionList.append([pyeq2.DataCache.DataCacheFunctions.X(NameOrValueFlag=1), []])
         return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
 
 
     def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
-        undefined
         x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
         
-        a0 = inCoeffs[0]
-        a1 = inCoeffs[1]
-        b1 = inCoeffs[2]
-        c1 = inCoeffs[3]
+        a = inCoeffs[0]
+        b = inCoeffs[1]
+        c = inCoeffs[2]
+        d = inCoeffs[3]
 
         try:
-            temp = a0
-            temp += a1 *numpy.sin(c1 * x_in) + b1 *numpy.cos(c1 * x_in)
+            temp = 1.0 / numpy.power( 1.0 + numpy.power( b / ( x_in - a ), c), d)
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
 
 
     def SpecificCodeCPP(self):
-        undefined
-        s = "\ttemp = a0;\n"
-        s += "\ttemp +=  a1 *sin(c1 * x_in) + b1 *cos(c1 * x_in);\n"
+        s = "\ttemp = 1.0 / pow( 1.0 + pow( b / ( x_in - a ), c), d);\n"
         return s
+
+    
+    
+
+
+
+    
+undefinedString = ''
+undefinedBoolean = False
+undefinedList = []
+    
+    
+    
+    
+
+
+
 
 
 
