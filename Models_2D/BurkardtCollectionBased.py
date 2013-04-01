@@ -139,6 +139,7 @@ class bradford_cdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     _canLinearSolverBeUsedForSSQABS = False
     
     webReferenceURL = BurkhardtCollectionWebReference_1
+
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = True
     autoGenerateReciprocalForm = True
@@ -188,6 +189,7 @@ class bradford_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     _canLinearSolverBeUsedForSSQABS = False
     
     webReferenceURL = BurkhardtCollectionWebReference_1
+
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = True
     autoGenerateOffsetForm = True
     autoGenerateReciprocalForm = True
@@ -235,16 +237,8 @@ class burr_cdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     __leftSideHTML = 'y'
     _coefficientDesignators = ['a', 'b', 'c', 'd']
     _canLinearSolverBeUsedForSSQABS = False
-    
-    webReferenceURL = BurkhardtCollectionWebReference_1
 
-    '''
-function cdf = burr_cdf ( x, a, b, c, d )
-  if ( x <= a )
-    cdf = 0.0;
-  else
-    cdf = 1.0 / ( 1.0 + ( b / ( x - a ) )^c  )^d;
-'''
+    webReferenceURL = BurkhardtCollectionWebReference_1
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = True
@@ -287,6 +281,57 @@ function cdf = burr_cdf ( x, a, b, c, d )
 
     
     
+class burr_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
+    
+    _baseName = "Burr PDF Based"
+    _HTML = 'y = (c*d/b) * ((x-a)/b)^(-c-1.0) * (1.0+((x-a)/b)^(-c))^(-d-1.0)'
+    __leftSideHTML = 'y'
+    _coefficientDesignators = ['a', 'b', 'c', 'd']
+    _canLinearSolverBeUsedForSSQABS = False
+
+    webReferenceURL = BurkhardtCollectionWebReference_1
+
+    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
+    autoGenerateOffsetForm = True
+    autoGenerateReciprocalForm = True
+    autoGenerateInverseForms = True
+    autoGenerateGrowthAndDecayForms = True
+
+    independentData1CannotContainZeroFlag = False
+    independentData1CannotContainPositiveFlag = False
+    independentData1CannotContainNegativeFlag = False
+    independentData2CannotContainZeroFlag = False
+    independentData2CannotContainPositiveFlag = False
+    independentData2CannotContainNegativeFlag = False
+    
+
+    def GetDataCacheFunctions(self):
+        functionList = []
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.X(NameOrValueFlag=1), []])
+        return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
+
+
+    def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
+        x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
+        
+        a = inCoeffs[0]
+        b = inCoeffs[1]
+        c = inCoeffs[2]
+        d = inCoeffs[3]
+
+        try:
+            temp = (c*d/b) * numpy.power((x_in-a)/b, -c-1.0) * numpy.power(1.0+numpy.power((x_in-a)/b, -c), -d-1.0)
+            return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
+        except:
+            return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
+
+
+    def SpecificCodeCPP(self):
+        s = "\ttemp = (c*d/b) * pow((x_in-a)/b, -c-1.0) * pow(1.0+pow((x_in-a)/b, -c), -d-1.0);\n"
+        return s
+
+
+
 
 
 
@@ -301,71 +346,6 @@ undefinedList = []
 
 
 
-
-
-
-class burr_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
-    
-    _baseName = "Burr PDF Based"
-    _HTML = undefinedString
-    __leftSideHTML = 'y'
-    _coefficientDesignators = undefinedList
-    _canLinearSolverBeUsedForSSQABS = undefinedBoolean
-    
-    webReferenceURL = BurkhardtCollectionWebReference_1
-
-    '''
-function pdf = burr_pdf ( x, a, b, c, d )
-  if ( x <= a )
-    pdf = 0.0;
-  else
-    y = ( x - a ) / b;
-    pdf = ( c * d / b ) * y^( - c - 1.0 ) * ( 1.0 + y^( -c ) )^( - d - 1.0 );
-'''
-
-    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = undefinedBoolean
-    autoGenerateOffsetForm = undefinedBoolean
-    autoGenerateReciprocalForm = undefinedBoolean
-    autoGenerateInverseForms = undefinedBoolean
-    autoGenerateGrowthAndDecayForms = True
-
-    independentData1CannotContainZeroFlag = undefinedBoolean
-    independentData1CannotContainPositiveFlag = undefinedBoolean
-    independentData1CannotContainNegativeFlag = undefinedBoolean
-    independentData2CannotContainZeroFlag = False
-    independentData2CannotContainPositiveFlag = False
-    independentData2CannotContainNegativeFlag = False
-    
-
-    def GetDataCacheFunctions(self):
-        undefined
-        functionList = []
-        functionList.append([pyeq2.DataCache.DataCacheFunctions.X(NameOrValueFlag=1), []])
-        return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
-
-
-    def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
-        undefined
-        x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
-        
-        a0 = inCoeffs[0]
-        a1 = inCoeffs[1]
-        b1 = inCoeffs[2]
-        c1 = inCoeffs[3]
-
-        try:
-            temp = a0
-            temp += a1 *numpy.sin(c1 * x_in) + b1 *numpy.cos(c1 * x_in)
-            return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
-        except:
-            return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
-
-
-    def SpecificCodeCPP(self):
-        undefined
-        s = "\ttemp = a0;\n"
-        s += "\ttemp +=  a1 *sin(c1 * x_in) + b1 *cos(c1 * x_in);\n"
-        return s
 
 
 

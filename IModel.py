@@ -159,6 +159,11 @@ class IModel(object):
 
         try:
             self.r2 = 1.0 - self.modelAbsoluteError.var()/self.dataCache.allDataCacheDictionary['DependentData'].var()
+
+            # extremely poor fits can have absolute error variance greater than sample
+            # variance at machine precision levels, giving tiny negative R-squared values
+            if self.r2 < 0.0:
+                self.r2 = None
         except:
             self.r2 = None
 
