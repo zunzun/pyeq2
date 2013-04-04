@@ -85,7 +85,7 @@ class arcsin_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Arcsin PDF Based"
     _HTML = 'y = a / ( pi * sqrt( b<sup>2</sup> - x<sup>2</sup>))'
-    __leftSideHTML = 'y'
+    _leftSideHTML = 'y'
     _coefficientDesignators = ['a', 'b']
     _canLinearSolverBeUsedForSSQABS = False
     
@@ -134,7 +134,7 @@ class bradford_cdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Bradford CDF Based"
     _HTML = 'ln(1.0+c*(x-a)/(b-a)) / ln(c+1.0)'
-    __leftSideHTML = 'y'
+    _leftSideHTML = 'y'
     _coefficientDesignators = ['a','b', 'c']
     _canLinearSolverBeUsedForSSQABS = False
     
@@ -184,7 +184,7 @@ class bradford_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Bradford PDF Based"
     _HTML = 'y = c / (( c * (x-a) + b-a) * ln(c + 1.0))'
-    __leftSideHTML = 'y'
+    _leftSideHTML = 'y'
     _coefficientDesignators = ['a', 'b', 'c']
     _canLinearSolverBeUsedForSSQABS = False
     
@@ -234,7 +234,7 @@ class burr_cdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Burr CDF Based"
     _HTML = 'y = 1.0 / ( 1.0 + ( b / ( x-a ))<sup>c</sup>)<sup>d</sup>'
-    __leftSideHTML = 'y'
+    _leftSideHTML = 'y'
     _coefficientDesignators = ['a', 'b', 'c', 'd']
     _canLinearSolverBeUsedForSSQABS = False
 
@@ -285,7 +285,7 @@ class burr_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Burr PDF Based"
     _HTML = 'y = (c*d/b) * ((x-a)/b)^(-c-1.0) * (1.0+((x-a)/b)^(-c))^(-d-1.0)'
-    __leftSideHTML = 'y'
+    _leftSideHTML = 'y'
     _coefficientDesignators = ['a', 'b', 'c', 'd']
     _canLinearSolverBeUsedForSSQABS = False
 
@@ -336,7 +336,7 @@ class dipole_cdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Dipole CDF Based"
     _HTML = 'y = a * arctan(x) + b/x'
-    __leftSideHTML = 'y'
+    _leftSideHTML = 'y'
     _coefficientDesignators = ['a', 'b']
     _canLinearSolverBeUsedForSSQABS = False
     
@@ -385,7 +385,7 @@ class exponential_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Exponential PDF Based"
     _HTML = 'y = (1.0/b) * exp((a-x)/b)'
-    __leftSideHTML = 'y'
+    _leftSideHTML = 'y'
     _coefficientDesignators = ['a', 'b']
     _canLinearSolverBeUsedForSSQABS = False
     
@@ -434,7 +434,7 @@ class extreme_values_cdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Extreme Values CDF Based"
     _HTML = 'y = exp(-exp(-((x-a)/b)))'
-    __leftSideHTML = 'y'
+    _leftSideHTML = 'y'
     _coefficientDesignators = ['a', 'b']
     _canLinearSolverBeUsedForSSQABS = False
     
@@ -491,7 +491,7 @@ if 0: # work on code below this point is still in progress
         
         _baseName = "Extreme Values PDF Based"
         _HTML = undefinedString
-        __leftSideHTML = 'y'
+        _leftSideHTML = 'y'
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
@@ -552,7 +552,7 @@ if 0: # work on code below this point is still in progress
         
         _baseName = "Fisk CDF Based"
         _HTML = undefinedString
-        __leftSideHTML = 'y'
+        _leftSideHTML = 'y'
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
@@ -616,7 +616,7 @@ if 0: # work on code below this point is still in progress
         
         _baseName = "Fisk PDF Based"
         _HTML = undefinedString
-        __leftSideHTML = 'y'
+        _leftSideHTML = 'y'
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
@@ -681,7 +681,7 @@ if 0: # work on code below this point is still in progress
         
         _baseName = "Folded Normal PDF Based"
         _HTML = undefinedString
-        __leftSideHTML = 'y'
+        _leftSideHTML = 'y'
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
@@ -746,7 +746,7 @@ if 0: # work on code below this point is still in progress
         
         _baseName = "Frechet CDF Based"
         _HTML = undefinedString
-        __leftSideHTML = 'y'
+        _leftSideHTML = 'y'
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
@@ -815,7 +815,7 @@ if 0: # work on code below this point is still in progress
         
         _baseName = "Frechet PDF Based"
         _HTML = undefinedString
-        __leftSideHTML = 'y'
+        _leftSideHTML = 'y'
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
@@ -881,7 +881,7 @@ if 0: # work on code below this point is still in progress
         
         _baseName = "Genlogistic CDF Based"
         _HTML = undefinedString
-        __leftSideHTML = 'y'
+        _leftSideHTML = 'y'
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
@@ -943,7 +943,7 @@ if 0: # work on code below this point is still in progress
         
         _baseName = "Genlogistic PDF Based"
         _HTML = undefinedString
-        __leftSideHTML = 'y'
+        _leftSideHTML = 'y'
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
@@ -1005,7 +1005,7 @@ if 0: # work on code below this point is still in progress
         
         _baseName = "Gompertz CDF Based"
         _HTML = undefinedString
-        __leftSideHTML = 'y'
+        _leftSideHTML = 'y'
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
@@ -1069,7 +1069,7 @@ if 0: # work on code below this point is still in progress
         
         _baseName = "Gompertz PDF Based"
         _HTML = undefinedString
-        __leftSideHTML = 'y'
+        _leftSideHTML = 'y'
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
@@ -1133,7 +1133,7 @@ if 0: # work on code below this point is still in progress
         
         _baseName = "Gumbel CDF Based"
         _HTML = undefinedString
-        __leftSideHTML = 'y'
+        _leftSideHTML = 'y'
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
@@ -1194,7 +1194,7 @@ if 0: # work on code below this point is still in progress
         
         _baseName = "Gumbel PDF Based"
         _HTML = undefinedString
-        __leftSideHTML = 'y'
+        _leftSideHTML = 'y'
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
@@ -1255,7 +1255,7 @@ if 0: # work on code below this point is still in progress
         
         _baseName = "Half Normal PDF Based"
         _HTML = undefinedString
-        __leftSideHTML = 'y'
+        _leftSideHTML = 'y'
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
@@ -1320,7 +1320,7 @@ if 0: # work on code below this point is still in progress
         
         _baseName = "Inverse_gaussian PDF Based"
         _HTML = undefinedString
-        __leftSideHTML = 'y'
+        _leftSideHTML = 'y'
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
@@ -1385,7 +1385,7 @@ if 0: # work on code below this point is still in progress
         
         _baseName = "Laplace CDF Based"
         _HTML = undefinedString
-        __leftSideHTML = 'y'
+        _leftSideHTML = 'y'
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
@@ -1450,7 +1450,7 @@ if 0: # work on code below this point is still in progress
         
         _baseName = "Laplace PDF Based"
         _HTML = undefinedString
-        __leftSideHTML = 'y'
+        _leftSideHTML = 'y'
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
@@ -1511,7 +1511,7 @@ if 0: # work on code below this point is still in progress
         
         _baseName = "Levy PDF Based"
         _HTML = undefinedString
-        __leftSideHTML = 'y'
+        _leftSideHTML = 'y'
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
@@ -1582,7 +1582,7 @@ if 0: # work on code below this point is still in progress
         
         _baseName = "Log Normal PDF Based"
         _HTML = undefinedString
-        __leftSideHTML = 'y'
+        _leftSideHTML = 'y'
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
@@ -1647,7 +1647,7 @@ if 0: # work on code below this point is still in progress
         
         _baseName = "Log_uniform CDF Based"
         _HTML = undefinedString
-        __leftSideHTML = 'y'
+        _leftSideHTML = 'y'
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
@@ -1713,7 +1713,7 @@ if 0: # work on code below this point is still in progress
         
         _baseName = "Log_uniform PDF Based"
         _HTML = undefinedString
-        __leftSideHTML = 'y'
+        _leftSideHTML = 'y'
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
@@ -1779,7 +1779,7 @@ if 0: # work on code below this point is still in progress
         
         _baseName = "Logistic CDF Based"
         _HTML = undefinedString
-        __leftSideHTML = 'y'
+        _leftSideHTML = 'y'
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
@@ -1840,7 +1840,7 @@ if 0: # work on code below this point is still in progress
         
         _baseName = "Logistic PDF Based"
         _HTML = undefinedString
-        __leftSideHTML = 'y'
+        _leftSideHTML = 'y'
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
@@ -1902,7 +1902,7 @@ if 0: # work on code below this point is still in progress
         
         _baseName = "Lorentz CDF Based"
         _HTML = undefinedString
-        __leftSideHTML = 'y'
+        _leftSideHTML = 'y'
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
@@ -1963,7 +1963,7 @@ if 0: # work on code below this point is still in progress
         
         _baseName = "Lorentz PDF Based"
         _HTML = undefinedString
-        __leftSideHTML = 'y'
+        _leftSideHTML = 'y'
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
@@ -2024,7 +2024,7 @@ if 0: # work on code below this point is still in progress
         
         _baseName = "Normal 01 PDF Based"
         _HTML = undefinedString
-        __leftSideHTML = 'y'
+        _leftSideHTML = 'y'
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
@@ -2085,7 +2085,7 @@ if 0: # work on code below this point is still in progress
         
         _baseName = "Normal PDF Based"
         _HTML = undefinedString
-        __leftSideHTML = 'y'
+        _leftSideHTML = 'y'
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
@@ -2146,7 +2146,7 @@ if 0: # work on code below this point is still in progress
         
         _baseName = "Pareto CDF Based"
         _HTML = undefinedString
-        __leftSideHTML = 'y'
+        _leftSideHTML = 'y'
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
@@ -2210,7 +2210,7 @@ if 0: # work on code below this point is still in progress
         
         _baseName = "Pareto PDF Based"
         _HTML = undefinedString
-        __leftSideHTML = 'y'
+        _leftSideHTML = 'y'
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
@@ -2274,7 +2274,7 @@ if 0: # work on code below this point is still in progress
         
         _baseName = "Power CDF Based"
         _HTML = undefinedString
-        __leftSideHTML = 'y'
+        _leftSideHTML = 'y'
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
@@ -2340,7 +2340,7 @@ if 0: # work on code below this point is still in progress
         
         _baseName = "Power PDF Based"
         _HTML = undefinedString
-        __leftSideHTML = 'y'
+        _leftSideHTML = 'y'
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
@@ -2404,7 +2404,7 @@ if 0: # work on code below this point is still in progress
         
         _baseName = "Rayleigh CDF Based"
         _HTML = undefinedString
-        __leftSideHTML = 'y'
+        _leftSideHTML = 'y'
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
@@ -2468,7 +2468,7 @@ if 0: # work on code below this point is still in progress
         
         _baseName = "Rayleigh PDF Based"
         _HTML = undefinedString
-        __leftSideHTML = 'y'
+        _leftSideHTML = 'y'
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
@@ -2532,7 +2532,7 @@ if 0: # work on code below this point is still in progress
         
         _baseName = "Reciprocal CDF Based"
         _HTML = undefinedString
-        __leftSideHTML = 'y'
+        _leftSideHTML = 'y'
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
@@ -2596,7 +2596,7 @@ if 0: # work on code below this point is still in progress
         
         _baseName = "Reciprocal PDF Based"
         _HTML = undefinedString
-        __leftSideHTML = 'y'
+        _leftSideHTML = 'y'
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
@@ -2660,7 +2660,7 @@ if 0: # work on code below this point is still in progress
         
         _baseName = "Sech CDF Based"
         _HTML = undefinedString
-        __leftSideHTML = 'y'
+        _leftSideHTML = 'y'
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
@@ -2722,7 +2722,7 @@ if 0: # work on code below this point is still in progress
         
         _baseName = "Semicircular CDF Based"
         _HTML = undefinedString
-        __leftSideHTML = 'y'
+        _leftSideHTML = 'y'
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
@@ -2789,7 +2789,7 @@ if 0: # work on code below this point is still in progress
         
         _baseName = "Semicircular PDF Based"
         _HTML = undefinedString
-        __leftSideHTML = 'y'
+        _leftSideHTML = 'y'
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
@@ -2856,7 +2856,7 @@ if 0: # work on code below this point is still in progress
         
         _baseName = "Triangle CDF Based"
         _HTML = undefinedString
-        __leftSideHTML = 'y'
+        _leftSideHTML = 'y'
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
@@ -2927,7 +2927,7 @@ if 0: # work on code below this point is still in progress
         
         _baseName = "Triangle PDF Based"
         _HTML = undefinedString
-        __leftSideHTML = 'y'
+        _leftSideHTML = 'y'
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
@@ -3001,7 +3001,7 @@ if 0: # work on code below this point is still in progress
         
         _baseName = "Triangular CDF Based"
         _HTML = undefinedString
-        __leftSideHTML = 'y'
+        _leftSideHTML = 'y'
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
@@ -3070,7 +3070,7 @@ if 0: # work on code below this point is still in progress
         
         _baseName = "Uniform CDF Based"
         _HTML = undefinedString
-        __leftSideHTML = 'y'
+        _leftSideHTML = 'y'
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
@@ -3136,7 +3136,7 @@ if 0: # work on code below this point is still in progress
         
         _baseName = "Weibull CDF Based"
         _HTML = undefinedString
-        __leftSideHTML = 'y'
+        _leftSideHTML = 'y'
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
@@ -3201,7 +3201,7 @@ if 0: # work on code below this point is still in progress
         
         _baseName = "Weibull PDF Based"
         _HTML = undefinedString
-        __leftSideHTML = 'y'
+        _leftSideHTML = 'y'
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
