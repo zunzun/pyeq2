@@ -1,6 +1,6 @@
 from __future__ import print_function
 from __future__ import unicode_literals
-from __future__ import absolute_import
+from __future__ import absolute_importc
 
 #    pyeq2 is a collection of equations expressed as Python classes
 #
@@ -26,7 +26,7 @@ numpy.seterr(over = 'raise', divide = 'raise', invalid = 'raise', under = 'ignor
 import pyeq2.Model_2D_BaseClass
 
 
-BurkhardtCollectionWebReference_1 = 'http://people.sc.fsu.edu/~jburkardt/m_src/prob/prob.html'
+BurkhardtCollectionWebReference = 'http://people.sc.fsu.edu/~jburkardt/m_src/prob/prob.html'
 
 
 
@@ -38,7 +38,7 @@ class arcsin_cdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     _coefficientDesignators = ['a', 'b', 'c', 'd']
     _canLinearSolverBeUsedForSSQABS = False
     
-    webReferenceURL = BurkhardtCollectionWebReference_1
+    webReferenceURL = BurkhardtCollectionWebReference
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = True
     autoGenerateOffsetForm = True
@@ -89,7 +89,7 @@ class arcsin_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     _coefficientDesignators = ['a', 'b']
     _canLinearSolverBeUsedForSSQABS = False
     
-    webReferenceURL = BurkhardtCollectionWebReference_1
+    webReferenceURL = BurkhardtCollectionWebReference
     
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = True
     autoGenerateOffsetForm = True
@@ -138,7 +138,7 @@ class bradford_cdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     _coefficientDesignators = ['a','b', 'c']
     _canLinearSolverBeUsedForSSQABS = False
     
-    webReferenceURL = BurkhardtCollectionWebReference_1
+    webReferenceURL = BurkhardtCollectionWebReference
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = True
@@ -188,7 +188,7 @@ class bradford_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     _coefficientDesignators = ['a', 'b', 'c']
     _canLinearSolverBeUsedForSSQABS = False
     
-    webReferenceURL = BurkhardtCollectionWebReference_1
+    webReferenceURL = BurkhardtCollectionWebReference
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = True
     autoGenerateOffsetForm = True
@@ -238,7 +238,7 @@ class burr_cdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     _coefficientDesignators = ['a', 'b', 'c', 'd']
     _canLinearSolverBeUsedForSSQABS = False
 
-    webReferenceURL = BurkhardtCollectionWebReference_1
+    webReferenceURL = BurkhardtCollectionWebReference
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = True
@@ -289,7 +289,7 @@ class burr_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     _coefficientDesignators = ['a', 'b', 'c', 'd']
     _canLinearSolverBeUsedForSSQABS = False
 
-    webReferenceURL = BurkhardtCollectionWebReference_1
+    webReferenceURL = BurkhardtCollectionWebReference
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = True
@@ -340,7 +340,7 @@ class dipole_cdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     _coefficientDesignators = ['a', 'b']
     _canLinearSolverBeUsedForSSQABS = False
     
-    webReferenceURL = BurkhardtCollectionWebReference_1
+    webReferenceURL = BurkhardtCollectionWebReference
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = True
@@ -389,7 +389,7 @@ class exponential_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     _coefficientDesignators = ['a', 'b']
     _canLinearSolverBeUsedForSSQABS = False
     
-    webReferenceURL = BurkhardtCollectionWebReference_1
+    webReferenceURL = BurkhardtCollectionWebReference
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = True
@@ -438,7 +438,7 @@ class extreme_values_cdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     _coefficientDesignators = ['a', 'b']
     _canLinearSolverBeUsedForSSQABS = False
     
-    webReferenceURL = BurkhardtCollectionWebReference_1
+    webReferenceURL = BurkhardtCollectionWebReference
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = True
@@ -487,7 +487,7 @@ class extreme_values_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     _coefficientDesignators = ['a', 'b']
     _canLinearSolverBeUsedForSSQABS = False
     
-    webReferenceURL = BurkhardtCollectionWebReference_1
+    webReferenceURL = BurkhardtCollectionWebReference
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = True
@@ -536,7 +536,7 @@ class fisk_cdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     _coefficientDesignators = ['a', 'b', 'c']
     _canLinearSolverBeUsedForSSQABS = False
     
-    webReferenceURL = BurkhardtCollectionWebReference_1
+    webReferenceURL = BurkhardtCollectionWebReference
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = True
@@ -586,7 +586,7 @@ class fisk_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     _coefficientDesignators = ['a', 'b', 'c']
     _canLinearSolverBeUsedForSSQABS = False
     
-    webReferenceURL = BurkhardtCollectionWebReference_1
+    webReferenceURL = BurkhardtCollectionWebReference
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = True
@@ -636,7 +636,7 @@ class folded_normal_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     _coefficientDesignators = ['a', 'b', 'c']
     _canLinearSolverBeUsedForSSQABS = False
     
-    webReferenceURL = BurkhardtCollectionWebReference_1
+    webReferenceURL = BurkhardtCollectionWebReference
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = True
     autoGenerateOffsetForm = True
@@ -677,205 +677,166 @@ class folded_normal_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         return s
 
 
+
+class frechet_cdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
+    
+    _baseName = "Frechet CDF Based"
+    _HTML = 'y = exp(-1.0 / x<sup>a</sup>)'
+    _leftSideHTML = 'y'
+    _coefficientDesignators = ['a']
+    _canLinearSolverBeUsedForSSQABS = False
+    
+    webReferenceURL = BurkhardtCollectionWebReference
+
+    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
+    autoGenerateOffsetForm = True
+    autoGenerateReciprocalForm = True
+    autoGenerateInverseForms = True
+    autoGenerateGrowthAndDecayForms = True
+
+    independentData1CannotContainZeroFlag = False
+    independentData1CannotContainPositiveFlag = False
+    independentData1CannotContainNegativeFlag = True
+    independentData2CannotContainZeroFlag = False
+    independentData2CannotContainPositiveFlag = False
+    independentData2CannotContainNegativeFlag = False
+    
+
+    def GetDataCacheFunctions(self):
+        functionList = []
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.X(NameOrValueFlag=1), []])
+        return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
+
+
+    def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
+        x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
+        
+        a = inCoeffs[0]
+
+        try:
+            temp = numpy.exp(-1.0 / numpy.power(x_in, a))
+            return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
+        except:
+            return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
+
+
+    def SpecificCodeCPP(self):
+        s = "\ttemp = exp(-1.0 / pow(x_in, a));\n"
+        return s
+
+
+
+class frechet_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
+    
+    _baseName = "Frechet PDF Based"
+    _HTML = 'y = exp(- 1.0 / x<sup>a</sup>) / x<sup>( a + 1.0)</sup>'
+    _leftSideHTML = 'y'
+    _coefficientDesignators = ['a']
+    _canLinearSolverBeUsedForSSQABS = False
+    
+    webReferenceURL = BurkhardtCollectionWebReference
+
+    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
+    autoGenerateOffsetForm = True
+    autoGenerateReciprocalForm = True
+    autoGenerateInverseForms = True
+    autoGenerateGrowthAndDecayForms = True
+
+    independentData1CannotContainZeroFlag = False
+    independentData1CannotContainPositiveFlag = False
+    independentData1CannotContainNegativeFlag = True
+    independentData2CannotContainZeroFlag = False
+    independentData2CannotContainPositiveFlag = False
+    independentData2CannotContainNegativeFlag = False
+    
+
+    def GetDataCacheFunctions(self):
+        functionList = []
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.X(NameOrValueFlag=1), []])
+        return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
+
+
+    def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
+        x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
+        
+        a = inCoeffs[0]
+
+        try:
+            temp = numpy.exp(- 1.0 / numpy.power(x_in, a)) / numpy.power(x_in, a + 1.0)
+            return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
+        except:
+            return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
+
+
+    def SpecificCodeCPP(self):
+        s = "\ttemp = exp(- 1.0 / pow(x_in, a)) / pow(x_in, a + 1.0);\n"
+        return s
+
+
+
+class genlogistic_cdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
+    
+    _baseName = "Genlogistic CDF Based"
+    _HTML = undefinedString
+    _leftSideHTML = 'y'
+    _coefficientDesignators = undefinedList
+    _canLinearSolverBeUsedForSSQABS = undefinedBoolean
+    
+    webReferenceURL = BurkhardtCollectionWebReference
+
+    '''
+function cdf = genlogistic_cdf ( x, a, b, c )
+  y = ( x - a ) / b;
+  cdf = 1.0 / ( 1.0 + exp ( - y ) )^c;
+'''
+
+    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = undefinedBoolean
+    autoGenerateOffsetForm = undefinedBoolean
+    autoGenerateReciprocalForm = undefinedBoolean
+    autoGenerateInverseForms = undefinedBoolean
+    autoGenerateGrowthAndDecayForms = True
+
+    independentData1CannotContainZeroFlag = undefinedBoolean
+    independentData1CannotContainPositiveFlag = undefinedBoolean
+    independentData1CannotContainNegativeFlag = undefinedBoolean
+    independentData2CannotContainZeroFlag = False
+    independentData2CannotContainPositiveFlag = False
+    independentData2CannotContainNegativeFlag = False
+    
+
+    def GetDataCacheFunctions(self):
+        undefined
+        functionList = []
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.X(NameOrValueFlag=1), []])
+        return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
+
+
+    def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
+        undefined
+        x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
+        
+        a0 = inCoeffs[0]
+        a1 = inCoeffs[1]
+        b1 = inCoeffs[2]
+        c1 = inCoeffs[3]
+
+        try:
+            temp = a0
+            temp += a1 *numpy.sin(c1 * x_in) + b1 *numpy.cos(c1 * x_in)
+            return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
+        except:
+            return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
+
+
+    def SpecificCodeCPP(self):
+        undefined
+        s = "\ttemp = a0;\n"
+        s += "\ttemp +=  a1 *sin(c1 * x_in) + b1 *cos(c1 * x_in);\n"
+        return s
+
+
 if 0: # work on code below this point is still in progress
 
-    class frechet_cdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
-        
-        _baseName = "Frechet CDF Based"
-        _HTML = undefinedString
-        _leftSideHTML = 'y'
-        _coefficientDesignators = undefinedList
-        _canLinearSolverBeUsedForSSQABS = undefinedBoolean
-        
-        webReferenceURL = BurkhardtCollectionWebReference_1
-    
-        '''
-    function cdf = frechet_cdf ( x, alpha )
-      if ( alpha <= 0.0 )
-        fprintf ( 1, '\n' );
-        fprintf ( 1, 'FRECHET_CDF - Fatal error!\n' );
-        fprintf ( 1, '  ALPHA <= 0.0.\n' );
-        error ( 'FRECHET_CDF - Fatal error!' );
-      if ( x <= 0.0 )
-        cdf = 0.0;
-      else
-        cdf = exp ( - 1.0 / x^alpha );
-    '''
-    
-        baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = undefinedBoolean
-        autoGenerateOffsetForm = undefinedBoolean
-        autoGenerateReciprocalForm = undefinedBoolean
-        autoGenerateInverseForms = undefinedBoolean
-        autoGenerateGrowthAndDecayForms = True
-    
-        independentData1CannotContainZeroFlag = undefinedBoolean
-        independentData1CannotContainPositiveFlag = undefinedBoolean
-        independentData1CannotContainNegativeFlag = undefinedBoolean
-        independentData2CannotContainZeroFlag = False
-        independentData2CannotContainPositiveFlag = False
-        independentData2CannotContainNegativeFlag = False
-        
-    
-        def GetDataCacheFunctions(self):
-            undefined
-            functionList = []
-            functionList.append([pyeq2.DataCache.DataCacheFunctions.X(NameOrValueFlag=1), []])
-            return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
-    
-    
-        def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
-            undefined
-            x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
-            
-            a0 = inCoeffs[0]
-            a1 = inCoeffs[1]
-            b1 = inCoeffs[2]
-            c1 = inCoeffs[3]
-    
-            try:
-                temp = a0
-                temp += a1 *numpy.sin(c1 * x_in) + b1 *numpy.cos(c1 * x_in)
-                return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
-            except:
-                return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
-    
-    
-        def SpecificCodeCPP(self):
-            undefined
-            s = "\ttemp = a0;\n"
-            s += "\ttemp +=  a1 *sin(c1 * x_in) + b1 *cos(c1 * x_in);\n"
-            return s
-    
-    
-    
-    class frechet_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
-        
-        _baseName = "Frechet PDF Based"
-        _HTML = undefinedString
-        _leftSideHTML = 'y'
-        _coefficientDesignators = undefinedList
-        _canLinearSolverBeUsedForSSQABS = undefinedBoolean
-        
-        webReferenceURL = BurkhardtCollectionWebReference_1
-    
-        '''
-    function pdf = frechet_pdf ( x, alpha )
-      if ( alpha <= 0.0 )
-        fprintf ( 1, '\n' );
-        fprintf ( 1, 'FRECHET_PDF - Fatal error%\n' );
-        fprintf ( 1, '  ALPHA <= 0.0.\n' );
-        error ( 'FRECHET_PDF - Fatal error%' );
-      pdf = alpha * exp ( - 1.0 / x^alpha ) / x^( alpha + 1.0 );
-    '''
-    
-        baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = undefinedBoolean
-        autoGenerateOffsetForm = undefinedBoolean
-        autoGenerateReciprocalForm = undefinedBoolean
-        autoGenerateInverseForms = undefinedBoolean
-        autoGenerateGrowthAndDecayForms = True
-    
-        independentData1CannotContainZeroFlag = undefinedBoolean
-        independentData1CannotContainPositiveFlag = undefinedBoolean
-        independentData1CannotContainNegativeFlag = undefinedBoolean
-        independentData2CannotContainZeroFlag = False
-        independentData2CannotContainPositiveFlag = False
-        independentData2CannotContainNegativeFlag = False
-        
-    
-        def GetDataCacheFunctions(self):
-            undefined
-            functionList = []
-            functionList.append([pyeq2.DataCache.DataCacheFunctions.X(NameOrValueFlag=1), []])
-            return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
-    
-    
-        def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
-            undefined
-            x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
-            
-            a0 = inCoeffs[0]
-            a1 = inCoeffs[1]
-            b1 = inCoeffs[2]
-            c1 = inCoeffs[3]
-    
-            try:
-                temp = a0
-                temp += a1 *numpy.sin(c1 * x_in) + b1 *numpy.cos(c1 * x_in)
-                return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
-            except:
-                return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
-    
-    
-        def SpecificCodeCPP(self):
-            undefined
-            s = "\ttemp = a0;\n"
-            s += "\ttemp +=  a1 *sin(c1 * x_in) + b1 *cos(c1 * x_in);\n"
-            return s
-    
-    
-    
-    class genlogistic_cdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
-        
-        _baseName = "Genlogistic CDF Based"
-        _HTML = undefinedString
-        _leftSideHTML = 'y'
-        _coefficientDesignators = undefinedList
-        _canLinearSolverBeUsedForSSQABS = undefinedBoolean
-        
-        webReferenceURL = BurkhardtCollectionWebReference_1
-    
-        '''
-    function cdf = genlogistic_cdf ( x, a, b, c )
-      y = ( x - a ) / b;
-      cdf = 1.0 / ( 1.0 + exp ( - y ) )^c;
-    '''
-    
-        baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = undefinedBoolean
-        autoGenerateOffsetForm = undefinedBoolean
-        autoGenerateReciprocalForm = undefinedBoolean
-        autoGenerateInverseForms = undefinedBoolean
-        autoGenerateGrowthAndDecayForms = True
-    
-        independentData1CannotContainZeroFlag = undefinedBoolean
-        independentData1CannotContainPositiveFlag = undefinedBoolean
-        independentData1CannotContainNegativeFlag = undefinedBoolean
-        independentData2CannotContainZeroFlag = False
-        independentData2CannotContainPositiveFlag = False
-        independentData2CannotContainNegativeFlag = False
-        
-    
-        def GetDataCacheFunctions(self):
-            undefined
-            functionList = []
-            functionList.append([pyeq2.DataCache.DataCacheFunctions.X(NameOrValueFlag=1), []])
-            return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
-    
-    
-        def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
-            undefined
-            x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
-            
-            a0 = inCoeffs[0]
-            a1 = inCoeffs[1]
-            b1 = inCoeffs[2]
-            c1 = inCoeffs[3]
-    
-            try:
-                temp = a0
-                temp += a1 *numpy.sin(c1 * x_in) + b1 *numpy.cos(c1 * x_in)
-                return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
-            except:
-                return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
-    
-    
-        def SpecificCodeCPP(self):
-            undefined
-            s = "\ttemp = a0;\n"
-            s += "\ttemp +=  a1 *sin(c1 * x_in) + b1 *cos(c1 * x_in);\n"
-            return s
-    
-    
-    
     class genlogistic_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         
         _baseName = "Genlogistic PDF Based"
@@ -884,7 +845,7 @@ if 0: # work on code below this point is still in progress
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
-        webReferenceURL = BurkhardtCollectionWebReference_1
+        webReferenceURL = BurkhardtCollectionWebReference
     
         '''
     function pdf = genlogistic_pdf ( x, a, b, c )
@@ -946,7 +907,7 @@ if 0: # work on code below this point is still in progress
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
-        webReferenceURL = BurkhardtCollectionWebReference_1
+        webReferenceURL = BurkhardtCollectionWebReference
     
         '''
     function cdf = gompertz_cdf ( x, a, b )
@@ -1010,7 +971,7 @@ if 0: # work on code below this point is still in progress
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
-        webReferenceURL = BurkhardtCollectionWebReference_1
+        webReferenceURL = BurkhardtCollectionWebReference
     
         '''
     function pdf = gompertz_pdf ( x, a, b )
@@ -1074,7 +1035,7 @@ if 0: # work on code below this point is still in progress
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
-        webReferenceURL = BurkhardtCollectionWebReference_1
+        webReferenceURL = BurkhardtCollectionWebReference
     
         '''
     function cdf = gumbel_cdf ( x )
@@ -1135,7 +1096,7 @@ if 0: # work on code below this point is still in progress
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
-        webReferenceURL = BurkhardtCollectionWebReference_1
+        webReferenceURL = BurkhardtCollectionWebReference
     
         '''
     function pdf = gumbel_pdf ( x )
@@ -1196,7 +1157,7 @@ if 0: # work on code below this point is still in progress
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
-        webReferenceURL = BurkhardtCollectionWebReference_1
+        webReferenceURL = BurkhardtCollectionWebReference
     
         '''
     function pdf = half_normal_pdf ( x, a, b )
@@ -1261,7 +1222,7 @@ if 0: # work on code below this point is still in progress
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
-        webReferenceURL = BurkhardtCollectionWebReference_1
+        webReferenceURL = BurkhardtCollectionWebReference
     
         '''
     function pdf = inverse_gaussian_pdf ( x, a, b )
@@ -1326,7 +1287,7 @@ if 0: # work on code below this point is still in progress
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
-        webReferenceURL = BurkhardtCollectionWebReference_1
+        webReferenceURL = BurkhardtCollectionWebReference
     
         '''
     function cdf = laplace_cdf ( x, a, b )
@@ -1391,7 +1352,7 @@ if 0: # work on code below this point is still in progress
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
-        webReferenceURL = BurkhardtCollectionWebReference_1
+        webReferenceURL = BurkhardtCollectionWebReference
     
         '''
     function pdf = laplace_pdf ( x, a, b )
@@ -1452,7 +1413,7 @@ if 0: # work on code below this point is still in progress
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
-        webReferenceURL = BurkhardtCollectionWebReference_1
+        webReferenceURL = BurkhardtCollectionWebReference
     
         '''
     function pdf = levy_pdf ( x, a, b )
@@ -1523,7 +1484,7 @@ if 0: # work on code below this point is still in progress
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
-        webReferenceURL = BurkhardtCollectionWebReference_1
+        webReferenceURL = BurkhardtCollectionWebReference
     
         '''
     function pdf = log_normal_pdf ( x, a, b )
@@ -1588,7 +1549,7 @@ if 0: # work on code below this point is still in progress
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
-        webReferenceURL = BurkhardtCollectionWebReference_1
+        webReferenceURL = BurkhardtCollectionWebReference
     
         '''
     function cdf = log_uniform_cdf ( x, a, b )
@@ -1654,7 +1615,7 @@ if 0: # work on code below this point is still in progress
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
-        webReferenceURL = BurkhardtCollectionWebReference_1
+        webReferenceURL = BurkhardtCollectionWebReference
     
         '''
     function pdf = log_uniform_pdf ( x, a, b )
@@ -1720,7 +1681,7 @@ if 0: # work on code below this point is still in progress
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
-        webReferenceURL = BurkhardtCollectionWebReference_1
+        webReferenceURL = BurkhardtCollectionWebReference
     
         '''
     function cdf = logistic_cdf ( x, a, b )
@@ -1781,7 +1742,7 @@ if 0: # work on code below this point is still in progress
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
-        webReferenceURL = BurkhardtCollectionWebReference_1
+        webReferenceURL = BurkhardtCollectionWebReference
     
         '''
     function pdf = logistic_pdf ( x, a, b )
@@ -1843,7 +1804,7 @@ if 0: # work on code below this point is still in progress
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
-        webReferenceURL = BurkhardtCollectionWebReference_1
+        webReferenceURL = BurkhardtCollectionWebReference
     
         '''
     function cdf = lorentz_cdf ( x )
@@ -1904,7 +1865,7 @@ if 0: # work on code below this point is still in progress
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
-        webReferenceURL = BurkhardtCollectionWebReference_1
+        webReferenceURL = BurkhardtCollectionWebReference
     
         '''
     function pdf = lorentz_pdf ( x )
@@ -1965,7 +1926,7 @@ if 0: # work on code below this point is still in progress
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
-        webReferenceURL = BurkhardtCollectionWebReference_1
+        webReferenceURL = BurkhardtCollectionWebReference
     
         '''
     function pdf = normal_01_pdf ( x )
@@ -2026,7 +1987,7 @@ if 0: # work on code below this point is still in progress
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
-        webReferenceURL = BurkhardtCollectionWebReference_1
+        webReferenceURL = BurkhardtCollectionWebReference
     
         '''
     function pdf = normal_pdf ( x, a, b )
@@ -2087,7 +2048,7 @@ if 0: # work on code below this point is still in progress
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
-        webReferenceURL = BurkhardtCollectionWebReference_1
+        webReferenceURL = BurkhardtCollectionWebReference
     
         '''
     function cdf = pareto_cdf ( x, a, b )
@@ -2151,7 +2112,7 @@ if 0: # work on code below this point is still in progress
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
-        webReferenceURL = BurkhardtCollectionWebReference_1
+        webReferenceURL = BurkhardtCollectionWebReference
     
         '''
     function pdf = pareto_pdf ( x, a, b )
@@ -2215,7 +2176,7 @@ if 0: # work on code below this point is still in progress
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
-        webReferenceURL = BurkhardtCollectionWebReference_1
+        webReferenceURL = BurkhardtCollectionWebReference
     
         '''
     function cdf = power_cdf ( x, a, b )
@@ -2281,7 +2242,7 @@ if 0: # work on code below this point is still in progress
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
-        webReferenceURL = BurkhardtCollectionWebReference_1
+        webReferenceURL = BurkhardtCollectionWebReference
     
         '''
     function pdf = power_pdf ( x, a, b )
@@ -2345,7 +2306,7 @@ if 0: # work on code below this point is still in progress
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
-        webReferenceURL = BurkhardtCollectionWebReference_1
+        webReferenceURL = BurkhardtCollectionWebReference
     
         '''
     function cdf = rayleigh_cdf ( x, a )
@@ -2409,7 +2370,7 @@ if 0: # work on code below this point is still in progress
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
-        webReferenceURL = BurkhardtCollectionWebReference_1
+        webReferenceURL = BurkhardtCollectionWebReference
     
         '''
     function pdf = rayleigh_pdf ( x, a )
@@ -2473,7 +2434,7 @@ if 0: # work on code below this point is still in progress
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
-        webReferenceURL = BurkhardtCollectionWebReference_1
+        webReferenceURL = BurkhardtCollectionWebReference
     
         '''
     function cdf = reciprocal_cdf ( x, a, b )
@@ -2537,7 +2498,7 @@ if 0: # work on code below this point is still in progress
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
-        webReferenceURL = BurkhardtCollectionWebReference_1
+        webReferenceURL = BurkhardtCollectionWebReference
     
         '''
     function pdf = reciprocal_pdf ( x, a, b )
@@ -2601,7 +2562,7 @@ if 0: # work on code below this point is still in progress
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
-        webReferenceURL = BurkhardtCollectionWebReference_1
+        webReferenceURL = BurkhardtCollectionWebReference
     
         '''
     function cdf = sech_cdf ( x, a, b )
@@ -2663,7 +2624,7 @@ if 0: # work on code below this point is still in progress
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
-        webReferenceURL = BurkhardtCollectionWebReference_1
+        webReferenceURL = BurkhardtCollectionWebReference
     
         '''
     function cdf = semicircular_cdf ( x, a, b )
@@ -2730,7 +2691,7 @@ if 0: # work on code below this point is still in progress
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
-        webReferenceURL = BurkhardtCollectionWebReference_1
+        webReferenceURL = BurkhardtCollectionWebReference
     
         '''
     function pdf = semicircular_pdf ( x, a, b )
@@ -2797,7 +2758,7 @@ if 0: # work on code below this point is still in progress
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
-        webReferenceURL = BurkhardtCollectionWebReference_1
+        webReferenceURL = BurkhardtCollectionWebReference
     
         '''
     function cdf = triangle_cdf ( x, a, b, c )
@@ -2868,7 +2829,7 @@ if 0: # work on code below this point is still in progress
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
-        webReferenceURL = BurkhardtCollectionWebReference_1
+        webReferenceURL = BurkhardtCollectionWebReference
     
         '''
     function pdf = triangle_pdf ( x, a, b, c )
@@ -2942,7 +2903,7 @@ if 0: # work on code below this point is still in progress
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
-        webReferenceURL = BurkhardtCollectionWebReference_1
+        webReferenceURL = BurkhardtCollectionWebReference
     
         '''
     function cdf = triangular_cdf ( x, a, b )
@@ -3011,7 +2972,7 @@ if 0: # work on code below this point is still in progress
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
-        webReferenceURL = BurkhardtCollectionWebReference_1
+        webReferenceURL = BurkhardtCollectionWebReference
     
         '''
     function cdf = uniform_cdf ( x, a, b )
@@ -3077,7 +3038,7 @@ if 0: # work on code below this point is still in progress
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
-        webReferenceURL = BurkhardtCollectionWebReference_1
+        webReferenceURL = BurkhardtCollectionWebReference
     
         '''
     function cdf = weibull_cdf ( x, a, b, c )
@@ -3142,7 +3103,7 @@ if 0: # work on code below this point is still in progress
         _coefficientDesignators = undefinedList
         _canLinearSolverBeUsedForSSQABS = undefinedBoolean
         
-        webReferenceURL = BurkhardtCollectionWebReference_1
+        webReferenceURL = BurkhardtCollectionWebReference
     
         '''
     function pdf = weibull_pdf ( x, a, b, c )
