@@ -873,136 +873,57 @@ class genlogistic_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         return s
     
     
+    
+class gompertz_cdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
+    
+    _baseName = "Gompertz CDF Based"
+    _HTML = 'y = 1.0 - exp(-b * (a<sup>x</sup>-1.0) / ln(a))'
+    _leftSideHTML = 'y'
+    _coefficientDesignators = ['a', 'b']
+    _canLinearSolverBeUsedForSSQABS = False
+
+    webReferenceURL = BurkhardtCollectionWebReference
+
+    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
+    autoGenerateOffsetForm = True
+    autoGenerateReciprocalForm = True
+    autoGenerateInverseForms = True
+    autoGenerateGrowthAndDecayForms = True
+
+    independentData1CannotContainZeroFlag = False
+    independentData1CannotContainPositiveFlag = False
+    independentData1CannotContainNegativeFlag = False
+    independentData2CannotContainZeroFlag = False
+    independentData2CannotContainPositiveFlag = False
+    independentData2CannotContainNegativeFlag = False
+    
+
+    def GetDataCacheFunctions(self):
+        functionList = []
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.X(NameOrValueFlag=1), []])
+        return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
+
+
+    def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
+        x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
+        
+        a = inCoeffs[0]
+        b = inCoeffs[1]
+
+        try:
+            temp = 1.0 - numpy.exp(-b * (numpy.power(a, x_in)-1.0) / numpy.log(a))
+            return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
+        except:
+            return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
+
+
+    def SpecificCodeCPP(self):
+        s = "\ttemp = 1.0 - exp(-b * (pow(a, x_in)-1.0) / log(a));\n"
+        return s
+
 if 0: # work on code below this point is still in progress
-    
-    class gompertz_cdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
-        
-        _baseName = "Gompertz CDF Based"
-        _HTML = undefinedString
-        _leftSideHTML = 'y'
-        _coefficientDesignators = undefinedList
-        _canLinearSolverBeUsedForSSQABS = undefinedBoolean
-        
-        webReferenceURL = BurkhardtCollectionWebReference
-    
-        '''
-    function cdf = gompertz_cdf ( x, a, b )
-      if ( x <= 0.0 )
-        cdf = 0.0;
-      else
-        cdf = 1.0 - exp(-b * (a^x-1.0) / log(a));
-    '''
-    
-        baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = undefinedBoolean
-        autoGenerateOffsetForm = undefinedBoolean
-        autoGenerateReciprocalForm = undefinedBoolean
-        autoGenerateInverseForms = undefinedBoolean
-        autoGenerateGrowthAndDecayForms = True
-    
-        independentData1CannotContainZeroFlag = undefinedBoolean
-        independentData1CannotContainPositiveFlag = undefinedBoolean
-        independentData1CannotContainNegativeFlag = undefinedBoolean
-        independentData2CannotContainZeroFlag = False
-        independentData2CannotContainPositiveFlag = False
-        independentData2CannotContainNegativeFlag = False
-        
-    
-        def GetDataCacheFunctions(self):
-            undefined
-            functionList = []
-            functionList.append([pyeq2.DataCache.DataCacheFunctions.X(NameOrValueFlag=1), []])
-            return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
-    
-    
-        def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
-            undefined
-            x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
-            
-            a0 = inCoeffs[0]
-            a1 = inCoeffs[1]
-            b1 = inCoeffs[2]
-            c1 = inCoeffs[3]
-    
-            try:
-                temp = a0
-                temp += a1 *numpy.sin(c1 * x_in) + b1 *numpy.cos(c1 * x_in)
-                return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
-            except:
-                return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
-    
-    
-        def SpecificCodeCPP(self):
-            undefined
-            s = "\ttemp = a0;\n"
-            s += "\ttemp +=  a1 *sin(c1 * x_in) + b1 *cos(c1 * x_in);\n"
-            return s
-    
-    
-    
-    class gompertz_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
-        
-        _baseName = "Gompertz PDF Based"
-        _HTML = undefinedString
-        _leftSideHTML = 'y'
-        _coefficientDesignators = undefinedList
-        _canLinearSolverBeUsedForSSQABS = undefinedBoolean
-        
-        webReferenceURL = BurkhardtCollectionWebReference
-    
-        '''
-    function pdf = gompertz_pdf ( x, a, b )
-      if ( x < 0.0 )
-        pdf = 0.0;
-      elseif ( 1.0 < a )
-        pdf = exp ( log ( b ) + x * log ( a ) - ( b / log ( a ) ) * ( a^x - 1.0 ) );
-    '''
-    
-        baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = undefinedBoolean
-        autoGenerateOffsetForm = undefinedBoolean
-        autoGenerateReciprocalForm = undefinedBoolean
-        autoGenerateInverseForms = undefinedBoolean
-        autoGenerateGrowthAndDecayForms = True
-    
-        independentData1CannotContainZeroFlag = undefinedBoolean
-        independentData1CannotContainPositiveFlag = undefinedBoolean
-        independentData1CannotContainNegativeFlag = undefinedBoolean
-        independentData2CannotContainZeroFlag = False
-        independentData2CannotContainPositiveFlag = False
-        independentData2CannotContainNegativeFlag = False
-        
-    
-        def GetDataCacheFunctions(self):
-            undefined
-            functionList = []
-            functionList.append([pyeq2.DataCache.DataCacheFunctions.X(NameOrValueFlag=1), []])
-            return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
-    
-    
-        def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
-            undefined
-            x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
-            
-            a0 = inCoeffs[0]
-            a1 = inCoeffs[1]
-            b1 = inCoeffs[2]
-            c1 = inCoeffs[3]
-    
-            try:
-                temp = a0
-                temp += a1 *numpy.sin(c1 * x_in) + b1 *numpy.cos(c1 * x_in)
-                return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
-            except:
-                return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
-    
-    
-        def SpecificCodeCPP(self):
-            undefined
-            s = "\ttemp = a0;\n"
-            s += "\ttemp +=  a1 *sin(c1 * x_in) + b1 *cos(c1 * x_in);\n"
-            return s
-    
-    
-    
+
+
     class gumbel_cdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         
         _baseName = "Gumbel CDF Based"
