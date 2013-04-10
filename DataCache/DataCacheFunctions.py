@@ -157,6 +157,18 @@ def TanX(data=None, args=None, eqInstance=None, NameOrValueFlag=0):
         return 1.0E300 * numpy.ones_like(data[0])
 
 
+def ArctanX(data=None, args=None, eqInstance=None, NameOrValueFlag=0):
+    if NameOrValueFlag: # name used by cache, must be distinct
+        return sys._getframe().f_code.co_name
+    try:
+        returnValue = numpy.arctan(data[0])
+        if numpy.alltrue(numpy.isfinite(returnValue)):
+            return returnValue
+        return 1.0E300 * numpy.ones_like(data[0])
+    except:
+        return 1.0E300 * numpy.ones_like(data[0])
+
+
 def CoshX(data=None, args=None, eqInstance=None, NameOrValueFlag=0):
     if NameOrValueFlag: # name used by cache, must be distinct
         return sys._getframe().f_code.co_name
@@ -306,6 +318,43 @@ def ExpX(data=None, args=None, eqInstance=None, NameOrValueFlag=0):
         return sys._getframe().f_code.co_name
     try:
         returnValue = numpy.exp(data[0])
+        if numpy.alltrue(numpy.isfinite(returnValue)):
+            return returnValue
+        return 1.0E300 * numpy.ones_like(data[0])
+    except:
+        return 1.0E300 * numpy.ones_like(data[0])
+
+
+def ExpNegX(data=None, args=None, eqInstance=None, NameOrValueFlag=0):
+    if NameOrValueFlag: # name used by cache, must be distinct
+        return sys._getframe().f_code.co_name
+    try:
+        returnValue = numpy.exp(-1.0 * data[0])
+        if numpy.alltrue(numpy.isfinite(returnValue)):
+            return returnValue
+        return 1.0E300 * numpy.ones_like(data[0])
+    except:
+        return 1.0E300 * numpy.ones_like(data[0])
+
+
+def ExpNegExpNegX(data=None, args=None, eqInstance=None, NameOrValueFlag=0):
+    if NameOrValueFlag: # name used by cache, must be distinct
+        return sys._getframe().f_code.co_name
+    try:
+        returnValue = numpy.exp(-1.0 *numpy.exp(-1.0 * data[0]))
+        if numpy.alltrue(numpy.isfinite(returnValue)):
+            return returnValue
+        return 1.0E300 * numpy.ones_like(data[0])
+    except:
+        return 1.0E300 * numpy.ones_like(data[0])
+
+
+def ExpNegXMinusExpNegX(data=None, args=None, eqInstance=None, NameOrValueFlag=0):
+    if NameOrValueFlag: # name used by cache, must be distinct
+        return sys._getframe().f_code.co_name
+    try:
+        negx = -1.0 * data[0]
+        returnValue = numpy.exp(negx - numpy.exp(negx))
         if numpy.alltrue(numpy.isfinite(returnValue)):
             return returnValue
         return 1.0E300 * numpy.ones_like(data[0])

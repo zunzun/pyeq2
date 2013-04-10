@@ -107,18 +107,18 @@ class arcsin_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
     def GetDataCacheFunctions(self):
         functionList = []
-        functionList.append([pyeq2.DataCache.DataCacheFunctions.X(NameOrValueFlag=1), []])
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.PowX(NameOrValueFlag=1, args=[2.0]), [2.0]])
         return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
 
 
     def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
-        x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
+        x_Pow2 = inDataCacheDictionary['PowX_2.0'] # only need to perform this dictionary look-up once
         
         a = inCoeffs[0]
         b = inCoeffs[1]
 
         try:
-            temp = a / ( numpy.pi * numpy.power(b*b - x_in*x_in, 0.5))
+            temp = a / ( numpy.pi * numpy.power(b*b - x_Pow2, 0.5))
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -359,17 +359,19 @@ class dipole_cdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     def GetDataCacheFunctions(self):
         functionList = []
         functionList.append([pyeq2.DataCache.DataCacheFunctions.X(NameOrValueFlag=1), []])
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.ArctanX(NameOrValueFlag=1), []])
         return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
 
 
     def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
-        x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
+        x_in = inDataCacheDictionary['X'] # only need to perfor
+        arctan_x = inDataCacheDictionary['ArctanX'] # only need to perform this dictionary look-up once
         
         a = inCoeffs[0]
         b = inCoeffs[1]
 
         try:
-            temp = a * numpy.arctan(x_in) + b/x_in
+            temp = a * arctan_x + b/x_in
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -666,7 +668,8 @@ class folded_normal_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         c = inCoeffs[2]
 
         try:
-            temp = c * (1/b) * numpy.cosh(a*x_in/(b*b)) * numpy.exp(-0.5 * ((x_in*x_in) + a*a)/(b*b))
+            bb = b*b
+            temp = c * (1/b) * numpy.cosh(a*x_in/(bb)) * numpy.exp(-0.5 * ((x_in*x_in) + a*a)/(bb))
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -921,131 +924,105 @@ class gompertz_cdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         s = "\ttemp = 1.0 - exp(-b * (pow(a, x_in)-1.0) / log(a));\n"
         return s
 
+
+
+class gumbel_cdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
+    
+    _baseName = "Gumbel CDF Based"
+    _HTML = 'y = a * exp(-exp(-x))'
+    _leftSideHTML = 'y'
+    _coefficientDesignators = ['a']
+    _canLinearSolverBeUsedForSSQABS = True
+    
+    webReferenceURL = BurkhardtCollectionWebReference
+
+    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = True
+    autoGenerateOffsetForm = True
+    autoGenerateReciprocalForm = True
+    autoGenerateInverseForms = True
+    autoGenerateGrowthAndDecayForms = True
+
+    independentData1CannotContainZeroFlag = False
+    independentData1CannotContainPositiveFlag = False
+    independentData1CannotContainNegativeFlag = False
+    independentData2CannotContainZeroFlag = False
+    independentData2CannotContainPositiveFlag = False
+    independentData2CannotContainNegativeFlag = False
+
+
+    def GetDataCacheFunctions(self):
+        functionList = []
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.ExpNegExpNegX(NameOrValueFlag=1), []])
+        return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
+
+
+    def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
+        x_expnegexpnegx = inDataCacheDictionary['ExpNegExpNegX'] # only need to perform this dictionary look-up once
+        
+        a = inCoeffs[0]
+
+        try:
+            temp = a * x_expnegexpnegx
+            return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
+        except:
+            return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
+
+
+    def SpecificCodeCPP(self):
+        s = "\ttemp = a * exp(-exp(-1.0 * x));\n"
+        return s
+
+
+    
+class gumbel_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
+    
+    _baseName = "Gumbel PDF Based"
+    _HTML = 'y = a * exp(-x-exp(-x))'
+    _leftSideHTML = 'y'
+    _coefficientDesignators = ['a']
+    _canLinearSolverBeUsedForSSQABS = True
+    
+    webReferenceURL = BurkhardtCollectionWebReference
+
+    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = True
+    autoGenerateOffsetForm = True
+    autoGenerateReciprocalForm = True
+    autoGenerateInverseForms = True
+    autoGenerateGrowthAndDecayForms = True
+
+    independentData1CannotContainZeroFlag = False
+    independentData1CannotContainPositiveFlag = False
+    independentData1CannotContainNegativeFlag = False
+    independentData2CannotContainZeroFlag = False
+    independentData2CannotContainPositiveFlag = False
+    independentData2CannotContainNegativeFlag = False
+    
+
+    def GetDataCacheFunctions(self):
+        functionList = []
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.ExpNegXMinusExpNegX(NameOrValueFlag=1), []])
+        return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
+
+
+    def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
+        expnegxminusexpnegx = inDataCacheDictionary['ExpNegXMinusExpNegX'] # only need to perform this dictionary look-up once
+        
+        a = inCoeffs[0]
+
+        try:
+            temp = a * expnegxminusexpnegx
+            return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
+        except:
+            return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
+
+
+    def SpecificCodeCPP(self):
+        s = "\ttemp = a * exp(-x-exp(-x));\n"
+        return s
+
+
 if 0: # work on code below this point is still in progress
 
-
-    class gumbel_cdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
-        
-        _baseName = "Gumbel CDF Based"
-        _HTML = undefinedString
-        _leftSideHTML = 'y'
-        _coefficientDesignators = undefinedList
-        _canLinearSolverBeUsedForSSQABS = undefinedBoolean
-        
-        webReferenceURL = BurkhardtCollectionWebReference
-    
-        '''
-    function cdf = gumbel_cdf ( x )
-      cdf = exp ( - exp ( - x ) );
-    '''
-    
-        baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = undefinedBoolean
-        autoGenerateOffsetForm = undefinedBoolean
-        autoGenerateReciprocalForm = undefinedBoolean
-        autoGenerateInverseForms = undefinedBoolean
-        autoGenerateGrowthAndDecayForms = True
-    
-        independentData1CannotContainZeroFlag = undefinedBoolean
-        independentData1CannotContainPositiveFlag = undefinedBoolean
-        independentData1CannotContainNegativeFlag = undefinedBoolean
-        independentData2CannotContainZeroFlag = False
-        independentData2CannotContainPositiveFlag = False
-        independentData2CannotContainNegativeFlag = False
-        
-    
-        def GetDataCacheFunctions(self):
-            undefined
-            functionList = []
-            functionList.append([pyeq2.DataCache.DataCacheFunctions.X(NameOrValueFlag=1), []])
-            return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
-    
-    
-        def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
-            undefined
-            x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
-            
-            a0 = inCoeffs[0]
-            a1 = inCoeffs[1]
-            b1 = inCoeffs[2]
-            c1 = inCoeffs[3]
-    
-            try:
-                temp = a0
-                temp += a1 *numpy.sin(c1 * x_in) + b1 *numpy.cos(c1 * x_in)
-                return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
-            except:
-                return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
-    
-    
-        def SpecificCodeCPP(self):
-            undefined
-            s = "\ttemp = a0;\n"
-            s += "\ttemp +=  a1 *sin(c1 * x_in) + b1 *cos(c1 * x_in);\n"
-            return s
-    
-    
-    
-    class gumbel_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
-        
-        _baseName = "Gumbel PDF Based"
-        _HTML = undefinedString
-        _leftSideHTML = 'y'
-        _coefficientDesignators = undefinedList
-        _canLinearSolverBeUsedForSSQABS = undefinedBoolean
-        
-        webReferenceURL = BurkhardtCollectionWebReference
-    
-        '''
-    function pdf = gumbel_pdf ( x )
-      pdf = exp ( - x - exp ( - x ) );
-    '''
-    
-        baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = undefinedBoolean
-        autoGenerateOffsetForm = undefinedBoolean
-        autoGenerateReciprocalForm = undefinedBoolean
-        autoGenerateInverseForms = undefinedBoolean
-        autoGenerateGrowthAndDecayForms = True
-    
-        independentData1CannotContainZeroFlag = undefinedBoolean
-        independentData1CannotContainPositiveFlag = undefinedBoolean
-        independentData1CannotContainNegativeFlag = undefinedBoolean
-        independentData2CannotContainZeroFlag = False
-        independentData2CannotContainPositiveFlag = False
-        independentData2CannotContainNegativeFlag = False
-        
-    
-        def GetDataCacheFunctions(self):
-            undefined
-            functionList = []
-            functionList.append([pyeq2.DataCache.DataCacheFunctions.X(NameOrValueFlag=1), []])
-            return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
-    
-    
-        def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
-            undefined
-            x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
-            
-            a0 = inCoeffs[0]
-            a1 = inCoeffs[1]
-            b1 = inCoeffs[2]
-            c1 = inCoeffs[3]
-    
-            try:
-                temp = a0
-                temp += a1 *numpy.sin(c1 * x_in) + b1 *numpy.cos(c1 * x_in)
-                return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
-            except:
-                return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
-    
-    
-        def SpecificCodeCPP(self):
-            undefined
-            s = "\ttemp = a0;\n"
-            s += "\ttemp +=  a1 *sin(c1 * x_in) + b1 *cos(c1 * x_in);\n"
-            return s
-    
-    
-    
     class half_normal_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         
         _baseName = "Half Normal PDF Based"
