@@ -1124,79 +1124,62 @@ class inverse_gaussian_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         return s
 
 
-if 0: # work on code below this point is still in progress
+
+class levy_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
-    class levy_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
-        
-        _baseName = "Levy PDF Based"
-        _HTML = undefinedString
-        _leftSideHTML = 'y'
-        _coefficientDesignators = undefinedList
-        _canLinearSolverBeUsedForSSQABS = undefinedBoolean
-        
-        webReferenceURL = BurkhardtCollectionWebReference
+    _baseName = "Levy PDF Based"
+    _HTML = 'y = (b/(2.0*pi))<sup>0.5</sup> * exp(-b/(2.0*(x-a)))/sqrt((x-a)<sup>3</sup>)'
+    _leftSideHTML = 'y'
+    _coefficientDesignators = ['a', 'b']
+    _canLinearSolverBeUsedForSSQABS = False
     
-        '''
-    function pdf = levy_pdf ( x, a, b )
-      if ( b <= 0.0 )
-        fprintf ( 1, '\n' );
-        fprintf ( 1, '  LEVY_PDF - Fatal error!\n' );
-        fprintf ( 1, '  Input parameter B <= 0.0\n' );
-        error ( 'LEVY_PDF - Fatal error!' );
-      if ( x < a )
-        pdf = 0.0;
-      else
-        pdf = sqrt ( b / ( 2.0 * pi ) ) ...
-            * exp ( - b / ( 2.0 * ( x - a ) ) ) ...
-            / sqrt ( ( x - a )^3 );
+    webReferenceURL = BurkhardtCollectionWebReference
+
     '''
+
+'''
+
+    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
+    autoGenerateOffsetForm = True
+    autoGenerateReciprocalForm = True
+    autoGenerateInverseForms = True
+    autoGenerateGrowthAndDecayForms = True
+
+    independentData1CannotContainZeroFlag = False
+    independentData1CannotContainPositiveFlag = False
+    independentData1CannotContainNegativeFlag = False
+    independentData2CannotContainZeroFlag = False
+    independentData2CannotContainPositiveFlag = False
+    independentData2CannotContainNegativeFlag = False
     
-        baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = undefinedBoolean
-        autoGenerateOffsetForm = undefinedBoolean
-        autoGenerateReciprocalForm = undefinedBoolean
-        autoGenerateInverseForms = undefinedBoolean
-        autoGenerateGrowthAndDecayForms = True
-    
-        independentData1CannotContainZeroFlag = undefinedBoolean
-        independentData1CannotContainPositiveFlag = undefinedBoolean
-        independentData1CannotContainNegativeFlag = undefinedBoolean
-        independentData2CannotContainZeroFlag = False
-        independentData2CannotContainPositiveFlag = False
-        independentData2CannotContainNegativeFlag = False
+
+    def GetDataCacheFunctions(self):
+        functionList = []
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.X(NameOrValueFlag=1), []])
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.PowX(NameOrValueFlag=1, args=[3.0]), [3.0]])
+        return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
+
+
+    def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
+        x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
         
+        a = inCoeffs[0]
+        b = inCoeffs[1]
+
+        try:
+            temp = numpy.power(b/6.28318530718, 0.5)*numpy.exp(-b/(2.0*(x_in-a)))/numpy.power(numpy.power(x_in-a, 3.0), 0.5)
+            return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
+        except:
+            return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
+
+
+    def SpecificCodeCPP(self):
+        s = "\ttemp = pow(b/6.28318530718, 0.5)*exp(-b/(2.0*(x_in-a)))/pow(pow(x_in-a, 3.0), 0.5);\n"
+        return s
+
     
-        def GetDataCacheFunctions(self):
-            undefined
-            functionList = []
-            functionList.append([pyeq2.DataCache.DataCacheFunctions.X(NameOrValueFlag=1), []])
-            return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
-    
-    
-        def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
-            undefined
-            x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
-            
-            a0 = inCoeffs[0]
-            a1 = inCoeffs[1]
-            b1 = inCoeffs[2]
-            c1 = inCoeffs[3]
-    
-            try:
-                temp = a0
-                temp += a1 *numpy.sin(c1 * x_in) + b1 *numpy.cos(c1 * x_in)
-                return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
-            except:
-                return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
-    
-    
-        def SpecificCodeCPP(self):
-            undefined
-            s = "\ttemp = a0;\n"
-            s += "\ttemp +=  a1 *sin(c1 * x_in) + b1 *cos(c1 * x_in);\n"
-            return s
-    
-    
-    
+if 0: # work on code below this point is still in progress
+
     class log_normal_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         
         _baseName = "Log Normal PDF Based"
