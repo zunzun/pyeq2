@@ -1135,10 +1135,6 @@ class levy_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     webReferenceURL = BurkhardtCollectionWebReference
 
-    '''
-
-'''
-
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = True
     autoGenerateReciprocalForm = True
@@ -1177,700 +1173,159 @@ class levy_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         s = "\ttemp = pow(b/6.28318530718, 0.5)*exp(-b/(2.0*(x_in-a)))/pow(pow(x_in-a, 3.0), 0.5);\n"
         return s
 
-    
-if 0: # work on code below this point is still in progress
 
-    class log_normal_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
+
+class log_normal_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
+
+    _baseName = "Log Normal PDF Based"
+    _HTML = 'y = exp(-0.5*((ln(x)-a)/b)<sup>2</sup>) / (b*x*sqrt(2.0*pi))'
+    _leftSideHTML = 'y'
+    _coefficientDesignators = ['a', 'b']
+    _canLinearSolverBeUsedForSSQABS = False
+    
+    webReferenceURL = BurkhardtCollectionWebReference
+
+    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
+    autoGenerateOffsetForm = True
+    autoGenerateReciprocalForm = True
+    autoGenerateInverseForms = True
+    autoGenerateGrowthAndDecayForms = True
+
+    independentData1CannotContainZeroFlag = True
+    independentData1CannotContainPositiveFlag = False
+    independentData1CannotContainNegativeFlag = False
+    independentData2CannotContainZeroFlag = False
+    independentData2CannotContainPositiveFlag = False
+    independentData2CannotContainNegativeFlag = False
+    
+
+    def GetDataCacheFunctions(self):
+        functionList = []
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.X(NameOrValueFlag=1), []])
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.LogX(NameOrValueFlag=1), []])
+        return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
+
+
+    def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
+        x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
+        x_LogX = inDataCacheDictionary['LogX'] # only need to perform this dictionary look-up once
         
-        _baseName = "Log Normal PDF Based"
-        _HTML = undefinedString
-        _leftSideHTML = 'y'
-        _coefficientDesignators = undefinedList
-        _canLinearSolverBeUsedForSSQABS = undefinedBoolean
+        a = inCoeffs[0]
+        b = inCoeffs[1]
+
+        try:
+            sq = (x_LogX-a)/b
+            sq = sq * sq
+            temp = numpy.exp(-0.5*sq) / (b*x_in*2.50662827463)
+            return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
+        except:
+            return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
+
+
+    def SpecificCodeCPP(self):
+        s = "\ttemp = exp(-0.5*((log(x_in)-a)/b)*((log(x_in)-a)/b)) / (b*x_in*2.50662827463);\n"
+        return s
+
+
+
+class logistic_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
+    
+    _baseName = "Logistic PDF Based"
+    _HTML = 'y = exp((a-x)/b) / (b*(1.0+exp((a-x)/b))<sup>2</sup>)'
+    _leftSideHTML = 'y'
+    _coefficientDesignators = ['a', 'b']
+    _canLinearSolverBeUsedForSSQABS = False
+    
+    webReferenceURL = BurkhardtCollectionWebReference
+
+    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
+    autoGenerateOffsetForm = True
+    autoGenerateReciprocalForm = True
+    autoGenerateInverseForms = True
+    autoGenerateGrowthAndDecayForms = True
+
+    independentData1CannotContainZeroFlag = False
+    independentData1CannotContainPositiveFlag = False
+    independentData1CannotContainNegativeFlag = False
+    independentData2CannotContainZeroFlag = False
+    independentData2CannotContainPositiveFlag = False
+    independentData2CannotContainNegativeFlag = False
+
+
+    def GetDataCacheFunctions(self):
+        functionList = []
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.X(NameOrValueFlag=1), []])
+        return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
+
+
+    def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
+        x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
         
-        webReferenceURL = BurkhardtCollectionWebReference
+        a = inCoeffs[0]
+        b = inCoeffs[1]
+
+        try:
+            temp = numpy.exp((a-x_in)/b)
+            temp = temp/(b*(1.0+temp)*temp)
+            return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
+        except:
+            return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
+
+
+    def SpecificCodeCPP(self):
+        s = "\ttemp = exp((a-x_in)/b) / (b*(1.0+exp((a-x_in)/b))*exp((a-x_in)/b));\n"
+        return s
+
+
+
+class pareto_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
-        '''
-    function pdf = log_normal_pdf ( x, a, b )
-      if ( x <= 0.0 )
-        pdf = 0.0;
-      else
-        pdf = exp ( -0.5 * ( ( log ( x ) - a ) / b )^2 ) ...
-          / ( b * x * sqrt ( 2.0 * pi ) );
-    '''
+    _baseName = "Pareto PDF Based"
+    _HTML = 'y = b * a<sup>b</sup> / x<sup>(b+1.0)</sup>'
+    _leftSideHTML = 'y'
+    _coefficientDesignators = ['a', 'b']
+    _canLinearSolverBeUsedForSSQABS = False
     
-        baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = undefinedBoolean
-        autoGenerateOffsetForm = undefinedBoolean
-        autoGenerateReciprocalForm = undefinedBoolean
-        autoGenerateInverseForms = undefinedBoolean
-        autoGenerateGrowthAndDecayForms = True
+    webReferenceURL = BurkhardtCollectionWebReference
+
+    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
+    autoGenerateOffsetForm = True
+    autoGenerateReciprocalForm = True
+    autoGenerateGrowthAndDecayForms = True
+
+    independentData1CannotContainZeroFlag = False
+    independentData1CannotContainPositiveFlag = False
+    independentData1CannotContainNegativeFlag = True
+    independentData2CannotContainZeroFlag = False
+    independentData2CannotContainPositiveFlag = False
+    independentData2CannotContainNegativeFlag = False
     
-        independentData1CannotContainZeroFlag = undefinedBoolean
-        independentData1CannotContainPositiveFlag = undefinedBoolean
-        independentData1CannotContainNegativeFlag = undefinedBoolean
-        independentData2CannotContainZeroFlag = False
-        independentData2CannotContainPositiveFlag = False
-        independentData2CannotContainNegativeFlag = False
+
+    def GetDataCacheFunctions(self):
+        functionList = []
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.X(NameOrValueFlag=1), []])
+        return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
+
+
+    def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
+        x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
         
-    
-        def GetDataCacheFunctions(self):
-            undefined
-            functionList = []
-            functionList.append([pyeq2.DataCache.DataCacheFunctions.X(NameOrValueFlag=1), []])
-            return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
-    
-    
-        def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
-            undefined
-            x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
-            
-            a0 = inCoeffs[0]
-            a1 = inCoeffs[1]
-            b1 = inCoeffs[2]
-            c1 = inCoeffs[3]
-    
-            try:
-                temp = a0
-                temp += a1 *numpy.sin(c1 * x_in) + b1 *numpy.cos(c1 * x_in)
-                return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
-            except:
-                return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
-    
-    
-        def SpecificCodeCPP(self):
-            undefined
-            s = "\ttemp = a0;\n"
-            s += "\ttemp +=  a1 *sin(c1 * x_in) + b1 *cos(c1 * x_in);\n"
-            return s
-    
-    
-    
-    class log_uniform_cdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
-        
-        _baseName = "Log_uniform CDF Based"
-        _HTML = undefinedString
-        _leftSideHTML = 'y'
-        _coefficientDesignators = undefinedList
-        _canLinearSolverBeUsedForSSQABS = undefinedBoolean
-        
-        webReferenceURL = BurkhardtCollectionWebReference
-    
-        '''
-    function cdf = log_uniform_cdf ( x, a, b )
-      if ( x <= a )
-        cdf = 0.0;
-      elseif ( x < b )
-        cdf = ( log ( x ) - log ( a ) ) / ( log ( b ) - log ( a ) );
-      else
-        cdf = 1.0;
-    '''
-    
-        baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = undefinedBoolean
-        autoGenerateOffsetForm = undefinedBoolean
-        autoGenerateReciprocalForm = undefinedBoolean
-        autoGenerateInverseForms = undefinedBoolean
-        autoGenerateGrowthAndDecayForms = True
-    
-        independentData1CannotContainZeroFlag = undefinedBoolean
-        independentData1CannotContainPositiveFlag = undefinedBoolean
-        independentData1CannotContainNegativeFlag = undefinedBoolean
-        independentData2CannotContainZeroFlag = False
-        independentData2CannotContainPositiveFlag = False
-        independentData2CannotContainNegativeFlag = False
-        
-    
-        def GetDataCacheFunctions(self):
-            undefined
-            functionList = []
-            functionList.append([pyeq2.DataCache.DataCacheFunctions.X(NameOrValueFlag=1), []])
-            return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
-    
-    
-        def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
-            undefined
-            x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
-            
-            a0 = inCoeffs[0]
-            a1 = inCoeffs[1]
-            b1 = inCoeffs[2]
-            c1 = inCoeffs[3]
-    
-            try:
-                temp = a0
-                temp += a1 *numpy.sin(c1 * x_in) + b1 *numpy.cos(c1 * x_in)
-                return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
-            except:
-                return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
-    
-    
-        def SpecificCodeCPP(self):
-            undefined
-            s = "\ttemp = a0;\n"
-            s += "\ttemp +=  a1 *sin(c1 * x_in) + b1 *cos(c1 * x_in);\n"
-            return s
-    
-    
-    
-    class log_uniform_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
-        
-        _baseName = "Log_uniform PDF Based"
-        _HTML = undefinedString
-        _leftSideHTML = 'y'
-        _coefficientDesignators = undefinedList
-        _canLinearSolverBeUsedForSSQABS = undefinedBoolean
-        
-        webReferenceURL = BurkhardtCollectionWebReference
-    
-        '''
-    function pdf = log_uniform_pdf ( x, a, b )
-      if ( x < a )
-        pdf = 0.0;
-      elseif ( x <= b )
-        pdf = 1.0 / ( x * ( log ( b ) - log ( a ) ) );
-      else
-        pdf = 0.0;
-    '''
-    
-        baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = undefinedBoolean
-        autoGenerateOffsetForm = undefinedBoolean
-        autoGenerateReciprocalForm = undefinedBoolean
-        autoGenerateInverseForms = undefinedBoolean
-        autoGenerateGrowthAndDecayForms = True
-    
-        independentData1CannotContainZeroFlag = undefinedBoolean
-        independentData1CannotContainPositiveFlag = undefinedBoolean
-        independentData1CannotContainNegativeFlag = undefinedBoolean
-        independentData2CannotContainZeroFlag = False
-        independentData2CannotContainPositiveFlag = False
-        independentData2CannotContainNegativeFlag = False
-        
-    
-        def GetDataCacheFunctions(self):
-            undefined
-            functionList = []
-            functionList.append([pyeq2.DataCache.DataCacheFunctions.X(NameOrValueFlag=1), []])
-            return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
-    
-    
-        def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
-            undefined
-            x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
-            
-            a0 = inCoeffs[0]
-            a1 = inCoeffs[1]
-            b1 = inCoeffs[2]
-            c1 = inCoeffs[3]
-    
-            try:
-                temp = a0
-                temp += a1 *numpy.sin(c1 * x_in) + b1 *numpy.cos(c1 * x_in)
-                return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
-            except:
-                return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
-    
-    
-        def SpecificCodeCPP(self):
-            undefined
-            s = "\ttemp = a0;\n"
-            s += "\ttemp +=  a1 *sin(c1 * x_in) + b1 *cos(c1 * x_in);\n"
-            return s
-    
-    
-    
-    class logistic_cdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
-        
-        _baseName = "Logistic CDF Based"
-        _HTML = undefinedString
-        _leftSideHTML = 'y'
-        _coefficientDesignators = undefinedList
-        _canLinearSolverBeUsedForSSQABS = undefinedBoolean
-        
-        webReferenceURL = BurkhardtCollectionWebReference
-    
-        '''
-    function cdf = logistic_cdf ( x, a, b )
-      cdf = 1.0 / ( 1.0 + exp ( ( a - x ) / b ) );
-    '''
-    
-        baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = undefinedBoolean
-        autoGenerateOffsetForm = undefinedBoolean
-        autoGenerateReciprocalForm = undefinedBoolean
-        autoGenerateInverseForms = undefinedBoolean
-        autoGenerateGrowthAndDecayForms = True
-    
-        independentData1CannotContainZeroFlag = undefinedBoolean
-        independentData1CannotContainPositiveFlag = undefinedBoolean
-        independentData1CannotContainNegativeFlag = undefinedBoolean
-        independentData2CannotContainZeroFlag = False
-        independentData2CannotContainPositiveFlag = False
-        independentData2CannotContainNegativeFlag = False
-        
-    
-        def GetDataCacheFunctions(self):
-            undefined
-            functionList = []
-            functionList.append([pyeq2.DataCache.DataCacheFunctions.X(NameOrValueFlag=1), []])
-            return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
-    
-    
-        def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
-            undefined
-            x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
-            
-            a0 = inCoeffs[0]
-            a1 = inCoeffs[1]
-            b1 = inCoeffs[2]
-            c1 = inCoeffs[3]
-    
-            try:
-                temp = a0
-                temp += a1 *numpy.sin(c1 * x_in) + b1 *numpy.cos(c1 * x_in)
-                return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
-            except:
-                return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
-    
-    
-        def SpecificCodeCPP(self):
-            undefined
-            s = "\ttemp = a0;\n"
-            s += "\ttemp +=  a1 *sin(c1 * x_in) + b1 *cos(c1 * x_in);\n"
-            return s
-    
-    
-    
-    class logistic_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
-        
-        _baseName = "Logistic PDF Based"
-        _HTML = undefinedString
-        _leftSideHTML = 'y'
-        _coefficientDesignators = undefinedList
-        _canLinearSolverBeUsedForSSQABS = undefinedBoolean
-        
-        webReferenceURL = BurkhardtCollectionWebReference
-    
-        '''
-    function pdf = logistic_pdf ( x, a, b )
-      temp = exp ( ( a - x ) / b );
-      pdf = temp / ( b * ( 1.0D+00 + temp )^2 );
-    '''
-    
-        baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = undefinedBoolean
-        autoGenerateOffsetForm = undefinedBoolean
-        autoGenerateReciprocalForm = undefinedBoolean
-        autoGenerateInverseForms = undefinedBoolean
-        autoGenerateGrowthAndDecayForms = True
-    
-        independentData1CannotContainZeroFlag = undefinedBoolean
-        independentData1CannotContainPositiveFlag = undefinedBoolean
-        independentData1CannotContainNegativeFlag = undefinedBoolean
-        independentData2CannotContainZeroFlag = False
-        independentData2CannotContainPositiveFlag = False
-        independentData2CannotContainNegativeFlag = False
-        
-    
-        def GetDataCacheFunctions(self):
-            undefined
-            functionList = []
-            functionList.append([pyeq2.DataCache.DataCacheFunctions.X(NameOrValueFlag=1), []])
-            return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
-    
-    
-        def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
-            undefined
-            x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
-            
-            a0 = inCoeffs[0]
-            a1 = inCoeffs[1]
-            b1 = inCoeffs[2]
-            c1 = inCoeffs[3]
-    
-            try:
-                temp = a0
-                temp += a1 *numpy.sin(c1 * x_in) + b1 *numpy.cos(c1 * x_in)
-                return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
-            except:
-                return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
-    
-    
-        def SpecificCodeCPP(self):
-            undefined
-            s = "\ttemp = a0;\n"
-            s += "\ttemp +=  a1 *sin(c1 * x_in) + b1 *cos(c1 * x_in);\n"
-            return s
-    
-    
-    
-    class lorentz_cdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
-        
-        _baseName = "Lorentz CDF Based"
-        _HTML = undefinedString
-        _leftSideHTML = 'y'
-        _coefficientDesignators = undefinedList
-        _canLinearSolverBeUsedForSSQABS = undefinedBoolean
-        
-        webReferenceURL = BurkhardtCollectionWebReference
-    
-        '''
-    function cdf = lorentz_cdf ( x )
-      cdf = 0.5 + atan ( x ) / pi;
-    '''
-    
-        baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = undefinedBoolean
-        autoGenerateOffsetForm = undefinedBoolean
-        autoGenerateReciprocalForm = undefinedBoolean
-        autoGenerateInverseForms = undefinedBoolean
-        autoGenerateGrowthAndDecayForms = True
-    
-        independentData1CannotContainZeroFlag = undefinedBoolean
-        independentData1CannotContainPositiveFlag = undefinedBoolean
-        independentData1CannotContainNegativeFlag = undefinedBoolean
-        independentData2CannotContainZeroFlag = False
-        independentData2CannotContainPositiveFlag = False
-        independentData2CannotContainNegativeFlag = False
-        
-    
-        def GetDataCacheFunctions(self):
-            undefined
-            functionList = []
-            functionList.append([pyeq2.DataCache.DataCacheFunctions.X(NameOrValueFlag=1), []])
-            return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
-    
-    
-        def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
-            undefined
-            x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
-            
-            a0 = inCoeffs[0]
-            a1 = inCoeffs[1]
-            b1 = inCoeffs[2]
-            c1 = inCoeffs[3]
-    
-            try:
-                temp = a0
-                temp += a1 *numpy.sin(c1 * x_in) + b1 *numpy.cos(c1 * x_in)
-                return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
-            except:
-                return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
-    
-    
-        def SpecificCodeCPP(self):
-            undefined
-            s = "\ttemp = a0;\n"
-            s += "\ttemp +=  a1 *sin(c1 * x_in) + b1 *cos(c1 * x_in);\n"
-            return s
-    
-    
-    
-    class lorentz_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
-        
-        _baseName = "Lorentz PDF Based"
-        _HTML = undefinedString
-        _leftSideHTML = 'y'
-        _coefficientDesignators = undefinedList
-        _canLinearSolverBeUsedForSSQABS = undefinedBoolean
-        
-        webReferenceURL = BurkhardtCollectionWebReference
-    
-        '''
-    function pdf = lorentz_pdf ( x )
-      pdf = 1.0 / ( pi * ( 1.0 + x * x ) );
-    '''
-    
-        baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = undefinedBoolean
-        autoGenerateOffsetForm = undefinedBoolean
-        autoGenerateReciprocalForm = undefinedBoolean
-        autoGenerateInverseForms = undefinedBoolean
-        autoGenerateGrowthAndDecayForms = True
-    
-        independentData1CannotContainZeroFlag = undefinedBoolean
-        independentData1CannotContainPositiveFlag = undefinedBoolean
-        independentData1CannotContainNegativeFlag = undefinedBoolean
-        independentData2CannotContainZeroFlag = False
-        independentData2CannotContainPositiveFlag = False
-        independentData2CannotContainNegativeFlag = False
-        
-    
-        def GetDataCacheFunctions(self):
-            undefined
-            functionList = []
-            functionList.append([pyeq2.DataCache.DataCacheFunctions.X(NameOrValueFlag=1), []])
-            return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
-    
-    
-        def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
-            undefined
-            x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
-            
-            a0 = inCoeffs[0]
-            a1 = inCoeffs[1]
-            b1 = inCoeffs[2]
-            c1 = inCoeffs[3]
-    
-            try:
-                temp = a0
-                temp += a1 *numpy.sin(c1 * x_in) + b1 *numpy.cos(c1 * x_in)
-                return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
-            except:
-                return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
-    
-    
-        def SpecificCodeCPP(self):
-            undefined
-            s = "\ttemp = a0;\n"
-            s += "\ttemp +=  a1 *sin(c1 * x_in) + b1 *cos(c1 * x_in);\n"
-            return s
-    
-    
-    
-    class normal_01_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
-        
-        _baseName = "Normal 01 PDF Based"
-        _HTML = undefinedString
-        _leftSideHTML = 'y'
-        _coefficientDesignators = undefinedList
-        _canLinearSolverBeUsedForSSQABS = undefinedBoolean
-        
-        webReferenceURL = BurkhardtCollectionWebReference
-    
-        '''
-    function pdf = normal_01_pdf ( x )
-      pdf = exp ( -0.5 * x * x ) / sqrt ( 2.0 * pi );
-    '''
-    
-        baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = undefinedBoolean
-        autoGenerateOffsetForm = undefinedBoolean
-        autoGenerateReciprocalForm = undefinedBoolean
-        autoGenerateInverseForms = undefinedBoolean
-        autoGenerateGrowthAndDecayForms = True
-    
-        independentData1CannotContainZeroFlag = undefinedBoolean
-        independentData1CannotContainPositiveFlag = undefinedBoolean
-        independentData1CannotContainNegativeFlag = undefinedBoolean
-        independentData2CannotContainZeroFlag = False
-        independentData2CannotContainPositiveFlag = False
-        independentData2CannotContainNegativeFlag = False
-        
-    
-        def GetDataCacheFunctions(self):
-            undefined
-            functionList = []
-            functionList.append([pyeq2.DataCache.DataCacheFunctions.X(NameOrValueFlag=1), []])
-            return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
-    
-    
-        def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
-            undefined
-            x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
-            
-            a0 = inCoeffs[0]
-            a1 = inCoeffs[1]
-            b1 = inCoeffs[2]
-            c1 = inCoeffs[3]
-    
-            try:
-                temp = a0
-                temp += a1 *numpy.sin(c1 * x_in) + b1 *numpy.cos(c1 * x_in)
-                return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
-            except:
-                return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
-    
-    
-        def SpecificCodeCPP(self):
-            undefined
-            s = "\ttemp = a0;\n"
-            s += "\ttemp +=  a1 *sin(c1 * x_in) + b1 *cos(c1 * x_in);\n"
-            return s
-    
-    
-    
-    class normal_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
-        
-        _baseName = "Normal PDF Based"
-        _HTML = undefinedString
-        _leftSideHTML = 'y'
-        _coefficientDesignators = undefinedList
-        _canLinearSolverBeUsedForSSQABS = undefinedBoolean
-        
-        webReferenceURL = BurkhardtCollectionWebReference
-    
-        '''
-    function pdf = normal_pdf ( x, a, b )
-      pdf = exp ( - 0.5 * ( ( x - a ) / b ).^2 )  / sqrt ( 2.0 * pi * b^2 );
-    '''
-    
-        baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = undefinedBoolean
-        autoGenerateOffsetForm = undefinedBoolean
-        autoGenerateReciprocalForm = undefinedBoolean
-        autoGenerateInverseForms = undefinedBoolean
-        autoGenerateGrowthAndDecayForms = True
-    
-        independentData1CannotContainZeroFlag = undefinedBoolean
-        independentData1CannotContainPositiveFlag = undefinedBoolean
-        independentData1CannotContainNegativeFlag = undefinedBoolean
-        independentData2CannotContainZeroFlag = False
-        independentData2CannotContainPositiveFlag = False
-        independentData2CannotContainNegativeFlag = False
-        
-    
-        def GetDataCacheFunctions(self):
-            undefined
-            functionList = []
-            functionList.append([pyeq2.DataCache.DataCacheFunctions.X(NameOrValueFlag=1), []])
-            return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
-    
-    
-        def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
-            undefined
-            x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
-            
-            a0 = inCoeffs[0]
-            a1 = inCoeffs[1]
-            b1 = inCoeffs[2]
-            c1 = inCoeffs[3]
-    
-            try:
-                temp = a0
-                temp += a1 *numpy.sin(c1 * x_in) + b1 *numpy.cos(c1 * x_in)
-                return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
-            except:
-                return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
-    
-    
-        def SpecificCodeCPP(self):
-            undefined
-            s = "\ttemp = a0;\n"
-            s += "\ttemp +=  a1 *sin(c1 * x_in) + b1 *cos(c1 * x_in);\n"
-            return s
-    
-    
-    
-    class pareto_cdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
-        
-        _baseName = "Pareto CDF Based"
-        _HTML = undefinedString
-        _leftSideHTML = 'y'
-        _coefficientDesignators = undefinedList
-        _canLinearSolverBeUsedForSSQABS = undefinedBoolean
-        
-        webReferenceURL = BurkhardtCollectionWebReference
-    
-        '''
-    function cdf = pareto_cdf ( x, a, b )
-      if ( x < a )
-        cdf = 0.0;
-      else
-        cdf = 1.0 - ( a / x )^b;
-    '''
-    
-        baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = undefinedBoolean
-        autoGenerateOffsetForm = undefinedBoolean
-        autoGenerateReciprocalForm = undefinedBoolean
-        autoGenerateInverseForms = undefinedBoolean
-        autoGenerateGrowthAndDecayForms = True
-    
-        independentData1CannotContainZeroFlag = undefinedBoolean
-        independentData1CannotContainPositiveFlag = undefinedBoolean
-        independentData1CannotContainNegativeFlag = undefinedBoolean
-        independentData2CannotContainZeroFlag = False
-        independentData2CannotContainPositiveFlag = False
-        independentData2CannotContainNegativeFlag = False
-        
-    
-        def GetDataCacheFunctions(self):
-            undefined
-            functionList = []
-            functionList.append([pyeq2.DataCache.DataCacheFunctions.X(NameOrValueFlag=1), []])
-            return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
-    
-    
-        def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
-            undefined
-            x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
-            
-            a0 = inCoeffs[0]
-            a1 = inCoeffs[1]
-            b1 = inCoeffs[2]
-            c1 = inCoeffs[3]
-    
-            try:
-                temp = a0
-                temp += a1 *numpy.sin(c1 * x_in) + b1 *numpy.cos(c1 * x_in)
-                return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
-            except:
-                return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
-    
-    
-        def SpecificCodeCPP(self):
-            undefined
-            s = "\ttemp = a0;\n"
-            s += "\ttemp +=  a1 *sin(c1 * x_in) + b1 *cos(c1 * x_in);\n"
-            return s
-    
-    
-    
-    class pareto_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
-        
-        _baseName = "Pareto PDF Based"
-        _HTML = undefinedString
-        _leftSideHTML = 'y'
-        _coefficientDesignators = undefinedList
-        _canLinearSolverBeUsedForSSQABS = undefinedBoolean
-        
-        webReferenceURL = BurkhardtCollectionWebReference
-    
-        '''
-    function pdf = pareto_pdf ( x, a, b )
-      if ( x < a )
-        pdf = 0.0;
-      else
-        pdf = b * a^b / x^( b + 1.0 );
-    '''
-    
-        baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = undefinedBoolean
-        autoGenerateOffsetForm = undefinedBoolean
-        autoGenerateReciprocalForm = undefinedBoolean
-        autoGenerateInverseForms = undefinedBoolean
-        autoGenerateGrowthAndDecayForms = True
-    
-        independentData1CannotContainZeroFlag = undefinedBoolean
-        independentData1CannotContainPositiveFlag = undefinedBoolean
-        independentData1CannotContainNegativeFlag = undefinedBoolean
-        independentData2CannotContainZeroFlag = False
-        independentData2CannotContainPositiveFlag = False
-        independentData2CannotContainNegativeFlag = False
-        
-    
-        def GetDataCacheFunctions(self):
-            undefined
-            functionList = []
-            functionList.append([pyeq2.DataCache.DataCacheFunctions.X(NameOrValueFlag=1), []])
-            return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
-    
-    
-        def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
-            undefined
-            x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
-            
-            a0 = inCoeffs[0]
-            a1 = inCoeffs[1]
-            b1 = inCoeffs[2]
-            c1 = inCoeffs[3]
-    
-            try:
-                temp = a0
-                temp += a1 *numpy.sin(c1 * x_in) + b1 *numpy.cos(c1 * x_in)
-                return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
-            except:
-                return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
-    
-    
-        def SpecificCodeCPP(self):
-            undefined
-            s = "\ttemp = a0;\n"
-            s += "\ttemp +=  a1 *sin(c1 * x_in) + b1 *cos(c1 * x_in);\n"
-            return s
-    
-    
+        a = inCoeffs[0]
+        b = inCoeffs[1]
+
+        try:
+            temp = b * numpy.power(a, b) / numpy.power(x_in, (b+1.0))
+            return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
+        except:
+            return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
+
+
+    def SpecificCodeCPP(self):
+        s = "\ttemp = b * pow(a, b) / pow(x_in, (b+1.0));\n"
+        return s
+
+
+if 0: # work on code below this point is still in progress
     
     class power_cdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         
