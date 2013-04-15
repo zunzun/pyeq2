@@ -1436,6 +1436,7 @@ class rayleigh_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = True
+    autoGenerateReciprocalForm = True
     autoGenerateInverseForms = True
     autoGenerateGrowthAndDecayForms = True
 
