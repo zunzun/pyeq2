@@ -495,10 +495,10 @@ class SagForAsphere3_Transform(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
         A4 = inCoeffs[2]
         A6 = inCoeffs[3]
         A8 = inCoeffs[4]
-        a = inCoeffs[4]
-        b = inCoeffs[5]
-        c = inCoeffs[6]
-        d = inCoeffs[7]
+        a = inCoeffs[5]
+        b = inCoeffs[6]
+        c = inCoeffs[7]
+        d = inCoeffs[8]
 
         try:
             s_sq = numpy.power(a*x_in+b, 2.0) + numpy.power(c*y_in+d, 2.0)
