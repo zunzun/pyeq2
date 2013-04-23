@@ -778,7 +778,6 @@ class KarplusNMRSpectroscopyScaled(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         b = inCoeffs[1]
         c = inCoeffs[2]
         s = inCoeffs[3]
-        o = inCoeffs[3]
 
         try:
             temp = a * numpy.power(numpy.cos(s * x), 2.0) + b * numpy.cos(s * x) + c
