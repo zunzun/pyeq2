@@ -291,7 +291,7 @@ class MarcPlanteQuadratic(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         c = inCoeffs[2]
 
         try:
-            temp = ((-1.0 * b) + numpy.power((b * b) - 4.0 * a * (c - x_in), 0.5)) / 2.0 / a
+            temp = ((-1.0 * b) + numpy.sqrt((b * b) - 4.0 * a * (c - x_in))) / 2.0 / a
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300

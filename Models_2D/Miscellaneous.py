@@ -63,7 +63,7 @@ class PhysicistPeterPendulumTraversal(pyeq2.Model_2D_BaseClass.Model_2D_BaseClas
         b = inCoeffs[1]
 
         try:
-            temp = a*numpy.power(x_in+b, 0.5)
+            temp = a*numpy.sqrt(x_in+b)
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -114,7 +114,7 @@ class PhysicistPeterCustomEquation(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         G = inCoeffs[3]
 
         try:
-            temp = A + B*(x_in-C) + 0.5*G*numpy.power(x_in-C, 2.0)
+            temp = A + B*(x_in-C) + 0.5*G*numpy.square(x_in-C)
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -220,7 +220,7 @@ class FigureEight(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         b = inCoeffs[1]
 
         try:
-            temp = a * numpy.power(x_PowX2 - (x_PowX4/numpy.power(b, 2.0)), 0.5)
+            temp = a * numpy.sqrt(x_PowX2 - (x_PowX4/numpy.square(b)))
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -271,7 +271,7 @@ class FigureEightTransform(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         d = inCoeffs[3]
 
         try:
-            temp = a * numpy.power(numpy.power(c*x_in+d, 2.0) - (numpy.power(c*x_in+d, 4.0)-numpy.power(b, 2.0)), 0.5)
+            temp = a * numpy.sqrt(numpy.square(c*x_in+d) - (numpy.power(c*x_in+d, 4.0)-numpy.square(b)))
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -369,7 +369,7 @@ class NielesSemicubicalParabolaTransform(pyeq2.Model_2D_BaseClass.Model_2D_BaseC
         c = inCoeffs[2]
 
         try:
-            temp = numpy.power(a * numpy.power(b*x_in+c, 2.0), 1.0/3.0)
+            temp = numpy.power(a * numpy.square(b*x_in+c), 1.0/3.0)
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -421,7 +421,7 @@ class PearShapedQuartic(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         c = inCoeffs[2]
 
         try:
-            temp = a * numpy.power(x_PowX3 * (b - x_in) / numpy.power(c, 2.0), 0.5)
+            temp = a * numpy.sqrt(x_PowX3 * (b - x_in) / numpy.square(c))
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -473,7 +473,7 @@ class PearShapedQuarticTransform(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         f = inCoeffs[4]
 
         try:
-            temp = a * numpy.power(numpy.power(d*x_in+f, 3.0) * (b - (d*x_in+f)) / numpy.power(c, 2.0), 0.5)
+            temp = a * numpy.sqrt(numpy.power(d*x_in+f, 3.0) * (b - (d*x_in+f)) / numpy.square(c))
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -524,7 +524,7 @@ class TrisectrixOfMaclaurin(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         b = inCoeffs[1]
 
         try:
-            temp = a * numpy.power(x_PowX2 * (3.0 * b - x_in) / (b + x_in), 0.5)
+            temp = a * numpy.sqrt(x_PowX2 * (3.0 * b - x_in) / (b + x_in))
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -575,7 +575,7 @@ class TrisectrixOfMaclaurinTransform(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass
         d = inCoeffs[3]
 
         try:
-            temp = a * numpy.power(numpy.power(c*x_in+d, 2.0) * (3.0 * b - (c*x_in+d)) / (b + (c*x_in+d)), 0.5)
+            temp = a * numpy.sqrt(numpy.square(c*x_in+d) * (3.0 * b - (c*x_in+d)) / (b + (c*x_in+d)))
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -626,7 +626,7 @@ class CissoidOfDiocles(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         b = inCoeffs[1]
 
         try:
-            temp = a * numpy.power(x_PowX3 / (2.0 * b - x_in), 0.5)
+            temp = a * numpy.sqrt(x_PowX3 / (2.0 * b - x_in))
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -677,7 +677,7 @@ class CissoidOfDioclesTransform(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         d = inCoeffs[3]
 
         try:
-            temp = a * numpy.power(numpy.power(x_in*c-d, 3.0) / (2.0 * b - (x_in*c-d)), 0.5)
+            temp = a * numpy.sqrt(numpy.power(x_in*c-d, 3.0) / (2.0 * b - (x_in*c-d)))
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -780,7 +780,7 @@ class KarplusNMRSpectroscopyScaled(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         s = inCoeffs[3]
 
         try:
-            temp = a * numpy.power(numpy.cos(s * x), 2.0) + b * numpy.cos(s * x) + c
+            temp = a * numpy.square(numpy.cos(s * x)) + b * numpy.cos(s * x) + c
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -2076,7 +2076,7 @@ class PursuitCurve_Transform(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         c = inCoeffs[2]
 
         try:
-            temp = (a * numpy.power(b * x_in + c, 2.0)) - numpy.log(b * x_in + c)
+            temp = (a * numpy.square(b * x_in + c)) - numpy.log(b * x_in + c)
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -2373,7 +2373,7 @@ class Square_Modified_Transform(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         c = inCoeffs[2]
 
         try:
-            temp = numpy.power(b * x_in + c, 2.0) - (a * (b * x_in + c))
+            temp = numpy.square(b * x_in + c) - (a * (b * x_in + c))
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300

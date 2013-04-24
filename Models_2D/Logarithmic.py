@@ -324,7 +324,7 @@ class CubicLogarithmicScaled(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         f = inCoeffs[4]
 
         try:
-            temp = a + b*numpy.log(f * x_in) + c*numpy.power(numpy.log(f * x_in), 2.0) + d*numpy.power(numpy.log(f * x_in), 3.0)
+            temp = a + b*numpy.log(f * x_in) + c*numpy.square(numpy.log(f * x_in)) + d*numpy.power(numpy.log(f * x_in), 3.0)
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -377,7 +377,7 @@ class CubicLogarithmicTransform(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         g = inCoeffs[5]
 
         try:
-            temp = a + b*numpy.log(f * x_in + g) + c*numpy.power(numpy.log(f * x_in + g), 2.0) + d*numpy.power(numpy.log(f * x_in + g), 3.0)
+            temp = a + b*numpy.log(f * x_in + g) + c*numpy.square(numpy.log(f * x_in + g)) + d*numpy.power(numpy.log(f * x_in + g), 3.0)
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -636,7 +636,7 @@ class QuadraticLogarithmicScaled(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         d = inCoeffs[3]
 
         try:
-            temp = a + b*numpy.log(d * x_in) + c*numpy.power(numpy.log(d * x_in), 2.0)
+            temp = a + b*numpy.log(d * x_in) + c*numpy.square(numpy.log(d * x_in))
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -688,7 +688,7 @@ class QuadraticLogarithmicTransform(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass)
         f = inCoeffs[4]
 
         try:
-            temp = a + b*numpy.log(d * x_in + f) + c*numpy.power(numpy.log(d * x_in + f), 2.0)
+            temp = a + b*numpy.log(d * x_in + f) + c*numpy.square(numpy.log(d * x_in + f))
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -802,7 +802,7 @@ class QuarticLogarithmicScaled(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         g = inCoeffs[5]
 
         try:
-            temp = a + b*numpy.log(g * x_in) + c*numpy.power(numpy.log(g * x_in), 2.0) + d*numpy.power(numpy.log(g * x_in), 3.0) + f*numpy.power(numpy.log(g * x_in), 4.0)
+            temp = a + b*numpy.log(g * x_in) + c*numpy.square(numpy.log(g * x_in)) + d*numpy.power(numpy.log(g * x_in), 3.0) + f*numpy.power(numpy.log(g * x_in), 4.0)
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -856,7 +856,7 @@ class QuarticLogarithmicTransform(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         h = inCoeffs[6]
 
         try:
-            temp = a + b*numpy.log(g * x_in + h) + c*numpy.power(numpy.log(g * x_in + h), 2.0) + d*numpy.power(numpy.log(g * x_in + h), 3.0) + f*numpy.power(numpy.log(g * x_in + h), 4.0)
+            temp = a + b*numpy.log(g * x_in + h) + c*numpy.square(numpy.log(g * x_in + h)) + d*numpy.power(numpy.log(g * x_in + h), 3.0) + f*numpy.power(numpy.log(g * x_in + h), 4.0)
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -974,7 +974,7 @@ class QuinticLogarithmicScaled(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         h = inCoeffs[6]
 
         try:
-            temp = a + b*numpy.log(h * x_in) + c*numpy.power(numpy.log(h * x_in), 2.0) + d*numpy.power(numpy.log(h * x_in), 3.0) + f*numpy.power(numpy.log(h * x_in), 4.0) + g*numpy.power(numpy.log(h * x_in), 5.0)
+            temp = a + b*numpy.log(h * x_in) + c*numpy.square(numpy.log(h * x_in)) + d*numpy.power(numpy.log(h * x_in), 3.0) + f*numpy.power(numpy.log(h * x_in), 4.0) + g*numpy.power(numpy.log(h * x_in), 5.0)
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -1029,7 +1029,7 @@ class QuinticLogarithmicTransform(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         i = inCoeffs[7]
 
         try:
-            temp = a + b*numpy.log(h * x_in + i) + c*numpy.power(numpy.log(h * x_in + i), 2.0) + d*numpy.power(numpy.log(h * x_in + i), 3.0) + f*numpy.power(numpy.log(h * x_in + i), 4.0) + g*numpy.power(numpy.log(h * x_in + i), 5.0)
+            temp = a + b*numpy.log(h * x_in + i) + c*numpy.square(numpy.log(h * x_in + i)) + d*numpy.power(numpy.log(h * x_in + i), 3.0) + f*numpy.power(numpy.log(h * x_in + i), 4.0) + g*numpy.power(numpy.log(h * x_in + i), 5.0)
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300

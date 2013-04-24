@@ -172,13 +172,13 @@ class FullCubicExponentialTransform(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass)
             temp = a
             temp += b * numpy.exp(m * x_in + n)
             temp += c * numpy.exp(o * y_in + p)
-            temp += d * numpy.power(numpy.exp(m * x_in + n), 2.0)
-            temp += f * numpy.power(numpy.exp(o * y_in + p), 2.0)
+            temp += d * numpy.square(numpy.exp(m * x_in + n))
+            temp += f * numpy.square(numpy.exp(o * y_in + p))
             temp += g * numpy.power(numpy.exp(m * x_in + n), 3.0)
             temp += h * numpy.power(numpy.exp(o * y_in + p), 3.0)
             temp += i * numpy.exp(m * x_in + n) * numpy.exp(o * y_in + p)
-            temp += j * numpy.power(numpy.exp(m * x_in + n), 2.0) * numpy.exp(o * y_in + p)
-            temp += k * numpy.exp(m * x_in + n) * numpy.power(numpy.exp(o * y_in + p), 2.0)
+            temp += j * numpy.square(numpy.exp(m * x_in + n)) * numpy.exp(o * y_in + p)
+            temp += k * numpy.exp(m * x_in + n) * numpy.square(numpy.exp(o * y_in + p))
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -321,8 +321,8 @@ class FullQuadraticExponentialTransform(pyeq2.Model_3D_BaseClass.Model_3D_BaseCl
             temp = a
             temp += b * numpy.exp(h * x_in + i)
             temp += c * numpy.exp(j * y_in + k)
-            temp += d * numpy.power(numpy.exp(h * x_in + i), 2.0)
-            temp += f * numpy.power(numpy.exp(j * y_in + k), 2.0)
+            temp += d * numpy.square(numpy.exp(h * x_in + i))
+            temp += f * numpy.square(numpy.exp(j * y_in + k))
             temp += g * numpy.exp(h * x_in + i) * numpy.exp(j * y_in + k)
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
@@ -577,8 +577,8 @@ class SimplifiedCubicExponentialTransform(pyeq2.Model_3D_BaseClass.Model_3D_Base
             temp = a
             temp += b * numpy.exp(i * x_in + j)
             temp += c * numpy.exp(k * y_in + m)
-            temp += d * numpy.power(numpy.exp(i * x_in + j), 2.0)
-            temp += f * numpy.power(numpy.exp(k * y_in + m), 2.0)
+            temp += d * numpy.square(numpy.exp(i * x_in + j))
+            temp += f * numpy.square(numpy.exp(k * y_in + m))
             temp += g * numpy.power(numpy.exp(i * x_in + j), 3.0)
             temp += h * numpy.power(numpy.exp(k * y_in + m), 3.0)
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
@@ -714,8 +714,8 @@ class SimplifiedQuadraticExponentialTransform(pyeq2.Model_3D_BaseClass.Model_3D_
             temp = a
             temp += b * numpy.exp(g * x_in + h)
             temp += c * numpy.exp(i * y_in + j)
-            temp += d * numpy.power(numpy.exp(g * x_in + h), 2.0)
-            temp += f * numpy.power(numpy.exp(i * y_in + j), 2.0)
+            temp += d * numpy.square(numpy.exp(g * x_in + h))
+            temp += f * numpy.square(numpy.exp(i * y_in + j))
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300

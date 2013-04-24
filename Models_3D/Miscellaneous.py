@@ -170,7 +170,7 @@ class GaussianCurvatureOfParaboloid(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass)
         a = inCoeffs[0]
 
         try:
-            temp = 4.0 * a * a / numpy.power(1.0 + 4.0 * a * a * XSQPLUSYSQ, 2.0)
+            temp = 4.0 * a * a / numpy.square(1.0 + 4.0 * a * a * XSQPLUSYSQ)
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -219,7 +219,7 @@ class GaussianCurvatureOfRichmondsMinimalSurface(pyeq2.Model_3D_BaseClass.Model_
         b = inCoeffs[1]
 
         try:
-            temp = -1.0 * a * numpy.power(XSQPLUSYSQ, 3.0) / numpy.power(b + numpy.power(XSQPLUSYSQ, 2.0), 4.0)
+            temp = -1.0 * a * numpy.power(XSQPLUSYSQ, 3.0) / numpy.power(b + numpy.square(XSQPLUSYSQ), 4.0)
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -271,7 +271,7 @@ class GaussianCurvatureOfWhitneysUmbrellaA(pyeq2.Model_3D_BaseClass.Model_3D_Bas
         a = inCoeffs[0]
 
         try:
-            temp = -1.0 * a * PowY2 / numpy.power(PowX2 + a * (PowY2 + PowY4), 2.0)
+            temp = -1.0 * a * PowY2 / numpy.square(PowX2 + a * (PowY2 + PowY4))
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -323,7 +323,7 @@ class GaussianCurvatureOfWhitneysUmbrellaB(pyeq2.Model_3D_BaseClass.Model_3D_Bas
         a = inCoeffs[0]
 
         try:
-            temp = -1.0 * a * PowX2 / numpy.power(PowY2 + a * (PowX2 + PowX4), 2.0)
+            temp = -1.0 * a * PowX2 / numpy.square(PowY2 + a * (PowX2 + PowX4))
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -808,7 +808,7 @@ class MonkeySaddle_TransformA(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
         g = inCoeffs[5]
 
         try:
-            temp = a * numpy.power(c * x_in + d, 3.0) - b * (c * x_in + d) * numpy.power(f * y_in + g, 2.0)
+            temp = a * numpy.power(c * x_in + d, 3.0) - b * (c * x_in + d) * numpy.square(f * y_in + g)
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -863,7 +863,7 @@ class MonkeySaddle_TransformB(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
         g = inCoeffs[5]
 
         try:
-            temp = a * numpy.power(c * y_in + d, 3.0) - b * (c * y_in + d) * numpy.power(f * x_in + g, 2.0)
+            temp = a * numpy.power(c * y_in + d, 3.0) - b * (c * y_in + d) * numpy.square(f * x_in + g)
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -965,7 +965,7 @@ class Paraboloid_Transform(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
         f = inCoeffs[4]
 
         try:
-            temp = a * (numpy.power(b * x_in + c, 2.0) + numpy.power(d * y_in + f, 2.0))
+            temp = a * (numpy.square(b * x_in + c) + numpy.square(d * y_in + f))
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300

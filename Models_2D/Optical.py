@@ -270,7 +270,7 @@ class Hartmann2(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         C = inCoeffs[2]
 
         try:
-            temp = A + B / numpy.power(C - x_in, 2.0)
+            temp = A + B / numpy.square(C - x_in)
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -472,7 +472,7 @@ class Herzberger2X2(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         D = inCoeffs[3]
 
         try:
-            temp = A + B * x_PowX2 + C / (x_PowX2 - 0.028) + D / numpy.power(x_PowX2 - 0.028, 2.0)
+            temp = A + B * x_PowX2 + C / (x_PowX2 - 0.028) + D / numpy.square(x_PowX2 - 0.028)
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -526,7 +526,7 @@ class Herzberger3X2(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         E = inCoeffs[4]
 
         try:
-            temp = A + B * x_PowX2 + C * x_PowX4 + D / (x_PowX2 - 0.028) + E / numpy.power(x_PowX2 - 0.028, 2.0)
+            temp = A + B * x_PowX2 + C * x_PowX4 + D / (x_PowX2 - 0.028) + E / numpy.square(x_PowX2 - 0.028)
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -581,7 +581,7 @@ class Herzberger3X3(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         F = inCoeffs[5]
 
         try:
-            temp = A + B * x_PowX2 + C * x_PowX4 + D / (x_PowX2 - 0.028) + E / numpy.power(x_PowX2 - 0.028, 2.0) + F / numpy.power(x_PowX2 - 0.028, 4.0)
+            temp = A + B * x_PowX2 + C * x_PowX4 + D / (x_PowX2 - 0.028) + E / numpy.square(x_PowX2 - 0.028) + F / numpy.power(x_PowX2 - 0.028, 4.0)
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -638,7 +638,7 @@ class Herzberger4X2(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         F = inCoeffs[5]
 
         try:
-            temp = A + B * x_PowX2 + C * x_PowX4 + D * x_PowX6 + E / (x_PowX2- 0.028) + F / numpy.power(x_PowX2 - 0.028, 2.0)
+            temp = A + B * x_PowX2 + C * x_PowX4 + D * x_PowX6 + E / (x_PowX2- 0.028) + F / numpy.square(x_PowX2 - 0.028)
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -698,7 +698,7 @@ class Herzberger5X2(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         G = inCoeffs[6]
 
         try:
-            temp = A + B * x_PowX2 + C * x_PowX4 + D * x_PowX6 +  + E * x_PowX8 + F / (x_PowX2 - 0.028) + G / numpy.power(x_PowX2 - 0.028, 2.0)
+            temp = A + B * x_PowX2 + C * x_PowX4 + D * x_PowX6 +  + E * x_PowX8 + F / (x_PowX2 - 0.028) + G / numpy.square(x_PowX2 - 0.028)
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -757,7 +757,7 @@ class HerzbergerJK(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         K = inCoeffs[7]
 
         try:
-            temp = A + B * x_PowX2 + C * x_PowX4 + D * x_PowX6 + E / (x_PowX2 - J) + F / numpy.power(x_PowX2 - K, 2.0)
+            temp = A + B * x_PowX2 + C * x_PowX4 + D * x_PowX6 + E / (x_PowX2 - J) + F / numpy.square(x_PowX2 - K)
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300

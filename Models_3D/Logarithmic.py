@@ -172,13 +172,13 @@ class FullCubicLogarithmicTransform(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass)
             temp = a
             temp += b * numpy.log(m * x_in + n)
             temp += c * numpy.log(o * y_in + p)
-            temp += d * numpy.power(numpy.log(m * x_in + n), 2.0)
-            temp += f * numpy.power(numpy.log(o * y_in + p), 2.0)
+            temp += d * numpy.square(numpy.log(m * x_in + n))
+            temp += f * numpy.square(numpy.log(o * y_in + p))
             temp += g * numpy.power(numpy.log(m * x_in + n), 3.0)
             temp += h * numpy.power(numpy.log(o * y_in + p), 3.0)
             temp += i * numpy.log(m * x_in + n) * numpy.log(o * y_in + p)
             temp += j * numpy.power(numpy.log(m * x_in + n), 2.0) * numpy.log(o * y_in + p)
-            temp += k * numpy.log(m * x_in + n) * numpy.power(numpy.log(o * y_in + p), 2.0)
+            temp += k * numpy.log(m * x_in + n) * numpy.square(numpy.log(o * y_in + p))
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -321,8 +321,8 @@ class FullQuadraticLogarithmicTransform(pyeq2.Model_3D_BaseClass.Model_3D_BaseCl
             temp = a
             temp += b * numpy.log(h * x_in + i)
             temp += c * numpy.log(j * y_in + k)
-            temp += d * numpy.power(numpy.log(h * x_in + i), 2.0)
-            temp += f * numpy.power(numpy.log(j * y_in + k), 2.0)
+            temp += d * numpy.square(numpy.log(h * x_in + i))
+            temp += f * numpy.square(numpy.log(j * y_in + k))
             temp += g * numpy.log(h * x_in + i) * numpy.log(j * y_in + k)
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
@@ -577,8 +577,8 @@ class SimplifiedCubicLogarithmicTransform(pyeq2.Model_3D_BaseClass.Model_3D_Base
             temp = a
             temp += b * numpy.log(i * x_in + j)
             temp += c * numpy.log(k * y_in + m)
-            temp += d * numpy.power(numpy.log(i * x_in + j), 2.0)
-            temp += f * numpy.power(numpy.log(k * y_in + m), 2.0)
+            temp += d * numpy.square(numpy.log(i * x_in + j))
+            temp += f * numpy.square(numpy.log(k * y_in + m))
             temp += g * numpy.power(numpy.log(i * x_in + j), 3.0)
             temp += h * numpy.power(numpy.log(k * y_in + m), 3.0)
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
@@ -714,8 +714,8 @@ class SimplifiedQuadraticLogarithmicTransform(pyeq2.Model_3D_BaseClass.Model_3D_
             temp = a
             temp += b * numpy.log(g * x_in + h)
             temp += c * numpy.log(i * y_in + j)
-            temp += d * numpy.power(numpy.log(g * x_in + h), 2.0)
-            temp += f * numpy.power(numpy.log(i * y_in + j), 2.0)
+            temp += d * numpy.square(numpy.log(g * x_in + h))
+            temp += f * numpy.square(numpy.log(i * y_in + j))
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300

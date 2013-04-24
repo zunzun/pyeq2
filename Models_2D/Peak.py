@@ -26,9 +26,9 @@ numpy.seterr(over = 'raise', divide = 'raise', invalid = 'raise', under = 'ignor
 import pyeq2.Model_2D_BaseClass
 
 ln_2 = numpy.log(2.0)
-sqr_root_two = numpy.power(2.0, 0.5)
-neg_sqr_root_two = -1.0 * numpy.power(2.0, 0.5)
-sqr_root_two_pi = numpy.power(2.0 * numpy.pi, 0.5)
+sqr_root_two = numpy.sqrt(2.0)
+neg_sqr_root_two = -1.0 * sqr_root_two
+sqr_root_two_pi = numpy.sqrt(2.0 * numpy.pi)
 
 
 class LaplacePeak(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
@@ -230,7 +230,7 @@ class ArnoldCohenLogNormalShifted(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         g = inCoeffs[5]
 
         try:
-            temp = (a * numpy.exp(-0.5 * numpy.power((numpy.log(x_in-f)-b) / c, 2.0))) / (d * (x_in-g))
+            temp = (a * numpy.exp(-0.5 * numpy.square((numpy.log(x_in-f)-b) / c))) / (d * (x_in-g))
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -283,7 +283,7 @@ class ArnoldCohenTwoParameterLogNormalShifted(pyeq2.Model_2D_BaseClass.Model_2D_
         f = inCoeffs[3]
 
         try:
-            temp = numpy.exp(-0.5 * numpy.power((numpy.log(x_in-d)-b) / c, 2.0)) / (self.sqrt2pi * c * (x_in-f))
+            temp = numpy.exp(-0.5 * numpy.square((numpy.log(x_in-d)-b) / c)) / (self.sqrt2pi * c * (x_in-f))
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -736,7 +736,7 @@ class GaussianPeak(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         c = inCoeffs[2]
 
         try:
-            temp = a * numpy.exp(-0.5 * numpy.power((x_in-b) / c, 2.0))
+            temp = a * numpy.exp(-0.5 * numpy.square((x_in-b) / c))
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -837,7 +837,7 @@ class GaussianArea(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         c = inCoeffs[2]
 
         try:
-            temp = (a / (sqr_root_two_pi * c)) * numpy.exp(-0.5 * numpy.power((x_in-b) / c, 2.0))
+            temp = (a / (sqr_root_two_pi * c)) * numpy.exp(-0.5 * numpy.square((x_in-b) / c))
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -887,7 +887,7 @@ class LogNormalA(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         c = inCoeffs[2]
 
         try:
-            temp = a * numpy.exp(-0.5 * numpy.power((x_LogX-b) / c, 2.0))
+            temp = a * numpy.exp(-0.5 * numpy.square((x_LogX-b) / c))
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -939,7 +939,7 @@ class LogNormalB(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         c = inCoeffs[2]
 
         try:
-            temp = a * numpy.exp(-0.5 * numpy.power(numpy.log(x_in/b) / c, 2.0))
+            temp = a * numpy.exp(-0.5 * numpy.square(numpy.log(x_in/b) / c))
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -990,7 +990,7 @@ class LogNormalAShifted(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         d = inCoeffs[3]
 
         try:
-            temp = a * numpy.exp(-0.5 * numpy.power((numpy.log(x_in-d)-b) / c, 2.0))
+            temp = a * numpy.exp(-0.5 * numpy.square((numpy.log(x_in-d)-b) / c))
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -1041,7 +1041,7 @@ class LogNormalBShifted(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         d = inCoeffs[3]
 
         try:
-            temp = a * numpy.exp(-0.5 * numpy.power(numpy.log((x_in-d)/b) / c, 2.0))
+            temp = a * numpy.exp(-0.5 * numpy.square(numpy.log((x_in-d)/b) / c))
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -1299,7 +1299,7 @@ class LogisticPeak(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         c = inCoeffs[2]
 
         try:
-            temp = 4.0 * a * numpy.exp(-1.0 * (x_in - b) / c) / numpy.power(1.0 + numpy.exp(-1.0 * (x_in - b) / c), 2.0)
+            temp = 4.0 * a * numpy.exp(-1.0 * (x_in - b) / c) / numpy.square(1.0 + numpy.exp(-1.0 * (x_in - b) / c))
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -1349,7 +1349,7 @@ class LogisticArea(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         c = inCoeffs[2]
 
         try:
-            temp = a * numpy.exp(-1.0 * (x_in - b) / c) / (c * numpy.power(1.0 + numpy.exp(-1.0 * (x_in - b) / c), 2.0))
+            temp = a * numpy.exp(-1.0 * (x_in - b) / c) / (c * numpy.square(1.0 + numpy.exp(-1.0 * (x_in - b) / c)))
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -1398,7 +1398,7 @@ class LorentzianModifiedPeakA(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         b = inCoeffs[1]
 
         try:
-            temp = 1.0 / (1.0 + numpy.power(x_in-a, 2.0))
+            temp = 1.0 / (1.0 + numpy.square(x_in-a))
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -1751,7 +1751,7 @@ class LorentzianPeakA(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         a = inCoeffs[0]
 
         try:
-            temp = 1.0 / (1.0 + numpy.power(x_in-a, 2.0))
+            temp = 1.0 / (1.0 + numpy.square(x_in-a))
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -1800,7 +1800,7 @@ class LorentzianPeakB(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         b = inCoeffs[1]
 
         try:
-            temp = 1.0 / (a + numpy.power(x_in-b, 2.0))
+            temp = 1.0 / (a + numpy.square(x_in-b))
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -1850,7 +1850,7 @@ class LorentzianPeakC(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         c = inCoeffs[2]
 
         try:
-            temp = a/ (b + numpy.power(x_in-c, 2.0))
+            temp = a/ (b + numpy.square(x_in-c))
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -1899,7 +1899,7 @@ class LorentzianPeakD(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         b = inCoeffs[1]
 
         try:
-            temp = 1.0 / (1.0 + numpy.power((x_in-a) / b, 2.0))
+            temp = 1.0 / (1.0 + numpy.square((x_in-a) / b))
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -1949,7 +1949,7 @@ class LorentzianPeakE(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         c = inCoeffs[2]
 
         try:
-            temp = 1.0 / (a + numpy.power((x_in-b)/c, 2.0))
+            temp = 1.0 / (a + numpy.square((x_in-b)/c))
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -2000,7 +2000,7 @@ class LorentzianPeakF(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         d = inCoeffs[3]
 
         try:
-            temp = a/ (b + numpy.power((x_in-c)/d, 2.0))
+            temp = a/ (b + numpy.square((x_in-c)/d))
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -2050,7 +2050,7 @@ class LorentzianPeakG(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         c = inCoeffs[2]
 
         try:
-            temp = a/ (1.0 + numpy.power((x_in-b)/c, 2.0))
+            temp = a/ (1.0 + numpy.square((x_in-b)/c))
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -2101,7 +2101,7 @@ class PseudoVoight(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         d = inCoeffs[3]
 
         try:
-            temp = numpy.power((x_in-b) / c, 2.0)
+            temp = numpy.square((x_in-b) / c)
             temp = a * (d * (1.0 / (1.0 + temp)) + (1.0-d) * numpy.exp(-0.5 * temp))
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
@@ -2259,7 +2259,7 @@ class WeibullPeak(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         c = inCoeffs[2]
 
         try:
-            temp = a * numpy.exp(-0.5 * numpy.power(numpy.log(x_in/b) / c, 2.0))
+            temp = a * numpy.exp(-0.5 * numpy.square(numpy.log(x_in/b) / c))
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -2310,7 +2310,7 @@ class WeibullPeakShifted(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         d = inCoeffs[3]
 
         try:
-            temp = a * numpy.exp(-0.5 * numpy.power(numpy.log((x_in-d)/b) / c, 2.0))
+            temp = a * numpy.exp(-0.5 * numpy.square(numpy.log((x_in-d)/b) / c))
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -2466,7 +2466,7 @@ class LogNormal4Parameter(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         d = inCoeffs[3]
 
         try:
-            temp = a * numpy.exp(-1.0 * numpy.power(ln_2 * numpy.log((((x_in-b) * (numpy.power(d, 2.0)-1.0)) / (c*d)) + 1.0), 2.0) / numpy.power(numpy.log(d), 2.0))
+            temp = a * numpy.exp(-1.0 * numpy.square(ln_2 * numpy.log((((x_in-b) * (numpy.square(d)-1.0)) / (c*d)) + 1.0)) / numpy.square(numpy.log(d)))
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300

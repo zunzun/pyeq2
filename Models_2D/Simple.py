@@ -512,7 +512,7 @@ class SimpleEquation_09(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         c = inCoeffs[2]
 
         try:
-            temp = a * numpy.exp((numpy.power(x_in-b,2.0))/c)
+            temp = a * numpy.exp((numpy.square(x_in-b))/c)
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -562,7 +562,7 @@ class SimpleEquation_10(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         c = inCoeffs[2]
 
         try:
-            temp = a * numpy.exp((numpy.power(x_LogX-b,2.0))/c)
+            temp = a * numpy.exp((numpy.square(x_LogX-b))/c)
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -1272,7 +1272,7 @@ class SimpleEquation_26(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         c = inCoeffs[2]
 
         try:
-            temp = a/numpy.power(1.0+b*numpy.power(x_in,c),2.0)
+            temp = a/numpy.square(1.0+b*numpy.power(x_in,c))
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300

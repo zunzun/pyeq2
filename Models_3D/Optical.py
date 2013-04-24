@@ -66,8 +66,8 @@ class SagForAsphere0(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
 
         try:
             s_sq = XSQPLUSYSQ
-            s_over_r = pow(s_sq, 0.5) / r
-            temp = (s_sq / r) / (1.0 + pow(1.0 - (k + 1.0) * s_over_r * s_over_r, 0.5))
+            s_over_r = numpy.sqrt(s_sq) / r
+            temp = (s_sq / r) / (1.0 + numpy.sqrt(1.0 - (k + 1.0) * s_over_r * s_over_r))
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -125,8 +125,8 @@ class SagForAsphere0_Transform(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
         d = inCoeffs[5]
 
         try:
-            s_sq = numpy.power(a*x_in+b, 2.0) + numpy.power(c*y_in+d, 2.0)
-            s_over_r = pow(s_sq, 0.5) / r
+            s_sq = numpy.square(a*x_in+b) + numpy.square(c*y_in+d)
+            s_over_r = numpy.sqrt(s_sq) / r
             temp = (s_sq / r) / (1.0 + pow(1.0 - (k + 1.0) * s_over_r * s_over_r, 0.5))
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
@@ -183,8 +183,8 @@ class SagForAsphere1(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
 
         try:
             s_sq = XSQPLUSYSQ
-            s_over_r = pow(s_sq, 0.5) / r
-            temp = (s_sq / r) / (1.0 + pow(1.0 - (k + 1.0) * s_over_r * s_over_r, 0.5)) + A4 * XSQPLUSYSQ_POW4_3D
+            s_over_r = numpy.sqrt(s_sq) / r
+            temp = (s_sq / r) / (1.0 + numpy.sqrt(1.0 - (k + 1.0) * s_over_r * s_over_r)) + A4 * XSQPLUSYSQ_POW4_3D
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -244,8 +244,8 @@ class SagForAsphere1_Transform(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
         d = inCoeffs[6]
 
         try:
-            s_sq = numpy.power(a*x_in+b, 2.0) + numpy.power(c*y_in+d, 2.0)
-            s_over_r = pow(s_sq, 0.5) / r
+            s_sq = numpy.square(a*x_in+b) + numpy.square(c*y_in+d)
+            s_over_r = numpy.sqrt(s_sq) / r
             temp = (s_sq / r) / (1.0 + pow(1.0 - (k + 1.0) * s_over_r * s_over_r, 0.5)) + A4 * numpy.power(s_sq, 4.0)
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
@@ -306,8 +306,8 @@ class SagForAsphere2(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
 
         try:
             s_sq = XSQPLUSYSQ
-            s_over_r = pow(s_sq, 0.5) / r
-            temp = (s_sq / r) / (1.0 + pow(1.0 - (k + 1.0) * s_over_r * s_over_r, 0.5)) + A4 * XSQPLUSYSQ_POW4_3D + A6 * XSQPLUSYSQ_POW6_3D
+            s_over_r = numpy.sqrt(s_sq) / r
+            temp = (s_sq / r) / (1.0 + numpy.sqrt(1.0 - (k + 1.0) * s_over_r * s_over_r)) + A4 * XSQPLUSYSQ_POW4_3D + A6 * XSQPLUSYSQ_POW6_3D
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -369,9 +369,9 @@ class SagForAsphere2_Transform(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
         d = inCoeffs[7]
 
         try:
-            s_sq = numpy.power(a*x_in+b, 2.0) + numpy.power(c*y_in+d, 2.0)
-            s_over_r = pow(s_sq, 0.5) / r
-            temp = (s_sq / r) / (1.0 + pow(1.0 - (k + 1.0) * s_over_r * s_over_r, 0.5)) + A4 * numpy.power(s_sq, 4.0) + A6 * numpy.power(s_sq, 6.0)
+            s_sq = numpy.square(a*x_in+b) + numpy.square(c*y_in+d)
+            s_over_r = numpy.sqrt(s_sq) / r
+            temp = (s_sq / r) / (1.0 + numpy.sqrt(1.0 - (k + 1.0) * s_over_r * s_over_r)) + A4 * numpy.power(s_sq, 4.0) + A6 * numpy.power(s_sq, 6.0)
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -435,8 +435,8 @@ class SagForAsphere3(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
 
         try:
             s_sq = XSQPLUSYSQ
-            s_over_r = pow(s_sq, 0.5) / r
-            temp = (s_sq / r) / (1.0 + pow(1.0 - (k + 1.0) * s_over_r * s_over_r, 0.5)) + A4 * XSQPLUSYSQ_POW4_3D + A6 * XSQPLUSYSQ_POW6_3D + A8 * XSQPLUSYSQ_POW8_3D
+            s_over_r = numpy.power(s_sq) / r
+            temp = (s_sq / r) / (1.0 + numpy.sqrt(1.0 - (k + 1.0) * s_over_r * s_over_r)) + A4 * XSQPLUSYSQ_POW4_3D + A6 * XSQPLUSYSQ_POW6_3D + A8 * XSQPLUSYSQ_POW8_3D
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -501,9 +501,9 @@ class SagForAsphere3_Transform(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
         d = inCoeffs[8]
 
         try:
-            s_sq = numpy.power(a*x_in+b, 2.0) + numpy.power(c*y_in+d, 2.0)
-            s_over_r = pow(s_sq, 0.5) / r
-            temp = (s_sq / r) / (1.0 + pow(1.0 - (k + 1.0) * s_over_r * s_over_r, 0.5)) + A4 * numpy.power(s_sq, 4.0) + A6 * numpy.power(s_sq, 6.0) + A8 * numpy.power(s_sq, 8.0)
+            s_sq = numpy.square(a*x_in+b) + numpy.square(c*y_in+d)
+            s_over_r = numpy.sqrt(s_sq) / r
+            temp = (s_sq / r) / (1.0 + numpy.sqrt(1.0 - (k + 1.0) * s_over_r * s_over_r)) + A4 * numpy.power(s_sq, 4.0) + A6 * numpy.power(s_sq, 6.0) + A8 * numpy.power(s_sq, 8.0)
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -565,7 +565,7 @@ class SagForAsphere0_Borisovsky(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
         try:
             s_sq = (x_in - a) * (x_in - a) + (y_in - b) * (y_in - b)
             s_over_r = pow(s_sq, 0.5) / r
-            temp = (s_sq / r) / (1.0 + pow(1.0 - (k + 1.0) * s_over_r * s_over_r, 0.5)) + offset
+            temp = (s_sq / r) / (1.0 + numpy.sqrt(1.0 - (k + 1.0) * s_over_r * s_over_r)) + offset
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300

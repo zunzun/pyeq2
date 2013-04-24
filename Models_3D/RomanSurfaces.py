@@ -66,7 +66,7 @@ class RomanSurfaceMinus(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
         k = inCoeffs[0]
 
         try:
-            temp = (k * YSQMINUSXSQ - XSQMINUSYSQ * numpy.power(k * k - XSQMINUSYSQ, 0.5)) / (2.0 * XSQPLUSYSQ)
+            temp = (k * YSQMINUSXSQ - XSQMINUSYSQ * numpy.sqrt(k * k - XSQMINUSYSQ)) / (2.0 * XSQPLUSYSQ)
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -120,7 +120,7 @@ class RomanSurfaceMinus_OffsetXY(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
         try:
             temp_x_sq = (x_in + a) * (x_in + a)
             temp_y_sq = (y_in + b) * (y_in + b)
-            temp = (k * (temp_y_sq - temp_x_sq) - (temp_x_sq - temp_y_sq) * numpy.power(k * k - temp_x_sq - temp_y_sq, 0.5)) / (2.0 * (temp_x_sq + temp_y_sq))
+            temp = (k * (temp_y_sq - temp_x_sq) - (temp_x_sq - temp_y_sq) * numpy.sqrt(k * k - temp_x_sq - temp_y_sq)) / (2.0 * (temp_x_sq + temp_y_sq))
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -178,7 +178,7 @@ class RomanSurfaceMinus_ScaledAndOffsetXY(pyeq2.Model_3D_BaseClass.Model_3D_Base
         try:
             temp_x_sq = (a * x_in + b) * (a * x_in + b)
             temp_y_sq = (c * y_in + d) * (c * y_in + d)
-            temp = (k * (temp_y_sq - temp_x_sq) - (temp_x_sq - temp_y_sq) * pow(k * k - temp_x_sq - temp_y_sq, 0.5)) / (2.0 * (temp_x_sq + temp_y_sq))
+            temp = (k * (temp_y_sq - temp_x_sq) - (temp_x_sq - temp_y_sq) * numpy.power(k * k - temp_x_sq - temp_y_sq)) / (2.0 * (temp_x_sq + temp_y_sq))
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -232,7 +232,7 @@ class RomanSurfacePlus(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
         k = inCoeffs[0]
 
         try:
-            temp = (k * YSQMINUSXSQ + XSQMINUSYSQ * numpy.power(k * k - XSQMINUSYSQ, 0.5)) / (2.0 * XSQPLUSYSQ)
+            temp = (k * YSQMINUSXSQ + XSQMINUSYSQ * numpy.sqrt(k * k - XSQMINUSYSQ)) / (2.0 * XSQPLUSYSQ)
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -286,7 +286,7 @@ class RomanSurfacePlus_OffsetXY(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
         try:
             temp_x_sq = (x_in + a) * (x_in + a)
             temp_y_sq = (y_in + b) * (y_in + b)
-            temp = (k * (temp_y_sq - temp_x_sq) + (temp_x_sq - temp_y_sq) * pow(k * k - temp_x_sq - temp_y_sq, 0.5)) / (2.0 * (temp_x_sq + temp_y_sq))
+            temp = (k * (temp_y_sq - temp_x_sq) + (temp_x_sq - temp_y_sq) * numpy.sqrt(k * k - temp_x_sq - temp_y_sq)) / (2.0 * (temp_x_sq + temp_y_sq))
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -344,7 +344,7 @@ class RomanSurfacePlus_ScaledAndOffsetXY(pyeq2.Model_3D_BaseClass.Model_3D_BaseC
         try:
             temp_x_sq = (a * x_in + b) * (a * x_in + b)
             temp_y_sq = (c * y_in + d) * (c * y_in + d)
-            temp = (k * (temp_y_sq - temp_x_sq) + (temp_x_sq - temp_y_sq) * pow(k * k - temp_x_sq - temp_y_sq, 0.5)) / (2.0 * (temp_x_sq + temp_y_sq))
+            temp = (k * (temp_y_sq - temp_x_sq) + (temp_x_sq - temp_y_sq) * numpy.sqrt(k * k - temp_x_sq - temp_y_sq)) / (2.0 * (temp_x_sq + temp_y_sq))
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300

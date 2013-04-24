@@ -178,7 +178,7 @@ class GaussianA(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
         f = inCoeffs[4]
 
         try:
-            temp = a * numpy.exp(-0.5 * (numpy.power((x_in-b)/c, 2.0) + numpy.power((y_in-d)/f, 2.0)))
+            temp = a * numpy.exp(-0.5 * (numpy.square((x_in-b)/c) + numpy.square((y_in-d)/f)))
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -233,8 +233,8 @@ class GaussianB(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
         g = inCoeffs[5]
 
         try:
-            temp = a * numpy.exp(-0.5 * (numpy.power((x_in-b)/c, 2.0)))
-            temp += d * numpy.exp(-0.5 * (numpy.power((y_in-f)/g, 2.0)))
+            temp = a * numpy.exp(-0.5 * (numpy.square((x_in-b)/c)))
+            temp += d * numpy.exp(-0.5 * (numpy.square((y_in-f)/g)))
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -288,7 +288,7 @@ class LogNormalA(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
         f = inCoeffs[4]
 
         try:
-            temp = a * numpy.exp(-0.5 * (numpy.power((LogX-b)/c, 2.0) + numpy.power((LogY-d)/f, 2.0)))
+            temp = a * numpy.exp(-0.5 * (numpy.square((LogX-b)/c) + numpy.square((LogY-d)/f)))
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -343,8 +343,8 @@ class LogNormalB(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
         g = inCoeffs[5]
 
         try:
-            temp = a * numpy.exp(-0.5 * (numpy.power((LogX-b)/c, 2.0)))
-            temp += d * numpy.exp(-0.5 * (numpy.power((LogY-f)/g, 2.0)))
+            temp = a * numpy.exp(-0.5 * (numpy.square((LogX-b)/c)))
+            temp += d * numpy.exp(-0.5 * (numpy.square((LogY-f)/g)))
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -399,8 +399,8 @@ class LogisticA(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
         g = inCoeffs[5]
 
         try:
-            temp = 4.0 * a * numpy.exp(-((x_in-b)/c)) / numpy.power(1.0 + numpy.exp(-((x_in-b)/c)), 2.0)
-            temp += 4.0 * d * numpy.exp(-((y_in-f)/g)) / numpy.power(1.0 + numpy.exp(-((y_in-f)/g)), 2.0)
+            temp = 4.0 * a * numpy.exp(-((x_in-b)/c)) / numpy.square(1.0 + numpy.exp(-((x_in-b)/c)))
+            temp += 4.0 * d * numpy.exp(-((y_in-f)/g)) / numpy.square(1.0 + numpy.exp(-((y_in-f)/g)))
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -454,7 +454,7 @@ class LogisticB(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
         f = inCoeffs[4]
 
         try:
-            temp = 16.0 * a * numpy.exp(-((x_in-b)/c)-((y_in-d)/f)) / (numpy.power(1.0 + numpy.exp(-((x_in-b)/c)), 2.0) * numpy.power(1.0 + numpy.exp(-((y_in-d)/f)), 2.0))
+            temp = 16.0 * a * numpy.exp(-((x_in-b)/c)-((y_in-d)/f)) / (numpy.square(1.0 + numpy.exp(-((x_in-b)/c))) * numpy.square(1.0 + numpy.exp(-((y_in-d)/f))))
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -508,7 +508,7 @@ class LorentzianA(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
         f = inCoeffs[4]
 
         try:
-            temp = a / ((1.0 + numpy.power((x_in-b)/c, 2.0)) * (1.0 + numpy.power((y_in-d)/f, 2.0)))
+            temp = a / ((1.0 + numpy.square((x_in-b)/c)) * (1.0 + numpy.square((y_in-d)/f)))
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -563,7 +563,7 @@ class LorentzianB(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
         g = inCoeffs[5]
 
         try:
-            temp = a / (1.0 + numpy.power((x_in-b)/c, 2.0)) + d / (1.0 + numpy.power((y_in-f)/g, 2.0))
+            temp = a / (1.0 + numpy.square((x_in-b)/c)) + d / (1.0 + numpy.square((y_in-f)/g))
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300

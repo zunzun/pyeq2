@@ -118,7 +118,7 @@ class arcsin_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         b = inCoeffs[1]
 
         try:
-            temp = a / numpy.power(b*b - x_Pow2, 0.5)
+            temp = a / numpy.sqrt(b*b - x_Pow2)
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -822,7 +822,7 @@ class fisk_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         c = inCoeffs[2]
 
         try:
-            temp = (c/b) * numpy.power((x_in-a)/b, c-1.0) / numpy.power(1.0 + numpy.power((x_in-a)/b, c), 2.0)
+            temp = (c/b) * numpy.power((x_in-a)/b, c-1.0) / numpy.square(1.0 + numpy.power((x_in-a)/b, c))
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -1466,7 +1466,7 @@ class inverse_gaussian_pdf_a(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
         try:
             xminusa = (x_in-a)
-            temp = numpy.power(b/(c*x_Pow3), 0.5) * numpy.exp(-b*xminusa*xminusa / (2.0*a*a*x_in))
+            temp = numpy.sqrt(b/(c*x_Pow3)) * numpy.exp(-b*xminusa*xminusa / (2.0*a*a*x_in))
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -1520,7 +1520,7 @@ class inverse_gaussian_pdf_b(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
         try:
             xminusa = (x_in-a)
-            temp = d * numpy.power(b/(c*x_Pow3), 0.5) * numpy.exp(-b*xminusa*xminusa / (2.0*a*a*x_in))
+            temp = d * numpy.sqrt(b/(c*x_Pow3)) * numpy.exp(-b*xminusa*xminusa / (2.0*a*a*x_in))
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -1570,7 +1570,7 @@ class levy_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         b = inCoeffs[1]
 
         try:
-            temp = numpy.power(b, 0.5)*numpy.exp(-b/(2.0*(x_in-a)))/numpy.power(numpy.power(x_in-a, 3.0), 0.5)
+            temp = numpy.sqrt(b)*numpy.exp(-b/(2.0*(x_in-a)))/numpy.sqrt(numpy.power(x_in-a, 3.0))
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300

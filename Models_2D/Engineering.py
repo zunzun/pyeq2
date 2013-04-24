@@ -120,7 +120,7 @@ class DispersionOpticalSqrt(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         A4 = inCoeffs[3]
 
         try:
-            temp = numpy.power(A1 + (A2 * x_PowX2) + (A3 / x_PowX2) + (A4 / x_PowX4), 0.5)
+            temp = numpy.sqrt(A1 + (A2 * x_PowX2) + (A3 / x_PowX2) + (A4 / x_PowX4))
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -171,7 +171,7 @@ class Extended_Steinhart_Hart(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         D = inCoeffs[3]
 
         try:
-            temp = A + B*x_LogX + C*numpy.power(x_LogX, 2.0) + D*numpy.power(x_LogX, 3.0)
+            temp = A + B*x_LogX + C*numpy.square(x_LogX) + D*numpy.power(x_LogX, 3.0)
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -274,7 +274,7 @@ class Reciprocal_Extended_Steinhart_Hart(pyeq2.Model_2D_BaseClass.Model_2D_BaseC
         D = inCoeffs[3]
 
         try:
-            temp = 1.0 / (A + B*x_LogX + C*numpy.power(x_LogX, 2.0) + D*numpy.power(x_LogX, 3.0))
+            temp = 1.0 / (A + B*x_LogX + C*numpy.square(x_LogX) + D*numpy.power(x_LogX, 3.0))
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -432,7 +432,7 @@ class SellmeierOpticalSqrt(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         C3 = inCoeffs[5]
 
         try:
-            temp = numpy.power(1.0 + ((B1 * x_PowX2)/(x_PowX2 - C1)) + ((B2 * x_PowX2)/(x_PowX2 - C2)) + ((B3 * x_PowX2)/(x_PowX2 - C3)), 0.5)
+            temp = numpy.sqrt(1.0 + ((B1 * x_PowX2)/(x_PowX2 - C1)) + ((B2 * x_PowX2)/(x_PowX2 - C2)) + ((B3 * x_PowX2)/(x_PowX2 - C3)))
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
