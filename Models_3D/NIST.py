@@ -81,7 +81,7 @@ class NIST_NelsonAutolog(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
 class NIST_Nelson(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
     
     _baseName = "NIST Nelson"
-    _HTML = 'log(y) = b1 - b2 * x * exp(-b3*y)'
+    _HTML = 'log(y) = b1 - b2 * X1 * exp(-b3*X2)'
     _leftSideHTML = 'log(y)'
     _coefficientDesignators = ['b1', 'b2', 'b3']
     _canLinearSolverBeUsedForSSQABS = False
