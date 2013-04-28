@@ -2,7 +2,7 @@ from __future__ import print_function
 from __future__ import unicode_literals
 from __future__ import absolute_import
 
-import os, sys
+import os, sys, math
 
 # ensure pyeq2 can be imported
 if os.path.join(sys.path[0][:sys.path[0].rfind(os.sep)], '..') not in sys.path:
@@ -18,12 +18,15 @@ class NistDataObject(object):
         self.CertifiedValues = []
         self.CertifiedValuesStandardDeviation = []
         self.RawDataIn_XY_Format = ''
+        self.RawDataIn_XYZ_Format = ''
         self.ResidualSumOfSquaresString = ''
         self.ResidualSumOfSquaresValue = None
 
 
 
-def LoadDataFileFromNIST(inFileName):
+# inTakeLogOfDependantDataFlag used for the Nelson 3D fit, where data and
+# fit statistics use log(y) but the data file contains y and not log(y)
+def LoadDataFileFromNIST(inFileName, inTakeLogOfDependantDataFlag = False):
     
     f = open(inFileName, 'rt')
     fileLines = f.readlines()
@@ -47,21 +50,34 @@ def LoadDataFileFromNIST(inFileName):
     nistDataObject.ResidualSumOfSquaresString = fileLines[endLine + 1].split()[-1:][0]
     nistDataObject.ResidualSumOfSquaresValue = float(nistDataObject.ResidualSumOfSquaresString)
         
-    # data in x y format (reverse of NIST data file)
+    # data in x y (z) format (reverse of NIST data file)
     splitted = fileLines[6].replace(')', '').split()
     beginLine = int(splitted[2])
     endLine = int(splitted[4])
     
     for lineIndex in range(beginLine - 1, endLine):
         splitted = fileLines[lineIndex].split()
-        nistDataObject.RawDataIn_XY_Format += splitted[1] + ' ' + splitted[0] + '\n'
+        
+        depString = splitted[0]
+        if inTakeLogOfDependantDataFlag == True:
+            depString = str(math.log(float(depString)))
+            
+        if len(splitted) == 2:
+            nistDataObject.RawDataIn_XY_Format += splitted[1] + ' ' + depString + '\n'
+        else:
+            nistDataObject.RawDataIn_XYZ_Format += splitted[1] + ' ' + splitted[2] + ' ' + depString + '\n'
         
     return nistDataObject
 
 
 def CalculateAndPrintResults(equation, nistDataObject, inStartValues, inStartValuesString, inPrintFlag):
 
-    pyeq2.dataConvertorService().ConvertAndSortColumnarASCII(nistDataObject.RawDataIn_XY_Format, equation, False)
+    if nistDataObject.RawDataIn_XY_Format != "": # 2D data
+        rawData = nistDataObject.RawDataIn_XY_Format
+    else: # 3D data
+        rawData = nistDataObject.RawDataIn_XYZ_Format
+    
+    pyeq2.dataConvertorService().ConvertAndSortColumnarASCII(rawData, equation, False)
     
     equation.estimatedCoefficients = inStartValues
     

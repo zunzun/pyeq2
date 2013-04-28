@@ -11,8 +11,27 @@ import pyeq2
 
 import NIST_TestingUtilities
 
+# from http://www.itl.nist.gov/div898/strd/nls/nls_info.shtml
+#
+# The certified results are reported to 11 decimal places for each dataset.
+# Clearly, most of these digits are not statistically significant, and we
+# are not advocating that results should be reported to this number of
+# digits in a statistical context. We do believe, however, that this
+# number of digits can be useful when testing the numerical properties of
+# a procedure. Except in cases where the certified value is essentially
+# zero (for example, as occurs for the three Lanczos problems), a good
+# nonlinear least squares procedure should be able to duplicate the
+# certified results to at least 4 or 5 digits.
 
 class Test_NIST(unittest.TestCase):
+    
+    def test_NIST_Nelson_3D(self):
+        nistDataObject = NIST_TestingUtilities.LoadDataFileFromNIST('NIST_DataFiles/Nelson.dat', True)
+        result1 = NIST_TestingUtilities.CalculateAndPrintResults(pyeq2.Models_3D.NIST.NIST_Nelson(), nistDataObject, nistDataObject.Start_1_Values, 'Start 1', False)
+        result2 = NIST_TestingUtilities.CalculateAndPrintResults(pyeq2.Models_3D.NIST.NIST_Nelson(), nistDataObject, nistDataObject.Start_2_Values, 'Start 2', False)
+        self.assertTrue(result1)
+        self.assertTrue(result2)
+
     
     def test_NIST_Bennett5_2D(self):
         nistDataObject = NIST_TestingUtilities.LoadDataFileFromNIST('NIST_DataFiles/Bennett5.dat')

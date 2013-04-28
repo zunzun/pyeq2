@@ -18,6 +18,7 @@ from . import EnzymeKinetics
 from . import Exponential
 from . import Logarithmic
 from . import Miscellaneous
+from . import NIST
 from . import Optical
 from . import Peak
 from . import Polyfunctional
