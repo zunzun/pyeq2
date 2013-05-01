@@ -9,6 +9,17 @@ if os.path.join(sys.path[0][:sys.path[0].rfind(os.sep)], '..') not in sys.path:
     sys.path.append(os.path.join(sys.path[0][:sys.path[0].rfind(os.sep)], '..'))
 import pyeq2
 
+# from http://www.itl.nist.gov/div898/strd/nls/nls_info.shtml
+#
+# The certified results are reported to 11 decimal places for each dataset.
+# Clearly, most of these digits are not statistically significant, and we
+# are not advocating that results should be reported to this number of
+# digits in a statistical context. We do believe, however, that this
+# number of digits can be useful when testing the numerical properties of
+# a procedure. Except in cases where the certified value is essentially
+# zero (for example, as occurs for the three Lanczos problems), a good
+# nonlinear least squares procedure should be able to duplicate the
+# certified results to at least 4 or 5 digits.
 
 class NistDataObject(object):
     
@@ -85,10 +96,14 @@ def CalculateAndPrintResults(equation, nistDataObject, inStartValues, inStartVal
     
     ssq = equation.CalculateAllDataFittingTarget(equation.solvedCoefficients)
     
-    # NIST truncates SSQ to 10 decimal places.  First check if the same truncation
-    # in Python gives the same result, then compare actual values if that fails
-    ssqString = "%-.10E" % (ssq)
-    if ssqString == nistDataObject.ResidualSumOfSquaresString:
+    #
+    # See the NIST note at the top of this file regarding dignificant digits.
+    # NIST files truncate SSQ to 10 decimal places.  First check if 8 decimal
+    # places (to allow for machine precision, rounding, etc) in Python
+    # gives the same result as NIST, then compare actual values if that fails
+    # as it is possible though very, very unlikely that pyeq2 fits better than NIST.
+    ssqString = "%-.11E" % (ssq)
+    if (ssqString[:10] + ssqString[-4:]) == (nistDataObject.ResidualSumOfSquaresString[:10] + nistDataObject.ResidualSumOfSquaresString[-4:]):
         compareString = '- equal to NIST'
         betterThanOrEqualToNIST = True
     else:

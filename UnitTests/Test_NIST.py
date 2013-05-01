@@ -49,8 +49,16 @@ class Test_NIST(unittest.TestCase):
         self.assertTrue(result2)
         
         
-    def test_NIST_Chwirut_2D(self):
+    def test_NIST_Chwirut1_2D(self):
         nistDataObject = NIST_TestingUtilities.LoadDataFileFromNIST('NIST_DataFiles/Chwirut1.dat')
+        result1 = NIST_TestingUtilities.CalculateAndPrintResults(pyeq2.Models_2D.NIST.NIST_Chwirut(), nistDataObject, nistDataObject.Start_1_Values, 'Start 1', False)
+        result2 = NIST_TestingUtilities.CalculateAndPrintResults(pyeq2.Models_2D.NIST.NIST_Chwirut(), nistDataObject, nistDataObject.Start_2_Values, 'Start 2', False)
+        self.assertTrue(result1)
+        self.assertTrue(result2)
+        
+        
+    def test_NIST_Chwirut2_2D(self):
+        nistDataObject = NIST_TestingUtilities.LoadDataFileFromNIST('NIST_DataFiles/Chwirut2.dat')
         result1 = NIST_TestingUtilities.CalculateAndPrintResults(pyeq2.Models_2D.NIST.NIST_Chwirut(), nistDataObject, nistDataObject.Start_1_Values, 'Start 1', False)
         result2 = NIST_TestingUtilities.CalculateAndPrintResults(pyeq2.Models_2D.NIST.NIST_Chwirut(), nistDataObject, nistDataObject.Start_2_Values, 'Start 2', False)
         self.assertTrue(result1)
@@ -81,8 +89,24 @@ class Test_NIST(unittest.TestCase):
         self.assertTrue(result2)
         
         
-    def test_NIST_Gauss_2D(self):
+    def test_NIST_Gauss1_2D(self):
         nistDataObject = NIST_TestingUtilities.LoadDataFileFromNIST('NIST_DataFiles/Gauss1.dat')
+        result1 = NIST_TestingUtilities.CalculateAndPrintResults(pyeq2.Models_2D.NIST.NIST_Gauss(), nistDataObject, nistDataObject.Start_1_Values, 'Start 1', False)
+        result2 = NIST_TestingUtilities.CalculateAndPrintResults(pyeq2.Models_2D.NIST.NIST_Gauss(), nistDataObject, nistDataObject.Start_2_Values, 'Start 2', False)
+        self.assertTrue(result1)
+        self.assertTrue(result2)
+        
+        
+    def test_NIST_Gauss2_2D(self):
+        nistDataObject = NIST_TestingUtilities.LoadDataFileFromNIST('NIST_DataFiles/Gauss2.dat')
+        result1 = NIST_TestingUtilities.CalculateAndPrintResults(pyeq2.Models_2D.NIST.NIST_Gauss(), nistDataObject, nistDataObject.Start_1_Values, 'Start 1', False)
+        result2 = NIST_TestingUtilities.CalculateAndPrintResults(pyeq2.Models_2D.NIST.NIST_Gauss(), nistDataObject, nistDataObject.Start_2_Values, 'Start 2', False)
+        self.assertTrue(result1)
+        self.assertTrue(result2)
+        
+        
+    def test_NIST_Gauss3_2D(self):
+        nistDataObject = NIST_TestingUtilities.LoadDataFileFromNIST('NIST_DataFiles/Gauss3.dat')
         result1 = NIST_TestingUtilities.CalculateAndPrintResults(pyeq2.Models_2D.NIST.NIST_Gauss(), nistDataObject, nistDataObject.Start_1_Values, 'Start 1', False)
         result2 = NIST_TestingUtilities.CalculateAndPrintResults(pyeq2.Models_2D.NIST.NIST_Gauss(), nistDataObject, nistDataObject.Start_2_Values, 'Start 2', False)
         self.assertTrue(result1)
@@ -105,8 +129,24 @@ class Test_NIST(unittest.TestCase):
         self.assertTrue(result2)
         
         
-    def test_NIST_Lanczos_2D(self):
+    def test_NIST_Lanczos1_2D(self):
         nistDataObject = NIST_TestingUtilities.LoadDataFileFromNIST('NIST_DataFiles/Lanczos1.dat')
+        result1 = NIST_TestingUtilities.CalculateAndPrintResults(pyeq2.Models_2D.NIST.NIST_Lanczos(), nistDataObject, nistDataObject.Start_1_Values, 'Start 1', False)
+        result2 = NIST_TestingUtilities.CalculateAndPrintResults(pyeq2.Models_2D.NIST.NIST_Lanczos(), nistDataObject, nistDataObject.Start_2_Values, 'Start 2', False)
+        self.assertTrue(result1)
+        self.assertTrue(result2)
+        
+        
+    def test_NIST_Lanczos2_2D(self):
+        nistDataObject = NIST_TestingUtilities.LoadDataFileFromNIST('NIST_DataFiles/Lanczos2.dat')
+        result1 = NIST_TestingUtilities.CalculateAndPrintResults(pyeq2.Models_2D.NIST.NIST_Lanczos(), nistDataObject, nistDataObject.Start_1_Values, 'Start 1', False)
+        result2 = NIST_TestingUtilities.CalculateAndPrintResults(pyeq2.Models_2D.NIST.NIST_Lanczos(), nistDataObject, nistDataObject.Start_2_Values, 'Start 2', False)
+        self.assertTrue(result1)
+        self.assertTrue(result2)
+        
+        
+    def test_NIST_Lanczos3_2D(self):
+        nistDataObject = NIST_TestingUtilities.LoadDataFileFromNIST('NIST_DataFiles/Lanczos3.dat')
         result1 = NIST_TestingUtilities.CalculateAndPrintResults(pyeq2.Models_2D.NIST.NIST_Lanczos(), nistDataObject, nistDataObject.Start_1_Values, 'Start 1', False)
         result2 = NIST_TestingUtilities.CalculateAndPrintResults(pyeq2.Models_2D.NIST.NIST_Lanczos(), nistDataObject, nistDataObject.Start_2_Values, 'Start 2', False)
         self.assertTrue(result1)
