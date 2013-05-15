@@ -547,3 +547,53 @@ class VanDeemterChromatography(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
 
 
+
+class ElectronBeamLithographyPointSpread(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
+    
+    _baseName = "Electron Beam Lithography Point Spread"
+    _HTML = 'y = j * exp(-(x-k)<sup>2</sup>/l<sup>2</sup>)'
+    _leftSideHTML = 'y'
+    _coefficientDesignators = ['j', 'k', 'l']
+    _canLinearSolverBeUsedForSSQABS = False
+    
+    webReferenceURL = ''
+
+    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = True
+    autoGenerateOffsetForm = True
+    autoGenerateReciprocalForm = True
+    autoGenerateInverseForms = True
+    autoGenerateGrowthAndDecayForms = True
+
+    independentData1CannotContainZeroFlag = False
+    independentData1CannotContainPositiveFlag = False
+    independentData1CannotContainNegativeFlag = False
+    independentData2CannotContainZeroFlag = False
+    independentData2CannotContainPositiveFlag = False
+    independentData2CannotContainNegativeFlag = False
+    
+
+    def GetDataCacheFunctions(self):
+        functionList = []
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.X(NameOrValueFlag=1), []])
+        return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
+
+
+    def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
+        x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
+        
+        j = inCoeffs[0]
+        k = inCoeffs[1]
+        l = inCoeffs[2]
+
+        try:
+            temp =  j * numpy.exp(-numpy.square(x_in-k)/(l*l))
+            return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
+        except:
+            return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
+
+
+    def SpecificCodeCPP(self):
+        s = "\ttemp = j * exp(-((x_in-k)*(x_in-k))/(l*l));\n"
+        return s
+
+
