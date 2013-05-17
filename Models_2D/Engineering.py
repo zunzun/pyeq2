@@ -547,18 +547,17 @@ class VanDeemterChromatography(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
 
 
-
 class ElectronBeamLithographyPointSpread(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Electron Beam Lithography Point Spread"
-    _HTML = 'y = j * exp(-(x-k)<sup>2</sup>/l<sup>2</sup>)'
+    _HTML = 'y = a*exp(-b*x) + c*exp(-(x-d)<sup>2</sup> / f<sup>2</sup>) + g*exp(-(x-h)<sup>2</sup> / i<sup>2</sup>) + j*exp(-(x-k)<sup>2</sup> / l<sup>2</sup>)'
     _leftSideHTML = 'y'
-    _coefficientDesignators = ['j', 'k', 'l']
+    _coefficientDesignators = ['a', 'b', 'c', 'd', 'f', 'g', 'h', 'i', 'j', 'k', 'l']
     _canLinearSolverBeUsedForSSQABS = False
     
-    webReferenceURL = ''
+    webReferenceURL = 'http://www.itl.nist.gov/div898/strd/nls/data/gauss1.shtml'
 
-    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = True
+    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = True
     autoGenerateReciprocalForm = True
     autoGenerateInverseForms = True
@@ -581,19 +580,31 @@ class ElectronBeamLithographyPointSpread(pyeq2.Model_2D_BaseClass.Model_2D_BaseC
     def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
         x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
         
-        j = inCoeffs[0]
-        k = inCoeffs[1]
-        l = inCoeffs[2]
+        a = inCoeffs[0]
+        b = inCoeffs[1]
+        c = inCoeffs[2]
+        d = inCoeffs[3]
+        f = inCoeffs[4]
+        g = inCoeffs[5]
+        h = inCoeffs[6]
+        i = inCoeffs[7]
+        j = inCoeffs[8]
+        k = inCoeffs[9]
+        l = inCoeffs[10]
 
         try:
-            temp =  j * numpy.exp(-numpy.square(x_in-k)/(l*l))
+            xminusd = x_in-d
+            xminush = x_in-h
+            xminusk = x_in-k
+            temp = a * numpy.exp(-b * x_in)
+            temp += c * numpy.exp(-1.0 * xminusd * xminusd / (f * f))
+            temp += g * numpy.exp(-1.0 * xminush * xminush / (i * i))
+            temp += j * numpy.exp(-1.0 * xminusk * xminusk / (l * l))
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
 
 
     def SpecificCodeCPP(self):
-        s = "\ttemp = j * exp(-((x_in-k)*(x_in-k))/(l*l));\n"
+        s = "\ttemp = a * exp(-b * x_in) + c * exp(-1.0 * (x_in-d) * (x_in-d) / (f * f)) + g * exp(-1.0 * (x_in-h) * (x_in-h) / (i * i)) + j * exp(-1.0 * (x_in-k) * (x_in-k) / (l * l));\n"
         return s
-
-
