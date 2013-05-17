@@ -555,7 +555,7 @@ class ElectronBeamLithographyPointSpread(pyeq2.Model_2D_BaseClass.Model_2D_BaseC
     _coefficientDesignators = ['a', 'b', 'c', 'd', 'f', 'g', 'h', 'i', 'j', 'k', 'l']
     _canLinearSolverBeUsedForSSQABS = False
     
-    webReferenceURL = 'http://www.itl.nist.gov/div898/strd/nls/data/gauss1.shtml'
+    webReferenceURL = ''
 
     baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
     autoGenerateOffsetForm = True
