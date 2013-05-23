@@ -2110,7 +2110,7 @@ class PseudoVoight(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
     def SpecificCodeCPP(self):
         s = "\ttemp = pow((x_in-b) / c, 2.0);\n"
-        s = "\ttemp = a * (d * (1.0 / (1.0 + temp)) + (1.0-d) * exp(-0.5 * temp));\n"
+        s += "\ttemp = a * (d * (1.0 / (1.0 + temp)) + (1.0-d) * exp(-0.5 * temp));\n"
         return s
 
 
