@@ -5,6 +5,7 @@ from __future__ import absolute_import
 import os, sys, unittest
 
 # the pyeq2 directory is located up one level from here
+if -1 != sys.path[0].find('pyeq2-read-only'):raise Exception('Please rename SVN checkout directory from "pyeq2-read-only" to "pyeq2"')
 if os.path.join(sys.path[0][:sys.path[0].rfind(os.sep)], '..') not in sys.path:
     sys.path.append(os.path.join(sys.path[0][:sys.path[0].rfind(os.sep)], '..'))
 import pyeq2

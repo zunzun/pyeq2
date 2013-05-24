@@ -5,6 +5,7 @@ from __future__ import absolute_import
 import os, sys, inspect
 
 # ensure pyeq2 can be imported
+if -1 != sys.path[0].find('pyeq2-read-only'):raise Exception('Please rename SVN checkout directory from "pyeq2-read-only" to "pyeq2"')
 importDir =  os.path.join(os.path.join(sys.path[0][:sys.path[0].rfind(os.sep)], '..'), '..')
 if importDir not in sys.path:
     sys.path.append(importDir)
