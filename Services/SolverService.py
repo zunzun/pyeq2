@@ -72,9 +72,9 @@ class SolverService(object):
         
         numberOfCoefficients = len(inModel.GetCoefficientDesignators())
         
-        oneThirdOfPopulationSizeForGA = 25 * numberOfCoefficients
-        if oneThirdOfPopulationSizeForGA > 100:
-            oneThirdOfPopulationSizeForGA = 100 
+        oneThirdOfPopulationSizeForGA = 100 * numberOfCoefficients
+        if oneThirdOfPopulationSizeForGA > 400:
+            oneThirdOfPopulationSizeForGA = 400 
         
         maxGenerationsForGA = 10 * numberOfCoefficients
         if maxGenerationsForGA > 25:
