@@ -133,7 +133,7 @@ class arcsin_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 class bradford_cdf_a(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Bradford CDF Based A"
-    _HTML = 'ln(1.0+c*(x-a)/(b-a)) / ln(c+1.0)'
+    _HTML = 'y = ln(1.0+c*(x-a)/(b-a)) / ln(c+1.0)'
     _leftSideHTML = 'y'
     _coefficientDesignators = ['a','b', 'c']
     _canLinearSolverBeUsedForSSQABS = False
@@ -183,7 +183,7 @@ class bradford_cdf_a(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 class bradford_cdf_b(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Bradford CDF Based B"
-    _HTML = 'd * ln(1.0+c*(x-a)/(b-a)) / ln(c+1.0)'
+    _HTML = 'y = d * ln(1.0+c*(x-a)/(b-a)) / ln(c+1.0)'
     _leftSideHTML = 'y'
     _coefficientDesignators = ['a','b', 'c', 'd']
     _canLinearSolverBeUsedForSSQABS = False
