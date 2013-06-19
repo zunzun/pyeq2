@@ -191,6 +191,60 @@ class FraserSmithSigmoid(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
 
 
 
+class FraserSmithSigmoid_scaled(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
+    
+    _baseName = "Fraser Smith Sigmoid Scaled"
+    _HTML = 'z = Scale / ((1.0 + exp(a - bx)) * (1.0 + e(c - dy)))'
+    _leftSideHTML = 'z'
+    _coefficientDesignators = ['a', 'b', 'c', 'd', 'Scale']
+    _canLinearSolverBeUsedForSSQABS = False
+    
+    webReferenceURL = ''
+
+    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = True
+    autoGenerateOffsetForm = True
+    autoGenerateReciprocalForm = False
+    autoGenerateInverseForms = True
+    autoGenerateGrowthAndDecayForms = True
+
+    independentData1CannotContainZeroFlag = False
+    independentData1CannotContainPositiveFlag = False
+    independentData1CannotContainNegativeFlag = False
+    independentData2CannotContainZeroFlag = False
+    independentData2CannotContainPositiveFlag = False
+    independentData2CannotContainNegativeFlag = False
+    
+
+    def GetDataCacheFunctions(self):
+        functionList = []
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.X(NameOrValueFlag=1), []])
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.Y(NameOrValueFlag=1), []])
+        return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
+
+
+    def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
+        x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
+        y_in = inDataCacheDictionary['Y'] # only need to perform this dictionary look-up once
+        
+        a = inCoeffs[0]
+        b = inCoeffs[1]
+        c = inCoeffs[2]
+        d = inCoeffs[3]
+        scale = inCoeffs[4]
+
+        try:
+            temp = scale / ((1.0 + numpy.exp(a - b * x_in)) * (1.0 + numpy.exp(c - d * y_in)))
+            return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
+        except:
+            return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
+
+
+    def SpecificCodeCPP(self):
+        s = "\ttemp = Scale / ((1.0 + exp(a - b * x_in)) * (1.0 + exp(c - d * y_in)));\n"
+        return s
+
+
+
 class Sigmoid(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
     
     _baseName = "Sigmoid"

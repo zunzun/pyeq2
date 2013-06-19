@@ -1770,6 +1770,58 @@ class WeibullCDF(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
 
 
+class WeibullCDF_scaled(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
+    
+    _baseName = "Weibull CDF Scaled"
+    _HTML = 'y = Scale * (1.0 - exp(-(x/b)<sup>a</sup>))'
+    _leftSideHTML = 'y'
+    _coefficientDesignators = ['a', 'b', 'Scale']
+    _canLinearSolverBeUsedForSSQABS = False
+    
+    webReferenceURL = ''
+
+    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = True
+    autoGenerateOffsetForm = True
+    autoGenerateReciprocalForm = True
+    autoGenerateInverseForms = True
+    autoGenerateGrowthAndDecayForms = True
+
+    independentData1CannotContainZeroFlag = False
+    independentData1CannotContainPositiveFlag = False
+    independentData1CannotContainNegativeFlag = False
+    independentData2CannotContainZeroFlag = False
+    independentData2CannotContainPositiveFlag = False
+    independentData2CannotContainNegativeFlag = False
+
+    independentData1CannotContainBothPositiveAndNegativeFlag = True
+    
+
+    def GetDataCacheFunctions(self):
+        functionList = []
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.X(NameOrValueFlag=1), []])
+        return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
+
+
+    def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
+        x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
+        
+        a = inCoeffs[0]
+        b = inCoeffs[1]
+        scale = inCoeffs[2]
+
+        try:
+            temp = scale * (1.0 - numpy.exp(-1.0 * numpy.power(x_in/b, a)))
+            return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
+        except:
+            return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
+
+
+    def SpecificCodeCPP(self):
+        s = "\ttemp = Scale * (1.0 - exp(-1.0 * pow(x_in/b, a)));\n"
+        return s
+
+
+
 class WeibullPDF(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Weibull PDF"

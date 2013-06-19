@@ -81,6 +81,61 @@ class SagForAsphere0(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
 
 
 
+class SagForAsphere0_scaled(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
+    
+    _baseName = "Sag For Asphere 0 Scaled"
+    _HTML = 's<sup>2</sup> = x<sup>2</sup> + y<sup>2</sup><br>'
+    _HTML += 'z = Scale * (s<sup>2</sup>/r) / (1+(1-(k+1)(s/r)<sup>2</sup>)<sup>1/2</sup>)'
+    _leftSideHTML = 'z'
+    _coefficientDesignators = ['k', 'r', 'Scale']
+    _canLinearSolverBeUsedForSSQABS = False
+    
+    webReferenceURL = 'http://www.scribd.com/doc/69625472/4/Sag-for-Asphere'
+
+    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
+    autoGenerateOffsetForm = True
+    autoGenerateReciprocalForm = True
+    autoGenerateInverseForms = True
+    autoGenerateGrowthAndDecayForms = True
+
+    independentData1CannotContainZeroFlag = False
+    independentData1CannotContainPositiveFlag = False
+    independentData1CannotContainNegativeFlag = False
+    independentData2CannotContainZeroFlag = False
+    independentData2CannotContainPositiveFlag = False
+    independentData2CannotContainNegativeFlag = False
+    
+
+    def GetDataCacheFunctions(self):
+        functionList = []
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.XSQPLUSYSQ(NameOrValueFlag=1), []])
+        return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
+
+
+    def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
+        XSQPLUSYSQ = inDataCacheDictionary['XSQPLUSYSQ'] # only need to perform this dictionary look-up once
+        
+        k = inCoeffs[0]
+        r = inCoeffs[1]
+        scale = inCoeffs[2]
+
+        try:
+            s_sq = XSQPLUSYSQ
+            s_over_r = numpy.sqrt(s_sq) / r
+            temp = scale * (s_sq / r) / (1.0 + numpy.sqrt(1.0 - (k + 1.0) * s_over_r * s_over_r))
+            return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
+        except:
+            return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
+
+
+    def SpecificCodeCPP(self):
+        s = '\tdouble s_sq = x_in * x_in + y_in * y_in;\n'
+        s += '\tdouble s_over_r = pow(s_sq, 0.5) / r;\n'
+        s += '\ttemp = Scale * (s_sq / r) / (1.0 + pow(1.0 - (k + 1.0) * s_over_r * s_over_r, 0.5));\n'
+        return s
+
+
+
 class SagForAsphere0_Transform(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
     
     _baseName = "Transform Sag For Asphere 0"

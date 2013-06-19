@@ -535,6 +535,56 @@ class exponential_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
 
 
+class exponential_pdf_scaled(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
+    
+    _baseName = "Exponential PDF Based Scaled"
+    _HTML = 'y = Scale * (1.0/b) * exp((a-x)/b)'
+    _leftSideHTML = 'y'
+    _coefficientDesignators = ['a', 'b', 'Scale']
+    _canLinearSolverBeUsedForSSQABS = False
+    
+    webReferenceURL = BurkhardtCollectionWebReference
+
+    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = True
+    autoGenerateOffsetForm = True
+    autoGenerateReciprocalForm = True
+    autoGenerateInverseForms = True
+    autoGenerateGrowthAndDecayForms = True
+
+    independentData1CannotContainZeroFlag = False
+    independentData1CannotContainPositiveFlag = False
+    independentData1CannotContainNegativeFlag = False
+    independentData2CannotContainZeroFlag = False
+    independentData2CannotContainPositiveFlag = False
+    independentData2CannotContainNegativeFlag = False
+    
+
+    def GetDataCacheFunctions(self):
+        functionList = []
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.X(NameOrValueFlag=1), []])
+        return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
+
+
+    def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
+        x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
+        
+        a = inCoeffs[0]
+        b = inCoeffs[1]
+        scale = inCoeffs[2]
+
+        try:
+            temp = scale * (1.0/b) * numpy.exp((a-x_in)/b)
+            return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
+        except:
+            return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
+
+
+    def SpecificCodeCPP(self):
+        s = "\ttemp = Scale * (1.0/b) * exp((a-x_in)/b);\n"
+        return s
+
+
+
 class extreme_values_cdf_a(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Extreme Values CDF Based A"
@@ -1279,6 +1329,56 @@ class gompertz_cdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
 
 
+class gompertz_cdf_scaled(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
+    
+    _baseName = "Gompertz CDF Based Scaled"
+    _HTML = 'y = Scale * (1.0 - exp(-b * (a<sup>x</sup>-1.0) / ln(a)))'
+    _leftSideHTML = 'y'
+    _coefficientDesignators = ['a', 'b', 'Scale']
+    _canLinearSolverBeUsedForSSQABS = False
+
+    webReferenceURL = BurkhardtCollectionWebReference
+
+    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = True
+    autoGenerateOffsetForm = True
+    autoGenerateReciprocalForm = True
+    autoGenerateInverseForms = True
+    autoGenerateGrowthAndDecayForms = True
+
+    independentData1CannotContainZeroFlag = False
+    independentData1CannotContainPositiveFlag = False
+    independentData1CannotContainNegativeFlag = False
+    independentData2CannotContainZeroFlag = False
+    independentData2CannotContainPositiveFlag = False
+    independentData2CannotContainNegativeFlag = False
+    
+
+    def GetDataCacheFunctions(self):
+        functionList = []
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.X(NameOrValueFlag=1), []])
+        return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
+
+
+    def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
+        x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
+        
+        a = inCoeffs[0]
+        b = inCoeffs[1]
+        scale = inCoeffs[2]
+
+        try:
+            temp = scale * (1.0 - numpy.exp(-b * (numpy.power(a, x_in)-1.0) / numpy.log(a)))
+            return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
+        except:
+            return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
+
+
+    def SpecificCodeCPP(self):
+        s = "\ttemp = Scale * (1.0 - exp(-b * (pow(a, x_in)-1.0) / log(a)));\n"
+        return s
+
+
+
 class gumbel_cdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Gumbel CDF Based"
@@ -1578,6 +1678,57 @@ class levy_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
     def SpecificCodeCPP(self):
         s = "\ttemp = pow(b, 0.5)*exp(-b/(2.0*(x_in-a)))/pow(pow(x_in-a, 3.0), 0.5);\n"
+        return s
+
+
+
+class levy_pdf_scaled(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
+    
+    _baseName = "Levy PDF Based Scaled"
+    _HTML = 'y = Scale * b<sup>0.5</sup> * exp(-b/(2.0*(x-a)))/sqrt((x-a)<sup>3</sup>)'
+    _leftSideHTML = 'y'
+    _coefficientDesignators = ['a', 'b', 'Scale']
+    _canLinearSolverBeUsedForSSQABS = False
+    
+    webReferenceURL = BurkhardtCollectionWebReference
+
+    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = True
+    autoGenerateOffsetForm = True
+    autoGenerateReciprocalForm = True
+    autoGenerateInverseForms = True
+    autoGenerateGrowthAndDecayForms = True
+
+    independentData1CannotContainZeroFlag = False
+    independentData1CannotContainPositiveFlag = False
+    independentData1CannotContainNegativeFlag = False
+    independentData2CannotContainZeroFlag = False
+    independentData2CannotContainPositiveFlag = False
+    independentData2CannotContainNegativeFlag = False
+    
+
+    def GetDataCacheFunctions(self):
+        functionList = []
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.X(NameOrValueFlag=1), []])
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.PowX(NameOrValueFlag=1, args=[3.0]), [3.0]])
+        return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
+
+
+    def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
+        x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
+        
+        a = inCoeffs[0]
+        b = inCoeffs[1]
+        scale = inCoeffs[2]
+
+        try:
+            temp = scale * numpy.sqrt(b)*numpy.exp(-b/(2.0*(x_in-a)))/numpy.sqrt(numpy.power(x_in-a, 3.0))
+            return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
+        except:
+            return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
+
+
+    def SpecificCodeCPP(self):
+        s = "\ttemp = Scale * pow(b, 0.5)*exp(-b/(2.0*(x_in-a)))/pow(pow(x_in-a, 3.0), 0.5);\n"
         return s
 
 
@@ -1927,6 +2078,58 @@ class rayleigh_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
     def SpecificCodeCPP(self):
         s = "\ttemp = (x_in/(a*a)) * exp(-x_in*x_in/(2.0*a*a));\n"
+        return s
+
+
+
+class rayleigh_pdf_scaled(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
+    
+    _baseName = "Rayleigh PDF Based Scaled"
+    _HTML = 'y = Scale * (x/a<sup>2</sup>) * exp(-x<sup>2</sup>/(2.0*a<sup>2</sup>))'
+    _leftSideHTML = 'y'
+    _coefficientDesignators = ['a', 'Scale']
+    _canLinearSolverBeUsedForSSQABS = False
+    
+    webReferenceURL = BurkhardtCollectionWebReference
+
+    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = True
+    autoGenerateOffsetForm = True
+    autoGenerateReciprocalForm = True
+    autoGenerateInverseForms = True
+    autoGenerateGrowthAndDecayForms = True
+
+    independentData1CannotContainZeroFlag = False
+    independentData1CannotContainPositiveFlag = False
+    independentData1CannotContainNegativeFlag = False
+    independentData2CannotContainZeroFlag = False
+    independentData2CannotContainPositiveFlag = False
+    independentData2CannotContainNegativeFlag = False
+    
+
+    def GetDataCacheFunctions(self):
+        functionList = []
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.X(NameOrValueFlag=1), []])
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.PowX(NameOrValueFlag=1, args=[2.0]), [2.0]])
+        return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
+
+
+    def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
+        x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
+        x_Pow2 = inDataCacheDictionary['PowX_2.0'] # only need to perform this dictionary look-up once
+        
+        a = inCoeffs[0]
+        scale = inCoeffs[1]
+
+        try:
+            a_squared = a*a
+            temp = scale * (x_in/(a_squared)) * numpy.exp(-x_Pow2/(2.0*a_squared))
+            return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
+        except:
+            return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
+
+
+    def SpecificCodeCPP(self):
+        s = "\ttemp = Scale * (x_in/(a*a)) * exp(-x_in*x_in/(2.0*a*a));\n"
         return s
 
 

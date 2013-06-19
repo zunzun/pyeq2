@@ -182,6 +182,55 @@ class GaussianCurvatureOfParaboloid(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass)
 
 
 
+class GaussianCurvatureOfParaboloid_scaled(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
+    
+    _baseName = "Gaussian Curvature Of Paraboloid Scaled"
+    _HTML = 'z = Scale * 4a<sup>2</sup> / (1 + 4a<sup>2</sup> * (x<sup>2</sup> + y<sup>2</sup>))<sup>2</sup>'
+    _leftSideHTML = 'z'
+    _coefficientDesignators = ['a', 'Scale']
+    _canLinearSolverBeUsedForSSQABS = False
+    
+    webReferenceURL = ''
+
+    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = True
+    autoGenerateOffsetForm = True
+    autoGenerateReciprocalForm = True
+    autoGenerateInverseForms = True
+    autoGenerateGrowthAndDecayForms = True
+
+    independentData1CannotContainZeroFlag = False
+    independentData1CannotContainPositiveFlag = False
+    independentData1CannotContainNegativeFlag = False
+    independentData2CannotContainZeroFlag = False
+    independentData2CannotContainPositiveFlag = False
+    independentData2CannotContainNegativeFlag = False
+    
+
+    def GetDataCacheFunctions(self):
+        functionList = []
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.XSQPLUSYSQ(NameOrValueFlag=1), []])
+        return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
+
+
+    def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
+        XSQPLUSYSQ = inDataCacheDictionary['XSQPLUSYSQ'] # only need to perform this dictionary look-up once
+        
+        a = inCoeffs[0]
+        scale = inCoeffs[1]
+
+        try:
+            temp = scale * 4.0 * a * a / numpy.square(1.0 + 4.0 * a * a * XSQPLUSYSQ)
+            return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
+        except:
+            return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
+
+
+    def SpecificCodeCPP(self):
+        s = "\ttemp = Scale * 4.0 * a * a / pow(1.0 + 4.0 * a * a * (x_in * x_in + y_in * y_in), 2.0);\n"
+        return s
+
+
+
 class GaussianCurvatureOfRichmondsMinimalSurface(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
     
     _baseName = "Gaussian Curvature Of Richmond's Minimal Surface"
@@ -433,6 +482,55 @@ class MeanCurvatureOfParaboloid(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
 
     def SpecificCodeCPP(self):
         s = "\ttemp = 2.0 * (a + 2.0 * pow(a, 3.0) * (x_in * x_in + y_in * y_in)) / pow(1.0 + 4.0 * a * a * (x_in * x_in + y_in * y_in), 1.5);\n"
+        return s
+
+
+
+class MeanCurvatureOfParaboloid_scaled(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
+    
+    _baseName = "Mean Curvature Of Paraboloid Scaled"
+    _HTML = 'z = Scale * (a + 2a<sup>3</sup> * (x<sup>2</sup> + y<sup>2</sup>)) / (1 + 4a<sup>2</sup> * (x<sup>2</sup> + y<sup>2</sup>))<sup>1.5</sup>'
+    _leftSideHTML = 'z'
+    _coefficientDesignators = ['a', 'Scale']
+    _canLinearSolverBeUsedForSSQABS = False
+    
+    webReferenceURL = ''
+
+    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = True
+    autoGenerateOffsetForm = True
+    autoGenerateReciprocalForm = True
+    autoGenerateInverseForms = True
+    autoGenerateGrowthAndDecayForms = True
+
+    independentData1CannotContainZeroFlag = False
+    independentData1CannotContainPositiveFlag = False
+    independentData1CannotContainNegativeFlag = False
+    independentData2CannotContainZeroFlag = False
+    independentData2CannotContainPositiveFlag = False
+    independentData2CannotContainNegativeFlag = False
+    
+
+    def GetDataCacheFunctions(self):
+        functionList = []
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.XSQPLUSYSQ(NameOrValueFlag=1), []])
+        return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
+
+
+    def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
+        XSQPLUSYSQ = inDataCacheDictionary['XSQPLUSYSQ'] # only need to perform this dictionary look-up once
+        
+        a = inCoeffs[0]
+        scale = inCoeffs[1]
+
+        try:
+            temp = scale * (a + 2.0 * numpy.power(a, 3.0) * XSQPLUSYSQ) / numpy.power(1.0 + 4.0 * a * a * XSQPLUSYSQ, 1.5)
+            return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
+        except:
+            return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
+
+
+    def SpecificCodeCPP(self):
+        s = "\ttemp = Scale * (a + 2.0 * pow(a, 3.0) * (x_in * x_in + y_in * y_in)) / pow(1.0 + 4.0 * a * a * (x_in * x_in + y_in * y_in), 1.5);\n"
         return s
 
 

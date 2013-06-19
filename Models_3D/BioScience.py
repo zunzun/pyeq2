@@ -81,6 +81,62 @@ class ChenClayton(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
 
 
 
+class ChenClayton_scaled(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
+    
+    _baseName = "Chen-Clayton Scaled"
+    _HTML = 'z = exp(-(C1/T<sup>C2</sup>) * exp(-C3*T<sup>C4</sup>*M))'
+    _leftSideHTML = 'z'
+    _coefficientDesignators = ['C1', 'C2', 'C3', 'C4', 'Scale']
+    _canLinearSolverBeUsedForSSQABS = False
+    
+    webReferenceURL = 'http://www.cigrjournal.org/index.php/Ejounral/article/download/1039/1032'
+
+    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = True
+    autoGenerateOffsetForm = True
+    autoGenerateReciprocalForm = True
+    autoGenerateInverseForms = True
+    autoGenerateGrowthAndDecayForms = True
+
+    independentData1CannotContainZeroFlag = True
+    independentData1CannotContainPositiveFlag = False
+    independentData1CannotContainNegativeFlag = False
+    independentData2CannotContainZeroFlag = False
+    independentData2CannotContainPositiveFlag = False
+    independentData2CannotContainNegativeFlag = False
+
+    independentData1CannotContainBothPositiveAndNegativeFlag = True
+    
+
+    def GetDataCacheFunctions(self):
+        functionList = []
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.X(NameOrValueFlag=1), []])
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.Y(NameOrValueFlag=1), []])
+        return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
+
+
+    def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
+        x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
+        y_in = inDataCacheDictionary['Y'] # only need to perform this dictionary look-up once
+        
+        C1 = inCoeffs[0]
+        C2 = inCoeffs[1]
+        C3 = inCoeffs[2]
+        C4 = inCoeffs[3]
+        scale = inCoeffs[4]
+
+        try:
+            temp = scale * numpy.exp(-1.0 * (C1/numpy.power(x_in,C2)) * numpy.exp(-1.0 * C3 * numpy.power(x_in, C4) * y_in))
+            return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
+        except:
+            return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
+
+
+    def SpecificCodeCPP(self):
+        s = "\ttemp = Scale * exp(-1.0 * (C1/pow(x_in,C2)) * exp(-1.0 * C3 * pow(x_in, C4) * y_in));\n"
+        return s
+
+
+
 class HighLowAffinityDoubleIsotopeDisplacement(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
     
     _baseName = "High-Low Affinity Double Isotope Displacement (y = [Hot])"
@@ -448,6 +504,59 @@ class ModifiedHalsey(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
 
     def SpecificCodeCPP(self):
         s = "\ttemp = exp(-1.0 * exp(C1 + C2*x_in) * pow(y_in, -1.0 * C3));\n"
+        return s
+
+
+
+class ModifiedHalsey_scaled(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
+    
+    _baseName = "Modified Halsey Scaled"
+    _HTML = 'z = Scale * exp(-exp(C1 + C2*T) * M<sup>-C3</sup>)'
+    _leftSideHTML = 'z'
+    _coefficientDesignators = ['C1', 'C2', 'C3', 'Scale']
+    _canLinearSolverBeUsedForSSQABS = False
+    
+    webReferenceURL = 'http://www.cigrjournal.org/index.php/Ejounral/article/download/1039/1032'
+
+    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = True
+    autoGenerateOffsetForm = True
+    autoGenerateReciprocalForm = True
+    autoGenerateInverseForms = True
+    autoGenerateGrowthAndDecayForms = True
+
+    independentData1CannotContainZeroFlag = False
+    independentData1CannotContainPositiveFlag = False
+    independentData1CannotContainNegativeFlag = False
+    independentData2CannotContainZeroFlag = False
+    independentData2CannotContainPositiveFlag = False
+    independentData2CannotContainNegativeFlag = True
+    
+
+    def GetDataCacheFunctions(self):
+        functionList = []
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.X(NameOrValueFlag=1), []])
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.Y(NameOrValueFlag=1), []])
+        return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
+
+
+    def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
+        x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
+        y_in = inDataCacheDictionary['Y'] # only need to perform this dictionary look-up once
+        
+        C1 = inCoeffs[0]
+        C2 = inCoeffs[1]
+        C3 = inCoeffs[2]
+        scale = inCoeffs[3]
+
+        try:
+            temp = scale * numpy.exp(-1.0 * numpy.exp(C1 + C2*x_in) * numpy.power(y_in, -1.0 * C3))
+            return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
+        except:
+            return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
+
+
+    def SpecificCodeCPP(self):
+        s = "\ttemp = Scale * exp(-1.0 * exp(C1 + C2*x_in) * pow(y_in, -1.0 * C3));\n"
         return s
 
 

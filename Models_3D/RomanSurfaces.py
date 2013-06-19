@@ -244,6 +244,59 @@ class RomanSurfacePlus(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
 
 
 
+class RomanSurfacePlus_scaled(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
+    
+    _baseName = "Roman Surface (plus) Scaled"
+    _HTML = 'z = Scale * (k(y<sup>2</sup>-x<sup>2</sup>) + (x<sup>2</sup>-y<sup>2</sup>)sqrt(k<sup>2</sup>-x<sup>2</sup>-y<sup>2</sup>)) / (2(x<sup>2</sup>+y<sup>2</sup>))'
+    _leftSideHTML = 'z'
+    _coefficientDesignators = ['k', 'Scale']
+    _canLinearSolverBeUsedForSSQABS = False
+    
+    webReferenceURL = ''
+
+    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
+    autoGenerateOffsetForm = True
+    autoGenerateReciprocalForm = True
+    autoGenerateInverseForms = True
+    autoGenerateGrowthAndDecayForms = True
+
+    independentData1CannotContainZeroFlag = False
+    independentData1CannotContainPositiveFlag = False
+    independentData1CannotContainNegativeFlag = False
+    independentData2CannotContainZeroFlag = False
+    independentData2CannotContainPositiveFlag = False
+    independentData2CannotContainNegativeFlag = False
+    
+
+    def GetDataCacheFunctions(self):
+        functionList = []
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.XSQMINUSYSQ(NameOrValueFlag=1), []])
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.YSQMINUSXSQ(NameOrValueFlag=1), []])
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.XSQPLUSYSQ(NameOrValueFlag=1), []])
+        return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
+
+
+    def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
+        XSQMINUSYSQ = inDataCacheDictionary['XSQMINUSYSQ'] # only need to perform this dictionary look-up once
+        YSQMINUSXSQ = inDataCacheDictionary['YSQMINUSXSQ'] # only need to perform this dictionary look-up once
+        XSQPLUSYSQ = inDataCacheDictionary['XSQPLUSYSQ'] # only need to perform this dictionary look-up once
+        
+        k = inCoeffs[0]
+        scale = inCoeffs[1]
+
+        try:
+            temp = scale * (k * YSQMINUSXSQ + XSQMINUSYSQ * numpy.sqrt(k * k - XSQMINUSYSQ)) / (2.0 * XSQPLUSYSQ)
+            return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
+        except:
+            return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
+
+
+    def SpecificCodeCPP(self):
+        s = "\ttemp = Scale * (k * (y_in * y_in - x_in * x_in) + (x_in * x_in - y_in * y_in) * pow(k * k - x_in * x_in - y_in * y_in, 0.5)) / (2.0 * (x_in * x_in + y_in * y_in));\n"
+        return s
+
+
+
 class RomanSurfacePlus_OffsetXY(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
     
     _baseName = "Roman Surface (plus) Offset XY"
