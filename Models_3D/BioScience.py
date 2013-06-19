@@ -84,7 +84,7 @@ class ChenClayton(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
 class ChenClayton_scaled(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
     
     _baseName = "Chen-Clayton Scaled"
-    _HTML = 'z = exp(-(C1/T<sup>C2</sup>) * exp(-C3*T<sup>C4</sup>*M))'
+    _HTML = 'z = Scale * exp(-(C1/T<sup>C2</sup>) * exp(-C3*T<sup>C4</sup>*M))'
     _leftSideHTML = 'z'
     _coefficientDesignators = ['C1', 'C2', 'C3', 'C4', 'Scale']
     _canLinearSolverBeUsedForSSQABS = False
