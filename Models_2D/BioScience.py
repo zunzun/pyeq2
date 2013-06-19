@@ -2384,6 +2384,61 @@ class PlantDisease_Weibull(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
 
 
+class PlantDisease_WeibullScaled(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
+    
+    _baseName = "Plant Disease Weibull Model Scaled"
+    _HTML = 'y = Scale * (1 - exp(-1.0 * ((time - a) / b)<sup>c</sup>))'
+    _leftSideHTML = 'y'
+    _coefficientDesignators = ['a', 'b', 'c', 'Scale']
+    _canLinearSolverBeUsedForSSQABS = False
+    
+    webReferenceURL = 'http://www.apsnet.org/edcenter/advanced/topics/EcologyAndEpidemiologyInR/DiseaseProgress/Pages/GrowthModels.aspx'
+
+    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = True
+    autoGenerateOffsetForm = True
+    autoGenerateReciprocalForm = True
+    autoGenerateInverseForms = True
+    autoGenerateGrowthAndDecayForms = True
+
+    independentData1CannotContainZeroFlag = False
+    independentData1CannotContainPositiveFlag = False
+    independentData1CannotContainNegativeFlag = False
+    independentData2CannotContainZeroFlag = False
+    independentData2CannotContainPositiveFlag = False
+    independentData2CannotContainNegativeFlag = False
+    
+    def __init__(self, inFittingTarget = 'SSQABS', inExtendedVersionName = 'Default'):
+        pyeq2.Model_2D_BaseClass.Model_2D_BaseClass.__init__(self, inFittingTarget, inExtendedVersionName)
+
+
+    def GetDataCacheFunctions(self):
+        functionList = []
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.X(NameOrValueFlag=1), []])
+        return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
+
+
+    def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
+        x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
+        
+        a = inCoeffs[0]
+        b = inCoeffs[1]
+        c = inCoeffs[2]
+        Scale = inCoeffs[3]
+
+        try:
+            temp = -1.0 * numpy.power((x_in - a) / b, c)
+            temp = Scale * (1.0 - numpy.exp(temp))
+            return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
+        except:
+            return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
+
+
+    def SpecificCodeCPP(self):
+        s = "\ttemp = Scale * (1.0 - exp(-1.0 * pow((x_in - a) / b, c)));\n"
+        return s
+
+
+
 class PreeceAndBaines(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Preece And Baines Growth"
