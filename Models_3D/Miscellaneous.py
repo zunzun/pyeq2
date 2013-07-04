@@ -122,14 +122,14 @@ class RexKelfkensTransform(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
         yoffset = inCoeffs[6]
 
         try:
-            temp = numpy.exp(A+B*numpy.log(x_in * x_scale)+C*numpy.log(y_in * yscale + yoffset))
+            temp = numpy.exp(A+B*numpy.log(x_in * xscale + xoffset)+C*numpy.log(y_in * yscale + yoffset))
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
 
 
     def SpecificCodeCPP(self):
-        s = "\ttemp = exp(A+B*log(x_in * x_scale)+C*log(y_in * yscale + yoffset));\n"
+        s = "\ttemp = exp(A+B*log(x_in * xscale + xoffset)+C*log(y_in * yscale + yoffset));\n"
         return s
 
 
