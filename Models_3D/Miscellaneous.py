@@ -26,6 +26,58 @@ numpy.seterr(over = 'raise', divide = 'raise', invalid = 'raise', under = 'ignor
 import pyeq2.Model_3D_BaseClass
 
 
+class RexKelfkens(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
+    
+    _baseName = "Rex Kelfkens' Custom Equation"
+    _HTML = 'z =  exp(A+B*ln(x)+C*ln(y))'
+    _leftSideHTML = 'z'
+    _coefficientDesignators = ['A', 'B', 'C']
+    _canLinearSolverBeUsedForSSQABS = False
+    
+    webReferenceURL = ''
+
+    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
+    autoGenerateOffsetForm = True
+    autoGenerateReciprocalForm = True
+    autoGenerateInverseForms = True
+    autoGenerateGrowthAndDecayForms = True
+
+    independentData1CannotContainZeroFlag = True
+    independentData1CannotContainPositiveFlag = False
+    independentData1CannotContainNegativeFlag = True
+    independentData2CannotContainZeroFlag = True
+    independentData2CannotContainPositiveFlag = False
+    independentData2CannotContainNegativeFlag = True
+    
+
+    def GetDataCacheFunctions(self):
+        functionList = []
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.LogX(NameOrValueFlag=1), []])
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.LogY(NameOrValueFlag=1), []])
+        return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
+
+
+    def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
+        logx = inDataCacheDictionary['LogX'] # only need to perform this dictionary look-up once
+        logy = inDataCacheDictionary['LogY'] # only need to perform this dictionary look-up once
+        
+        A = inCoeffs[0]
+        B = inCoeffs[1]
+        C = inCoeffs[2]
+
+        try:
+            temp = numpy.exp(A+B*logX+C*logY)
+            return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
+        except:
+            return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
+
+
+    def SpecificCodeCPP(self):
+        s = "\ttemp = exp(A+B*log(x_in)+C*log(y_in));\n"
+        return s
+
+
+
 class GaryCler(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
     
     _baseName = "Gary Cler's Custom Equation"
