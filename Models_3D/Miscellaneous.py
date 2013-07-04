@@ -78,6 +78,114 @@ class RexKelfkens(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
 
 
 
+class RexKelfkensTransform(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
+    
+    _baseName = "Rex Kelfkens' Custom Equation Transform"
+    _HTML = 'z =  exp(A+B*ln(x * xscale + xoffset)+C*ln(y * yscale + yoffset))'
+    _leftSideHTML = 'z'
+    _coefficientDesignators = ['A', 'B', 'C', 'xscale', 'xoffset', 'yscale', 'yoffset']
+    _canLinearSolverBeUsedForSSQABS = False
+    
+    webReferenceURL = ''
+
+    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
+    autoGenerateOffsetForm = True
+    autoGenerateReciprocalForm = True
+    autoGenerateInverseForms = True
+    autoGenerateGrowthAndDecayForms = True
+
+    independentData1CannotContainZeroFlag = False
+    independentData1CannotContainPositiveFlag = False
+    independentData1CannotContainNegativeFlag = False
+    independentData2CannotContainZeroFlag = False
+    independentData2CannotContainPositiveFlag = False
+    independentData2CannotContainNegativeFlag = False
+    
+
+    def GetDataCacheFunctions(self):
+        functionList = []
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.X(NameOrValueFlag=1), []])
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.Y(NameOrValueFlag=1), []])
+        return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
+
+
+    def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
+        x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
+        y_in = inDataCacheDictionary['Y'] # only need to perform this dictionary look-up once
+        
+        A = inCoeffs[0]
+        B = inCoeffs[1]
+        C = inCoeffs[2]
+        xscale = inCoeffs[3]
+        xoffset = inCoeffs[4]
+        yscale = inCoeffs[5]
+        yoffset = inCoeffs[6]
+
+        try:
+            temp = numpy.exp(A+B*numpy.log(x_in * x_scale)+C*numpy.log(y_in * yscale + yoffset))
+            return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
+        except:
+            return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
+
+
+    def SpecificCodeCPP(self):
+        s = "\ttemp = exp(A+B*log(x_in * x_scale)+C*log(y_in * yscale + yoffset));\n"
+        return s
+
+
+
+class RexKelfkens(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
+    
+    _baseName = "Rex Kelfkens' Custom Equation"
+    _HTML = 'z =  exp(A+B*ln(x)+C*ln(y))'
+    _leftSideHTML = 'z'
+    _coefficientDesignators = ['A', 'B', 'C']
+    _canLinearSolverBeUsedForSSQABS = False
+    
+    webReferenceURL = ''
+
+    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
+    autoGenerateOffsetForm = True
+    autoGenerateReciprocalForm = True
+    autoGenerateInverseForms = True
+    autoGenerateGrowthAndDecayForms = True
+
+    independentData1CannotContainZeroFlag = True
+    independentData1CannotContainPositiveFlag = False
+    independentData1CannotContainNegativeFlag = True
+    independentData2CannotContainZeroFlag = True
+    independentData2CannotContainPositiveFlag = False
+    independentData2CannotContainNegativeFlag = True
+    
+
+    def GetDataCacheFunctions(self):
+        functionList = []
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.LogX(NameOrValueFlag=1), []])
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.LogY(NameOrValueFlag=1), []])
+        return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
+
+
+    def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
+        logX = inDataCacheDictionary['LogX'] # only need to perform this dictionary look-up once
+        logY = inDataCacheDictionary['LogY'] # only need to perform this dictionary look-up once
+        
+        A = inCoeffs[0]
+        B = inCoeffs[1]
+        C = inCoeffs[2]
+
+        try:
+            temp = numpy.exp(A+B*logX+C*logY)
+            return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
+        except:
+            return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
+
+
+    def SpecificCodeCPP(self):
+        s = "\ttemp = exp(A+B*log(x_in)+C*log(y_in));\n"
+        return s
+
+
+
 class GaryCler(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
     
     _baseName = "Gary Cler's Custom Equation"
