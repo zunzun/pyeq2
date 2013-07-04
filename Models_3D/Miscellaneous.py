@@ -58,8 +58,8 @@ class RexKelfkens(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
 
 
     def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
-        logx = inDataCacheDictionary['LogX'] # only need to perform this dictionary look-up once
-        logy = inDataCacheDictionary['LogY'] # only need to perform this dictionary look-up once
+        logX = inDataCacheDictionary['LogX'] # only need to perform this dictionary look-up once
+        logY = inDataCacheDictionary['LogY'] # only need to perform this dictionary look-up once
         
         A = inCoeffs[0]
         B = inCoeffs[1]
