@@ -26,6 +26,109 @@ numpy.seterr(over = 'raise', divide = 'raise', invalid = 'raise', under = 'ignor
 import pyeq2.Model_2D_BaseClass
 
 
+
+class ZebaNaqviCustomEquation_A(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
+    
+    _baseName = "Zeba Naqvi Custom Equation A"
+    _HTML = 'y = ((122900*X**2+177)/(22900*X**2+177))**2*((((B+(A-1)*X**2)/(B+(A+1)*X**2))+(4*X**2*(B+A*X**2)*(B+(A-1.458)*X**2-0.00354))/((B+(A+1)*X**2)**2*(B+(A+1.458)*X**2+0.00354))**2)-((16*X**2*(cos(2*pi*(A*X**2+B)/(X**3))**2)*(A*X**2+B)*(B+(A-1)*X**2)*(B+(A-1.458)*X**2-0.00354))/(((B+(A+1)*X**2)**3)*(B+(A+1.458)*X**2+0.00354))))'
+    _leftSideHTML = 'y'
+    _coefficientDesignators = ['A', 'B']
+    _canLinearSolverBeUsedForSSQABS = False
+    
+    webReferenceURL = ''
+
+    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
+    autoGenerateOffsetForm = True
+    autoGenerateReciprocalForm = True
+    autoGenerateInverseForms = True
+    autoGenerateGrowthAndDecayForms = True
+
+    independentData1CannotContainZeroFlag = False
+    independentData1CannotContainPositiveFlag = False
+    independentData1CannotContainNegativeFlag = False
+    independentData2CannotContainZeroFlag = False
+    independentData2CannotContainPositiveFlag = False
+    independentData2CannotContainNegativeFlag = False
+    
+
+    def GetDataCacheFunctions(self):
+        functionList = []
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.PowX(NameOrValueFlag=1, args=[2.0]), [2.0]])
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.PowX(NameOrValueFlag=1, args=[3.0]), [3.0]])
+        return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
+
+
+    def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
+        x_Pow2 = inDataCacheDictionary['PowX_2.0'] # only need to perform this dictionary look-up once
+        x_Pow3 = inDataCacheDictionary['PowX_3.0'] # only need to perform this dictionary look-up once
+        
+        A = inCoeffs[0]
+        B = inCoeffs[1]
+
+        try:
+            temp = ((122900.0*x_Pow2+177.0)/(22900.0*x_Pow2+177.0))**2*((((B+(A-1.0)*x_Pow2)/(B+(A+1.0)*x_Pow2))+(4.0*x_Pow2*(B+A*x_Pow2)*(B+(A-1.458)*x_Pow2-0.00354))/((B+(A+1.0)*x_Pow2)**2*(B+(A+1.458)*x_Pow2+0.00354))**2)-((16.0*x_Pow2*(numpy.cos(2.0*numpy.pi*(A*x_Pow2+B)/(x_Pow3))**2)*(A*x_Pow2+B)*(B+(A-1.0)*x_Pow2)*(B+(A-1.458)*x_Pow2-0.00354))/(((B+(A+1.0)*x_Pow2)**3)*(B+(A+1.458)*x_Pow2+0.00354))))
+            return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
+        except:
+            return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
+
+
+    def SpecificCodeCPP(self):
+        s = "\ttemp = ((122900.0*X**2+177.0)/(22900.0*X**2+177.0))**2*((((B+(A-1.0)*X**2)/(B+(A+1.0)*X**2))+(4.0*X**2*(B+A*X**2)*(B+(A-1.458)*X**2-0.00354))/((B+(A+1.0)*X**2)**2*(B+(A+1.458)*X**2+0.00354))**2)-((16.0*X**2*(cos(2.0*3.14159265358979323846*(A*X**2+B)/(X**3))**2)*(A*X**2+B)*(B+(A-1.0)*X**2)*(B+(A-1.458)*X**2-0.00354))/(((B+(A+1.0)*X**2)**3)*(B+(A+1.458)*X**2+0.00354))));\n"
+        return s
+
+
+
+class ZebaNaqviCustomEquation_B(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
+    
+    _baseName = "Zeba Naqvi Custom Equation B"
+    _HTML = 'y = ((122900*X**2+177)/(22900*X**2+177))**2*(-((16*X**2*(cos(2*pi*(A*X**2+B)/(X**3))**2)*(A*X**2+B)*(B+(A-1)*X**2)*(B+(A-1.458)*X**2-0.00354))/(((B+(A+1)*X**2)**3)*(B+(A+1.458)*X**2+0.00354))))'
+    _leftSideHTML = 'y'
+    _coefficientDesignators = ['A', 'B']
+    _canLinearSolverBeUsedForSSQABS = False
+    
+    webReferenceURL = ''
+
+    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
+    autoGenerateOffsetForm = True
+    autoGenerateReciprocalForm = True
+    autoGenerateInverseForms = True
+    autoGenerateGrowthAndDecayForms = True
+
+    independentData1CannotContainZeroFlag = False
+    independentData1CannotContainPositiveFlag = False
+    independentData1CannotContainNegativeFlag = False
+    independentData2CannotContainZeroFlag = False
+    independentData2CannotContainPositiveFlag = False
+    independentData2CannotContainNegativeFlag = False
+    
+
+    def GetDataCacheFunctions(self):
+        functionList = []
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.PowX(NameOrValueFlag=1, args=[2.0]), [2.0]])
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.PowX(NameOrValueFlag=1, args=[3.0]), [3.0]])
+        return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
+
+
+    def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
+        x_Pow2 = inDataCacheDictionary['PowX_2.0'] # only need to perform this dictionary look-up once
+        x_Pow3 = inDataCacheDictionary['PowX_3.0'] # only need to perform this dictionary look-up once
+        
+        A = inCoeffs[0]
+        B = inCoeffs[1]
+
+        try:
+            temp = ((122900.0*x_Pow2+177.0)/(22900.0*x_Pow2+177.0))**2*(-((16.0*x_Pow2*(numpy.cos(2*numpy.pi*(A*x_Pow2+B)/(x_Pow3))**2)*(A*x_Pow2+B)*(B+(A-1)*x_Pow2)*(B+(A-1.458)*x_Pow2-0.00354))/(((B+(A+1)*x_Pow2)**3)*(B+(A+1.458)*x_Pow2+0.00354))))
+            return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
+        except:
+            return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
+
+
+    def SpecificCodeCPP(self):
+        s = "\ttemp = ((122900.0*X**2+177.0)/(22900.0*X**2+177.0))**2*(-((16.0*X**2*(cos(2*3.14159265358979323846*(A*X**2+B)/(X**3))**2)*(A*X**2+B)*(B+(A-1)*X**2)*(B+(A-1.458)*X**2-0.00354))/(((B+(A+1)*X**2)**3)*(B+(A+1.458)*X**2+0.00354))));\n"
+        return s
+
+
+
 class PhysicistPeterPendulumTraversal(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Physicist Peter's Pendulum Traversal"
