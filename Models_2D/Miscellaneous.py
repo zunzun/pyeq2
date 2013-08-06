@@ -132,7 +132,7 @@ class ZebaNaqviCustomEquation_B(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 class ZebaNaqviCustomEquation_C(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Zeba Naqvi Custom Equation C"
-    _HTML = 'y = -16*X**4*(cos(2*pi*(A*X**4+B*X**2+C)/(X**3)))**2*(122900*X**2+177)**2*(A*X**4+B*X**2+C)*(C+A*X**4+B*X**2-X**4)*(C+A*X**4+B*X**2-0.00354*X**2-1.458*X**4)/((22900*X**2+177)**2*(C+A*X**4+B*X**2+X**4)**3*(C+A*X**4+B*X**2+0.00354*X**2+1.458*X**4))'
+    _HTML = 'y = -16*X**4*(cos(2*pi*(A*X**4+B*X**2+C)/(X**5)))**2*(122900*X**2+177)**2*(A*X**4+B*X**2+C)*(C+A*X**4+B*X**2-X**4)*(C+A*X**4+B*X**2-0.00354*X**2-1.458*X**4)/((22900*X**2+177)**2*(C+A*X**4+B*X**2+X**4)**3*(C+A*X**4+B*X**2+0.00354*X**2+1.458*X**4))'
     _leftSideHTML = 'y'
     _coefficientDesignators = ['A', 'B', 'C']
     _canLinearSolverBeUsedForSSQABS = False
@@ -158,6 +158,7 @@ class ZebaNaqviCustomEquation_C(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         functionList.append([pyeq2.DataCache.DataCacheFunctions.PowX(NameOrValueFlag=1, args=[2.0]), [2.0]])
         functionList.append([pyeq2.DataCache.DataCacheFunctions.PowX(NameOrValueFlag=1, args=[3.0]), [3.0]])
         functionList.append([pyeq2.DataCache.DataCacheFunctions.PowX(NameOrValueFlag=1, args=[4.0]), [4.0]])
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.PowX(NameOrValueFlag=1, args=[5.0]), [5.0]])
         return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
 
 
@@ -165,20 +166,21 @@ class ZebaNaqviCustomEquation_C(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         x_Pow2 = inDataCacheDictionary['PowX_2.0'] # only need to perform this dictionary look-up once
         x_Pow3 = inDataCacheDictionary['PowX_3.0'] # only need to perform this dictionary look-up once
         x_Pow4 = inDataCacheDictionary['PowX_4.0'] # only need to perform this dictionary look-up once
+        x_Pow5 = inDataCacheDictionary['PowX_5.0'] # only need to perform this dictionary look-up once
         
         A = inCoeffs[0]
         B = inCoeffs[1]
         C = inCoeffs[2]
 
         try:
-            temp = -16.0*x_Pow4*(numpy.cos(2*numpy.pi*(A*x_Pow4+B*x_Pow2+C)/(x_Pow3)))**2*(122900.0*x_Pow2+177.0)**2*(A*x_Pow4+B*x_Pow2+C)*(C+A*x_Pow4+B*x_Pow2-x_Pow4)*(C+A*x_Pow4+B*x_Pow2-0.00354*x_Pow2-1.458*x_Pow4)/((22900.0*x_Pow2+177.0)**2*(C+A*x_Pow4+B*x_Pow2+x_Pow4)**3*(C+A*x_Pow4+B*x_Pow2+0.00354*x_Pow2+1.458*x_Pow4))
+            temp = -16.0*x_Pow4*(numpy.cos(2*numpy.pi*(A*x_Pow4+B*x_Pow2+C)/(x_Pow5)))**2*(122900.0*x_Pow2+177.0)**2*(A*x_Pow4+B*x_Pow2+C)*(C+A*x_Pow4+B*x_Pow2-x_Pow4)*(C+A*x_Pow4+B*x_Pow2-0.00354*x_Pow2-1.458*x_Pow4)/((22900.0*x_Pow2+177.0)**2*(C+A*x_Pow4+B*x_Pow2+x_Pow4)**3*(C+A*x_Pow4+B*x_Pow2+0.00354*x_Pow2+1.458*x_Pow4))
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
 
 
     def SpecificCodeCPP(self):
-        s = "\ttemp = -16.0*x_in**4*(cos(2*3.14159265358979323846*(A*x_in**4+B*x_in**2+C)/(x_in**3)))**2*(122900.0*x_in**2+177.0)**2*(A*x_in**4+B*x_in**2+C)*(C+A*x_in**4+B*x_in**2-x_in**4)*(C+A*x_in**4+B*x_in**2-0.00354*x_in**2-1.458*x_in**4)/((22900.0*x_in**2+177.0)**2*(C+A*x_in**4+B*x_in**2+x_in**4)**3*(C+A*x_in**4+B*x_in**2+0.00354*x_in**2+1.458*x_in**4));\n"
+        s = "\ttemp = -16.0*x_in**4*(cos(2*3.14159265358979323846*(A*x_in**4+B*x_in**2+C)/(x_in**5)))**2*(122900.0*x_in**2+177.0)**2*(A*x_in**4+B*x_in**2+C)*(C+A*x_in**4+B*x_in**2-x_in**4)*(C+A*x_in**4+B*x_in**2-0.00354*x_in**2-1.458*x_in**4)/((22900.0*x_in**2+177.0)**2*(C+A*x_in**4+B*x_in**2+x_in**4)**3*(C+A*x_in**4+B*x_in**2+0.00354*x_in**2+1.458*x_in**4));\n"
         return s
 
 
