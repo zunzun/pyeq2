@@ -563,14 +563,14 @@ class LorentzianB(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
         g = inCoeffs[5]
 
         try:
-            temp = a / (1.0 + numpy.square((x_in-b)/c)) + d / (1.0 + numpy.square((y_in-f)/g))
+            temp = a / (1.0 + numpy.square((x_in-b)/c)) + d * (1.0 + numpy.square((y_in-f)/g))
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
 
 
     def SpecificCodeCPP(self):
-        s = "\ttemp = a / (1.0 + pow((x_in-b)/c, 2.0)) + d / (1.0 + pow((y_in-f)/g, 2.0));\n"
+        s = "\ttemp = a / (1.0 + pow((x_in-b)/c, 2.0)) + d * (1.0 + pow((y_in-f)/g, 2.0));\n"
         return s
 
 
