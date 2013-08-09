@@ -67,8 +67,8 @@ class SolverService(object):
 
 
     def SolveUsingDE(self, inModel): # adapts to number of coefficients
-        crossoverProbabilityForGA = 0.6
-        diffScaleForGA = 0.9
+        crossoverProbabilityForGA = 0.75
+        diffScaleForGA = 0.25
         
         numberOfCoefficients = len(inModel.GetCoefficientDesignators())
         
@@ -76,13 +76,13 @@ class SolverService(object):
         if oneThirdOfPopulationSizeForGA > 400:
             oneThirdOfPopulationSizeForGA = 400 
         
-        maxGenerationsForGA = 10 * numberOfCoefficients
+        maxGenerationsForGA = 5 * numberOfCoefficients
         if maxGenerationsForGA > 25:
             maxGenerationsForGA = 25
 
-        guessDivisorForGA = 2.0 * numberOfCoefficients
-        if guessDivisorForGA > 10.0:
-            guessDivisorForGA = 10.0
+        guessDivisorForGA = 5.0 * numberOfCoefficients
+        if guessDivisorForGA > 25.0:
+            guessDivisorForGA = 25.0
 
         inModel.dataCache.FindOrCreateReducedDataCache(inModel)
         

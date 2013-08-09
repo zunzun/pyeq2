@@ -84,19 +84,19 @@ class TestSolverService(unittest.TestCase):
 
 
     def test_SolveUsingDE_3D(self):
-        coefficientsShouldBe = numpy.array([-0.206068766376, -0.644872592849, 1.13361007134])
+        coefficientsShouldBe = numpy.array([-2.082769, -0.4847434, 1.7522266])
         model = pyeq2.Models_3D.UserDefinedFunction.UserDefinedFunction('SSQABS', 'Default', 'a + b*X + c*Y')
         pyeq2.dataConvertorService().ConvertAndSortColumnarASCII(DataForUnitTests.asciiDataInColumns_3D_small, model, False)
         coefficients = pyeq2.solverService().SolveUsingDE(model)
-        self.assertTrue(numpy.allclose(coefficients, coefficientsShouldBe, rtol=1.0E-06, atol=1.0E-300))
+        self.assertTrue(numpy.allclose(coefficients, coefficientsShouldBe, rtol=1.0E-05, atol=1.0E-300))
         
         
     def test_SolveUsingDE_2D(self):
-        coefficientsShouldBe = numpy.array([-6.15515504031, 1.21618173729])
+        coefficientsShouldBe = numpy.array([-6.30741239, 1.30840096])
         model = pyeq2.Models_2D.UserDefinedFunction.UserDefinedFunction('SSQABS', 'Default', 'm*X + b')
         pyeq2.dataConvertorService().ConvertAndSortColumnarASCII(DataForUnitTests.asciiDataInColumns_2D_small, model, False)
         coefficients = pyeq2.solverService().SolveUsingDE(model)
-        self.assertTrue(numpy.allclose(coefficients, coefficientsShouldBe, rtol=1.0E-06, atol=1.0E-300))
+        self.assertTrue(numpy.allclose(coefficients, coefficientsShouldBe, rtol=1.0E-05, atol=1.0E-300))
         
         
     def test_SolveUsingSpline_3D(self):
