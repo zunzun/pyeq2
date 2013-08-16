@@ -16,7 +16,7 @@ from __future__ import absolute_import
 import StringIO # cStringIO is not safe for Unicode comments, use StringIO instead
 
 import numpy
-numpy.seterr(over = 'raise', divide = 'raise', invalid = 'raise', under = 'ignore') # numpy raises warnings, convert to exceptions to trap them
+numpy.seterr(all= 'ignore')
 
 
 class DataConverterService(object):

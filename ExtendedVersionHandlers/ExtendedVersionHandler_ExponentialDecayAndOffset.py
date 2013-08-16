@@ -17,7 +17,7 @@ import pyeq2
 from . import IExtendedVersionHandler
 
 import numpy
-numpy.seterr(over = 'raise', divide = 'raise', invalid = 'raise', under = 'ignore') # numpy raises warnings, convert to exceptions to trap them
+numpy.seterr(all= 'ignore')
 
 
 class ExtendedVersionHandler_ExponentialDecayAndOffset(IExtendedVersionHandler.IExtendedVersionHandler):

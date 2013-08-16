@@ -20,7 +20,7 @@ if os.path.join(sys.path[0][:sys.path[0].rfind(os.sep)], '..') not in sys.path:
 import pyeq2
 
 import numpy # implicitly required by compiling the userFunctionCodeObject in the method EvaluateCachedData() below
-numpy.seterr(over = 'raise', divide = 'raise', invalid = 'raise', under = 'ignore') # numpy raises warnings, convert to exceptions to trap them
+numpy.seterr(all= 'ignore')
 
 import StringIO, parser, types
 

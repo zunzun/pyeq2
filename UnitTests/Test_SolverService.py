@@ -13,7 +13,7 @@ import pyeq2
 import DataForUnitTests
 
 import numpy, scipy.interpolate
-numpy.seterr(over = 'raise', divide = 'raise', invalid = 'raise', under = 'ignore') # numpy raises warnings, convert to exceptions to trap them
+numpy.seterr(all= 'ignore')
 
 
 

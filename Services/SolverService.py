@@ -14,7 +14,7 @@ from __future__ import absolute_import
 #    License: BSD-style (see LICENSE.txt in main source directory)
 
 import numpy, scipy.interpolate, scipy.optimize, scipy.odr.odrpack, copy
-numpy.seterr(over = 'raise', divide = 'raise', invalid = 'raise', under = 'ignore') # numpy raises warnings, convert to exceptions to trap them
+numpy.seterr(all= 'ignore')
 
 import pyeq2
 from . import diffev

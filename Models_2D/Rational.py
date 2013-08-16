@@ -20,7 +20,7 @@ if os.path.join(sys.path[0][:sys.path[0].rfind(os.sep)], '..') not in sys.path:
 import pyeq2, pyeq2.PolyFunctions
 
 import numpy
-numpy.seterr(over = 'raise', divide = 'raise', invalid = 'raise', under = 'ignore') # numpy raises warnings, convert to exceptions to trap them
+numpy.seterr(all= 'ignore')
 
 import pyeq2.Model_2D_BaseClass
 

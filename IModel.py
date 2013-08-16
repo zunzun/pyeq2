@@ -16,7 +16,7 @@ from __future__ import absolute_import
 import pyeq2
 
 import numpy, scipy.interpolate, scipy.stats
-numpy.seterr(over = 'raise', divide = 'raise', invalid = 'raise', under = 'ignore') # numpy raises warnings, convert to exceptions to trap them
+numpy.seterr(all= 'ignore')
 
 
 
