@@ -163,7 +163,7 @@ for submodule in inspect.getmembers(pyeq2.Models_2D):
 ##########################
 # fit polyfunctionals here
 print()
-print('Fitting polyfunctionals:'())
+print('Fitting polyfunctionals:')
 equationCount = 0
 maxPolyfunctionalCoefficients = 4 # this value was chosen to make this example more convenient
 polyfunctionalEquationList = pyeq2.PolyFunctions.GenerateListForPolyfunctionals_2D()
