@@ -32,7 +32,7 @@ class ExtendedVersionHandler_ExponentialGrowth(IExtendedVersionHandler.IExtended
         else:
             try:
                 cd = inModel.GetCoefficientDesignators()
-                return inModel._HTML + '<br>' + inModel._leftSideHTML + ' = ' + inModel._leftSideHTML + ' * (' + inModel.listOfAdditionalCoefficientDesignators[len(cd)] + ' * exp(' + x_or_xy + '))'
+                return inModel._HTML + '<br>' + inModel._leftSideHTML + ' = ' + inModel._leftSideHTML + ' * (' + cd[-1] + ' * exp(' + x_or_xy + '))'
             except:
                 return inModel._HTML + '<br>' + inModel._leftSideHTML + ' = ' + inModel._leftSideHTML + ' * (exp(' + x_or_xy + '))'
 
@@ -72,7 +72,7 @@ class ExtendedVersionHandler_ExponentialGrowth(IExtendedVersionHandler.IExtended
             return inModel.SpecificCodeCPP() + "\ttemp = temp * exp(" + x_or_xy + ");\n"
         else:
             cd = inModel.GetCoefficientDesignators()
-            return inModel.SpecificCodeCPP() + "\ttemp = temp * ("  + cd[len(cd)-1] + ' * exp(' + x_or_xy + "));\n"
+            return inModel.SpecificCodeCPP() + "\ttemp = temp * ("  + cd[-1] + ' * exp(' + x_or_xy + "));\n"
         
 
     def GetAdditionalDataCacheFunctions(self, inModel, inDataCacheFunctions):

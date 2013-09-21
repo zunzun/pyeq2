@@ -32,7 +32,7 @@ class ExtendedVersionHandler_ExponentialDecayAndOffset(IExtendedVersionHandler.I
         else:
             try:
                 cd = inModel.GetCoefficientDesignators()
-                return inModel._HTML + '<br>' + inModel._leftSideHTML + ' = ' + inModel._leftSideHTML + ' / (' + inModel.listOfAdditionalCoefficientDesignators[len(cd)] + ' * exp(' + x_or_xy + ')) + Offset'
+                return inModel._HTML + '<br>' + inModel._leftSideHTML + ' = ' + inModel._leftSideHTML + ' / (' + cd[-2] + ' * exp(' + x_or_xy + ')) + Offset'
             except:
                 return inModel._HTML + '<br>' + inModel._leftSideHTML + ' = ' + inModel._leftSideHTML + ' / (exp(' + x_or_xy + ')) + Offset'
 
@@ -77,7 +77,7 @@ class ExtendedVersionHandler_ExponentialDecayAndOffset(IExtendedVersionHandler.I
             return inModel.SpecificCodeCPP() + "\ttemp = temp / exp(" + x_or_xy + ") + Offset;\n"
         else:
             cd = inModel.GetCoefficientDesignators()
-            return inModel.SpecificCodeCPP() + "\ttemp = temp / ("  + cd[len(cd)-2] + ' * exp(' + x_or_xy + ")) + Offset;\n"
+            return inModel.SpecificCodeCPP() + "\ttemp = temp / ("  + cd[-2] + ' * exp(' + x_or_xy + ")) + Offset;\n"
         
 
     def GetAdditionalDataCacheFunctions(self, inModel, inDataCacheFunctions):

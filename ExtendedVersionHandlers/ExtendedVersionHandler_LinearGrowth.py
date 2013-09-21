@@ -29,9 +29,9 @@ class ExtendedVersionHandler_LinearGrowth(IExtendedVersionHandler.IExtendedVersi
         else:
             try:
                 cd = inModel.GetCoefficientDesignators()
-                return inModel._HTML + '<br>' + inModel._leftSideHTML + ' = ' + inModel._leftSideHTML + ' * (' + inModel.listOfAdditionalCoefficientDesignators[len(cd)] + ' * ' + x_or_xy + ') + Offset'
+                return inModel._HTML + '<br>' + inModel._leftSideHTML + ' = ' + inModel._leftSideHTML + ' * (' + cd[-1] + ' * ' + x_or_xy + ')'
             except:
-                return inModel._HTML + '<br>' + inModel._leftSideHTML + ' = ' + inModel._leftSideHTML + ' * (' + x_or_xy + ') + Offset'
+                return inModel._HTML + '<br>' + inModel._leftSideHTML + ' = ' + inModel._leftSideHTML + ' * (' + x_or_xy + ')'
 
 
     def AssembleDisplayName(self, inModel):
@@ -68,7 +68,7 @@ class ExtendedVersionHandler_LinearGrowth(IExtendedVersionHandler.IExtendedVersi
             return inModel.SpecificCodeCPP() + "\ttemp = temp * (" + x_or_xy + ");\n"
         else:
             cd = inModel.GetCoefficientDesignators()
-            return inModel.SpecificCodeCPP() + "\ttemp = temp * ("  + cd[len(cd)-1] + ' * ' + x_or_xy + ");\n"
+            return inModel.SpecificCodeCPP() + "\ttemp = temp * ("  + cd[-1] + ' * ' + x_or_xy + ");\n"
         
 
     def GetAdditionalModelPredictions(self, inBaseModelCalculation, inCoeffs, inDataCacheDictionary, inModel):

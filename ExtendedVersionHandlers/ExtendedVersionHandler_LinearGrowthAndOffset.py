@@ -29,7 +29,7 @@ class ExtendedVersionHandler_LinearGrowthAndOffset(IExtendedVersionHandler.IExte
         else:
             try:
                 cd = inModel.GetCoefficientDesignators()
-                return inModel._HTML + '<br>' + inModel._leftSideHTML + ' = ' + inModel._leftSideHTML + ' * (' + inModel.listOfAdditionalCoefficientDesignators[len(cd)] + ' * ' + x_or_xy + ') + Offset'
+                return inModel._HTML + '<br>' + inModel._leftSideHTML + ' = ' + inModel._leftSideHTML + ' * (' + cd[-2] + ' * ' + x_or_xy + ') + Offset'
             except:
                 return inModel._HTML + '<br>' + inModel._leftSideHTML + ' = ' + inModel._leftSideHTML + ' * (' + x_or_xy + ') + Offset'
 
@@ -74,7 +74,7 @@ class ExtendedVersionHandler_LinearGrowthAndOffset(IExtendedVersionHandler.IExte
             return inModel.SpecificCodeCPP() + "\ttemp = temp * (" + x_or_xy + ") + Offset;\n"
         else:
             cd = inModel.GetCoefficientDesignators()
-            return inModel.SpecificCodeCPP() + "\ttemp = temp * ("  + cd[len(cd)-2] + ' * ' + x_or_xy + ") + Offset;\n"
+            return inModel.SpecificCodeCPP() + "\ttemp = temp * ("  + cd[-2] + ' * ' + x_or_xy + ") + Offset;\n"
         
 
     def GetAdditionalModelPredictions(self, inBaseModelCalculation, inCoeffs, inDataCacheDictionary, inModel):
