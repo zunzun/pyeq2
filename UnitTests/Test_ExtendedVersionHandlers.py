@@ -166,7 +166,7 @@ class TestExtendedVersionHandlers(unittest.TestCase):
     def test_ExtendedVersion_Asymptotic_Exponential_A_WithExponentialGrowth_2D(self):
         equation = pyeq2.Models_2D.Exponential.AsymptoticExponentialA('SSQABS', 'Exponential Growth')
         self.assertEqual(equation.extendedVersionHandler.__class__.__name__, 'ExtendedVersionHandler_ExponentialGrowth')
-        self.assertEqual(equation.GetDisplayHTML(), 'y = 1.0 - a<sup>x</sup><br>y = y * (c * exp(x))')
+        self.assertEqual(equation.GetDisplayHTML(), 'y = 1.0 - a<sup>x</sup><br>y = y * (b * exp(x))')
         self.assertEqual(equation.GetDisplayName(), 'Asymptotic Exponential A With Exponential Growth')
         self.assertEqual(equation.GetCoefficientDesignators(), ['a', 'b'])
         self.assertEqual(len(equation.GetDataCacheFunctions()), 2)
@@ -183,7 +183,7 @@ class TestExtendedVersionHandlers(unittest.TestCase):
     def test_ExtendedVersion_Asymptotic_Exponential_A_WithExponentialGrowthAndOffset_2D(self):
         equation = pyeq2.Models_2D.Exponential.AsymptoticExponentialA('SSQABS', 'Exponential Growth And Offset')
         self.assertEqual(equation.extendedVersionHandler.__class__.__name__, 'ExtendedVersionHandler_ExponentialGrowthAndOffset')
-        self.assertEqual(equation.GetDisplayHTML(), 'y = 1.0 - a<sup>x</sup><br>y = y * (d * exp(x)) + Offset')
+        self.assertEqual(equation.GetDisplayHTML(), 'y = 1.0 - a<sup>x</sup><br>y = y * (b * exp(x)) + Offset')
         self.assertEqual(equation.GetDisplayName(), 'Asymptotic Exponential A With Exponential Growth And Offset')
         self.assertEqual(equation.GetCoefficientDesignators(), ['a', 'b', 'Offset'])
         self.assertEqual(len(equation.GetDataCacheFunctions()), 2)
@@ -199,7 +199,7 @@ class TestExtendedVersionHandlers(unittest.TestCase):
     def test_ExtendedVersion_Asymptotic_Exponential_A_WithExponentialDecay_2D(self):
         equation = pyeq2.Models_2D.Exponential.AsymptoticExponentialA('SSQABS', 'Exponential Decay')
         self.assertEqual(equation.extendedVersionHandler.__class__.__name__, 'ExtendedVersionHandler_ExponentialDecay')
-        self.assertEqual(equation.GetDisplayHTML(), 'y = 1.0 - a<sup>x</sup><br>y = y / (c * exp(x))')
+        self.assertEqual(equation.GetDisplayHTML(), 'y = 1.0 - a<sup>x</sup><br>y = y / (b * exp(x))')
         self.assertEqual(equation.GetDisplayName(), 'Asymptotic Exponential A With Exponential Decay')
         self.assertEqual(equation.GetCoefficientDesignators(), ['a', 'b'])
         self.assertEqual(len(equation.GetDataCacheFunctions()), 2)
@@ -215,7 +215,7 @@ class TestExtendedVersionHandlers(unittest.TestCase):
     def test_ExtendedVersion_Asymptotic_Exponential_A_WithExponentialDecayAndOffset_2D(self):
         equation = pyeq2.Models_2D.Exponential.AsymptoticExponentialA('SSQABS', 'Exponential Decay And Offset')
         self.assertEqual(equation.extendedVersionHandler.__class__.__name__, 'ExtendedVersionHandler_ExponentialDecayAndOffset')
-        self.assertEqual(equation.GetDisplayHTML(), 'y = 1.0 - a<sup>x</sup><br>y = y / (d * exp(x)) + Offset')
+        self.assertEqual(equation.GetDisplayHTML(), 'y = 1.0 - a<sup>x</sup><br>y = y / (b * exp(x)) + Offset')
         self.assertEqual(equation.GetDisplayName(), 'Asymptotic Exponential A With Exponential Decay And Offset')
         self.assertEqual(equation.GetCoefficientDesignators(), ['a', 'b', 'Offset'])
         self.assertEqual(len(equation.GetDataCacheFunctions()), 2)
