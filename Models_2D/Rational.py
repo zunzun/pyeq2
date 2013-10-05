@@ -132,8 +132,11 @@ class UserSelectableRational(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
                 denominator += inCoeffs[coeffCount] * eval("inDataCacheDictionary['Rational2D_" + str(i) + "']")
                 coeffCount += 1
             temp = numerator / (1.0 + denominator)
-            if len(inCoeffs) > coeffCount:
+            
+            # handle an old design error regarding offsets
+            if len(inCoeffs) > coeffCount and -1 == self.extendedVersionHandler.__class__.__name__.find('_Offset'):
                 temp += inCoeffs[-1]
+                
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
@@ -166,7 +169,9 @@ class UserSelectableRational(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
             coeffCount += 1
             
         s = "\ttemp = (" + numeratorString + ")\n;"
-        s += "\ttemp /= (" + denominatorString + ")\n;"
-        if len(self._coefficientDesignators) > coeffCount:
+        s += "\ttemp /= (1.0 + " + denominatorString + ")\n;"
+
+        # handle an old design error regarding offsets
+        if len(self._coefficientDesignators) > coeffCount  and -1 == self.extendedVersionHandler.__class__.__name__.find('_Offset'):
             s += "\ttemp += Offset\n;"
         return s
