@@ -597,6 +597,9 @@ class IModel(object):
 
 
     def WrapperForODR(self, inCoeffs, data):
+        if not numpy.all(numpy.isfinite(data)):
+            return numpy.ones(len(self.dataCache.allDataCacheDictionary['DependentData'])) * 1.0E300
+        
         if numpy.array_equal(data, self.dataCache.allDataCacheDictionary['IndependentData']):
             if self.upperCoefficientBounds != []:
                 for i in range(len(inCoeffs)):
