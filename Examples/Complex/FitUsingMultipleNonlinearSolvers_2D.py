@@ -344,7 +344,7 @@ for numeratorCoeffCount in range(1, maxCoeffs):
                     if (equationCount % 5) == 0:
                         print('    ', equationCount, 'rationals, current flags:', equationInstance.rationalNumeratorFlags, equationInstance.rationalDenominatorFlags,)
                         if extendedVersion == 'Offset':
-                            print('with offset')()
+                            print('with offset')
                         else:
                             print()
 
