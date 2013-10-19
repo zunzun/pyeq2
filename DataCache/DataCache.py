@@ -110,7 +110,7 @@ class DataCache(object):
                         s = s[:-1]
                 cacheItem = getattr(pyeq2.DataCache.DataCacheFunctions, s)(inCacheDictionary['IndependentData'], dataCacheFunction[1], inModel)
                 if not numpy.all(numpy.isfinite(cacheItem)):
-                    raise Exception('Error creating data cache for cache function ' + s + '(): could not calculate value.')
+                    raise Exception('Error creating data cache for cache function ' + s + '(): could not calculate value. This is usually caused by taking the the exponent of a large number.')
                 inCacheDictionary[dataCacheFunction[0]] = cacheItem
             returnCacheDataList.append(inCacheDictionary[dataCacheFunction[0]])
         return numpy.array(returnCacheDataList)
