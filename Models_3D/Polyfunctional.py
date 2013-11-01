@@ -141,17 +141,15 @@ class UserSelectablePolyfunctional(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
     def SpecificCodeCPP(self):
         s = ""
         count = 0
-        xlist = pyeq2.PolyFunctions.GenerateListForPolyfunctionals_3D_X()
-        ylist = pyeq2.PolyFunctions.GenerateListForPolyfunctionals_3D_Y()
         cd = self.GetCoefficientDesignators()
         for i in self.polyfunctional3DFlags:
             if i != [0,0]:
                 if i[0] > 0 and i[1] == 0:
-                    s += "\ttemp += " + cd[count] + " * " + xlist[i[0]].CPP + ";\n"
+                    s += "\ttemp += " + cd[count] + " * " + self.polyfunctionalEquationList_X[i[0]].CPP + ";\n"
                 elif i[0] == 0 and i[1] > 0:
-                    s += "\ttemp += " + cd[count] + " * " + ylist[i[1]].CPP + ";\n"
+                    s += "\ttemp += " + cd[count] + " * " + self.polyfunctionalEquationList_Y[i[1]].CPP + ";\n"
                 else:
-                    s += "\ttemp += " + cd[count] + " * " + xlist[i[0]].CPP + " * " + ylist[i[1]].CPP + ";\n"
+                    s += "\ttemp += " + cd[count] + " * " + self.polyfunctionalEquationList_X[i[0]].CPP + " * " + self.polyfunctionalEquationList_Y[i[1]].CPP + ";\n"
                 count += 1
         if [0,0] in self.polyfunctional3DFlags:
             s += "\ttemp += " + self._coefficientDesignators[count] + ";\n"

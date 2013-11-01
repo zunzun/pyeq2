@@ -128,10 +128,9 @@ class UserSelectablePolyfunctional(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     def SpecificCodeCPP(self):
         s = ""
         count = 0
-        EquationListForPolyfunctional = pyeq2.PolyFunctions.GenerateListForPolyfunctionals_2D()
         for i in self.polyfunctional2DFlags:
             if i != 0:
-                s += "\ttemp += " + self._coefficientDesignators[count] + " * " + EquationListForPolyfunctional[i].CPP + ";\n"
+                s += "\ttemp += " + self._coefficientDesignators[count] + " * " + self.polyfunctionalEquationList[i].CPP + ";\n"
                 count += 1
         if 0 in self.polyfunctional2DFlags:
             s += "\ttemp += " + self._coefficientDesignators[count] + ";\n"
