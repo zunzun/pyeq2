@@ -176,8 +176,8 @@ class TestExtendedVersionHandlers(unittest.TestCase):
         
         equation.lowerCoefficientBounds = []
         equation.Solve()
-        coefficientsShouldBe = numpy.array([0.001, 0.00041378])
-        self.assertTrue(numpy.allclose(equation.solvedCoefficients, coefficientsShouldBe, rtol=1.0, atol=1.0E-300))
+        coefficientsShouldBe = numpy.array([0.00292511358523, 0.000413784769012])
+        self.assertTrue(numpy.allclose(equation.solvedCoefficients, coefficientsShouldBe, rtol=1.0E-05, atol=1.0E-300))
         
         
     def test_ExtendedVersion_Asymptotic_Exponential_A_WithExponentialGrowthAndOffset_2D(self):
@@ -192,7 +192,7 @@ class TestExtendedVersionHandlers(unittest.TestCase):
         pyeq2.dataConvertorService().ConvertAndSortColumnarASCII(DataForUnitTests.asciiDataInColumns_2D, equation, False)
         
         equation.Solve()
-        coefficientsShouldBe = numpy.array([0.314768543035, 0.000328683484927, 1.30596153831])
+        coefficientsShouldBe = numpy.array([0.000508533711139, 0.000328686108287, 1.30583727762])
         self.assertTrue(numpy.allclose(equation.solvedCoefficients, coefficientsShouldBe, rtol=1.0E-05, atol=1.0E-300))
 
 

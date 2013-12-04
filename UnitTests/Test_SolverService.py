@@ -84,7 +84,7 @@ class TestSolverService(unittest.TestCase):
 
 
     def test_SolveUsingDE_3D(self):
-        coefficientsShouldBe = numpy.array([-2.082769, -0.4847434, 1.7522266])
+        coefficientsShouldBe = numpy.array([-0.692410067013,  -0.657041142132, 1.3635590237])
         model = pyeq2.Models_3D.UserDefinedFunction.UserDefinedFunction('SSQABS', 'Default', 'a + b*X + c*Y')
         pyeq2.dataConvertorService().ConvertAndSortColumnarASCII(DataForUnitTests.asciiDataInColumns_3D_small, model, False)
         coefficients = pyeq2.solverService().SolveUsingDE(model)
@@ -92,7 +92,7 @@ class TestSolverService(unittest.TestCase):
         
         
     def test_SolveUsingDE_2D(self):
-        coefficientsShouldBe = numpy.array([-6.30741239, 1.30840096])
+        coefficientsShouldBe = numpy.array([ -7.19386218627, 1.45067239435])
         model = pyeq2.Models_2D.UserDefinedFunction.UserDefinedFunction('SSQABS', 'Default', 'm*X + b')
         pyeq2.dataConvertorService().ConvertAndSortColumnarASCII(DataForUnitTests.asciiDataInColumns_2D_small, model, False)
         coefficients = pyeq2.solverService().SolveUsingDE(model)
