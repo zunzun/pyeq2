@@ -108,7 +108,9 @@ class DataCache(object):
                     if lastchar.isdigit() or lastchar == '_' or lastchar == '.' or lastchar == '-' or lastchar == '[' or lastchar == ']' or lastchar == ',' or lastchar == ' ':
                         found = 1
                         s = s[:-1]
+                numpy.seterr(all= 'raise') # DataCache functions trap numpy exceptions
                 cacheItem = getattr(pyeq2.DataCache.DataCacheFunctions, s)(inCacheDictionary['IndependentData'], dataCacheFunction[1], inModel)
+                numpy.seterr(all= 'ignore')
                 if not numpy.all(numpy.isfinite(cacheItem)):
                     raise Exception('Error creating data cache for cache function ' + s + '(): could not calculate value. This is usually caused by taking the the exponent of a large number.')
                 inCacheDictionary[dataCacheFunction[0]] = cacheItem
