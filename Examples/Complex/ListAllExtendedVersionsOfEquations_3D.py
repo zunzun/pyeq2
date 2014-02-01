@@ -18,6 +18,7 @@ for submodule in inspect.getmembers(pyeq2.Models_3D):
     if inspect.ismodule(submodule[1]):
         for equationClass in inspect.getmembers(submodule[1]):
             if inspect.isclass(equationClass[1]):
+                # the 2D version demonstrates exclusion by exception
                 for extendedVersionName in pyeq2.ExtendedVersionHandlers.extendedVersionHandlerNameList:
                     
                     if (-1 != extendedVersionName.find('Offset')) and (equationClass[1].autoGenerateOffsetForm == False):

@@ -18,6 +18,7 @@ for submodule in inspect.getmembers(pyeq2.Models_2D):
     if inspect.ismodule(submodule[1]):
         for equationClass in inspect.getmembers(submodule[1]):
             if inspect.isclass(equationClass[1]):
+                # the 3D version demonstrates exclusion by equation attribte
                 for extendedVersionName in pyeq2.ExtendedVersionHandlers.extendedVersionHandlerNameList:
                     try:
                         equation = equationClass[1]('SSQABS', extendedVersionName)
