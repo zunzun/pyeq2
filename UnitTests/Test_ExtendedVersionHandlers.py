@@ -31,8 +31,8 @@ class TestExtendedVersionHandlers(unittest.TestCase):
         pyeq2.dataConvertorService().ConvertAndSortColumnarASCII(DataForUnitTests.asciiDataInColumns_2D, equation, False)
         
         equation.Solve()
-        coefficientsShouldBe = numpy.array([6.6644703, 0.10305385, -11.2292899])
-        self.assertTrue(numpy.allclose(equation.solvedCoefficients, coefficientsShouldBe, rtol=1.0E-05, atol=1.0E-300))
+        fittingTarget = equation.CalculateAllDataFittingTarget(equation.solvedCoefficients)
+        self.assertTrue(fittingTarget <= 0.018)
 
 
     def test_ExtendedVersion_Reciprocal_Exponential_2D(self):
@@ -47,8 +47,8 @@ class TestExtendedVersionHandlers(unittest.TestCase):
         pyeq2.dataConvertorService().ConvertAndSortColumnarASCII(DataForUnitTests.asciiDataInColumns_2D, equation, False)
         
         equation.Solve()
-        coefficientsShouldBe = numpy.array([1.0869969588803379E+01, -4.4497258666306111E-01])
-        self.assertTrue(numpy.allclose(equation.solvedCoefficients, coefficientsShouldBe, rtol=1.0E-06, atol=1.0E-300))
+        fittingTarget = equation.CalculateAllDataFittingTarget(equation.solvedCoefficients)
+        self.assertTrue(fittingTarget <= 1.9)
 
 
     def test_ExtendedVersion_Reciprocal_Exponential_WithOffset_2D(self):
@@ -63,8 +63,8 @@ class TestExtendedVersionHandlers(unittest.TestCase):
         pyeq2.dataConvertorService().ConvertAndSortColumnarASCII(DataForUnitTests.asciiDataInColumns_2D, equation, False)
         
         equation.Solve()
-        coefficientsShouldBe = numpy.array([0.15004943, -0.10305384, -11.22929034])
-        self.assertTrue(numpy.allclose(equation.solvedCoefficients, coefficientsShouldBe, rtol=1.0E-06, atol=1.0E-300))
+        fittingTarget = equation.CalculateAllDataFittingTarget(equation.solvedCoefficients)
+        self.assertTrue(fittingTarget <= 0.018)
 
 
     def test_ExtendedVersion_Inverse_Exponential_2D(self):
@@ -79,8 +79,8 @@ class TestExtendedVersionHandlers(unittest.TestCase):
         pyeq2.dataConvertorService().ConvertAndSortColumnarASCII(DataForUnitTests.asciiDataInColumns_2D, equation, False)
         
         equation.Solve()
-        coefficientsShouldBe = numpy.array([30.67342834, -0.31776877])
-        self.assertTrue(numpy.allclose(equation.solvedCoefficients, coefficientsShouldBe, rtol=1.0E-06, atol=1.0E-300))
+        fittingTarget = equation.CalculateAllDataFittingTarget(equation.solvedCoefficients)
+        self.assertTrue(fittingTarget <= 1.6)
 
 
     def test_ExtendedVersion_Inverse_Exponential_WithOffset_2D(self):
@@ -95,8 +95,8 @@ class TestExtendedVersionHandlers(unittest.TestCase):
         pyeq2.dataConvertorService().ConvertAndSortColumnarASCII(DataForUnitTests.asciiDataInColumns_2D, equation, False)
         
         equation.Solve()
-        coefficientsShouldBe = numpy.array([1.55291718, -0.06133912, -4.44443162])
-        self.assertTrue(numpy.allclose(equation.solvedCoefficients, coefficientsShouldBe, rtol=1.0E-06, atol=1.0E-300))
+        fittingTarget = equation.CalculateAllDataFittingTarget(equation.solvedCoefficients)
+        self.assertTrue(fittingTarget <= 0.018)
 
 
     def test_ExtendedVersion_Exponential_WithLinearDecay_2D(self):
@@ -111,10 +111,10 @@ class TestExtendedVersionHandlers(unittest.TestCase):
         pyeq2.dataConvertorService().ConvertAndSortColumnarASCII(DataForUnitTests.asciiDataInColumns_2D, equation, False)
         
         equation.Solve()
-        coefficientsShouldBe = numpy.array([0.25868186, 0.57252871])
-        self.assertTrue(numpy.allclose(equation.solvedCoefficients, coefficientsShouldBe, rtol=1.0E-06, atol=1.0E-300))
+        fittingTarget = equation.CalculateAllDataFittingTarget(equation.solvedCoefficients)
+        self.assertTrue(fittingTarget <= 2.2)
         
-        
+
     def test_ExtendedVersion_Exponential_WithLinearDecayAndOffset_2D(self):
         equation = pyeq2.Models_2D.Exponential.Exponential('SSQABS', 'Linear Decay And Offset')
         self.assertEqual(equation.extendedVersionHandler.__class__.__name__, 'ExtendedVersionHandler_LinearDecayAndOffset')
@@ -127,8 +127,8 @@ class TestExtendedVersionHandlers(unittest.TestCase):
         pyeq2.dataConvertorService().ConvertAndSortColumnarASCII(DataForUnitTests.asciiDataInColumns_2D, equation, False)
         
         equation.Solve()
-        coefficientsShouldBe = numpy.array([9.94308512, 0.27132282, -7.28329138])
-        self.assertTrue(numpy.allclose(equation.solvedCoefficients, coefficientsShouldBe, rtol=1.0E-06, atol=1.0E-300))
+        fittingTarget = equation.CalculateAllDataFittingTarget(equation.solvedCoefficients)
+        self.assertTrue(fittingTarget <= 0.49)
 
 
     def test_ExtendedVersion_Exponential_WithLinearGrowth_2D(self):
@@ -143,10 +143,10 @@ class TestExtendedVersionHandlers(unittest.TestCase):
         pyeq2.dataConvertorService().ConvertAndSortColumnarASCII(DataForUnitTests.asciiDataInColumns_2D, equation, False)
         
         equation.Solve()
-        coefficientsShouldBe = numpy.array([0.03260151, 0.31776877])
-        self.assertTrue(numpy.allclose(equation.solvedCoefficients, coefficientsShouldBe, rtol=1.0E-05, atol=1.0E-300))
+        fittingTarget = equation.CalculateAllDataFittingTarget(equation.solvedCoefficients)
+        self.assertTrue(fittingTarget <= 1.6)
         
-        
+
     def test_ExtendedVersion_Exponential_WithLinearGrowthAndOffset_2D(self):
         equation = pyeq2.Models_2D.Exponential.Exponential('SSQABS', 'Linear Growth And Offset')
         self.assertEqual(equation.extendedVersionHandler.__class__.__name__, 'ExtendedVersionHandler_LinearGrowthAndOffset')
@@ -159,8 +159,8 @@ class TestExtendedVersionHandlers(unittest.TestCase):
         pyeq2.dataConvertorService().ConvertAndSortColumnarASCII(DataForUnitTests.asciiDataInColumns_2D, equation, False)
         
         equation.Solve()
-        coefficientsShouldBe = numpy.array([0.643949371878, 0.0613391161993, -4.44443175952])
-        self.assertTrue(numpy.allclose(equation.solvedCoefficients, coefficientsShouldBe, rtol=1.0E-06, atol=1.0E-300))
+        fittingTarget = equation.CalculateAllDataFittingTarget(equation.solvedCoefficients)
+        self.assertTrue(fittingTarget <= 0.018)
 
 
     def test_ExtendedVersion_Asymptotic_Exponential_A_WithExponentialGrowth_2D(self):
@@ -174,10 +174,9 @@ class TestExtendedVersionHandlers(unittest.TestCase):
 
         pyeq2.dataConvertorService().ConvertAndSortColumnarASCII(DataForUnitTests.asciiDataInColumns_2D, equation, False)
         
-        equation.lowerCoefficientBounds = []
         equation.Solve()
-        coefficientsShouldBe = numpy.array([0.00292511358523, 0.000413784769012])
-        self.assertTrue(numpy.allclose(equation.solvedCoefficients, coefficientsShouldBe, rtol=1.0E-05, atol=1.0E-300))
+        fittingTarget = equation.CalculateAllDataFittingTarget(equation.solvedCoefficients)
+        self.assertTrue(fittingTarget <= 21.0)
         
         
     def test_ExtendedVersion_Asymptotic_Exponential_A_WithExponentialGrowthAndOffset_2D(self):
@@ -192,8 +191,8 @@ class TestExtendedVersionHandlers(unittest.TestCase):
         pyeq2.dataConvertorService().ConvertAndSortColumnarASCII(DataForUnitTests.asciiDataInColumns_2D, equation, False)
         
         equation.Solve()
-        coefficientsShouldBe = numpy.array([0.000508533711139, 0.000328686108287, 1.30583727762])
-        self.assertTrue(numpy.allclose(equation.solvedCoefficients, coefficientsShouldBe, rtol=1.0E-05, atol=1.0E-300))
+        fittingTarget = equation.CalculateAllDataFittingTarget(equation.solvedCoefficients)
+        self.assertTrue(fittingTarget <= 7.0)
 
 
     def test_ExtendedVersion_Asymptotic_Exponential_A_WithExponentialDecay_2D(self):
@@ -208,8 +207,8 @@ class TestExtendedVersionHandlers(unittest.TestCase):
         pyeq2.dataConvertorService().ConvertAndSortColumnarASCII(DataForUnitTests.asciiDataInColumns_2D, equation, False)
         
         equation.Solve()
-        coefficientsShouldBe = numpy.array([4.24147585367, -10.8635807983])
-        self.assertTrue(numpy.allclose(equation.solvedCoefficients, coefficientsShouldBe, rtol=1.0E-05, atol=1.0E-300))
+        fittingTarget = equation.CalculateAllDataFittingTarget(equation.solvedCoefficients)
+        self.assertTrue(fittingTarget <= 1.9)
         
         
     def test_ExtendedVersion_Asymptotic_Exponential_A_WithExponentialDecayAndOffset_2D(self):
@@ -224,8 +223,8 @@ class TestExtendedVersionHandlers(unittest.TestCase):
         pyeq2.dataConvertorService().ConvertAndSortColumnarASCII(DataForUnitTests.asciiDataInColumns_2D, equation, False)
         
         equation.Solve()
-        coefficientsShouldBe = numpy.array([2.69273579217, 0.00518863941, 182.725486049])
-        self.assertTrue(numpy.allclose(equation.solvedCoefficients, coefficientsShouldBe, rtol=1.0E-06, atol=1.0E-300))
+        fittingTarget = equation.CalculateAllDataFittingTarget(equation.solvedCoefficients)
+        self.assertTrue(fittingTarget <= 0.017)
 
 
 

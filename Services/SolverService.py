@@ -80,9 +80,9 @@ class SolverService(object):
         if maxGenerationsForGA > 25:
             maxGenerationsForGA = 25
 
-        guessDivisorForGA = 5.0 * numberOfCoefficients
-        if guessDivisorForGA > 25.0:
-            guessDivisorForGA = 25.0
+        guessDivisorForGA = 10.0 * numberOfCoefficients
+        if guessDivisorForGA > 50.0:
+            guessDivisorForGA = 50.0
 
         inModel.dataCache.FindOrCreateReducedDataCache(inModel)
         
