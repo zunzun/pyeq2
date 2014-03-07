@@ -157,6 +157,21 @@ class IModel(object):
         self.df_r = self.ncoef - 1                              # degrees of freedom, regression
         self.sumOfSquaredErrors = numpy.sum(self.modelAbsoluteError * self.modelAbsoluteError)
 
+        # if coefficients have bounds or fixed values, these calculations
+        # can fail.  The constraints are for the solver.  Calculate these
+        # statistics without constraints, and warn users that do use any
+        # constraints that these statistics are not valid if near bounds.
+        # Values for fixed coefficients should be correct if they are
+        # only fixed as a constraint for the solver.
+
+        # temporarily remove constraints, restore later
+        upperCoefficientBounds = self.upperCoefficientBounds
+        lowerCoefficientBounds = self.lowerCoefficientBounds
+        fixedCoefficients = self.fixedCoefficients
+        self.upperCoefficientBounds = []
+        self.lowerCoefficientBounds = []
+        self.fixedCoefficients = []
+        
         try:
             self.r2 = 1.0 - self.modelAbsoluteError.var()/self.dataCache.allDataCacheDictionary['DependentData'].var()
 
@@ -349,6 +364,11 @@ class IModel(object):
             self.tstat_beta_weighted = None
             self.pstat_beta_weighted = None
             self.ci_weighted = None
+
+        # restore constraints, as users will not expect them to have changed
+        self.upperCoefficientBounds = upperCoefficientBounds
+        self.lowerCoefficientBounds = lowerCoefficientBounds
+        self.fixedCoefficients = fixedCoefficients
                     
 
     def CalculateModelErrors(self, inCoeffs, inDictionary):

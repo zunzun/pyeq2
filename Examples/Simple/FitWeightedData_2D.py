@@ -65,6 +65,10 @@ print()
 
 equation.CalculateCoefficientAndFitStatistics()
 
+if equation.upperCoefficientBounds or equation.lowerCoefficientBounds:
+    print('You entered coefficient bounds. Parameter statistics may')
+    print('not be valid for parameter values at or near the bounds.')
+    print()
 
 print('Degress of freedom error',  equation.df_e_weighted)
 print('Degress of freedom regression',  equation.df_r_weighted)
