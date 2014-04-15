@@ -569,7 +569,7 @@ class SimpleEquation_10(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
 
     def SpecificCodeCPP(self):
-        s = "\ttemp = a*exp((pow(ln(x_in)-b,2.0))/c);\n"
+        s = "\ttemp = a*exp((pow(log(x_in)-b,2.0))/c);\n"
         return s
 
 
@@ -773,7 +773,7 @@ class SimpleEquation_16(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
 
     def SpecificCodeCPP(self):
-        s = "\ttemp = a*pow(x_in,b+c*ln(x_in));\n"
+        s = "\ttemp = a*pow(x_in,b+c*log(x_in));\n"
         return s
 
 
@@ -1381,7 +1381,7 @@ class SimpleEquation_28(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
 
     def SpecificCodeCPP(self):
-        s = "\ttemp = exp(a+b/x_in+c*ln(x_in));\n"
+        s = "\ttemp = exp(a+b/x_in+c*log(x_in));\n"
         return s
 
 
@@ -1530,7 +1530,7 @@ class SimpleEquation_31(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
 
     def SpecificCodeCPP(self):
-        s = "\ttemp = a*ln(x_in+b);\n"
+        s = "\ttemp = a*log(x_in+b);\n"
         return s
 
 
@@ -1829,7 +1829,7 @@ class SimpleEquation_37(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
 
     def SpecificCodeCPP(self):
-        s = "\ttemp = a*pow(x_in,b)*ln(x_in);\n"
+        s = "\ttemp = a*pow(x_in,b)*log(x_in);\n"
         return s
 
 
@@ -1880,7 +1880,7 @@ class SimpleEquation_38(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
 
     def SpecificCodeCPP(self):
-        s = "\ttemp = a*pow(x_in,b)/ln(x_in);\n"
+        s = "\ttemp = a*pow(x_in,b)/log(x_in);\n"
         return s
 
 
@@ -1930,7 +1930,7 @@ class SimpleEquation_39(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
 
     def SpecificCodeCPP(self):
-        s = "\ttemp = a*pow(x_in,b)*ln(x_in+c);\n"
+        s = "\ttemp = a*pow(x_in,b)*log(x_in+c);\n"
         return s
 
 
@@ -1980,7 +1980,7 @@ class SimpleEquation_40(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
 
     def SpecificCodeCPP(self):
-        s = "\ttemp = a*pow(ln(x_in+b),c);\n"
+        s = "\ttemp = a*pow(log(x_in+b),c);\n"
         return s
 
 
@@ -2082,7 +2082,7 @@ class SimpleEquation_42(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
 
     def SpecificCodeCPP(self):
-        s = "\ttemp = a*pow(x_in,b/x_in)+c*ln(x_in);\n"
+        s = "\ttemp = a*pow(x_in,b/x_in)+c*log(x_in);\n"
         return s
 
 

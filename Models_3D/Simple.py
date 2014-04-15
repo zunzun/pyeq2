@@ -1263,7 +1263,7 @@ class SimpleEquation_24(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
 
 
     def SpecificCodeCPP(self):
-        s = "\ttemp = a*pow(x_in,b+c*ln(y_in));\n"
+        s = "\ttemp = a*pow(x_in,b+c*log(y_in));\n"
         return s
 
 
@@ -1315,7 +1315,7 @@ class SimpleEquation_25(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
 
 
     def SpecificCodeCPP(self):
-        s = "\ttemp = a*pow(y_in,b+c*ln(x_in));\n"
+        s = "\ttemp = a*pow(y_in,b+c*log(x_in));\n"
         return s
 
 
@@ -1367,7 +1367,7 @@ class SimpleEquation_26(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
 
 
     def SpecificCodeCPP(self):
-        s = "\ttemp = a*pow(y_in,b+c/ln(x_in));\n"
+        s = "\ttemp = a*pow(y_in,b+c/log(x_in));\n"
         return s
 
 
@@ -1419,7 +1419,7 @@ class SimpleEquation_27(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
 
 
     def SpecificCodeCPP(self):
-        s = "\ttemp = a*pow(x_in,b+c/ln(y_in));\n"
+        s = "\ttemp = a*pow(x_in,b+c/log(y_in));\n"
         return s
 
 
@@ -2151,7 +2151,7 @@ class SimpleEquation_41(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
 
 
     def SpecificCodeCPP(self):
-        s = "\ttemp = exp(a+b/x_in+c*ln(y_in));\n"
+        s = "\ttemp = exp(a+b/x_in+c*log(y_in));\n"
         return s
 
 
@@ -2203,7 +2203,7 @@ class SimpleEquation_42(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
 
 
     def SpecificCodeCPP(self):
-        s = "\ttemp = exp(a+b/y_in+c*ln(x_in));\n"
+        s = "\ttemp = exp(a+b/y_in+c*log(x_in));\n"
         return s
 
 
@@ -2255,7 +2255,7 @@ class SimpleEquation_43(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
 
 
     def SpecificCodeCPP(self):
-        s = "\ttemp = a*pow(x_in,b)*ln(y_in+c);\n"
+        s = "\ttemp = a*pow(x_in,b)*log(y_in+c);\n"
         return s
 
 
@@ -2307,7 +2307,7 @@ class SimpleEquation_44(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
 
 
     def SpecificCodeCPP(self):
-        s = "\ttemp = a*pow(y_in,b)*ln(x_in+c);\n"
+        s = "\ttemp = a*pow(y_in,b)*log(x_in+c);\n"
         return s
 
 

@@ -269,7 +269,7 @@ class TaylorD(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
 
 
     def SpecificCodeCPP(self):
-        s = "\ttemp = a + b*ln(x_in) + c*ln(y_in) + d*pow(ln(x_in), 2.0) + f*pow(ln(y_in), 2.0) + g*ln(x_in)*ln(y_in);\n"
+        s = "\ttemp = a + b*log(x_in) + c*log(y_in) + d*pow(log(x_in), 2.0) + f*pow(log(y_in), 2.0) + g*log(x_in)*log(y_in);\n"
         return s
 
 
