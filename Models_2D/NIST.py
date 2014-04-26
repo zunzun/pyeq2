@@ -828,7 +828,7 @@ class NIST_Misra1b(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 class NIST_Misra1c(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "NIST Misra1c"
-    _HTML = 'y = a * (1.0 - 2.0*b*x)<sup>-0.5</sup>'
+    _HTML = 'y = a * (1.0 - (1.0 + 2.0*b*x)<sup>-0.5</sup>)'
     _leftSideHTML = 'y'
     _coefficientDesignators = ['a', 'b']
     _canLinearSolverBeUsedForSSQABS = False
@@ -869,7 +869,7 @@ class NIST_Misra1c(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
 
     def SpecificCodeCPP(self):
-        s = "\ttemp += a * pow(1.0 - 2.0 * b * x_in, -0.5);\n"
+        s = "\ttemp += a * (1.0 - pow(1.0 + 2.0 * b * x_in, -0.5));\n"
         return s
 
 
