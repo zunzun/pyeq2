@@ -864,7 +864,7 @@ class MennSurfaceA(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
 class MennSurfaceB(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
     
     _baseName = "Menn's Surface B"
-    _HTML = 'z = ay<sup>4</sup> + by<sup>2</sup>x - cy<sup>2</sup>'
+    _HTML = 'z = ay<sup>4</sup> + by<sup>2</sup>x - cx<sup>2</sup>'
     _leftSideHTML = 'z'
     _coefficientDesignators = ['a', 'b', 'c']
     _canLinearSolverBeUsedForSSQABS = False
