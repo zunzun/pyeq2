@@ -1176,7 +1176,7 @@ class PetersBaskin_YIV(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         s += '\tdouble L = log( exp(b2*c1*d1) + exp(b2*c2*d1) );\n'
         s += '\tdouble yIII = yII - log( exp(d2*(b1*c2 + L/d1)) + exp(d2*yII) ) / d2;\n'
         s += '\tdouble yII_0 = log( exp(b2*c1*d1) + 1.0) / d1;\n'
-        s += '\tdouble yIII_0 = yII_0 - ln( exp(d2*(b1*c2 + L/d1)) + exp(d2*yII_0) ) / d2;\n'
+        s += '\tdouble yIII_0 = yII_0 - log( exp(d2*(b1*c2 + L/d1)) + exp(d2*yII_0) ) / d2;\n'
         s += '\ttemp = yIII - yIII_0;\n'
         return s
 
@@ -1293,7 +1293,7 @@ class PetersBaskin_YV(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         s += '\tdouble L = log( exp(b2*c1*d1) + exp(b2*c2*d1) );\n'
         s += '\tdouble yIII = yII - log( exp(d2*(b1*c2 + L/d1)) + exp(d2*yII) ) / d2;\n'
         s += '\tdouble yII_0 = log( exp(b2*c1*d1) + 1.0) / d1;\n'
-        s += '\tdouble yIII_0 = yII_0 - ln( exp(d2*(b1*c2 + L/d1)) + exp(d2*yII_0) ) / d2;\n'
+        s += '\tdouble yIII_0 = yII_0 - log( exp(d2*(b1*c2 + L/d1)) + exp(d2*yII_0) ) / d2;\n'
         s += '\ttemp = yIII - yIII_0 + q;\n'
         return s
 
@@ -1361,7 +1361,7 @@ class PetersBaskin_YV_Scaled(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         s += '\tdouble L = log( exp(b2*c1*d1) + exp(b2*c2*d1) );\n'
         s += '\tdouble yIII = yII - log( exp(d2*(b1*c2 + L/d1)) + exp(d2*yII) ) / d2;\n'
         s += '\tdouble yII_0 = log( exp(b2*c1*d1) + 1.0) / d1;\n'
-        s += '\tdouble yIII_0 = yII_0 - ln( exp(d2*(b1*c2 + L/d1)) + exp(d2*yII_0) ) / d2;\n'
+        s += '\tdouble yIII_0 = yII_0 - log( exp(d2*(b1*c2 + L/d1)) + exp(d2*yII_0) ) / d2;\n'
         s += '\ttemp = scale * (yIII - yIII_0) + q;\n'
         return s
 
