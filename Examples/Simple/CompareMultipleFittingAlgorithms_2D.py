@@ -18,10 +18,10 @@ fittingTargetText = 'SSQABS'
 deEstimatedCoefficients = []
 
 print('It is very rare for an algorithm to fit better than Levenberg-Marquardt,')
-print('however this particular example shows that it is at least barely possible.')
+print('This example shows how to construct a test to determine if this is true.')
 print()
 
-for fittingAlgorithmName in pyeq2.solverService.ListOfNonLinearSolverAlgorithmNames[:2]: # only two algorithms used in this example
+for fittingAlgorithmName in pyeq2.solverService.ListOfNonLinearSolverAlgorithmNames:
     equation = pyeq2.Models_2D.BioScience.AphidPopulationGrowth(fittingTargetText, 'Offset')
     
 
@@ -36,7 +36,7 @@ for fittingAlgorithmName in pyeq2.solverService.ListOfNonLinearSolverAlgorithmNa
     
     equation.deEstimatedCoefficients = deEstimatedCoefficients
     equation.Solve(inNonLinearSolverAlgorithmName=fittingAlgorithmName)
-    deEstimatedCoefficients = equation.deEstimatedCoefficients # no need to re-run DE
+    deEstimatedCoefficients = equation.deEstimatedCoefficients # no need to re-run genetic algorithm
     
     print(fittingTargetText, 'of', equation.CalculateAllDataFittingTarget(equation.solvedCoefficients), 'for the fitting algorithm', fittingAlgorithmName)
     print('Coefficients:', equation.solvedCoefficients)
