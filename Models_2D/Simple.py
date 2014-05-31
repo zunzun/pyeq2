@@ -125,7 +125,7 @@ class SimpleEquation_01(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 class SimpleEquation_02(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Simple Equation 02"
-    _HTML = 'y = a/pow(x,2.0)'
+    _HTML = 'y = a/pow(x,-2.0)'
     _leftSideHTML = 'y'
     _coefficientDesignators = ['a']
     _canLinearSolverBeUsedForSSQABS = True
