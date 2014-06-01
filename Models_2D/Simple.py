@@ -105,19 +105,16 @@ class SimpleEquation_01(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
 
     def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
-        PowX_0 = inDataCacheDictionary['PowX_0.0'] # only need to perform this dictionary look-up once
-        
         a = inCoeffs[0]
 
         try:
-            temp = a * PowX_0
-            return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
+            return a
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
 
 
     def SpecificCodeCPP(self):
-        s = "\ttemp += a * pow(x_in, 0.0);\n"
+        s = "\ttemp += a;\n"
         return s
 
 
@@ -165,7 +162,7 @@ class SimpleEquation_02(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
 
     def SpecificCodeCPP(self):
-        s = "\ttemp = a/pow(x_in,2.0);\n"
+        s = "\ttemp = a/pow(x_in,-2.0);\n"
         return s
 
 
