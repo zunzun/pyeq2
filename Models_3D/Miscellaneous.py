@@ -1081,7 +1081,7 @@ class MonkeySaddle_TransformA(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
 class MonkeySaddle_TransformB(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
     
     _baseName = "Monkey Saddle Transform B"
-    _HTML = 'z = a(cy + d)<sup>3</sup> - b(cy + d)(ex + f)<sup>2</sup>'
+    _HTML = 'z = a(cy + d)<sup>3</sup> - b(cy + d)(fx + g)<sup>2</sup>'
     _leftSideHTML = 'z'
     _coefficientDesignators = ['a', 'b', 'c', 'd', 'f', 'g']
     _canLinearSolverBeUsedForSSQABS = False
@@ -1128,7 +1128,7 @@ class MonkeySaddle_TransformB(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
 
 
     def SpecificCodeCPP(self):
-        s = "\ttemp = a * pow(c * x_in + d, 3.0) - b * (c * x_in + d) * pow(f * y_in + g, 2.0);\n"
+        s = "\ttemp = a * pow(c * y_in + d, 3.0) - b * (c * y_in + d) * pow(f * x_in + g, 2.0);\n"
         return s
 
 

@@ -388,7 +388,7 @@ class LinearLogarithmic(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
 
 
     def SpecificCodeCPP(self):
-        s = "\ttemp =  + b * log(x_in) + c * log(y_in);\n"
+        s = "\ttemp = a + b * log(x_in) + c * log(y_in);\n"
         return s
 
 

@@ -73,7 +73,7 @@ class RomanSurfaceMinus(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
 
 
     def SpecificCodeCPP(self):
-        s = "\ttemp = (k * (y_in * y_in - x_in * x_in) - (x_in * x_in - y_in * y_in) * pow(k * k - x_in * x_in - y_in * y_in, 0.5)) / (2.0 * (x_in * x_in + y_in * y_in));\n"
+        s = "\ttemp = (k * (y_in * y_in - x_in * x_in) - (x_in * x_in - y_in * y_in) * pow(k * k - (x_in * x_in - y_in * y_in), 0.5)) / (2.0 * (x_in * x_in + y_in * y_in));\n"
         return s
 
 
