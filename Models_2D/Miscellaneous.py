@@ -228,7 +228,7 @@ class FigureEight(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
 
     def SpecificCodeCPP(self):
-        s = "\ttemp = a * pow(pow(x_in, 2.0) - (pow(x_in, 4.0)-pow(b, 2.0)), 0.5);\n"
+        s = "\ttemp = a * pow(pow(x_in, 2.0) - (pow(x_in, 4.0)/pow(b, 2.0)), 0.5);\n"
         return s
 
 
@@ -685,7 +685,7 @@ class CissoidOfDioclesTransform(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
 
     def SpecificCodeCPP(self):
-        s = "\ttemp = a * pow(pow(x_in*c-d, 3.0) / (2.0 * b - (x_in*c-d), 0.5);\n"
+        s = "\ttemp = a * pow(pow(x_in*c-d, 3.0) / (2.0 * b - (x_in*c-d)), 0.5);\n"
         return s
 
 
@@ -1191,7 +1191,7 @@ class DavidRodbardNIH(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
 
     def SpecificCodeCPP(self):
-        s = "\ttemp = d + (a - d) / (1.0 + pow(x/c, b));\n"
+        s = "\ttemp = d + (a - d) / (1.0 + pow(x_in/c, b));\n"
         return s
 
 
@@ -2034,7 +2034,7 @@ class PursuitCurve(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
 
     def SpecificCodeCPP(self):
-        s = "\ttemp = a * pow(x, 2.0) - log(x);\n"
+        s = "\ttemp = a * pow(x_in, 2.0) - log(x_in);\n"
         return s
 
 

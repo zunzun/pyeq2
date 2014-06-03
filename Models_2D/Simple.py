@@ -105,10 +105,13 @@ class SimpleEquation_01(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
 
     def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
+        PowX_0 = inDataCacheDictionary['PowX_0.0'] # only need to perform this dictionary look-up once
+       
         a = inCoeffs[0]
 
         try:
-            return a
+            temp = a * PowX_0
+            return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
 
@@ -155,7 +158,7 @@ class SimpleEquation_02(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         a = inCoeffs[0]
 
         try:
-            temp = a * x_PowXNeg2
+            temp = a / x_PowXNeg2
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300

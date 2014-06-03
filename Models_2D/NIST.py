@@ -1128,7 +1128,7 @@ class NIST_Thurber(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
 
     def SpecificCodeCPP(self):
-        s = "\ttemp = a + b * x_in + c * pow(x_in, 2.0) + d * pow(x_in, 3.0) / (1.0 + f * x_in + g * pow(x_in, 2.0) + h * pow(x_in, 3.0));\n"
+        s = "\ttemp = (a + b * x_in + c * pow(x_in, 2.0) + d * pow(x_in, 3.0)) / (1.0 + f * x_in + g * pow(x_in, 2.0) + h * pow(x_in, 3.0));\n"
         return s
 
 

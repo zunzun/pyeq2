@@ -187,7 +187,7 @@ class Sine(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
 
     def SpecificCodeCPP(self):
-        s = "\ttemp = a * sin(3.14159265358979323846 * (x_in - center) / width);\n"
+        s = "\ttemp = amplitude * sin(3.14159265358979323846 * (x_in - center) / width);\n"
         return s
 
 
@@ -242,7 +242,7 @@ class SineSquared(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
 
     def SpecificCodeCPP(self):
-        s = "\ttemp = a * sin(3.14159265358979323846 * (x_in - center) / width) * sin(3.14159265358979323846 * (x_in - center) / width);\n"
+        s = "\ttemp = amplitude * sin(3.14159265358979323846 * (x_in - center) / width) * sin(3.14159265358979323846 * (x_in - center) / width);\n"
         return s
 
 
@@ -297,7 +297,7 @@ class Tangent(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
 
     def SpecificCodeCPP(self):
-        s = "\ttemp = a * tan(3.14159265358979323846 * (x_in - center) / width);\n"
+        s = "\ttemp = amplitude * tan(3.14159265358979323846 * (x_in - center) / width);\n"
         return s
 
 

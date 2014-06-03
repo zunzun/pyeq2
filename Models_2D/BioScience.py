@@ -122,7 +122,7 @@ class BertalanffyGrowth(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
 
     def SpecificCodeCPP(self):
-        s = "\ttemp = Linf * (1.0 - exp(-1.0 * K * (x_in - tzero));\n"
+        s = "\ttemp = Linf * (1.0 - exp(-1.0 * K * (x_in - tzero)));\n"
         return s
 
 
@@ -397,14 +397,14 @@ class CellularConductance(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         p5 = inCoeffs[4]
 
         try:
-            temp = p3/(1.0 + numpy.exp((x_in-p1)/p2)) + p4*numpy.exp((x_in-45)/p5)
+            temp = p3/(1.0 + numpy.exp((x_in-p1)/p2)) + p4*numpy.exp((x_in-45.0)/p5)
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
 
 
     def SpecificCodeCPP(self):
-        s = '\ttemp = p3/(1.0 + exp((x_in-p1)/p2)) + p4*exp((x_in-45)/p5);'
+        s = '\ttemp = p3/(1.0 + exp((x_in-p1)/p2)) + p4*exp((x_in-45.0)/p5);\n'
         return s
 
 
@@ -1870,7 +1870,7 @@ class MichaelisMentenIsotopeDisplacement(pyeq2.Model_2D_BaseClass.Model_2D_BaseC
 
 
     def SpecificCodeCPP(self):
-        s = "\ttemp = a) / (b + x_in);\n"
+        s = "\ttemp = a / (b + x_in);\n"
         return s
 
 
@@ -2739,7 +2739,7 @@ class StandardLogistic5Parameter(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
 
     def SpecificCodeCPP(self):
-        s = "\ttemp = d + (a - d) / pow((1.0 + pow(x_in / c, b), f);\n"
+        s = "\ttemp = d + (a - d) / pow(1.0 + pow(x_in / c, b), f);\n"
         return s
 
 

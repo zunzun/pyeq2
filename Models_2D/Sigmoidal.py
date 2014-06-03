@@ -339,9 +339,9 @@ class DonLevinSigmoid(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 class FiveParameterLogistic(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Five-Parameter Logistic"
-    _HTML = 'y = d + (a-d) / (1.0 + (x/c)<sup>b</sup>)<sup>e</sup>'
+    _HTML = 'y = d + (a-d) / (1.0 + (x/c)<sup>b</sup>)<sup>f</sup>'
     _leftSideHTML = 'y'
-    _coefficientDesignators = ['a', 'b', 'c', 'd', 'e']
+    _coefficientDesignators = ['a', 'b', 'c', 'd', 'f']
     _canLinearSolverBeUsedForSSQABS = False
     
     webReferenceURL = ''
@@ -375,17 +375,17 @@ class FiveParameterLogistic(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         b = inCoeffs[1]
         c = inCoeffs[2]
         d = inCoeffs[3]
-        e = inCoeffs[4]
+        f = inCoeffs[4]
 
         try:
-            temp = d + (a - d) / numpy.power(1.0 + numpy.power(x_in / c, b), e)
+            temp = d + (a - d) / numpy.power(1.0 + numpy.power(x_in / c, b), f)
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
 
 
     def SpecificCodeCPP(self):
-        s = "\ttemp = d + (a - d) / pow(1.0 + pow(x_in / c, b), e);\n"
+        s = "\ttemp = d + (a - d) / pow(1.0 + pow(x_in / c, b), f);\n"
         return s
 
 

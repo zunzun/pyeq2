@@ -29,8 +29,11 @@ class OutputSourceCodeService(object):
         newString = newString.replace('log(', 'Math.Log(')
         newString = newString.replace('log10(', 'Math.Log10(')
         newString = newString.replace('exp(', 'Math.Exp(')
-        newString = newString.replace('sin(', 'Math.Sin(')
         newString = newString.replace('cos(', 'Math.Cos(')
+
+        newString = newString.replace('asin(', 'ASIN(') # so sin is not confused with asin
+        newString = newString.replace('sin(', 'Math.Sin(')
+        newString = newString.replace('ASIN(', 'Math.Asin(')
         
         newString = newString.replace('atan(', 'ATAN(') # so tan is not confused with atan
         newString = newString.replace('tan(', 'Math.Tan(')
@@ -65,14 +68,17 @@ class OutputSourceCodeService(object):
 
     def ConvertCppToPYTHON(self, inString):
         newString = inString.replace(';', '')
-        newString = newString.replace('double ', '# double ')
+        newString = newString.replace('double ', '')
         newString = newString.replace('abs(', 'math.fabs(')
         newString = newString.replace('pow(', 'math.pow(')
         newString = newString.replace('log(', 'math.log(')
         newString = newString.replace('log10(', 'math.log10(')
         newString = newString.replace('exp(', 'math.exp(')
-        newString = newString.replace('sin(', 'math.sin(')
         newString = newString.replace('cos(', 'math.cos(')
+        
+        newString = newString.replace('asin(', 'ASIN(') # so sin is not confused with asin
+        newString = newString.replace('sin(', 'math.sin(')
+        newString = newString.replace('ASIN(', 'math.asin(')
         
         newString = newString.replace('atan(', 'ATAN(') # so tan is not confused with atan
         newString = newString.replace('tan(', 'math.tan(')
@@ -91,9 +97,12 @@ class OutputSourceCodeService(object):
         newString = newString.replace('log(', 'Math.log(')
         newString = newString.replace('log10(', 'Math.log10(')
         newString = newString.replace('exp(', 'Math.exp(')
-        newString = newString.replace('sin(', 'Math.sin(')
         newString = newString.replace('cos(', 'Math.cos(')
         
+        newString = newString.replace('asin(', 'ASIN(') # so sin is not confused with asin
+        newString = newString.replace('sin(', 'Math.sin(')
+        newString = newString.replace('ASIN(', 'Math.asin(')
+
         newString = newString.replace('atan(', 'ATAN(') # so tan is not confused with atan
         newString = newString.replace('tan(', 'Math.tan(')
         newString = newString.replace('ATAN(', 'Math.atan(')

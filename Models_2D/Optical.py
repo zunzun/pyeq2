@@ -1417,7 +1417,7 @@ class Schott2X6(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         H = inCoeffs[7]
 
         try:
-            temp = A + B * x_PowX2 + C / x_PowX2 + D / x_PowX4 + E / x_PowX6 + F / x_PowX10 + G / numpy.power(x_in, 10.0) + H / x_PowX12
+            temp = A + B * x_PowX2 + C / x_PowX2 + D / x_PowX4 + E / x_PowX6 + F / x_PowX8 + G / x_PowX10 + H / x_PowX12
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300

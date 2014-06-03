@@ -126,7 +126,7 @@ class LaplaceArea(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
 
     def SpecificCodeCPP(self):
-        s = "\ttemp = (a / (pow(2.0, 0.5))) * exp((-1.0 * pow(2.0, 0.5) * abs(x_in-b)) / c);\n"
+        s = "\ttemp = (a / (pow(2.0, 0.5) * c)) * exp((-1.0 * pow(2.0, 0.5) * abs(x_in-b)) / c);\n"
         return s
 
 
@@ -1160,9 +1160,9 @@ class LogNormalB_Modified(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 class LogNormalA_ModifiedShifted(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Log-Normal Peak A Modified Shifted"
-    _HTML = 'y = a * exp(-0.5 * ((ln(x-e)-b)/c)<sup>d</sup>)'
+    _HTML = 'y = a * exp(-0.5 * ((ln(x-f)-b)/c)<sup>d</sup>)'
     _leftSideHTML = 'y'
-    _coefficientDesignators = ['a', 'b', 'c', 'd', 'e']
+    _coefficientDesignators = ['a', 'b', 'c', 'd', 'f']
     _canLinearSolverBeUsedForSSQABS = False
     
     webReferenceURL = ''
@@ -1194,17 +1194,17 @@ class LogNormalA_ModifiedShifted(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         b = inCoeffs[1]
         c = inCoeffs[2]
         d = inCoeffs[3]
-        e = inCoeffs[4]
+        f = inCoeffs[4]
 
         try:
-            temp = a * numpy.exp(-0.5 * numpy.power((numpy.log(x_in-e)-b) / c, d))
+            temp = a * numpy.exp(-0.5 * numpy.power((numpy.log(x_in-f)-b) / c, d))
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
 
 
     def SpecificCodeCPP(self):
-        s = "\ttemp = a * exp(-0.5 * pow((log(x_in-e)-b) / c, d));\n"
+        s = "\ttemp = a * exp(-0.5 * pow((log(x_in-f)-b) / c, d));\n"
         return s
 
 
@@ -1212,9 +1212,9 @@ class LogNormalA_ModifiedShifted(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 class LogNormalB_ModifiedShifted(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Log-Normal Peak B Modified Shifted"
-    _HTML = 'y = a * exp(-0.5 * (ln((x-e)/b)/c)<sup>d</sup>)'
+    _HTML = 'y = a * exp(-0.5 * (ln((x-f)/b)/c)<sup>d</sup>)'
     _leftSideHTML = 'y'
-    _coefficientDesignators = ['a', 'b', 'c', 'd', 'e']
+    _coefficientDesignators = ['a', 'b', 'c', 'd', 'f']
     _canLinearSolverBeUsedForSSQABS = False
     
     webReferenceURL = ''
@@ -1246,17 +1246,17 @@ class LogNormalB_ModifiedShifted(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         b = inCoeffs[1]
         c = inCoeffs[2]
         d = inCoeffs[3]
-        e = inCoeffs[4]
+        f = inCoeffs[4]
 
         try:
-            temp = a * numpy.exp(-0.5 * numpy.power(numpy.log((x_in-e)/b)-b / c, d))
+            temp = a * numpy.exp(-0.5 * numpy.power(numpy.log((x_in-f)/b)-b / c, d))
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
 
 
     def SpecificCodeCPP(self):
-        s = "\ttemp = a * exp(-0.5 * pow(log((x_in-e)/b) / c, d));\n"
+        s = "\ttemp = a * exp(-0.5 * pow(log((x_in-f)/b)-b / c, d));\n"
         return s
 
 
@@ -2378,9 +2378,9 @@ class WeibullPeak_Modified(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 class WeibullPeak_ModifiedShifted(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Weibull Peak Modified Shifted"
-    _HTML = 'y = a * exp(-0.5 * (ln((x-e)/b)/c)<sup>d</sup>)'
+    _HTML = 'y = a * exp(-0.5 * (ln((x-f)/b)/c)<sup>d</sup>)'
     _leftSideHTML = 'y'
-    _coefficientDesignators = ['a', 'b', 'c', 'd', 'e']
+    _coefficientDesignators = ['a', 'b', 'c', 'd', 'f']
     _canLinearSolverBeUsedForSSQABS = False
     
     webReferenceURL = ''
@@ -2412,17 +2412,17 @@ class WeibullPeak_ModifiedShifted(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         b = inCoeffs[1]
         c = inCoeffs[2]
         d = inCoeffs[3]
-        e = inCoeffs[4]
+        f = inCoeffs[4]
 
         try:
-            temp = a * numpy.exp(-0.5 * numpy.power(numpy.log((x_in-e)/b) / c, d))
+            temp = a * numpy.exp(-0.5 * numpy.power(numpy.log((x_in-f)/b) / c, d))
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
 
 
     def SpecificCodeCPP(self):
-        s = "\ttemp = a * exp(-0.5 * pow(log((x_in-e)/b) / c, d));\n"
+        s = "\ttemp = a * exp(-0.5 * pow(log((x_in-f)/b) / c, d));\n"
         return s
 
 
@@ -2473,7 +2473,7 @@ class LogNormal4Parameter(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
 
     def SpecificCodeCPP(self):
-        s = "\ttemp = a * exp(-1.0 * pow(log(2.0) * log((((x-b) * (pow(d)-1.0)) / (c*d)) + 1.0), 2.0) / pow(log(d), 2.0));\n"
+        s = "\ttemp = a * exp(-1.0 * pow(log(2.0) * log((((x_in-b) * (pow(d, 2.0)-1.0)) / (c*d)) + 1.0), 2.0) / pow(log(d), 2.0));\n"
         return s
 
 
@@ -2524,7 +2524,7 @@ class ExtremeValue4ParameterPeak(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
 
     def SpecificCodeCPP(self):
-        s = "\ttemp = a * exp(-x + b + c - c*d*exp(-1.0 * ((x + c*log(d) - b) / c)) / (c*d));\n"
+        s = "\ttemp = a * exp(-x_in + b + c - c*d*exp(-1.0 * ((x_in + c*log(d) - b) / c)) / (c*d));\n"
         return s
 
 

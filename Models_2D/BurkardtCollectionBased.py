@@ -930,7 +930,7 @@ class folded_normal_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
 
     def SpecificCodeCPP(self):
-        s = "\ttemp = c * (1/b) * cosh(a*x_in/(b*b)) * exp(-0.5 * ((x*x_in) + a*a)/(b*b));\n"
+        s = "\ttemp = c * (1/b) * cosh(a*x_in/(b*b)) * exp(-0.5 * ((x_in*x_in) + a*a)/(b*b));\n"
         return s
 
 
@@ -1422,7 +1422,7 @@ class gumbel_cdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
 
     def SpecificCodeCPP(self):
-        s = "\ttemp = a * exp(-exp(-1.0 * x));\n"
+        s = "\ttemp = a * exp(-exp(-1.0 * x_in));\n"
         return s
 
 
@@ -1470,7 +1470,7 @@ class gumbel_pdf(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
 
     def SpecificCodeCPP(self):
-        s = "\ttemp = a * exp(-x-exp(-x));\n"
+        s = "\ttemp = a * exp(-x_in-exp(-x_in));\n"
         return s
 
 
