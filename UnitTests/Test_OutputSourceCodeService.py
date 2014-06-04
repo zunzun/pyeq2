@@ -115,7 +115,7 @@ class TestConversionsFromCPP(unittest.TestCase):
     def test_ConversionFromCppToPYTHON(self):
         convertedShouldBe = '''
     # comment
-    # double doubleVariable
+    doubleVariable
     temp = a * math.fabs(1.1)
     temp = a / math.fabs(1.1)
     temp += math.pow(temp)
