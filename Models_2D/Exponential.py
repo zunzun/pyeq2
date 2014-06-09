@@ -1094,3 +1094,54 @@ class VaporPressure(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
 
 
+class JonathanLitzCustomExponential(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
+    
+    _baseName = "Jonathan Litz Custom Exponential"
+    _HTML = 'y = a + b * x + c * exp(-d * x) - c * x * exp(-d * x)'
+    _leftSideHTML = 'y'
+    _coefficientDesignators = ['a', 'b', 'c','d']
+    _canLinearSolverBeUsedForSSQABS = False
+    
+    webReferenceURL = 'https://groups.google.com/forum/#!topic/zunzun_dot_com/rAHdO72vx28'
+
+    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
+    autoGenerateOffsetForm = False
+    autoGenerateReciprocalForm = True
+    autoGenerateInverseForms = True
+    autoGenerateGrowthAndDecayForms = True
+
+    independentData1CannotContainZeroFlag = False
+    independentData1CannotContainPositiveFlag = False
+    independentData1CannotContainNegativeFlag = False
+    independentData2CannotContainZeroFlag = False
+    independentData2CannotContainPositiveFlag = False
+    independentData2CannotContainNegativeFlag = False
+    
+
+    def GetDataCacheFunctions(self):
+        functionList = []
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.X(NameOrValueFlag=1), []])
+        return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
+
+
+    def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
+        x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
+        
+        a = inCoeffs[0]
+        b = inCoeffs[1]
+        c = inCoeffs[2]
+        d = inCoeffs[3]
+
+        try:
+            temp = a + b * x + c * numpy.exp(-d * x) - c * x * numpy.exp(-d * x)
+            return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
+        except:
+            return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
+
+
+    def SpecificCodeCPP(self):
+        s = "\ttemp = a + b * x + c * exp(-d * x) - c * x * exp(-d * x);\n"
+        return s
+
+
+
