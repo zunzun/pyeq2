@@ -1133,7 +1133,7 @@ class JonathanLitzCustomExponential(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass)
         d = inCoeffs[3]
 
         try:
-            temp = a + b * x + c * numpy.exp(-d * x) - c * x * numpy.exp(-d * x)
+            temp = a + b * x_in + c * numpy.exp(-d * x_in) - c * x * numpy.exp(-d * x_in)
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
