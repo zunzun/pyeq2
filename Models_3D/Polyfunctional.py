@@ -65,7 +65,7 @@ class UserSelectablePolyfunctional(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
         if not self.polyfunctional3DFlags:
             self._HTML = "z = user-selectable function"
         else:
-            self._HTML = 'z = </b>' # turn off any bolding
+            self._HTML = 'z = '
             coefficientDesignatorIndex = 0
             cd = self.GetCoefficientDesignators()
             for index in range(len(self.polyfunctional3DFlags)):
