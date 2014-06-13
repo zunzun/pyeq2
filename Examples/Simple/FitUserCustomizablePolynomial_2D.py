@@ -116,9 +116,9 @@ for i in range(len(equation.solvedCoefficients)):
         pstat = '%-.5E' %  ( equation.pstat_beta[i])
 
     if equation.sd_beta != None:
-        print("Coefficient %s = %-.16E, std error squared: %-.5E" % (equation.GetCoefficientDesignators()[i], equation.solvedCoefficients[i], equation.sd_beta[i]))
+        print("Coefficient %s = %-.16E, std error: %-.5E" % (equation.GetCoefficientDesignators()[i], equation.solvedCoefficients[i], equation.sd_beta[i]))
     else:
-        print("Coefficient %s = %-.16E, std error squared: n/a" % (equation.GetCoefficientDesignators()[i], equation.solvedCoefficients[i]))
+        print("Coefficient %s = %-.16E, std error: n/a" % (equation.GetCoefficientDesignators()[i], equation.solvedCoefficients[i]))
     print("          t-stat: %s, p-stat: %s, 95 percent confidence intervals: [%-.5E, %-.5E]" % (tstat,  pstat, equation.ci[i][0], equation.ci[i][1]))
 
 
