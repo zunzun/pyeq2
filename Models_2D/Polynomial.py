@@ -475,7 +475,7 @@ class UserCustomizablePolynomial(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         if not self.polynomial2DFlags:
             self._HTML = "y = user-customizable polynomial"
         else:
-            self._HTML = 'y = </b>' # turn off any bolding
+            self._HTML = 'y = '
             cd = self.GetCoefficientDesignators()
             for index in range(len(self.polynomial2DFlags)):
                 self._HTML += '<b>' + cd[index] + '(</b> ' + self.polynomialEquationList[self.polynomial2DFlags[index]].HTML + ' <b>)</b>'
