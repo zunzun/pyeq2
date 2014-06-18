@@ -2553,6 +2553,30 @@ class UVEDFruitGrowthRate(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     independentData2CannotContainNegativeFlag = False
     
 
+    def __init__(self, inFittingTarget = 'SSQABS', inExtendedVersionName = 'Default'):
+        pyeq2.Model_2D_BaseClass.Model_2D_BaseClass.__init__(self, inFittingTarget, inExtendedVersionName)
+        self.exampleData = '''
+   t        y
+0.0     0.00
+0.3     0.48
+0.6     0.86
+0.9     0.99
+1.2     1.01
+1.5     0.91
+1.8     0.85
+2.1     0.77
+2.4     0.77
+2.7     0.41
+3.0     0.42
+3.3     0.22
+3.6     0.23
+3.9     0.02
+4.2     0.04
+4.5     0.00
+4.8     0.05
+'''
+
+
     def GetDataCacheFunctions(self):
         functionList = []
         functionList.append([pyeq2.DataCache.DataCacheFunctions.X(NameOrValueFlag=1), []])
