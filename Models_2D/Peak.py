@@ -2529,3 +2529,49 @@ class ExtremeValue4ParameterPeak(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
 
 
+class UVEDFruitGrowthRate(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
+    
+    _baseName = "UVED Fruit Growth Rate"
+    _HTML = 'y = ((t/5)<sup>(a-1)</sup>*(1-t/5)<sup>(b-1)</sup>)/(((a-1)/(a+b-2))<sup>(a-1)</sup>*((b-1)/(a+b-2))<sup>(b-1)</sup>)'
+    _leftSideHTML = 'y'
+    _coefficientDesignators = ['a', 'b']
+    _canLinearSolverBeUsedForSSQABS = False
+    
+    webReferenceURL = 'http://greenlab.cirad.fr/GLUVED/html/P1_Prelim/Math/Math_dynsys_202.html'
+
+    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = True
+    autoGenerateOffsetForm = True
+    autoGenerateReciprocalForm = True
+    autoGenerateInverseForms = True
+    autoGenerateGrowthAndDecayForms = True
+
+    independentData1CannotContainZeroFlag = False
+    independentData1CannotContainPositiveFlag = False
+    independentData1CannotContainNegativeFlag = True
+    independentData2CannotContainZeroFlag = False
+    independentData2CannotContainPositiveFlag = False
+    independentData2CannotContainNegativeFlag = False
+    
+
+    def GetDataCacheFunctions(self):
+        functionList = []
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.X(NameOrValueFlag=1), []])
+        return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
+
+
+    def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
+        x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
+        
+        a = inCoeffs[0]
+        b = inCoeffs[1]
+
+        try:
+            temp = (numpy.power(x_in/5.0,a-1.0)*numpy.power(1.0-x_in/5.0,b-1.0)) / (numpy.power((a-1.0)/(a+b-2.0),a-1.0)*numpy.power((b-1.0)/(a+b-2.0),b-1.0))
+            return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
+        except:
+            return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
+
+
+    def SpecificCodeCPP(self):
+        s = "\ttemp = (pow(x_in/5.0,a-1.0)*pow(1-x_in/5.0,b-1.0)) / (pow((a-1.0)/(a+b-2.0),a-1.0)*pow((b-1.0)/(a+b-2.0),b-1.0));\n"
+        return s
