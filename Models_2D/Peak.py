@@ -2602,6 +2602,58 @@ class UVEDFruitGrowthRate(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
 
 
+
+
+class UVEDFruitGrowthRateB(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
+    
+    _baseName = "UVED Fruit Growth Rate B"
+    _HTML = 'y = c * ((t/5)<sup>(a-1)</sup>*(1-t/5)<sup>(b-1)</sup>)/(((a-1)/(a+b-2))<sup>(a-1)</sup>*((b-1)/(a+b-2))<sup>(b-1)</sup>)'
+    _leftSideHTML = 'y'
+    _coefficientDesignators = ['a', 'b','c']
+    _canLinearSolverBeUsedForSSQABS = False
+    
+    webReferenceURL = 'http://greenlab.cirad.fr/GLUVED/html/P1_Prelim/Math/Math_dynsys_202.html'
+
+    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = True
+    autoGenerateOffsetForm = True
+    autoGenerateReciprocalForm = True
+    autoGenerateInverseForms = True
+    autoGenerateGrowthAndDecayForms = True
+
+    independentData1CannotContainZeroFlag = False
+    independentData1CannotContainPositiveFlag = False
+    independentData1CannotContainNegativeFlag = True
+    independentData2CannotContainZeroFlag = False
+    independentData2CannotContainPositiveFlag = False
+    independentData2CannotContainNegativeFlag = False
+    
+
+    def GetDataCacheFunctions(self):
+        functionList = []
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.X(NameOrValueFlag=1), []])
+        return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
+
+
+    def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
+        x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
+        
+        a = inCoeffs[0]
+        b = inCoeffs[1]
+        c = inCoeffs[2]
+
+        try:
+            temp = c * (numpy.power(x_in/5.0,a-1.0)*numpy.power(1.0-x_in/5.0,b-1.0)) / (numpy.power((a-1.0)/(a+b-2.0),a-1.0)*numpy.power((b-1.0)/(a+b-2.0),b-1.0))
+            return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
+        except:
+            return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
+
+
+    def SpecificCodeCPP(self):
+        s = "\ttemp = c * (pow(x_in/5.0,a-1.0)*pow(1.0-x_in/5.0,b-1.0)) / (pow((a-1.0)/(a+b-2.0),a-1.0)*pow((b-1.0)/(a+b-2.0),b-1.0));\n"
+        return s
+
+
+
 class UVEDFruitGrowthRateScaled(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "UVED Fruit Growth Rate Scaled"
@@ -2648,6 +2700,60 @@ class UVEDFruitGrowthRateScaled(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
     def SpecificCodeCPP(self):
         s = "\ttemp = (pow(x_in*c,a-1.0)*pow(1.0-x_in*c,b-1.0)) / (pow((a-1.0)/(a+b-2.0),a-1.0)*pow((b-1.0)/(a+b-2.0),b-1.0));\n"
+        return s
+
+
+
+
+
+
+class UVEDFruitGrowthRateScaledB(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
+    
+    _baseName = "UVED Fruit Growth Rate Scaled B"
+    _HTML = 'y = d * ((c*t)<sup>(a-1)</sup>*(1-(c*t)<sup>(b-1)</sup>)/(((a-1)/(a+b-2))<sup>(a-1)</sup>*((b-1)/(a+b-2))<sup>(b-1)</sup>)'
+    _leftSideHTML = 'y'
+    _coefficientDesignators = ['a', 'b', 'c','d']
+    _canLinearSolverBeUsedForSSQABS = False
+    
+    webReferenceURL = 'http://greenlab.cirad.fr/GLUVED/html/P1_Prelim/Math/Math_dynsys_202.html'
+
+    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = True
+    autoGenerateOffsetForm = True
+    autoGenerateReciprocalForm = True
+    autoGenerateInverseForms = True
+    autoGenerateGrowthAndDecayForms = True
+
+    independentData1CannotContainZeroFlag = False
+    independentData1CannotContainPositiveFlag = False
+    independentData1CannotContainNegativeFlag = True
+    independentData2CannotContainZeroFlag = False
+    independentData2CannotContainPositiveFlag = False
+    independentData2CannotContainNegativeFlag = False
+    
+
+    def GetDataCacheFunctions(self):
+        functionList = []
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.X(NameOrValueFlag=1), []])
+        return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
+
+
+    def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
+        x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
+        
+        a = inCoeffs[0]
+        b = inCoeffs[1]
+        c = inCoeffs[2]
+        d = inCoeffs[3]
+
+        try:
+            temp = d * (numpy.power(x_in*c,a-1.0)*numpy.power(1.0-x_in*c,b-1.0)) / (numpy.power((a-1.0)/(a+b-2.0),a-1.0)*numpy.power((b-1.0)/(a+b-2.0),b-1.0))
+            return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
+        except:
+            return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
+
+
+    def SpecificCodeCPP(self):
+        s = "\ttemp = d * (pow(x_in*c,a-1.0)*pow(1.0-x_in*c,b-1.0)) / (pow((a-1.0)/(a+b-2.0),a-1.0)*pow((b-1.0)/(a+b-2.0),b-1.0));\n"
         return s
 
 
@@ -2699,4 +2805,56 @@ class UVEDFruitGrowthRateTransform(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
     def SpecificCodeCPP(self):
         s = "\ttemp = (pow(x_in*c+d,a-1.0)*pow(1.0-x_in*c+d,b-1.0)) / (pow((a-1.0)/(a+b-2.0),a-1.0)*pow((b-1.0)/(a+b-2.0),b-1.0));\n"
+        return s
+
+
+
+class UVEDFruitGrowthRateTransformB(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
+    
+    _baseName = "UVED Fruit Growth Rate Transform B"
+    _HTML = 'y = f * ((c*t+d)<sup>(a-1)</sup>*(1-(c*t+d)<sup>(b-1)</sup>)/(((a-1)/(a+b-2))<sup>(a-1)</sup>*((b-1)/(a+b-2))<sup>(b-1)</sup>)'
+    _leftSideHTML = 'y'
+    _coefficientDesignators = ['a', 'b', 'c', 'd','f']
+    _canLinearSolverBeUsedForSSQABS = False
+    
+    webReferenceURL = 'http://greenlab.cirad.fr/GLUVED/html/P1_Prelim/Math/Math_dynsys_202.html'
+
+    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = True
+    autoGenerateOffsetForm = True
+    autoGenerateReciprocalForm = True
+    autoGenerateInverseForms = True
+    autoGenerateGrowthAndDecayForms = True
+
+    independentData1CannotContainZeroFlag = False
+    independentData1CannotContainPositiveFlag = False
+    independentData1CannotContainNegativeFlag = False
+    independentData2CannotContainZeroFlag = False
+    independentData2CannotContainPositiveFlag = False
+    independentData2CannotContainNegativeFlag = False
+    
+
+    def GetDataCacheFunctions(self):
+        functionList = []
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.X(NameOrValueFlag=1), []])
+        return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
+
+
+    def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
+        x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
+        
+        a = inCoeffs[0]
+        b = inCoeffs[1]
+        c = inCoeffs[2]
+        d = inCoeffs[3]
+        f = inCoeffs[4]
+
+        try:
+            temp = f * (numpy.power(x_in*c+d,a-1.0)*numpy.power(1.0-x_in*c+d,b-1.0)) / (numpy.power((a-1.0)/(a+b-2.0),a-1.0)*numpy.power((b-1.0)/(a+b-2.0),b-1.0))
+            return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
+        except:
+            return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
+
+
+    def SpecificCodeCPP(self):
+        s = "\ttemp = f * (pow(x_in*c+d,a-1.0)*pow(1.0-x_in*c+d,b-1.0)) / (pow((a-1.0)/(a+b-2.0),a-1.0)*pow((b-1.0)/(a+b-2.0),b-1.0));\n"
         return s
