@@ -70,21 +70,21 @@ class UserDefinedFunction(pyeq2.Model_3D_BaseClass.Model_3D_BaseClass):
         return functionList
 
 
-    def GetTokensFromTupleParsingHelper(self, tup, list=None):
-        if list is None:
-            list = []
+    def GetTokensFromTupleParsingHelper(self, tup, inList=None):
+        if inList is None:
+            inList = []
         if type(tup) is types.TupleType:
             tupleLength = len(tup)
             if tupleLength > 1 and type(tup[0]) is not types.TupleType:
                 if tup[0] == 1:
-                    list.append(tup[1])
+                    inList.append(tup[1])
             if tupleLength == 2: # so a caret character can be trapped later
                 if tup[0] == 33:
                     if tup[1] == '^':
-                        list.append('^')
+                        inList.append('^')
             for i in tup:
-                list = self.GetTokensFromTupleParsingHelper(i, list)
-        return list
+                inList = self.GetTokensFromTupleParsingHelper(i, inList)
+        return inList
 
 
     def ParseAndCompileUserFunctionString(self, inString):
