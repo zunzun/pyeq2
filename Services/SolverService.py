@@ -55,7 +55,7 @@ class SolverService(object):
 
     def SolveUsingLinear(self, inModel):
         if (inModel.CanLinearSolverBeUsedForSSQABS()) == False and (inModel.fittingTarget == "SSQABS"):
-            raise Excpetion('This equation cannot use a linear SSQ solver')
+            raise Exception('This equation cannot use a linear SSQ solver')
         inModel.solvedCoefficients = numpy.linalg.lstsq(inModel.dataCache.FindOrCreateAllDataCache(inModel).T, inModel.dataCache.allDataCacheDictionary['DependentData'])[0]
         return inModel.solvedCoefficients
 
