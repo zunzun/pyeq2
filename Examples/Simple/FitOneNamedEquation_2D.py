@@ -10,7 +10,7 @@ importDir =  os.path.join(os.path.join(sys.path[0][:sys.path[0].rfind(os.sep)], 
 if importDir not in sys.path:
     sys.path.append(importDir)
     
-    import pyeq2
+import pyeq2
 
 
 

@@ -12,7 +12,7 @@ pyeq2IimportDirectory =  os.path.join(os.path.join(exampleFileDirectory, '..'), 
 if pyeq2IimportDirectory not in sys.path:
     sys.path.append(pyeq2IimportDirectory)
     
-    import pyeq2
+import pyeq2
 
 
 
