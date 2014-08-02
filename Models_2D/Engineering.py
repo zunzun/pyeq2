@@ -608,3 +608,52 @@ class ElectronBeamLithographyPointSpread(pyeq2.Model_2D_BaseClass.Model_2D_BaseC
     def SpecificCodeCPP(self):
         s = "\ttemp = a * exp(-b * x_in) + c * exp(-1.0 * (x_in-d) * (x_in-d) / (f * f)) + g * exp(-1.0 * (x_in-h) * (x_in-h) / (i * i)) + j * exp(-1.0 * (x_in-k) * (x_in-k) / (l * l));\n"
         return s
+
+
+
+class KlimpelFlotationA(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
+    
+    _baseName = "Klimpel Kinetics Flotation A"
+    _HTML = 'y = a * (1 - (1 - exp(-b*x)) / (b*x))'
+    _leftSideHTML = 'y'
+    _coefficientDesignators = ['a', 'b']
+    _canLinearSolverBeUsedForSSQABS = False
+    
+    webReferenceURL = ''
+
+    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = True
+    autoGenerateOffsetForm = True
+    autoGenerateReciprocalForm = True
+    autoGenerateInverseForms = True
+    autoGenerateGrowthAndDecayForms = True
+
+    independentData1CannotContainZeroFlag = False
+    independentData1CannotContainPositiveFlag = False
+    independentData1CannotContainNegativeFlag = False
+    independentData2CannotContainZeroFlag = False
+    independentData2CannotContainPositiveFlag = False
+    independentData2CannotContainNegativeFlag = False
+    
+
+    def GetDataCacheFunctions(self):
+        functionList = []
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.X(NameOrValueFlag=1), []])
+        return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
+
+
+    def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
+        x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
+        
+        a = inCoeffs[0]
+        b = inCoeffs[1]
+  
+        try:
+            temp = a *(1.0 - (1.0 - numpy.exp(-b*x_in)) / (b*x_in) )
+            return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
+        except:
+            return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
+
+
+    def SpecificCodeCPP(self):
+        s = "\ttemp = a *(1.0 - (1.0 - exp(-b*x_in)) / (b*x_in) );\n"
+        return s
