@@ -14,11 +14,11 @@ if pyeq2IimportDirectory not in sys.path:
 import pyeq2
 
 
-    simpleObject = pyeq2.IModel.IModel()
-    simpleObject._dimensionality = 1
-    
-    # example data is generated from a Rayleigh distribution (5.0, 2.0)
-    asciiTextData = '''
+simpleObject = pyeq2.IModel.IModel()
+simpleObject._dimensionality = 1
+
+# example data is generated from a Rayleigh distribution (5.0, 2.0)
+asciiTextData = '''
 6.80743717445
 5.73241246041
 8.4371492305
@@ -171,21 +171,21 @@ import pyeq2
 7.23133792963
 '''
 
-    pyeq2.dataConvertorService().ConvertAndSortColumnarASCII(asciiTextData, simpleObject, False)
-    
-    resultList = []
-    solver = pyeq2.solverService()
-    criteriaForUseInListSorting = 'AIC' # ['AIC', 'AICc_BA', 'nnlf'] from top of SolverService.SolveStatisticalDistribution()
-    for distribution in inspect.getmembers(scipy.stats): # try to fit every distribution
-        if isinstance(distribution[1], scipy.stats.rv_continuous):
-            print("Fitting", distribution[0])
-            try:
-                result = solver.SolveStatisticalDistribution(distribution[0], simpleObject.dataCache.allDataCacheDictionary['IndependentData'][0], criteriaForUseInListSorting)
-            except:
-                continue
-            if result:
-                resultList.append(result)
-    
-    print()
-    resultList.sort()
-    print(resultList[0])
+pyeq2.dataConvertorService().ConvertAndSortColumnarASCII(asciiTextData, simpleObject, False)
+
+resultList = []
+solver = pyeq2.solverService()
+criteriaForUseInListSorting = 'AIC' # ['AIC', 'AICc_BA', 'nnlf'] from top of SolverService.SolveStatisticalDistribution()
+for distribution in inspect.getmembers(scipy.stats): # try to fit every distribution
+    if isinstance(distribution[1], scipy.stats.rv_continuous):
+        print("Fitting", distribution[0])
+        try:
+            result = solver.SolveStatisticalDistribution(distribution[0], simpleObject.dataCache.allDataCacheDictionary['IndependentData'][0], criteriaForUseInListSorting)
+        except:
+            continue
+        if result:
+            resultList.append(result)
+
+print()
+resultList.sort()
+print(resultList[0])
