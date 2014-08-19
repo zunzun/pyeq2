@@ -280,7 +280,7 @@ class SolverService(object):
                 par0 = (par_a, par_b, data_min - 0.001*data_min, data_range * 1.001)
                 par_est = tuple(distribution.fit(data, *(par0[:-2]), loc = data_min - 0.01*data_min, scale = data_range * 1.01))
                 nnlf = distribution.nnlf(par_est, data)
-                if numpy.isfinite(nnlf) and nnlf < best_nnlf and nnlf > 0.0:
+                if numpy.isfinite(nnlf) and nnlf < best_nnlf:
                     best_parameters = par_est
                     best_nnlf = nnlf
             except:
@@ -291,7 +291,7 @@ class SolverService(object):
                 par0 = (data_mean-2.0*data_std_dev, data_mean+2.0*data_std_dev)
                 par_est = tuple(distribution.fit(data, loc=data_mean, scale=data_std_dev, *par0))
                 nnlf = distribution.nnlf(par_est, data)
-                if numpy.isfinite(nnlf) and nnlf < best_nnlf and nnlf > 0.0:
+                if numpy.isfinite(nnlf) and nnlf < best_nnlf:
                     best_parameters = par_est
                     best_nnlf = nnlf
             except:
@@ -300,7 +300,7 @@ class SolverService(object):
         try:
             par_est = tuple(distribution.fit(data))
             nnlf = distribution.nnlf(par_est, data)
-            if numpy.isfinite(nnlf) and nnlf < best_nnlf and nnlf > 0.0:
+            if numpy.isfinite(nnlf) and nnlf < best_nnlf:
                 best_parameters = par_est
                 best_nnlf = nnlf
         except:
@@ -309,7 +309,7 @@ class SolverService(object):
         try:
             par_est = tuple(distribution.fit(data, loc=0.0, scale=1.0))
             nnlf = distribution.nnlf(par_est, data)
-            if numpy.isfinite(nnlf) and nnlf < best_nnlf and nnlf > 0.0:
+            if numpy.isfinite(nnlf) and nnlf < best_nnlf:
                 best_parameters = par_est
                 best_nnlf = nnlf
         except:
@@ -318,7 +318,7 @@ class SolverService(object):
         try:
             par_est = tuple(distribution.fit(data, loc=data_mean, scale=data_std_dev))
             nnlf = distribution.nnlf(par_est, data)
-            if numpy.isfinite(nnlf) and nnlf < best_nnlf and nnlf > 0.0:
+            if numpy.isfinite(nnlf) and nnlf < best_nnlf:
                 best_parameters = par_est
                 best_nnlf = nnlf
         except:
@@ -327,7 +327,7 @@ class SolverService(object):
         try:
             par_est = tuple(distribution.fit(data, loc=data_max+eps, scale=data_std_dev))
             nnlf = distribution.nnlf(par_est, data)
-            if numpy.isfinite(nnlf) and nnlf < best_nnlf and nnlf > 0.0:
+            if numpy.isfinite(nnlf) and nnlf < best_nnlf:
                 best_parameters = par_est
                 best_nnlf = nnlf
         except:
@@ -336,7 +336,7 @@ class SolverService(object):
         try:
             par_est = tuple(distribution.fit(data, loc=data_min-eps, scale=data_std_dev))
             nnlf = distribution.nnlf(par_est, data)
-            if numpy.isfinite(nnlf) and nnlf < best_nnlf and nnlf > 0.0:
+            if numpy.isfinite(nnlf) and nnlf < best_nnlf:
                 best_parameters = par_est
                 best_nnlf = nnlf
         except:
@@ -345,7 +345,7 @@ class SolverService(object):
         try:
             par_est = tuple(distribution.fit(data, loc=data_max+eps, scale=data_range))
             nnlf = distribution.nnlf(par_est, data)
-            if numpy.isfinite(nnlf) and nnlf < best_nnlf and nnlf > 0.0:
+            if numpy.isfinite(nnlf) and nnlf < best_nnlf:
                 best_parameters = par_est
                 best_nnlf = nnlf
         except:
@@ -354,7 +354,7 @@ class SolverService(object):
         try:
             par_est = tuple(distribution.fit(data, loc=data_min-eps, scale=data_range))
             nnlf = distribution.nnlf(par_est, data)
-            if numpy.isfinite(nnlf) and nnlf < best_nnlf and nnlf > 0.0:
+            if numpy.isfinite(nnlf) and nnlf < best_nnlf:
                 best_parameters = par_est
                 best_nnlf = nnlf
         except:
