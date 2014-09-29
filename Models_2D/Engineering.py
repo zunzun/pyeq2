@@ -26,6 +26,214 @@ numpy.seterr(all= 'ignore')
 import pyeq2.Model_2D_BaseClass
 
 
+class MaxwellWiechert_1(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
+    
+    _baseName = "Maxwell - Wiechert 1"
+    _HTML = 'y = a1*exp(-X/Tau1)'
+    _leftSideHTML = 'y'
+    _coefficientDesignators = ['a1', 'Tau1']
+    _canLinearSolverBeUsedForSSQABS = False
+    
+    webReferenceURL = 'http://en.wikipedia.org/wiki/Generalized_Maxwell_model'
+
+    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = True
+    autoGenerateOffsetForm = True
+    autoGenerateReciprocalForm = True
+    autoGenerateInverseForms = True
+    autoGenerateGrowthAndDecayForms = True
+
+    independentData1CannotContainZeroFlag = False
+    independentData1CannotContainPositiveFlag = False
+    independentData1CannotContainNegativeFlag = False
+    independentData2CannotContainZeroFlag = False
+    independentData2CannotContainPositiveFlag = False
+    independentData2CannotContainNegativeFlag = False
+    
+
+    def GetDataCacheFunctions(self):
+        functionList = []
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.NegX(NameOrValueFlag=1), []])
+        return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
+
+
+    def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
+        x_negx = inDataCacheDictionary['NegX'] # only need to perform this dictionary look-up once
+        
+        a1 = inCoeffs[0]
+        Tau1 = inCoeffs[1]
+
+        try:
+            temp = a1 * numpy.exp(x_negx / Tau1)
+            return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
+        except:
+            return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
+
+
+    def SpecificCodeCPP(self):
+        s = "\ttemp = a1 * exp(-x_in/Tau1);\n"
+        return s
+
+
+
+class MaxwellWiechert_2(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
+    
+    _baseName = "Maxwell - Wiechert 2"
+    _HTML = 'y = a1*exp(-X/Tau1) + a2*exp(-X/Tau2)'
+    _leftSideHTML = 'y'
+    _coefficientDesignators = ['a1', 'Tau1', 'a2', 'Tau2']
+    _canLinearSolverBeUsedForSSQABS = False
+    
+    webReferenceURL = 'http://en.wikipedia.org/wiki/Generalized_Maxwell_model'
+
+    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
+    autoGenerateOffsetForm = True
+    autoGenerateReciprocalForm = True
+    autoGenerateInverseForms = True
+    autoGenerateGrowthAndDecayForms = True
+
+    independentData1CannotContainZeroFlag = False
+    independentData1CannotContainPositiveFlag = False
+    independentData1CannotContainNegativeFlag = False
+    independentData2CannotContainZeroFlag = False
+    independentData2CannotContainPositiveFlag = False
+    independentData2CannotContainNegativeFlag = False
+    
+
+    def GetDataCacheFunctions(self):
+        functionList = []
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.NegX(NameOrValueFlag=1), []])
+        return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
+
+
+    def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
+        x_negx = inDataCacheDictionary['NegX'] # only need to perform this dictionary look-up once
+        
+        a1 = inCoeffs[0]
+        Tau1 = inCoeffs[1]
+        a2 = inCoeffs[2]
+        Tau2 = inCoeffs[3]
+
+        try:
+            temp = a1*numpy.exp(x_negx/Tau1) + a2*numpy.exp(x_negx/Tau2)
+            return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
+        except:
+            return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
+
+
+    def SpecificCodeCPP(self):
+        s = "\ttemp = a1*exp(-x_in/Tau1) + a2*exp(-x_in/Tau2);\n"
+        return s
+
+
+
+class MaxwellWiechert_3(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
+    
+    _baseName = "Maxwell - Wiechert 3"
+    _HTML = 'y = a1*exp(-X/Tau1) + a2*exp(-X/Tau2) + a3*exp(-X/Tau3)'
+    _leftSideHTML = 'y'
+    _coefficientDesignators = ['a1', 'Tau1', 'a2', 'Tau2', 'a3', 'Tau3']
+    _canLinearSolverBeUsedForSSQABS = False
+    
+    webReferenceURL = 'http://en.wikipedia.org/wiki/Generalized_Maxwell_model'
+
+    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
+    autoGenerateOffsetForm = True
+    autoGenerateReciprocalForm = True
+    autoGenerateInverseForms = True
+    autoGenerateGrowthAndDecayForms = True
+
+    independentData1CannotContainZeroFlag = False
+    independentData1CannotContainPositiveFlag = False
+    independentData1CannotContainNegativeFlag = False
+    independentData2CannotContainZeroFlag = False
+    independentData2CannotContainPositiveFlag = False
+    independentData2CannotContainNegativeFlag = False
+    
+
+    def GetDataCacheFunctions(self):
+        functionList = []
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.NegX(NameOrValueFlag=1), []])
+        return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
+
+
+    def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
+        x_negx = inDataCacheDictionary['NegX'] # only need to perform this dictionary look-up once
+        
+        a1 = inCoeffs[0]
+        Tau1 = inCoeffs[1]
+        a2 = inCoeffs[2]
+        Tau2 = inCoeffs[3]
+        a3 = inCoeffs[4]
+        Tau3 = inCoeffs[5]
+
+        try:
+            temp = a1*numpy.exp(x_negx/Tau1) + a2*numpy.exp(x_negx/Tau2) + a3*numpy.exp(x_negx/Tau3)
+            return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
+        except:
+            return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
+
+
+    def SpecificCodeCPP(self):
+        s = "\ttemp = a1*exp(-x_in/Tau1) + a2*exp(-x_in/Tau2) + a3*exp(-x_in/Tau3);\n"
+        return s
+
+
+
+class MaxwellWiechert_4(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
+    
+    _baseName = "Maxwell - Wiechert 4"
+    _HTML = 'y = a1*exp(-X/Tau1) + a2*exp(-X/Tau2) + a3*exp(-X/Tau3) + a4*exp(-X/Tau4)'
+    _leftSideHTML = 'y'
+    _coefficientDesignators = ['a1', 'Tau1', 'a2', 'Tau2', 'a3', 'Tau3', 'a4', 'Tau4']
+    _canLinearSolverBeUsedForSSQABS = False
+    
+    webReferenceURL = 'http://en.wikipedia.org/wiki/Generalized_Maxwell_model'
+
+    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
+    autoGenerateOffsetForm = True
+    autoGenerateReciprocalForm = True
+    autoGenerateInverseForms = True
+    autoGenerateGrowthAndDecayForms = True
+
+    independentData1CannotContainZeroFlag = False
+    independentData1CannotContainPositiveFlag = False
+    independentData1CannotContainNegativeFlag = False
+    independentData2CannotContainZeroFlag = False
+    independentData2CannotContainPositiveFlag = False
+    independentData2CannotContainNegativeFlag = False
+    
+
+    def GetDataCacheFunctions(self):
+        functionList = []
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.NegX(NameOrValueFlag=1), []])
+        return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
+
+
+    def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
+        x_negx = inDataCacheDictionary['NegX'] # only need to perform this dictionary look-up once
+        
+        a1 = inCoeffs[0]
+        Tau1 = inCoeffs[1]
+        a2 = inCoeffs[2]
+        Tau2 = inCoeffs[3]
+        a3 = inCoeffs[4]
+        Tau3 = inCoeffs[5]
+        a4 = inCoeffs[6]
+        Tau4 = inCoeffs[7]
+
+        try:
+            temp = a1*numpy.exp(x_negx/Tau1) + a2*numpy.exp(x_negx/Tau2) + a3*numpy.exp(x_negx/Tau3) + a4*numpy.exp(x_negx/Tau4)
+            return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
+        except:
+            return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
+
+
+    def SpecificCodeCPP(self):
+        s = "\ttemp = a1*exp(-x_in/Tau1) + a2*exp(-x_in/Tau2) + a3*exp(-x_in/Tau3) + a4*exp(-x_in/Tau4);\n"
+        return s
+
+
+
 class DispersionOptical(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Dispersion Optical"
