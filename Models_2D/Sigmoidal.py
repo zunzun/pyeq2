@@ -26,6 +26,56 @@ numpy.seterr(all= 'ignore')
 import pyeq2.Model_2D_BaseClass
 
 
+class Lomolino(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
+    
+    _baseName = "Lomolino"
+    _HTML = 'y = a / (1.0 + b<sup>ln(c/x)</sup>)'
+    _leftSideHTML = 'y'
+    _coefficientDesignators = ['a', 'b', 'c']
+    _canLinearSolverBeUsedForSSQABS = False
+    
+    webReferenceURL = ''
+
+    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = True
+    autoGenerateOffsetForm = True
+    autoGenerateReciprocalForm = True
+    autoGenerateInverseForms = True
+    autoGenerateGrowthAndDecayForms = True
+
+    independentData1CannotContainZeroFlag = True
+    independentData1CannotContainPositiveFlag = False
+    independentData1CannotContainNegativeFlag = False
+    independentData2CannotContainZeroFlag = False
+    independentData2CannotContainPositiveFlag = False
+    independentData2CannotContainNegativeFlag = False
+    
+
+    def GetDataCacheFunctions(self):
+        functionList = []
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.X(NameOrValueFlag=1), []])
+        return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
+
+
+    def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
+        x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
+        
+        a = inCoeffs[0]
+        b = inCoeffs[1]
+        c = inCoeffs[2]
+
+        try:
+            temp = a / (1.0 + numpy.power(b, numpy.log(c/x_in)))
+            return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
+        except:
+            return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
+
+
+    def SpecificCodeCPP(self):
+        s = "\ttemp = a / (1.0 + pow(b, log(c/x_in)));\n"
+        return s
+
+
+
 class BET_Sigmoidal_A(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "BET Sigmoidal A"
