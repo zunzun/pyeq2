@@ -10,7 +10,6 @@ from __future__ import absolute_import
 #    Birmingham, AL 35235 USA
 #
 #    email: zunzun@zunzun.com
-#    web: http://zunzun.com
 #
 #    License: BSD-style (see LICENSE.txt in main source directory)
 
