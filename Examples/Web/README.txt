@@ -38,15 +38,12 @@ Future steps for you to try
 
 A) Write a Flask form to submit user data for fitting
 
-B) Re-organize the tutorial code to separate the
-fitting, graphing and HTML generation code
-
-C) Present users with a menu selection of
+B) Present users with a menu selection of
 available equations before submitting forms
 
-D) Create scatterplots of the curve fitting errors
+C) Create scatterplots of the curve fitting errors
 
-E) Use matplotlib's 3D capability to display 3D
+D) Use matplotlib's 3D capability to display 3D
 surface plots of fitted 3D equations
 
 F) Look at the included pyeq2 source code examples
