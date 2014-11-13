@@ -55,7 +55,7 @@ def test_curve_fiting_and_plotting():
     htmlToReturn += '<br><br>'
 
     
-    # now fit a more complex model (aee the pyeq2 library)
+    # now fit a more complex model (see the pyeq2 library)
     # Maxwell-Wiechert with offset, fit to lowest SSQ Relative error
     equation=pyeq2.Models_2D.Engineering.MaxwellWiechert_1('SSQREL', 'Offset')
     pyeq2.dataConvertorService().ConvertAndSortColumnarASCII(exampleData, equation, False)
