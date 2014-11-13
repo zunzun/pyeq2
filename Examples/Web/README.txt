@@ -46,7 +46,7 @@ C) Create scatterplots of the curve fitting errors
 D) Use matplotlib's 3D capability to display 3D
 surface plots of fitted 3D equations
 
-F) Look at the included pyeq2 source code examples
+E) Look at the included pyeq2 source code examples
 for details on displaying fit statistics, etc.
 
 
