@@ -39,7 +39,7 @@ def SaveModelScatterConfidence(in_filePath, in_equation, in_title, in_xAxisLabel
     # now calculate confidence intervals
     # http://support.sas.com/documentation/cdl/en/statug/63347/HTML/default/viewer.htm#statug_nlin_sect026.htm
     # http://www.staff.ncl.ac.uk/tom.holderness/software/pythonlinearfit
-    mean_x = numpy.mean(xModel)			# mean of x
+    mean_x = numpy.mean(x_data)			# mean of x
     n = in_equation.nobs		    # number of samples in the origional fit
     
     t_value = scipy.stats.t.ppf(0.975, in_equation.df_e) # (1.0 - (a/2)) is used for two-sided t-test critical value, here a = 0.05
@@ -66,3 +66,54 @@ def SaveModelScatterConfidence(in_filePath, in_equation, in_title, in_xAxisLabel
     ax.set_ylabel(in_yAxisLabel) # Y axis data label
     
     fig.savefig(in_filePath) # create PNG file
+
+
+def SurfaceAndContourPlots(in_filePathSurface, in_filePathContour, in_equation,
+                           in_surfaceTitle, in_contourTitle,
+                           in_xAxisLabel, in_yAxisLabel, in_zAxisLabel):
+
+    # raw data
+    x_data = in_equation.dataCache.allDataCacheDictionary['IndependentData'][0]
+    y_data = in_equation.dataCache.allDataCacheDictionary['IndependentData'][1]
+    z_data = in_equation.dataCache.allDataCacheDictionary['DependentData']
+
+    from mpl_toolkits.mplot3d import Axes3D # 3D apecific
+    from matplotlib import cm # to colormap from blue to red
+    
+    fig = plt.figure()
+    ax = fig.gca(projection='3d')
+
+    xModel = numpy.linspace(min(x_data), max(x_data), 20)
+    yModel = numpy.linspace(min(y_data), max(y_data), 20)
+    X, Y = numpy.meshgrid(xModel, yModel)
+
+    in_equation.dataCache = pyeq2.dataCache()
+    in_equation.dataCache.allDataCacheDictionary['IndependentData'] = numpy.array([X, Y])
+    in_equation.dataCache.FindOrCreateAllDataCache(in_equation)
+    Z = in_equation.CalculateModelPredictions(in_equation.solvedCoefficients, in_equation.dataCache.allDataCacheDictionary)
+    
+    surf = ax.plot_surface(X, Y, Z, rstride=1, cstride=1, cmap=cm.coolwarm,
+            linewidth=1, antialiased=True)
+    
+    ax.set_title(in_surfaceTitle) # add a title for surface plot
+    ax.set_xlabel(in_xAxisLabel) # X axis data label
+    ax.set_ylabel(in_yAxisLabel) # Y axis data label
+    ax.set_zlabel(in_zAxisLabel) # Y axis data label
+    
+    fig.savefig(in_filePathSurface) # create PNG file
+
+    # contour plot here
+    fig = plt.figure(figsize=(5, 4))
+    ax = fig.add_subplot(1,1,1)
+
+    ax.plot(x_data, y_data, 'o', color='0.8', markersize=3) # draw these first so contour lines overlay.  Color=number is grayscale
+
+    ax.set_title(in_contourTitle) # add a title for contour plot
+    ax.set_xlabel(in_xAxisLabel) # X data label
+    ax.set_ylabel(in_yAxisLabel) # Y data label
+
+    numberOfContourLines = 10
+    plt.contour(X, Y, Z, numberOfContourLines, colors='k')
+    fig.savefig(in_filePathContour) # create PNG file
+
+
