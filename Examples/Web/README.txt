@@ -1,6 +1,6 @@
-Welcome to FlaskFit, an example of creating
-a web-based curve fitting tool with Python Flask
-and the pyeq2 curve and surface fitting library.
+Welcome to FlaskFit, an example of creating a
+a web-based curve and surface fitting tool with
+Python Flask and the pyeq2 fitting library.
 
 
 Step 1: Install flask, scipy and matplotlib
@@ -30,7 +30,7 @@ Use Control-C to exit the Flask development server.
 
 Step 3: Celebrate
 
-Congratulations, you are now fitting data using Flask!
+You are now curve and surface fitting data using Flask!
 
 
 
@@ -43,10 +43,7 @@ available equations before submitting forms
 
 C) Create scatterplots of the curve fitting errors
 
-D) Use matplotlib's 3D capability to display 3D
-surface plots of fitted 3D equations
-
-E) Look at the included pyeq2 source code examples
+D) Look at the included pyeq2 source code examples
 for details on displaying fit statistics, etc.
 
 
