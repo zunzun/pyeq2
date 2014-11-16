@@ -46,8 +46,10 @@ exampleData_3D = '''
 def test_curve_fiting_and_plotting():
 
     htmlToReturn = '' # build this as we progress through the example
-
     
+    htmlToReturn += '<center>' # makes the output slightly more appealing
+
+
     # fit a straight line
     equation=pyeq2.Models_2D.Polynomial.Linear()
     pyeq2.dataConvertorService().ConvertAndSortColumnarASCII(exampleData_2D, equation, False)
