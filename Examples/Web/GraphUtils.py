@@ -21,10 +21,12 @@ def SaveModelScatterConfidence(in_filePath, in_equation, in_title, in_xAxisLabel
     # now create data for the fitted in_equation plot
     xModel = numpy.linspace(min(x_data), max(x_data))
 
+    tempcache = in_equation.dataCache
     in_equation.dataCache = pyeq2.dataCache()
     in_equation.dataCache.allDataCacheDictionary['IndependentData'] = numpy.array([xModel, xModel])
     in_equation.dataCache.FindOrCreateAllDataCache(in_equation)
     yModel = in_equation.CalculateModelPredictions(in_equation.solvedCoefficients, in_equation.dataCache.allDataCacheDictionary)
+    in_equation.dataCache = tempcache
     
     # now use matplotlib to create the PNG file
     fig = plt.figure(figsize=(5, 4))
@@ -87,10 +89,12 @@ def SurfaceAndContourPlots(in_filePathSurface, in_filePathContour, in_equation,
     yModel = numpy.linspace(min(y_data), max(y_data), 20)
     X, Y = numpy.meshgrid(xModel, yModel)
 
+    tempcache = in_equation.dataCache
     in_equation.dataCache = pyeq2.dataCache()
     in_equation.dataCache.allDataCacheDictionary['IndependentData'] = numpy.array([X, Y])
     in_equation.dataCache.FindOrCreateAllDataCache(in_equation)
     Z = in_equation.CalculateModelPredictions(in_equation.solvedCoefficients, in_equation.dataCache.allDataCacheDictionary)
+    in_equation.dataCache = tempcache
     
     surf = ax.plot_surface(X, Y, Z, rstride=1, cstride=1, cmap=cm.coolwarm,
             linewidth=1, antialiased=True)
