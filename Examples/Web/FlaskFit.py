@@ -161,12 +161,10 @@ def test_curve_fiting_and_plotting():
     xAxisLabel = "X data"
     yAxisLabel = "Y data"
     zAxisLabel = "Z data"
-    print len(equation.dataCache.allDataCacheDictionary['IndependentData'][0])
     GraphUtils.SurfaceAndContourPlots(graphFilePath_Surface,
                                       graphFilePath_Contour,
                                       equation, surfaceTitle, contourTitle,
                                       xAxisLabel, yAxisLabel, zAxisLabel)    
-    print len(equation.dataCache.allDataCacheDictionary['IndependentData'][0])
 
     # generate HTML
     htmlToReturn +=  equation.GetDisplayName() + '<br><br>'
