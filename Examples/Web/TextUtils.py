@@ -6,7 +6,9 @@ exampleFileDirectory = sys.path[0][:sys.path[0].rfind(os.sep)]
 pyeq2IimportDirectory =  os.path.join(os.path.join(exampleFileDirectory, '..'), '..')
 if pyeq2IimportDirectory not in sys.path:
     sys.path.append(pyeq2IimportDirectory)
-    
+
+import pyeq2
+
 
 def SaveCoefficientAndFitStatistics(in_filePathFitStatistics, in_equation):
     
@@ -85,4 +87,29 @@ def SaveCoefficientAndFitStatistics(in_filePathFitStatistics, in_equation):
     outputFile.write("Coefficient Covariance Matrix:\n")
     for i in  in_equation.cov_beta:
         outputFile.write(str(i) + '\n')
+    
+    outputFile.close()
 
+
+def SaveSourceCode(in_sourceCodeFilePath,  in_equation):
+    
+    outputFile = open(in_sourceCodeFilePath, 'w')
+    
+    
+    outputFile.write(pyeq2.outputSourceCodeService().GetOutputSourceCodeCPP(in_equation))
+    outputFile.write('\n\n')
+    outputFile.write(pyeq2.outputSourceCodeService().GetOutputSourceCodeCSHARP(in_equation))
+    outputFile.write('\n\n')
+    outputFile.write(pyeq2.outputSourceCodeService().GetOutputSourceCodeVBA(in_equation))
+    outputFile.write('\n\n')
+    outputFile.write(pyeq2.outputSourceCodeService().GetOutputSourceCodePYTHON(in_equation))
+    outputFile.write('\n\n')
+    outputFile.write(pyeq2.outputSourceCodeService().GetOutputSourceCodeJAVA(in_equation))
+    outputFile.write('\n\n')
+    outputFile.write(pyeq2.outputSourceCodeService().GetOutputSourceCodeJAVASCRIPT(in_equation))
+    outputFile.write('\n\n')
+    outputFile.write(pyeq2.outputSourceCodeService().GetOutputSourceCodeSCILAB(in_equation))
+    outputFile.write('\n\n')
+    outputFile.write(pyeq2.outputSourceCodeService().GetOutputSourceCodeMATLAB(in_equation))
+    
+    outputFile.close()

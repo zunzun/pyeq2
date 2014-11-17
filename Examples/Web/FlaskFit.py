@@ -61,6 +61,10 @@ def test_curve_fiting_and_plotting():
     fitStatisticsFilePath = "static/fitstatistics_one.txt" # one
     TextUtils.SaveCoefficientAndFitStatistics(fitStatisticsFilePath,  equation)
 
+    # save source code to a single text file, all available languages
+    sourceCodeFilePath = "static/sourcecode_one.txt" # one
+    TextUtils.SaveSourceCode(sourceCodeFilePath,  equation)
+
     # create graph
     graphFilePath = "static/scatterplot_one.png" # one
     title = "Example Of A Simple Model"
@@ -73,6 +77,7 @@ def test_curve_fiting_and_plotting():
     htmlToReturn +=  equation.GetDisplayName() + '<br><br>'
     htmlToReturn +=  equation.GetDisplayHTML() + '<br><br>'
     htmlToReturn += '<a href="' + fitStatisticsFilePath + '">Link to parameter and fit statistics</a><br><br>'
+    htmlToReturn += '<a href="' + sourceCodeFilePath + '">Link to source code, all available languages</a><br><br>'
     htmlToReturn +=  '<img src="' + graphFilePath + '">'
 
 
@@ -91,6 +96,10 @@ def test_curve_fiting_and_plotting():
     fitStatisticsFilePath = "static/fitstatistics_two.txt" # two
     TextUtils.SaveCoefficientAndFitStatistics(fitStatisticsFilePath,  equation)
 
+    # save source code to a single text file, all available languages
+    sourceCodeFilePath = "static/sourcecode_two.txt" # two
+    TextUtils.SaveSourceCode(sourceCodeFilePath,  equation)
+
     # create graph
     graphFilePath = "static/scatterplot_two.png" # two
     title = "Example Of A Complex Model"
@@ -103,6 +112,7 @@ def test_curve_fiting_and_plotting():
     htmlToReturn +=  equation.GetDisplayName() + '<br><br>'
     htmlToReturn +=  equation.GetDisplayHTML() + '<br><br>'
     htmlToReturn += '<a href="' + fitStatisticsFilePath + '">Link to parameter and fit statistics</a><br><br>'
+    htmlToReturn += '<a href="' + sourceCodeFilePath + '">Link to source code, all available languages</a><br><br>'
     htmlToReturn +=  '<img src="' + graphFilePath + '">'
 
     
@@ -120,6 +130,10 @@ def test_curve_fiting_and_plotting():
     fitStatisticsFilePath = "static/fitstatistics_three.txt" # three
     TextUtils.SaveCoefficientAndFitStatistics(fitStatisticsFilePath,  equation)
 
+    # save source code to a single text file, all available languages
+    sourceCodeFilePath = "static/sourcecode_three.txt" # three
+    TextUtils.SaveSourceCode(sourceCodeFilePath,  equation)
+
     # create graph
     graphFilePath = "static/scatterplot_three.png" # three
     title = "Example Of A Poorly Fitting Model"
@@ -132,6 +146,7 @@ def test_curve_fiting_and_plotting():
     htmlToReturn +=  equation.GetDisplayName() + '<br><br>'
     htmlToReturn +=  equation.GetDisplayHTML() + '<br><br>'
     htmlToReturn += '<a href="' + fitStatisticsFilePath + '">Link to parameter and fit statistics</a><br><br>'
+    htmlToReturn += '<a href="' + sourceCodeFilePath + '">Link to source code, all available languages</a><br><br>'
     htmlToReturn +=  '<img src="' + graphFilePath + '">'
 
 
@@ -153,6 +168,10 @@ def test_curve_fiting_and_plotting():
     fitStatisticsFilePath = "static/fitstatistics_four.txt" # four
     TextUtils.SaveCoefficientAndFitStatistics(fitStatisticsFilePath,  equation)
 
+    # save source code to a single text file, all available languages
+    sourceCodeFilePath = "static/sourcecode_four.txt" # four
+    TextUtils.SaveSourceCode(sourceCodeFilePath,  equation)
+
     # create graphs
     graphFilePath_Surface = "static/surface.png" # surface plot
     graphFilePath_Contour = "static/contour.png" # contour plot
@@ -170,6 +189,7 @@ def test_curve_fiting_and_plotting():
     htmlToReturn +=  equation.GetDisplayName() + '<br><br>'
     htmlToReturn +=  equation.GetDisplayHTML() + '<br><br>'
     htmlToReturn += '<a href="' + fitStatisticsFilePath + '">Link to parameter and fit statistics</a><br><br>'
+    htmlToReturn += '<a href="' + sourceCodeFilePath + '">Link to source code, all available languages</a><br><br>'
     htmlToReturn +=  '<img src="' + graphFilePath_Surface + '"><br><br>'
     htmlToReturn +=  '<img src="' + graphFilePath_Contour + '"><br><br>'
 
