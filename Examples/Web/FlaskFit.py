@@ -7,7 +7,7 @@ pyeq2IimportDirectory =  os.path.join(os.path.join(exampleFileDirectory, '..'), 
 if pyeq2IimportDirectory not in sys.path:
     sys.path.append(pyeq2IimportDirectory)
     
-import pyeq2, GraphUtils
+import pyeq2, GraphUtils, TextUtils
 from flask import Flask
 
 
@@ -56,19 +56,24 @@ def test_curve_fiting_and_plotting():
     equation.Solve()
     equation.CalculateModelErrors(equation.solvedCoefficients, equation.dataCache.allDataCacheDictionary)
     equation.CalculateCoefficientAndFitStatistics()
-    
+
+    # save fit statistics to a text file
+    fitStatisticsFilePath = "static/fitstatistics_one.txt" # one
+    TextUtils.SaveCoefficientAndFitStatistics(fitStatisticsFilePath,  equation)
+
     # create graph
-    outputFilePath = "static/scatterplot_one.png" # one
+    graphFilePath = "static/scatterplot_one.png" # one
     title = "Example Of A Simple Model"
     xAxisLabel = "X data"
     yAxisLabel = "Y data"    
-    GraphUtils.SaveModelScatterConfidence(outputFilePath,
+    GraphUtils.SaveModelScatterConfidence(graphFilePath,
                                           equation, title, xAxisLabel, yAxisLabel) 
 
     # generate HTML
     htmlToReturn +=  equation.GetDisplayName() + '<br><br>'
-    htmlToReturn +=  equation.GetDisplayHTML() + '<br>'
-    htmlToReturn +=  '<img src="' + outputFilePath + '">'
+    htmlToReturn +=  equation.GetDisplayHTML() + '<br><br>'
+    htmlToReturn += '<a href="' + fitStatisticsFilePath + '">Link to parameter and fit statistics</a><br><br>'
+    htmlToReturn +=  '<img src="' + graphFilePath + '">'
 
 
     htmlToReturn += '<br><br><br> <hr> <br><br><br>'
@@ -82,18 +87,23 @@ def test_curve_fiting_and_plotting():
     equation.CalculateModelErrors(equation.solvedCoefficients, equation.dataCache.allDataCacheDictionary)
     equation.CalculateCoefficientAndFitStatistics()
 
+    # save fit statistics to a text file
+    fitStatisticsFilePath = "static/fitstatistics_two.txt" # two
+    TextUtils.SaveCoefficientAndFitStatistics(fitStatisticsFilePath,  equation)
+
     # create graph
-    outputFilePath = "static/scatterplot_two.png" # two
+    graphFilePath = "static/scatterplot_two.png" # two
     title = "Example Of A Complex Model"
     xAxisLabel = "X data"
     yAxisLabel = "Y data"
-    GraphUtils.SaveModelScatterConfidence(outputFilePath,
+    GraphUtils.SaveModelScatterConfidence(graphFilePath,
                                           equation, title, xAxisLabel, yAxisLabel) 
 
     # generate HTML
     htmlToReturn +=  equation.GetDisplayName() + '<br><br>'
-    htmlToReturn +=  equation.GetDisplayHTML() + '<br>'
-    htmlToReturn +=  '<img src="' + outputFilePath + '">'
+    htmlToReturn +=  equation.GetDisplayHTML() + '<br><br>'
+    htmlToReturn += '<a href="' + fitStatisticsFilePath + '">Link to parameter and fit statistics</a><br><br>'
+    htmlToReturn +=  '<img src="' + graphFilePath + '">'
 
     
     htmlToReturn += '<br><br><br> <hr> <br><br><br>'
@@ -105,19 +115,24 @@ def test_curve_fiting_and_plotting():
     equation.Solve()
     equation.CalculateModelErrors(equation.solvedCoefficients, equation.dataCache.allDataCacheDictionary)
     equation.CalculateCoefficientAndFitStatistics()
-    
+
+    # save fit statistics to a text file
+    fitStatisticsFilePath = "static/fitstatistics_three.txt" # three
+    TextUtils.SaveCoefficientAndFitStatistics(fitStatisticsFilePath,  equation)
+
     # create graph
-    outputFilePath = "static/scatterplot_three.png" # three
+    graphFilePath = "static/scatterplot_three.png" # three
     title = "Example Of A Poorly Fitting Model"
     xAxisLabel = "X data"
     yAxisLabel = "Y data"
-    GraphUtils.SaveModelScatterConfidence(outputFilePath,
+    GraphUtils.SaveModelScatterConfidence(graphFilePath,
                                           equation, title, xAxisLabel, yAxisLabel) 
 
     # generate HTML
     htmlToReturn +=  equation.GetDisplayName() + '<br><br>'
     htmlToReturn +=  equation.GetDisplayHTML() + '<br><br>'
-    htmlToReturn +=  '<img src="' + outputFilePath + '">'
+    htmlToReturn += '<a href="' + fitStatisticsFilePath + '">Link to parameter and fit statistics</a><br><br>'
+    htmlToReturn +=  '<img src="' + graphFilePath + '">'
 
 
     # now a 3D surface and contour plot
@@ -134,17 +149,21 @@ def test_curve_fiting_and_plotting():
     equation.CalculateModelErrors(equation.solvedCoefficients, equation.dataCache.allDataCacheDictionary)
     equation.CalculateCoefficientAndFitStatistics()
 
+    # save fit statistics to a text file
+    fitStatisticsFilePath = "static/fitstatistics_four.txt" # four
+    TextUtils.SaveCoefficientAndFitStatistics(fitStatisticsFilePath,  equation)
+
     # create graphs
-    outputFilePath_Surface = "static/surface.png" # surface plot
-    outputFilePath_Contour = "static/contour.png" # contour plot
+    graphFilePath_Surface = "static/surface.png" # surface plot
+    graphFilePath_Contour = "static/contour.png" # contour plot
     surfaceTitle = "Example Surface Plot"
     contourTitle = "Example Contour Plot"
     xAxisLabel = "X data"
     yAxisLabel = "Y data"
     zAxisLabel = "Z data"
     print len(equation.dataCache.allDataCacheDictionary['IndependentData'][0])
-    GraphUtils.SurfaceAndContourPlots(outputFilePath_Surface,
-                                      outputFilePath_Contour,
+    GraphUtils.SurfaceAndContourPlots(graphFilePath_Surface,
+                                      graphFilePath_Contour,
                                       equation, surfaceTitle, contourTitle,
                                       xAxisLabel, yAxisLabel, zAxisLabel)    
     print len(equation.dataCache.allDataCacheDictionary['IndependentData'][0])
@@ -152,8 +171,9 @@ def test_curve_fiting_and_plotting():
     # generate HTML
     htmlToReturn +=  equation.GetDisplayName() + '<br><br>'
     htmlToReturn +=  equation.GetDisplayHTML() + '<br><br>'
-    htmlToReturn +=  '<img src="' + outputFilePath_Surface + '"><br><br>'
-    htmlToReturn +=  '<img src="' + outputFilePath_Contour + '"><br><br>'
+    htmlToReturn += '<a href="' + fitStatisticsFilePath + '">Link to parameter and fit statistics</a><br><br>'
+    htmlToReturn +=  '<img src="' + graphFilePath_Surface + '"><br><br>'
+    htmlToReturn +=  '<img src="' + graphFilePath_Contour + '"><br><br>'
 
 
     # done fitting, finish by returning HTML

@@ -42,8 +42,3 @@ B) Present users with a menu selection of
 available equations before submitting forms
 
 C) Create scatterplots of the curve fitting errors
-
-D) Look at the included pyeq2 source code examples
-for details on displaying fit statistics, etc.
-
-
