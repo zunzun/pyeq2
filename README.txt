@@ -1,5 +1,13 @@
 You will need to install python and scipy to run this software.
 
+On Debian or Ubuntu Linux, you can use this command to get both:
+
+sudo apt-get install python-scipy
+
+On other operating systems, try the Canopy Express Free version:
+
+https://store.enthought.com/
+
 If you are using Python 3, Python 3's 2to3 tool successfully converts
 all of the existing code, and all 100+ unit tests run successfully.
 
