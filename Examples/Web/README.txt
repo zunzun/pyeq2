@@ -9,7 +9,7 @@ On Debian or Ubuntu Linux, you can use this command:
 
 sudo apt-get install python-flask python-scipy python-matplotlib
 
-On other operating systems, try Canopy Express Free version:
+On other operating systems, try the Canopy Express Free version:
 
 https://store.enthought.com/
 
