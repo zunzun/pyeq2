@@ -94,8 +94,7 @@ def SaveCoefficientAndFitStatistics(in_filePathFitStatistics, in_equation):
 def SaveSourceCode(in_sourceCodeFilePath,  in_equation):
     
     outputFile = open(in_sourceCodeFilePath, 'w')
-    
-    
+        
     outputFile.write(pyeq2.outputSourceCodeService().GetOutputSourceCodeCPP(in_equation))
     outputFile.write('\n\n')
     outputFile.write(pyeq2.outputSourceCodeService().GetOutputSourceCodeCSHARP(in_equation))
