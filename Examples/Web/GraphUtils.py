@@ -116,8 +116,9 @@ def SurfaceAndContourPlots(in_filePathSurface, in_filePathContour, in_equation,
     ax.set_xlabel(in_xAxisLabel) # X data label
     ax.set_ylabel(in_yAxisLabel) # Y data label
 
-    numberOfContourLines = 10
-    plt.contour(X, Y, Z, numberOfContourLines, colors='k')
+    numberOfContourLines = 16
+    CS = plt.contour(X, Y, Z, numberOfContourLines, colors='k')
+    plt.clabel(CS, inline=1, fontsize=10) # labels for contours
     fig.savefig(in_filePathContour) # create PNG file
 
 
