@@ -47,5 +47,3 @@ A) Write a Flask form to submit user data for fitting
 
 B) Present users with a menu selection of
 available equations before submitting forms
-
-C) Create scatterplots of the curve fitting errors
