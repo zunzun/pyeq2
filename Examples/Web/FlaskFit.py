@@ -51,6 +51,7 @@ def test_curve_fiting_and_plotting():
 
 
     # fit a straight line
+    print "Simple Model"
     equation=pyeq2.Models_2D.Polynomial.Linear()
     pyeq2.dataConvertorService().ConvertAndSortColumnarASCII(exampleData_2D, equation, False)
     equation.Solve()
@@ -65,12 +66,19 @@ def test_curve_fiting_and_plotting():
     sourceCodeFilePath = "static/sourcecode_one.txt" # one
     TextUtils.SaveSourceCode(sourceCodeFilePath,  equation)
 
-    # create graph
-    graphFilePath = "static/scatterplot_one.png" # one
+    # create graphs
+    graphFilePath = "static/model_and_scatterplot_one.png" # one
     title = "Example Of A Simple Model"
     xAxisLabel = "X data"
-    yAxisLabel = "Y data"    
+    yAxisLabel = "Y data"
     GraphUtils.SaveModelScatterConfidence(graphFilePath,
+                                          equation, title, xAxisLabel, yAxisLabel) 
+
+    absErrorPlotFilePath = "static/abs_error_one.png" # one
+    title = "Absolute Error For Simple Model"
+    xAxisLabel = "X data"
+    yAxisLabel = "Absolute Error"
+    GraphUtils.SaveAbsErrorScatterPlot(absErrorPlotFilePath,
                                           equation, title, xAxisLabel, yAxisLabel) 
 
     # generate HTML
@@ -78,13 +86,16 @@ def test_curve_fiting_and_plotting():
     htmlToReturn +=  equation.GetDisplayHTML() + '<br><br>'
     htmlToReturn += '<a href="' + fitStatisticsFilePath + '">Link to parameter and fit statistics</a><br><br>'
     htmlToReturn += '<a href="' + sourceCodeFilePath + '">Link to source code, all available languages</a><br><br>'
-    htmlToReturn +=  '<img src="' + graphFilePath + '">'
+    htmlToReturn +=  '<img src="' + graphFilePath + '"> '
+    htmlToReturn +=  '<img src="' + absErrorPlotFilePath + '"><br><br>'
+
 
 
     htmlToReturn += '<br><br><br> <hr> <br><br><br>'
 
     
     # fit a more complex model (see the pyeq2 library)
+    print "Complex Model"
     # Maxwell-Wiechert with offset, fit to lowest SSQ Relative error
     equation=pyeq2.Models_2D.Engineering.MaxwellWiechert_1('SSQREL', 'Offset')
     pyeq2.dataConvertorService().ConvertAndSortColumnarASCII(exampleData_2D, equation, False)
@@ -101,11 +112,18 @@ def test_curve_fiting_and_plotting():
     TextUtils.SaveSourceCode(sourceCodeFilePath,  equation)
 
     # create graph
-    graphFilePath = "static/scatterplot_two.png" # two
+    graphFilePath = "static/model_and_scatterplot_two.png" # two
     title = "Example Of A Complex Model"
     xAxisLabel = "X data"
     yAxisLabel = "Y data"
     GraphUtils.SaveModelScatterConfidence(graphFilePath,
+                                          equation, title, xAxisLabel, yAxisLabel) 
+
+    absErrorPlotFilePath = "static/abs_error_two.png" # two
+    title = "Absolute Error For Complex Model"
+    xAxisLabel = "X data"
+    yAxisLabel = "Absolute Error"
+    GraphUtils.SaveAbsErrorScatterPlot(absErrorPlotFilePath,
                                           equation, title, xAxisLabel, yAxisLabel) 
 
     # generate HTML
@@ -113,13 +131,15 @@ def test_curve_fiting_and_plotting():
     htmlToReturn +=  equation.GetDisplayHTML() + '<br><br>'
     htmlToReturn += '<a href="' + fitStatisticsFilePath + '">Link to parameter and fit statistics</a><br><br>'
     htmlToReturn += '<a href="' + sourceCodeFilePath + '">Link to source code, all available languages</a><br><br>'
-    htmlToReturn +=  '<img src="' + graphFilePath + '">'
+    htmlToReturn +=  '<img src="' + graphFilePath + '"> '
+    htmlToReturn +=  '<img src="' + absErrorPlotFilePath + '"><br><br>'
 
     
     htmlToReturn += '<br><br><br> <hr> <br><br><br>'
 
     
     # now a poorly fitting model
+    print "Poorly Fitting Nodel"
     equation=pyeq2.Models_2D.Exponential.SimpleExponential()
     pyeq2.dataConvertorService().ConvertAndSortColumnarASCII(exampleData_2D, equation, False)
     equation.Solve()
@@ -135,11 +155,18 @@ def test_curve_fiting_and_plotting():
     TextUtils.SaveSourceCode(sourceCodeFilePath,  equation)
 
     # create graph
-    graphFilePath = "static/scatterplot_three.png" # three
+    graphFilePath = "static/model_and_scatterplot_three.png" # three
     title = "Example Of A Poorly Fitting Model"
     xAxisLabel = "X data"
     yAxisLabel = "Y data"
     GraphUtils.SaveModelScatterConfidence(graphFilePath,
+                                          equation, title, xAxisLabel, yAxisLabel) 
+
+    absErrorPlotFilePath = "static/abs_error_three.png" # three
+    title = "Absolute Error For Poorly Fitting Model"
+    xAxisLabel = "X data"
+    yAxisLabel = "Absolute Error"
+    GraphUtils.SaveAbsErrorScatterPlot(absErrorPlotFilePath,
                                           equation, title, xAxisLabel, yAxisLabel) 
 
     # generate HTML
@@ -147,7 +174,8 @@ def test_curve_fiting_and_plotting():
     htmlToReturn +=  equation.GetDisplayHTML() + '<br><br>'
     htmlToReturn += '<a href="' + fitStatisticsFilePath + '">Link to parameter and fit statistics</a><br><br>'
     htmlToReturn += '<a href="' + sourceCodeFilePath + '">Link to source code, all available languages</a><br><br>'
-    htmlToReturn +=  '<img src="' + graphFilePath + '">'
+    htmlToReturn +=  '<img src="' + graphFilePath + '"> '
+    htmlToReturn +=  '<img src="' + absErrorPlotFilePath + '"><br><br>'
 
 
     # now a 3D surface and contour plot
@@ -157,6 +185,7 @@ def test_curve_fiting_and_plotting():
 
     
     # fit a 3D surface
+    print "Surface Model"
     # Polynomial Full Cubic
     equation=pyeq2.Models_3D.Polynomial.FullCubic()
     pyeq2.dataConvertorService().ConvertAndSortColumnarASCII(exampleData_3D, equation, False)
@@ -185,12 +214,20 @@ def test_curve_fiting_and_plotting():
                                       equation, surfaceTitle, contourTitle,
                                       xAxisLabel, yAxisLabel, zAxisLabel)    
 
+    absErrorPlotFilePath = "static/abs_error_four.png" # four
+    title = "Absolute Error For Surface Plot"
+    xAxisLabel = "X data"
+    yAxisLabel = "Absolute Error"
+    GraphUtils.SaveAbsErrorScatterPlot(absErrorPlotFilePath,
+                                          equation, title, xAxisLabel, yAxisLabel) 
+
     # generate HTML
     htmlToReturn +=  equation.GetDisplayName() + '<br><br>'
     htmlToReturn +=  equation.GetDisplayHTML() + '<br><br>'
     htmlToReturn += '<a href="' + fitStatisticsFilePath + '">Link to parameter and fit statistics</a><br><br>'
     htmlToReturn += '<a href="' + sourceCodeFilePath + '">Link to source code, all available languages</a><br><br>'
-    htmlToReturn +=  '<img src="' + graphFilePath_Surface + '"><br><br>'
+    htmlToReturn +=  '<img src="' + graphFilePath_Surface + '"> '
+    htmlToReturn +=  '<img src="' + absErrorPlotFilePath + '"><br><br>'
     htmlToReturn +=  '<img src="' + graphFilePath_Contour + '"><br><br>'
 
 

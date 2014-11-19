@@ -122,3 +122,21 @@ def SurfaceAndContourPlots(in_filePathSurface, in_filePathContour, in_equation,
     fig.savefig(in_filePathContour) # create PNG file
 
 
+def SaveAbsErrorScatterPlot(in_filePath, in_equation, in_title, in_xAxisLabel, in_yAxisLabel):
+    
+    # raw data
+    x_data = in_equation.dataCache.allDataCacheDictionary['IndependentData'][0]
+    abs_err = in_equation.modelAbsoluteError
+
+    # now use matplotlib to create the PNG file
+    fig = plt.figure(figsize=(5, 4))
+    ax = fig.add_subplot(1,1,1)
+    
+    # create the scatter plot
+    ax.plot(x_data, abs_err, 'o')
+    
+    ax.set_title(in_title) # add a title
+    ax.set_xlabel(in_xAxisLabel) # X axis data label
+    ax.set_ylabel(in_yAxisLabel) # Y axis data label
+
+    fig.savefig(in_filePath) # create PNG file
