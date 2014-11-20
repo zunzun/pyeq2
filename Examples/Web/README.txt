@@ -43,9 +43,5 @@ You are now curve and surface fitting data using Flask!
 
 
 
-Future steps for you to try
-
-A) Write a Flask form to submit user data for fitting
-
-B) Present users with a menu selection of
-available equations before submitting forms
+Look at the other pyeq2 examples for more information on
+topics such as parallel processing or "function finding".
