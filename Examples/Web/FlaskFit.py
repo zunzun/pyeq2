@@ -263,11 +263,19 @@ def test_curve_fiting_and_plotting():
     # make a simple form for interactive fitting
     htmlToReturn += 'Simple web fitter<br><br>'
     htmlToReturn += '<form action="/simplefitter" method="post">'
-    htmlToReturn += '<input type="radio" name="equation" value="Linear" checked>Linear Equation'
+    htmlToReturn += '<table><tr><td align=left>'
+    htmlToReturn += '<input type="radio" name="equation" value="Linear" checked>Linear Polynomial'
     htmlToReturn += '<br>'
-    htmlToReturn += '<input type="radio" name="equation" value="Quadratic">Quadratic Equation'
+    htmlToReturn += '<input type="radio" name="equation" value="Quadratic">Quadratic Polynomial'
     htmlToReturn += '<br>'
-    htmlToReturn += '<input type="radio" name="equation" value="Cubic">Cubic Equation'
+    htmlToReturn += '<input type="radio" name="equation" value="Cubic">Cubic Polynomial'
+    htmlToReturn += '<br>'
+    htmlToReturn += '<input type="radio" name="equation" value="WitchA">Witch Of Maria Agnesi A'
+    htmlToReturn += '<br>'
+    htmlToReturn += '<input type="radio" name="equation" value="VanDeemter">VanDeemter Chromatography'
+    htmlToReturn += '<br>'
+    htmlToReturn += '<input type="radio" name="equation" value="GammaRayDegreesB">Gamma Ray Angular Distribution (degrees) B'
+    htmlToReturn += '</td></tr></table>'
     htmlToReturn += '<br><br>'
     htmlToReturn += 'Text Data<br>'
     htmlToReturn += '<textarea  rows="10" cols="25" name="textdata">'
@@ -297,6 +305,12 @@ def simplefitterWithNoFormDataValidation():
         equation = pyeq2.Models_2D.Polynomial.Quadratic()
     elif formEquation == 'Cubic':
         equation = pyeq2.Models_2D.Polynomial.Cubic()
+    elif formEquation == 'WitchA':
+        equation = pyeq2.Models_2D.Miscellaneous.WitchOfAgnesiA()
+    elif formEquation == 'VanDeemter':
+        equation = pyeq2.Models_2D.Engineering.VanDeemterChromatography()
+    elif formEquation == 'GammaRayDegreesB':
+        equation = pyeq2.Models_2D.LegendrePolynomial.GammaRayAngularDistributionDegreesB()
     
     # the name of the data here is from the form
     pyeq2.dataConvertorService().ConvertAndSortColumnarASCII(formTextData, equation, False)
