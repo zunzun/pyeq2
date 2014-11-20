@@ -67,6 +67,8 @@ def test_curve_fiting_and_plotting():
     # fit a straight line
     print "Simple Model"
     equation=pyeq2.Models_2D.Polynomial.Linear()
+    
+    # the name of the data here is for 2D
     pyeq2.dataConvertorService().ConvertAndSortColumnarASCII(exampleData_2D, equation, False)
     equation.Solve()
     equation.CalculateModelErrors(equation.solvedCoefficients, equation.dataCache.allDataCacheDictionary)
@@ -113,6 +115,8 @@ def test_curve_fiting_and_plotting():
     print "Complex Model"
     # Maxwell-Wiechert with offset, fit to lowest SSQ Relative error
     equation=pyeq2.Models_2D.Engineering.MaxwellWiechert_1('SSQREL', 'Offset')
+    
+    # the name of the data here is for 2D
     pyeq2.dataConvertorService().ConvertAndSortColumnarASCII(exampleData_2D, equation, False)
     equation.Solve()
     equation.CalculateModelErrors(equation.solvedCoefficients, equation.dataCache.allDataCacheDictionary)
@@ -158,6 +162,8 @@ def test_curve_fiting_and_plotting():
     # now a poorly fitting model
     print "Poorly Fitting Nodel"
     equation=pyeq2.Models_2D.Exponential.SimpleExponential()
+
+    # the name of the data here is for 2D
     pyeq2.dataConvertorService().ConvertAndSortColumnarASCII(exampleData_2D, equation, False)
     equation.Solve()
     equation.CalculateModelErrors(equation.solvedCoefficients, equation.dataCache.allDataCacheDictionary)
@@ -204,6 +210,8 @@ def test_curve_fiting_and_plotting():
     print "Surface Model"
     # Polynomial Full Cubic
     equation=pyeq2.Models_3D.Polynomial.FullCubic()
+    
+    # the name of the data here is for 3D, not 2D
     pyeq2.dataConvertorService().ConvertAndSortColumnarASCII(exampleData_3D, equation, False)
     equation.Solve()
     equation.CalculateModelErrors(equation.solvedCoefficients, equation.dataCache.allDataCacheDictionary)
@@ -290,6 +298,7 @@ def simplefitterWithNoFormDataValidation():
     elif formEquation == 'Cubic':
         equation = pyeq2.Models_2D.Polynomial.Cubic()
     
+    # the name of the data here is from the form
     pyeq2.dataConvertorService().ConvertAndSortColumnarASCII(formTextData, equation, False)
     equation.Solve()
     equation.CalculateModelErrors(equation.solvedCoefficients, equation.dataCache.allDataCacheDictionary)
