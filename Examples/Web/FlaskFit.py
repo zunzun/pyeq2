@@ -12,7 +12,7 @@ from flask import Flask
 
 
 
-# override Flask's default 60 static file cache for the files we generate
+# override Flask's default 60 second file cache for the files we generate
 class MyFlask(Flask):
     def get_send_file_max_age(self, name):
         if name.lower().endswith('.png'):
