@@ -11,8 +11,21 @@ import pyeq2, GraphUtils, TextUtils
 from flask import Flask
 
 
-app = Flask(__name__)
+
+# override Flask's default 60 static file cache for the files we generate
+class MyFlask(Flask):
+    def get_send_file_max_age(self, name):
+        if name.lower().endswith('.png'):
+            return 0.000001
+        if name.lower().endswith('.txt'):
+            return 0.000001
+        return flask.Flask.get_send_file_max_age(self, name)
+
+
+app = MyFlask(__name__)
 app.debug = True # only for development, never for production
+
+
 
 exampleData_2D = '''
   X        Y
@@ -48,6 +61,7 @@ def test_curve_fiting_and_plotting():
     htmlToReturn = '' # build this as we progress through the example
     
     htmlToReturn += '<center>' # makes the output slightly more appealing
+
 
 
     # fit a straight line
@@ -93,6 +107,7 @@ def test_curve_fiting_and_plotting():
 
     htmlToReturn += '<br><br><br> <hr> <br><br><br>'
 
+
     
     # fit a more complex model (see the pyeq2 library)
     print "Complex Model"
@@ -134,8 +149,10 @@ def test_curve_fiting_and_plotting():
     htmlToReturn +=  '<img src="' + graphFilePath + '"> '
     htmlToReturn +=  '<img src="' + absErrorPlotFilePath + '"><br><br>'
 
+
     
     htmlToReturn += '<br><br><br> <hr> <br><br><br>'
+
 
     
     # now a poorly fitting model
@@ -178,12 +195,11 @@ def test_curve_fiting_and_plotting():
     htmlToReturn +=  '<img src="' + absErrorPlotFilePath + '"><br><br>'
 
 
-    # now a 3D surface and contour plot
-
 
     htmlToReturn += '<br><br><br> <hr> <br><br><br>'
 
-    
+
+
     # fit a 3D surface
     print "Surface Model"
     # Polynomial Full Cubic
@@ -231,8 +247,87 @@ def test_curve_fiting_and_plotting():
     htmlToReturn +=  '<img src="' + graphFilePath_Contour + '"><br><br>'
 
 
-    # done fitting, finish by returning HTML
+
+    htmlToReturn += '<br><br><br> <hr> <br><br><br>'
+
+
+
+    # make a simple form for interactive fitting
+    htmlToReturn += 'Simple web fitter<br><br>'
+    htmlToReturn += '<form action="/simplefitter" method="post">'
+    htmlToReturn += '<input type="radio" name="equation" value="Linear" checked>Linear Equation'
+    htmlToReturn += '<br>'
+    htmlToReturn += '<input type="radio" name="equation" value="Quadratic">Quadratic Equation'
+    htmlToReturn += '<br>'
+    htmlToReturn += '<input type="radio" name="equation" value="Cubic">Cubic Equation'
+    htmlToReturn += '<br><br>'
+    htmlToReturn += 'Text Data<br>'
+    htmlToReturn += '<textarea  rows="10" cols="25" name="textdata">'
+    htmlToReturn  += exampleData_2D
+    htmlToReturn += '</textarea>'
+    htmlToReturn += '<br><br>'
+    htmlToReturn += '<input type="submit" value="Submit">'
+    htmlToReturn += '</form>'    
+    
+    
+    # finish by returning the HTML to Flask
     return htmlToReturn
+
+
+
+@app.route('/simplefitter', methods=['POST'])
+def simplefitterWithNoFormDataValidation():
+    from flask import request
+    htmlToReturn = '' # build this HTML as we progress
+    
+    formTextData = request.form['textdata']
+    formEquation = request.form['equation']
+
+    if formEquation == 'Linear':
+        equation = pyeq2.Models_2D.Polynomial.Linear()
+    elif formEquation == 'Quadratic':
+        equation = pyeq2.Models_2D.Polynomial.Quadratic()
+    elif formEquation == 'Cubic':
+        equation = pyeq2.Models_2D.Polynomial.Cubic()
+    
+    pyeq2.dataConvertorService().ConvertAndSortColumnarASCII(formTextData, equation, False)
+    equation.Solve()
+    equation.CalculateModelErrors(equation.solvedCoefficients, equation.dataCache.allDataCacheDictionary)
+    equation.CalculateCoefficientAndFitStatistics()
+
+    # save fit statistics to a text file
+    fitStatisticsFilePath = "static/fitstatistics_simplefitter.txt" # simplefitter
+    TextUtils.SaveCoefficientAndFitStatistics(fitStatisticsFilePath,  equation)
+
+    # save source code to a single text file, all available languages
+    sourceCodeFilePath = "static/sourcecode_simplefitter.txt" # simplefitter
+    TextUtils.SaveSourceCode(sourceCodeFilePath,  equation)
+
+    # create graph
+    graphFilePath = "static/model_and_scatterplot_simplefitter.png" # simplefitter
+    title = "Example Of An HTML FORM Model"
+    xAxisLabel = "X data"
+    yAxisLabel = "Y data"
+    GraphUtils.SaveModelScatterConfidence(graphFilePath,
+                                          equation, title, xAxisLabel, yAxisLabel) 
+
+    absErrorPlotFilePath = "static/abs_error_simplefitter.png" # simplefitter
+    title = "Absolute Error For An HTML FORM Model"
+    xAxisLabel = "X data"
+    yAxisLabel = "Absolute Error"
+    GraphUtils.SaveAbsErrorScatterPlot(absErrorPlotFilePath,
+                                          equation, title, xAxisLabel, yAxisLabel) 
+
+    # generate HTML
+    htmlToReturn +=  equation.GetDisplayName() + '<br><br>'
+    htmlToReturn +=  equation.GetDisplayHTML() + '<br><br>'
+    htmlToReturn += '<a href="' + fitStatisticsFilePath + '">Link to parameter and fit statistics</a><br><br>'
+    htmlToReturn += '<a href="' + sourceCodeFilePath + '">Link to source code, all available languages</a><br><br>'
+    htmlToReturn +=  '<img src="' + graphFilePath + '"> '
+    htmlToReturn +=  '<img src="' + absErrorPlotFilePath + '"><br><br>'
+
+    return htmlToReturn
+
 
 
 if __name__ == '__main__':

@@ -9,6 +9,7 @@ On Debian or Ubuntu Linux, you can use this command:
 
 sudo apt-get install python-flask python-scipy python-matplotlib
 
+
 On other operating systems, try the Canopy Express Free version:
 
 https://store.enthought.com/
@@ -16,6 +17,7 @@ https://store.enthought.com/
 and then install Flask with:
 
 easy_install Flask
+
 
 
 Step 2: Run the FlaskFit example

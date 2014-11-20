@@ -33,7 +33,7 @@ def SaveModelScatterConfidence(in_filePath, in_equation, in_title, in_xAxisLabel
     ax = fig.add_subplot(1,1,1)
     
     # first the raw data as a scatter plot
-    ax.plot(x_data, y_data,  '+')
+    ax.plot(x_data, y_data,  'D')
     
     # now the model as a line plot
     ax.plot(xModel, yModel)
@@ -110,7 +110,7 @@ def SurfaceAndContourPlots(in_filePathSurface, in_filePathContour, in_equation,
     fig = plt.figure(figsize=(5, 4))
     ax = fig.add_subplot(1,1,1)
 
-    ax.plot(x_data, y_data, 'o', color='0.8', markersize=3) # draw these first so contour lines overlay.  Color=number is grayscale
+    ax.plot(x_data, y_data, 'o', color='0.8', markersize=4) # draw these first so contour lines overlay.  Color=number is grayscale
 
     ax.set_title(in_contourTitle) # add a title for contour plot
     ax.set_xlabel(in_xAxisLabel) # X data label
@@ -133,7 +133,7 @@ def SaveAbsErrorScatterPlot(in_filePath, in_equation, in_title, in_xAxisLabel, i
     ax = fig.add_subplot(1,1,1)
     
     # create the scatter plot
-    ax.plot(x_data, abs_err, 'o')
+    ax.plot(x_data, abs_err, 'D')
     
     ax.set_title(in_title) # add a title
     ax.set_xlabel(in_xAxisLabel) # X axis data label
