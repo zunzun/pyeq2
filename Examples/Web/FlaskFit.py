@@ -75,8 +75,8 @@ def test_curve_fiting_and_plotting():
 
     # text data entry
     htmlToReturn_2Dform += '2D Text Data<br>\n'
-    htmlToReturn_2Dform += '<textarea  rows="10" cols="40" name="textdata" wrap=off>\n'
-    htmlToReturn_2Dform += "Example 2D data for\ntesting\n"
+    htmlToReturn_2Dform += '<textarea  rows="10" cols="45" name="textdata" wrap=off>\n'
+    htmlToReturn_2Dform += "Example 2D data for testing\n"
     htmlToReturn_2Dform  += exampleData_2D
     htmlToReturn_2Dform += '</textarea>\n'
 
@@ -120,8 +120,8 @@ def test_curve_fiting_and_plotting():
 
     # text data entry
     htmlToReturn_3Dform += '3D Text Data<br>\n'
-    htmlToReturn_3Dform += '<textarea  rows="10" cols="40" name="textdata" wrap=off>\n'
-    htmlToReturn_3Dform += "Example 3D data for\ntesting\n"
+    htmlToReturn_3Dform += '<textarea  rows="10" cols="45" name="textdata" wrap=off>\n'
+    htmlToReturn_3Dform += "Example 3D data for testing\n"
     htmlToReturn_3Dform  += exampleData_3D
     htmlToReturn_3Dform += '</textarea>\n'
 
