@@ -74,7 +74,7 @@ def test_curve_fiting_and_plotting():
     htmlToReturn_2Dform += '<form action="/simplefitter_2D" method="post" target=_blank>\n'
 
     # text data entry
-    htmlToReturn_2Dform += '2D Text Data<br>\n'
+    htmlToReturn_2Dform += '--- 2D Text Data ---<br>\n'
     htmlToReturn_2Dform += '<textarea  rows="10" cols="45" name="textdata" wrap=off>\n'
     htmlToReturn_2Dform += "Example 2D data for testing\n"
     htmlToReturn_2Dform  += exampleData_2D
@@ -84,6 +84,7 @@ def test_curve_fiting_and_plotting():
 
     # radio buttons on form to choose equation
     htmlToReturn_2Dform += '''
+    --- Example 2D Equations ---<br>
 <input type="radio" name="equation" value="Linear" checked>Linear Polynomial
 <br>
 <input type="radio" name="equation" value="Quadratic">Quadratic Polynomial
@@ -119,7 +120,7 @@ def test_curve_fiting_and_plotting():
     htmlToReturn_3Dform += '<form action="/simplefitter_3D" method="post" target=_blank>\n'
 
     # text data entry
-    htmlToReturn_3Dform += '3D Text Data<br>\n'
+    htmlToReturn_3Dform += '--- 3D Text Data ---<br>\n'
     htmlToReturn_3Dform += '<textarea  rows="10" cols="45" name="textdata" wrap=off>\n'
     htmlToReturn_3Dform += "Example 3D data for testing\n"
     htmlToReturn_3Dform  += exampleData_3D
@@ -129,6 +130,7 @@ def test_curve_fiting_and_plotting():
 
     # radio buttons on form to choose equation
     htmlToReturn_3Dform += '''
+    --- Example 3D Equations ---<br>
 <input type="radio" name="equation" value="Linear" checked>Linear Polynomial
 <br>
 <input type="radio" name="equation" value="FullQuadratic">Full Quadratic Polynomial
