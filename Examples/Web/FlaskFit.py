@@ -1,4 +1,4 @@
-import os, sys
+import os, sys, inspect
 
 # ensure pyeq2 can be imported
 if -1 != sys.path[0].find('pyeq2-read-only'):raise Exception('Please rename SVN checkout directory from "pyeq2-read-only" to "pyeq2"')
@@ -67,7 +67,7 @@ def test_curve_fiting_and_plotting():
     # this HTML table gives an visual outline around the form
     htmlToReturn_2Dform += '<table border=1 cellpadding=20>\n'
 
-    htmlToReturn_2Dform += '<tr><td align=center><b>Example 2D f(x) Web Fitter</b></td></tr>\n'
+    htmlToReturn_2Dform += '<tr><td><b>Example 2D f(x) Web Fitter</b></td></tr>\n'
 
     # HTML form for the 2D fitter
     htmlToReturn_2Dform += '<tr><td>\n'
@@ -103,6 +103,9 @@ def test_curve_fiting_and_plotting():
     htmlToReturn_2Dform += '<input type="submit" value="Submit">\n'
     htmlToReturn_2Dform += '</form>\n' # end of 2D fitter form
 
+    htmlToReturn_2Dform += '<br><br>'
+    
+    htmlToReturn_2Dform += '<a href="/equationlist_2D">Link to all standard 2D equations</a>\n'
     htmlToReturn_2Dform += '</td></tr></table>\n' # end of 2D fitter table outline
 
 
@@ -113,7 +116,7 @@ def test_curve_fiting_and_plotting():
     # HTML table gives an visual outline around the form
     htmlToReturn_3Dform += '<table border=1 cellpadding=20>\n'
 
-    htmlToReturn_3Dform += '<tr><td align=center><b>Example 3D f(x,y) Web Fitter</b></td></tr>\n'
+    htmlToReturn_3Dform += '<tr><td><b>Example 3D f(x,y) Web Fitter</b></td></tr>\n'
 
     # HTML form for the 3D fitter
     htmlToReturn_3Dform += '<tr><td>\n'
@@ -149,16 +152,21 @@ def test_curve_fiting_and_plotting():
     htmlToReturn_3Dform += '<input type="submit" value="Submit">\n'
     htmlToReturn_3Dform += '</form>\n' # end of 3D fitter form
 
+    htmlToReturn_3Dform += '<br><br>'
+
+    htmlToReturn_3Dform += '<a href="/equationlist_3D">Link to all standard 3D equations</a>\n'
     htmlToReturn_3Dform += '</td></tr></table>\n' # end of 3D fitter table outline
 
     # finish by returning the HTML to Flask
-    s = '<html><body>\n'
-    s += '<table cellspacing=25><tr><td>\n'
-    s += htmlToReturn_2Dform
-    s += '</td><td></td><td>\n'
-    s += htmlToReturn_3Dform
-    s += '</td></tr></table>\n'
-    s +='</body></html>\n'
+    s = '<html><body>'
+    
+    s += '<table><tr>'
+    s += '<td>' + htmlToReturn_2Dform + '</td>'
+    s += '<td> </td>'
+    s += '<td>' + htmlToReturn_3Dform + '</td>'
+    s += '</tr></table>'
+    
+    s +='</body></html>'
 
     return s
 
@@ -283,6 +291,40 @@ def simplefitter_3D_NoFormDataValidation():
 
     return htmlToReturn
 
+
+
+@app.route('/equationlist_2D', methods=['GET'])
+def equationlist_2D():
+    htmlToReturn = '' # build this as we progress
+    
+    for submodule in inspect.getmembers(pyeq2.Models_2D):
+        if inspect.ismodule(submodule[1]):
+            for equationClass in inspect.getmembers(submodule[1]):
+                if inspect.isclass(equationClass[1]):
+                    for extendedVersionName in ['Default', 'Offset']:
+                        if (-1 != extendedVersionName.find('Offset')) and (equationClass[1].autoGenerateOffsetForm == False):
+                            continue
+    
+                        equation = equationClass[1]('SSQABS', extendedVersionName)
+                        htmlToReturn += '2D ' + submodule[0] + ' --- ' + equation.GetDisplayName() + '<br>\n'
+    return '<html><body>' + htmlToReturn + '</body></html>'
+
+
+@app.route('/equationlist_3D', methods=['GET'])
+def equationlist_3D():
+    htmlToReturn = '' # build this as we progress
+    
+    for submodule in inspect.getmembers(pyeq2.Models_3D):
+        if inspect.ismodule(submodule[1]):
+            for equationClass in inspect.getmembers(submodule[1]):
+                if inspect.isclass(equationClass[1]):
+                    for extendedVersionName in ['Default', 'Offset']:
+                        if (-1 != extendedVersionName.find('Offset')) and (equationClass[1].autoGenerateOffsetForm == False):
+                            continue
+    
+                        equation = equationClass[1]('SSQABS', extendedVersionName)
+                        htmlToReturn += '3D ' + submodule[0] + ' --- ' + equation.GetDisplayName() + '<br>\n'
+    return '<html><body>' + htmlToReturn + '</body></html>'
 
 
 if __name__ == '__main__':
