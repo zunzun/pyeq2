@@ -67,6 +67,7 @@ def SaveModelScatterConfidence(in_filePath, in_equation, in_title, in_xAxisLabel
     ax.set_xlabel(in_xAxisLabel) # X axis data label
     ax.set_ylabel(in_yAxisLabel) # Y axis data label
     
+    plt.tight_layout() # prevents cropping axis labels
     fig.savefig(in_filePath) # create PNG file
 
 
@@ -104,6 +105,7 @@ def SurfaceAndContourPlots(in_filePathSurface, in_filePathContour, in_equation,
     ax.set_ylabel(in_yAxisLabel) # Y axis data label
     ax.set_zlabel(in_zAxisLabel) # Y axis data label
     
+    plt.tight_layout() # prevents cropping axis labels
     fig.savefig(in_filePathSurface) # create PNG file
 
     # contour plot here
@@ -119,13 +121,15 @@ def SurfaceAndContourPlots(in_filePathSurface, in_filePathContour, in_equation,
     numberOfContourLines = 16
     CS = plt.contour(X, Y, Z, numberOfContourLines, colors='k')
     plt.clabel(CS, inline=1, fontsize=10) # labels for contours
+
+    plt.tight_layout() # prevents cropping axis labels
     fig.savefig(in_filePathContour) # create PNG file
 
 
-def SaveAbsErrorScatterPlot(in_filePath, in_equation, in_title, in_xAxisLabel, in_yAxisLabel):
+def SaveAbsErrorScatterPlot(in_filePath, in_equation, in_title, in_xAxisLabel):
     
     # raw data
-    x_data = in_equation.dataCache.allDataCacheDictionary['IndependentData'][0]
+    dep_data = in_equation.dataCache.allDataCacheDictionary['DependentData']
     abs_err = in_equation.modelAbsoluteError
 
     # now use matplotlib to create the PNG file
@@ -133,10 +137,11 @@ def SaveAbsErrorScatterPlot(in_filePath, in_equation, in_title, in_xAxisLabel, i
     ax = fig.add_subplot(1,1,1)
     
     # create the scatter plot
-    ax.plot(x_data, abs_err, 'D')
+    ax.plot(dep_data, abs_err, 'D')
     
     ax.set_title(in_title) # add a title
     ax.set_xlabel(in_xAxisLabel) # X axis data label
-    ax.set_ylabel(in_yAxisLabel) # Y axis data label
+    ax.set_ylabel(" Absolute Error") # Y axis label is always is absolute error
 
+    plt.tight_layout() # prevents cropping axis labels
     fig.savefig(in_filePath) # create PNG file

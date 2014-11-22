@@ -9,10 +9,10 @@ if pyeq2IimportDirectory not in sys.path:
     
 import pyeq2, GraphUtils, TextUtils
 from flask import Flask
+from flask import request
 
 
-
-# override Flask's default 60 second file cache for the files we generate
+# override Flask's default file cache for the files we generate
 class MyFlask(Flask):
     def get_send_file_max_age(self, name):
         if name.lower().endswith('.png'):
@@ -32,7 +32,7 @@ exampleData_2D = '''
 5.357    10.376
 5.457    10.489
 5.936    11.049
-6.161    11.327
+6.161    11.327 ending text is ignored
 6.697    12.054
 8.442    14.744
 9.769    17.068
@@ -47,6 +47,7 @@ exampleData_3D = '''
   1.712  3.153   6.721
   2.972  2.106   0.0313
   2.719  2.542   0.0643
+  2.0 2.6 4.0  ending text is ignored
   1.479  2.957   6.583
   1.387  2.963   6.744
   2.843  1.984   0.0315
@@ -60,242 +61,110 @@ def test_curve_fiting_and_plotting():
 
     htmlToReturn = '' # build this as we progress through the example
     
-    htmlToReturn += '<center>' # makes the output slightly more appealing
+    htmlToReturn += '<center>\n' # makes the output slightly more appealing
 
-
-
-    # fit a straight line
-    print "Simple Model"
-    equation=pyeq2.Models_2D.Polynomial.Linear()
+    # First a simple form for a 2D fitter
+    htmlToReturn_2Dform = '' # build this string as we progress
     
-    # the name of the data here is for 2D
-    pyeq2.dataConvertorService().ConvertAndSortColumnarASCII(exampleData_2D, equation, False)
-    equation.Solve()
-    equation.CalculateModelErrors(equation.solvedCoefficients, equation.dataCache.allDataCacheDictionary)
-    equation.CalculateCoefficientAndFitStatistics()
+    # HTML table gives an visual outline around the form
+    htmlToReturn_2Dform += '<table border=1 cellpadding=20 cellspacong=20>\n'
 
-    # save fit statistics to a text file
-    fitStatisticsFilePath = "static/fitstatistics_one.txt" # one
-    TextUtils.SaveCoefficientAndFitStatistics(fitStatisticsFilePath,  equation)
+    htmlToReturn_2Dform += '<tr><td align=center><b>Example 2D f(x) Web Fitter</b></td></tr>\n'
 
-    # save source code to a single text file, all available languages
-    sourceCodeFilePath = "static/sourcecode_one.txt" # one
-    TextUtils.SaveSourceCode(sourceCodeFilePath,  equation)
+    # HTML form for the 2D fitter
+    htmlToReturn_2Dform += '<tr><td>\n'
+    htmlToReturn_2Dform += '<form action="/simplefitter_2D" method="post" target=_blank>\n'
 
-    # create graphs
-    graphFilePath = "static/model_and_scatterplot_one.png" # one
-    title = "Example Of A Simple Model"
-    xAxisLabel = "X data"
-    yAxisLabel = "Y data"
-    GraphUtils.SaveModelScatterConfidence(graphFilePath,
-                                          equation, title, xAxisLabel, yAxisLabel) 
+    # radio buttons on form to choose equation
+    htmlToReturn_2Dform += '''
+<input type="radio" name="equation" value="Linear" checked>Linear Polynomial
+<br>
+<input type="radio" name="equation" value="Quadratic">Quadratic Polynomial
+<br>
+<input type="radio" name="equation" value="Cubic">Cubic Polynomial
+<br>
+<input type="radio" name="equation" value="WitchA">Witch Of Maria Agnesi A
+<br>
+<input type="radio" name="equation" value="VanDeemter">VanDeemter Chromatography
+<br>
+<input type="radio" name="equation" value="GammaRayDegreesB">Gamma Ray Angular Distribution (degrees) B
+<br>
+<br>
+'''
+    # text data entry
+    htmlToReturn_2Dform += '2D Text Data<br>\n'
+    htmlToReturn_2Dform += '<textarea  rows="10" cols="25" name="textdata" wrap=off>\n'
+    htmlToReturn_2Dform += "Example 2D data for\ntesting\n"
+    htmlToReturn_2Dform  += exampleData_2D
+    htmlToReturn_2Dform += '</textarea>\n'
 
-    absErrorPlotFilePath = "static/abs_error_one.png" # one
-    title = "Absolute Error For Simple Model"
-    xAxisLabel = "X data"
-    yAxisLabel = "Absolute Error"
-    GraphUtils.SaveAbsErrorScatterPlot(absErrorPlotFilePath,
-                                          equation, title, xAxisLabel, yAxisLabel) 
+    htmlToReturn_2Dform += '<br><br>'
 
-    # generate HTML
-    htmlToReturn +=  equation.GetDisplayName() + '<br><br>'
-    htmlToReturn +=  equation.GetDisplayHTML() + '<br><br>'
-    htmlToReturn += '<a href="' + fitStatisticsFilePath + '">Link to parameter and fit statistics</a><br><br>'
-    htmlToReturn += '<a href="' + sourceCodeFilePath + '">Link to source code, all available languages</a><br><br>'
-    htmlToReturn +=  '<img src="' + graphFilePath + '"> '
-    htmlToReturn +=  '<img src="' + absErrorPlotFilePath + '"><br><br>'
+    htmlToReturn_2Dform += '<input type="submit" value="Submit">\n'
+    htmlToReturn_2Dform += '</form>\n' # end of 2D fitter form
 
-
-
-    htmlToReturn += '<br><br><br> <hr> <br><br><br>'
+    htmlToReturn_2Dform += '</td></tr></table>\n' # end of 2D fitter table outline
 
 
+
+    # now a simple 3D fitter
+    htmlToReturn_3Dform = ''
     
-    # fit a more complex model (see the pyeq2 library)
-    print "Complex Model"
-    # Maxwell-Wiechert with offset, fit to lowest SSQ Relative error
-    equation=pyeq2.Models_2D.Engineering.MaxwellWiechert_1('SSQREL', 'Offset')
-    
-    # the name of the data here is for 2D
-    pyeq2.dataConvertorService().ConvertAndSortColumnarASCII(exampleData_2D, equation, False)
-    equation.Solve()
-    equation.CalculateModelErrors(equation.solvedCoefficients, equation.dataCache.allDataCacheDictionary)
-    equation.CalculateCoefficientAndFitStatistics()
+    # HTML table gives an visual outline around the form
+    htmlToReturn_3Dform += '<table border=1 cellpadding=20>\n'
 
-    # save fit statistics to a text file
-    fitStatisticsFilePath = "static/fitstatistics_two.txt" # two
-    TextUtils.SaveCoefficientAndFitStatistics(fitStatisticsFilePath,  equation)
+    htmlToReturn_3Dform += '<tr><td align=center><b>Example 3D f(x,y) Web Fitter</b></td></tr>\n'
 
-    # save source code to a single text file, all available languages
-    sourceCodeFilePath = "static/sourcecode_two.txt" # two
-    TextUtils.SaveSourceCode(sourceCodeFilePath,  equation)
+    # HTML form for the 3D fitter
+    htmlToReturn_3Dform += '<tr><td>\n'
+    htmlToReturn_3Dform += '<form action="/simplefitter_3D" method="post" target=_blank>\n'
 
-    # create graph
-    graphFilePath = "static/model_and_scatterplot_two.png" # two
-    title = "Example Of A Complex Model"
-    xAxisLabel = "X data"
-    yAxisLabel = "Y data"
-    GraphUtils.SaveModelScatterConfidence(graphFilePath,
-                                          equation, title, xAxisLabel, yAxisLabel) 
+    # radio buttons on form to choose equation
+    htmlToReturn_3Dform += '''
+<input type="radio" name="equation" value="Linear" checked>Linear Polynomial
+<br>
+<input type="radio" name="equation" value="FullQuadratic">Full Quadratic Polynomial
+<br>
+<input type="radio" name="equation" value="FullCubic">Full Cubic Polynomial
+<br>
+<input type="radio" name="equation" value="MonkeySaddleA">Monkey Saddle A
+<br>
+<input type="radio" name="equation" value="GaussianCurvatureOfWhitneysUmbrellaA">Gaussian Curvature Of Whitneys Umbrella A
+<br>
+<input type="radio" name="equation" value="NIST_NelsonAutolog">NIST Nelson Autolog
+<br>
+<br>
+'''
 
-    absErrorPlotFilePath = "static/abs_error_two.png" # two
-    title = "Absolute Error For Complex Model"
-    xAxisLabel = "X data"
-    yAxisLabel = "Absolute Error"
-    GraphUtils.SaveAbsErrorScatterPlot(absErrorPlotFilePath,
-                                          equation, title, xAxisLabel, yAxisLabel) 
+    # text data entry
+    htmlToReturn_3Dform += '3D Text Data<br>\n'
+    htmlToReturn_3Dform += '<textarea  rows="10" cols="25" name="textdata" wrap=off>\n'
+    htmlToReturn_3Dform += "Example 3D data for\ntesting\n"
+    htmlToReturn_3Dform  += exampleData_3D
+    htmlToReturn_3Dform += '</textarea>\n'
 
-    # generate HTML
-    htmlToReturn +=  equation.GetDisplayName() + '<br><br>'
-    htmlToReturn +=  equation.GetDisplayHTML() + '<br><br>'
-    htmlToReturn += '<a href="' + fitStatisticsFilePath + '">Link to parameter and fit statistics</a><br><br>'
-    htmlToReturn += '<a href="' + sourceCodeFilePath + '">Link to source code, all available languages</a><br><br>'
-    htmlToReturn +=  '<img src="' + graphFilePath + '"> '
-    htmlToReturn +=  '<img src="' + absErrorPlotFilePath + '"><br><br>'
+    htmlToReturn_3Dform += '<br><br>\n'
 
+    htmlToReturn_3Dform += '<input type="submit" value="Submit">\n'
+    htmlToReturn_3Dform += '</form>\n' # end of 3D fitter form
 
-    
-    htmlToReturn += '<br><br><br> <hr> <br><br><br>'
+    htmlToReturn_3Dform += '</td></tr></table>\n' # end of 3D fitter table outline
 
-
-    
-    # now a poorly fitting model
-    print "Poorly Fitting Nodel"
-    equation=pyeq2.Models_2D.Exponential.SimpleExponential()
-
-    # the name of the data here is for 2D
-    pyeq2.dataConvertorService().ConvertAndSortColumnarASCII(exampleData_2D, equation, False)
-    equation.Solve()
-    equation.CalculateModelErrors(equation.solvedCoefficients, equation.dataCache.allDataCacheDictionary)
-    equation.CalculateCoefficientAndFitStatistics()
-
-    # save fit statistics to a text file
-    fitStatisticsFilePath = "static/fitstatistics_three.txt" # three
-    TextUtils.SaveCoefficientAndFitStatistics(fitStatisticsFilePath,  equation)
-
-    # save source code to a single text file, all available languages
-    sourceCodeFilePath = "static/sourcecode_three.txt" # three
-    TextUtils.SaveSourceCode(sourceCodeFilePath,  equation)
-
-    # create graph
-    graphFilePath = "static/model_and_scatterplot_three.png" # three
-    title = "Example Of A Poorly Fitting Model"
-    xAxisLabel = "X data"
-    yAxisLabel = "Y data"
-    GraphUtils.SaveModelScatterConfidence(graphFilePath,
-                                          equation, title, xAxisLabel, yAxisLabel) 
-
-    absErrorPlotFilePath = "static/abs_error_three.png" # three
-    title = "Absolute Error For Poorly Fitting Model"
-    xAxisLabel = "X data"
-    yAxisLabel = "Absolute Error"
-    GraphUtils.SaveAbsErrorScatterPlot(absErrorPlotFilePath,
-                                          equation, title, xAxisLabel, yAxisLabel) 
-
-    # generate HTML
-    htmlToReturn +=  equation.GetDisplayName() + '<br><br>'
-    htmlToReturn +=  equation.GetDisplayHTML() + '<br><br>'
-    htmlToReturn += '<a href="' + fitStatisticsFilePath + '">Link to parameter and fit statistics</a><br><br>'
-    htmlToReturn += '<a href="' + sourceCodeFilePath + '">Link to source code, all available languages</a><br><br>'
-    htmlToReturn +=  '<img src="' + graphFilePath + '"> '
-    htmlToReturn +=  '<img src="' + absErrorPlotFilePath + '"><br><br>'
-
-
-
-    htmlToReturn += '<br><br><br> <hr> <br><br><br>'
-
-
-
-    # fit a 3D surface
-    print "Surface Model"
-    # Polynomial Full Cubic
-    equation=pyeq2.Models_3D.Polynomial.FullCubic()
-    
-    # the name of the data here is for 3D, not 2D
-    pyeq2.dataConvertorService().ConvertAndSortColumnarASCII(exampleData_3D, equation, False)
-    equation.Solve()
-    equation.CalculateModelErrors(equation.solvedCoefficients, equation.dataCache.allDataCacheDictionary)
-    equation.CalculateCoefficientAndFitStatistics()
-
-    # save fit statistics to a text file
-    fitStatisticsFilePath = "static/fitstatistics_four.txt" # four
-    TextUtils.SaveCoefficientAndFitStatistics(fitStatisticsFilePath,  equation)
-
-    # save source code to a single text file, all available languages
-    sourceCodeFilePath = "static/sourcecode_four.txt" # four
-    TextUtils.SaveSourceCode(sourceCodeFilePath,  equation)
-
-    # create graphs
-    graphFilePath_Surface = "static/surface.png" # surface plot
-    graphFilePath_Contour = "static/contour.png" # contour plot
-    surfaceTitle = "Example Surface Plot"
-    contourTitle = "Example Contour Plot"
-    xAxisLabel = "X data"
-    yAxisLabel = "Y data"
-    zAxisLabel = "Z data"
-    GraphUtils.SurfaceAndContourPlots(graphFilePath_Surface,
-                                      graphFilePath_Contour,
-                                      equation, surfaceTitle, contourTitle,
-                                      xAxisLabel, yAxisLabel, zAxisLabel)    
-
-    absErrorPlotFilePath = "static/abs_error_four.png" # four
-    title = "Absolute Error For Surface Plot"
-    xAxisLabel = "X data"
-    yAxisLabel = "Absolute Error"
-    GraphUtils.SaveAbsErrorScatterPlot(absErrorPlotFilePath,
-                                          equation, title, xAxisLabel, yAxisLabel) 
-
-    # generate HTML
-    htmlToReturn +=  equation.GetDisplayName() + '<br><br>'
-    htmlToReturn +=  equation.GetDisplayHTML() + '<br><br>'
-    htmlToReturn += '<a href="' + fitStatisticsFilePath + '">Link to parameter and fit statistics</a><br><br>'
-    htmlToReturn += '<a href="' + sourceCodeFilePath + '">Link to source code, all available languages</a><br><br>'
-    htmlToReturn +=  '<img src="' + graphFilePath_Surface + '"> '
-    htmlToReturn +=  '<img src="' + absErrorPlotFilePath + '"><br><br>'
-    htmlToReturn +=  '<img src="' + graphFilePath_Contour + '"><br><br>'
-
-
-
-    htmlToReturn += '<br><br><br> <hr> <br><br><br>'
-
-
-
-    # make a simple form for interactive fitting
-    htmlToReturn += 'Simple web fitter<br><br>'
-    htmlToReturn += '<form action="/simplefitter" method="post">'
-    htmlToReturn += '<table><tr><td align=left>'
-    htmlToReturn += '<input type="radio" name="equation" value="Linear" checked>Linear Polynomial'
-    htmlToReturn += '<br>'
-    htmlToReturn += '<input type="radio" name="equation" value="Quadratic">Quadratic Polynomial'
-    htmlToReturn += '<br>'
-    htmlToReturn += '<input type="radio" name="equation" value="Cubic">Cubic Polynomial'
-    htmlToReturn += '<br>'
-    htmlToReturn += '<input type="radio" name="equation" value="WitchA">Witch Of Maria Agnesi A'
-    htmlToReturn += '<br>'
-    htmlToReturn += '<input type="radio" name="equation" value="VanDeemter">VanDeemter Chromatography'
-    htmlToReturn += '<br>'
-    htmlToReturn += '<input type="radio" name="equation" value="GammaRayDegreesB">Gamma Ray Angular Distribution (degrees) B'
-    htmlToReturn += '</td></tr></table>'
-    htmlToReturn += '<br><br>'
-    htmlToReturn += 'Text Data<br>'
-    htmlToReturn += '<textarea  rows="10" cols="25" name="textdata">'
-    htmlToReturn  += exampleData_2D
-    htmlToReturn += '</textarea>'
-    htmlToReturn += '<br><br>'
-    htmlToReturn += '<input type="submit" value="Submit">'
-    htmlToReturn += '</form>'    
-    
-    
     # finish by returning the HTML to Flask
-    return htmlToReturn
+    s = '<html><body>\n'
+    s += '<table><tr><td>\n'
+    s += htmlToReturn_2Dform
+    s += '</td><td></td><td>\n'
+    s += htmlToReturn_3Dform
+    s += '</td></tr></table>\n'
+    s +='</body></html>\n'
+
+    return s
 
 
 
-@app.route('/simplefitter', methods=['POST'])
-def simplefitterWithNoFormDataValidation():
-    from flask import request
-    htmlToReturn = '' # build this HTML as we progress
-    
+@app.route('/simplefitter_2D', methods=['POST'])
+def simplefitter_2D_NoFormDataValidation():    
     formTextData = request.form['textdata']
     formEquation = request.form['equation']
 
@@ -319,35 +188,97 @@ def simplefitterWithNoFormDataValidation():
     equation.CalculateCoefficientAndFitStatistics()
 
     # save fit statistics to a text file
-    fitStatisticsFilePath = "static/fitstatistics_simplefitter.txt" # simplefitter
+    fitStatisticsFilePath = "static/fitstatistics_simplefitter_2D.txt" # simplefitter_2D
     TextUtils.SaveCoefficientAndFitStatistics(fitStatisticsFilePath,  equation)
 
     # save source code to a single text file, all available languages
-    sourceCodeFilePath = "static/sourcecode_simplefitter.txt" # simplefitter
+    sourceCodeFilePath = "static/sourcecode_simplefitter_2D.txt" # simplefitter_2D
     TextUtils.SaveSourceCode(sourceCodeFilePath,  equation)
 
     # create graph
-    graphFilePath = "static/model_and_scatterplot_simplefitter.png" # simplefitter
+    graphFilePath = "static/model_and_scatterplot_simplefitter_2D.png" # simplefitter_2D
     title = "Example Of An HTML FORM Model"
     xAxisLabel = "X data"
     yAxisLabel = "Y data"
     GraphUtils.SaveModelScatterConfidence(graphFilePath,
                                           equation, title, xAxisLabel, yAxisLabel) 
 
-    absErrorPlotFilePath = "static/abs_error_simplefitter.png" # simplefitter
+    absErrorPlotFilePath = "static/abs_error_simplefitter_2D.png" # simplefitter_2D
     title = "Absolute Error For An HTML FORM Model"
-    xAxisLabel = "X data"
-    yAxisLabel = "Absolute Error"
-    GraphUtils.SaveAbsErrorScatterPlot(absErrorPlotFilePath,
-                                          equation, title, xAxisLabel, yAxisLabel) 
+    GraphUtils.SaveAbsErrorScatterPlot(absErrorPlotFilePath, equation, title, yAxisLabel)
 
     # generate HTML
+    htmlToReturn = ''
     htmlToReturn +=  equation.GetDisplayName() + '<br><br>'
     htmlToReturn +=  equation.GetDisplayHTML() + '<br><br>'
     htmlToReturn += '<a href="' + fitStatisticsFilePath + '">Link to parameter and fit statistics</a><br><br>'
     htmlToReturn += '<a href="' + sourceCodeFilePath + '">Link to source code, all available languages</a><br><br>'
     htmlToReturn +=  '<img src="' + graphFilePath + '"> '
     htmlToReturn +=  '<img src="' + absErrorPlotFilePath + '"><br><br>'
+
+    return htmlToReturn
+
+
+
+@app.route('/simplefitter_3D', methods=['POST'])
+def simplefitter_3D_NoFormDataValidation():
+    
+    formTextData = request.form['textdata']
+    formEquation = request.form['equation']
+
+    if formEquation == 'Linear':
+        equation = pyeq2.Models_3D.Polynomial.Linear()
+    elif formEquation == 'FullQuadratic':
+        equation = pyeq2.Models_3D.Polynomial.FullQuadratic()
+    elif formEquation == 'FullCubic':
+        equation = pyeq2.Models_3D.Polynomial.FullCubic()
+    elif formEquation == 'MonkeySaddleA':
+        equation = pyeq2.Models_3D.Miscellaneous.MonkeySaddleA()
+    elif formEquation == 'GaussianCurvatureOfWhitneysUmbrellaA':
+        equation = pyeq2.Models_3D.Miscellaneous.GaussianCurvatureOfWhitneysUmbrellaA()
+    elif formEquation == 'NIST_NelsonAutolog':
+        equation = pyeq2.Models_3D.NIST.NIST_NelsonAutolog()
+    
+    # the name of the data here is from the form
+    pyeq2.dataConvertorService().ConvertAndSortColumnarASCII(formTextData, equation, False)
+    equation.Solve()
+    equation.CalculateModelErrors(equation.solvedCoefficients, equation.dataCache.allDataCacheDictionary)
+    equation.CalculateCoefficientAndFitStatistics()
+
+    # save fit statistics to a text file
+    fitStatisticsFilePath = "static/fitstatistics_simplefitter_3D.txt" # simplefitter_3D
+    TextUtils.SaveCoefficientAndFitStatistics(fitStatisticsFilePath,  equation)
+
+    # save source code to a single text file, all available languages
+    sourceCodeFilePath = "static/sourcecode_simplefitter_3D.txt" # simplefitter_3D
+    TextUtils.SaveSourceCode(sourceCodeFilePath,  equation)
+
+    # create graphs
+    graphFilePath_Surface = "static/surface.png" # surface plot
+    graphFilePath_Contour = "static/contour.png" # contour plot
+    surfaceTitle = "Example Surface Plot"
+    contourTitle = "Example Contour Plot"
+    xAxisLabel = "X data"
+    yAxisLabel = "Y data"
+    zAxisLabel = "Z data"
+    GraphUtils.SurfaceAndContourPlots(graphFilePath_Surface,
+                                      graphFilePath_Contour,
+                                      equation, surfaceTitle, contourTitle,
+                                      xAxisLabel, yAxisLabel, zAxisLabel)
+
+    absErrorPlotFilePath = "static/abs_error_simplefitter_3D.png" # simplefitter_3D
+    title = "Absolute Error For An HTML FORM Model"
+    GraphUtils.SaveAbsErrorScatterPlot(absErrorPlotFilePath, equation, title, zAxisLabel)
+
+    # generate HTML
+    htmlToReturn = ''
+    htmlToReturn +=  equation.GetDisplayName() + '<br><br>\n'
+    htmlToReturn +=  equation.GetDisplayHTML() + '<br><br>\n'
+    htmlToReturn += '<a href="' + fitStatisticsFilePath + '">Link to parameter and fit statistics</a><br><br>\n'
+    htmlToReturn += '<a href="' + sourceCodeFilePath + '">Link to source code, all available languages</a><br><br>\n'
+    htmlToReturn +=  '<img src="' + graphFilePath_Surface + '"><br><br>\n'
+    htmlToReturn +=  '<img src="' + absErrorPlotFilePath + '"><br><br>\n'
+    htmlToReturn +=  '<img src="' + graphFilePath_Contour + '"><br><br>\n'
 
     return htmlToReturn
 
