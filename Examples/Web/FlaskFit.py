@@ -3,9 +3,9 @@ import os, sys
 # ensure pyeq2 can be imported
 if -1 != sys.path[0].find('pyeq2-read-only'):raise Exception('Please rename SVN checkout directory from "pyeq2-read-only" to "pyeq2"')
 exampleFileDirectory = sys.path[0][:sys.path[0].rfind(os.sep)]
-pyeq2IimportDirectory =  os.path.join(os.path.join(exampleFileDirectory, '..'), '..')
-if pyeq2IimportDirectory not in sys.path:
-    sys.path.append(pyeq2IimportDirectory)
+pyeq2ImportDirectory =  os.path.join(os.path.join(exampleFileDirectory, '..'), '..')
+if pyeq2ImportDirectory not in sys.path:
+    sys.path.append(pyeq2ImportDirectory)
     
 import pyeq2, GraphUtils, TextUtils
 from flask import Flask
@@ -61,13 +61,11 @@ def test_curve_fiting_and_plotting():
 
     htmlToReturn = '' # build this as we progress through the example
     
-    htmlToReturn += '<center>\n' # makes the output slightly more appealing
-
     # First a simple form for a 2D fitter
     htmlToReturn_2Dform = '' # build this string as we progress
     
-    # HTML table gives an visual outline around the form
-    htmlToReturn_2Dform += '<table border=1 cellpadding=20 cellspacong=20>\n'
+    # this HTML table gives an visual outline around the form
+    htmlToReturn_2Dform += '<table border=1 cellpadding=20>\n'
 
     htmlToReturn_2Dform += '<tr><td align=center><b>Example 2D f(x) Web Fitter</b></td></tr>\n'
 
@@ -93,7 +91,7 @@ def test_curve_fiting_and_plotting():
 '''
     # text data entry
     htmlToReturn_2Dform += '2D Text Data<br>\n'
-    htmlToReturn_2Dform += '<textarea  rows="10" cols="25" name="textdata" wrap=off>\n'
+    htmlToReturn_2Dform += '<textarea  rows="10" cols="40" name="textdata" wrap=off>\n'
     htmlToReturn_2Dform += "Example 2D data for\ntesting\n"
     htmlToReturn_2Dform  += exampleData_2D
     htmlToReturn_2Dform += '</textarea>\n'
@@ -138,7 +136,7 @@ def test_curve_fiting_and_plotting():
 
     # text data entry
     htmlToReturn_3Dform += '3D Text Data<br>\n'
-    htmlToReturn_3Dform += '<textarea  rows="10" cols="25" name="textdata" wrap=off>\n'
+    htmlToReturn_3Dform += '<textarea  rows="10" cols="40" name="textdata" wrap=off>\n'
     htmlToReturn_3Dform += "Example 3D data for\ntesting\n"
     htmlToReturn_3Dform  += exampleData_3D
     htmlToReturn_3Dform += '</textarea>\n'
@@ -152,7 +150,7 @@ def test_curve_fiting_and_plotting():
 
     # finish by returning the HTML to Flask
     s = '<html><body>\n'
-    s += '<table><tr><td>\n'
+    s += '<table cellspacing=25><tr><td>\n'
     s += htmlToReturn_2Dform
     s += '</td><td></td><td>\n'
     s += htmlToReturn_3Dform
