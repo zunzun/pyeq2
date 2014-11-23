@@ -223,7 +223,7 @@ def simplefitter_2D_NoFormDataValidation():
     htmlToReturn +=  '<img src="' + graphFilePath + '"> '
     htmlToReturn +=  '<img src="' + absErrorPlotFilePath + '"><br><br>'
 
-    return htmlToReturn
+    return '<html><body>' + htmlToReturn + '</body></html>'
 
 
 
@@ -287,7 +287,7 @@ def simplefitter_3D_NoFormDataValidation():
     htmlToReturn +=  '<img src="' + absErrorPlotFilePath + '"><br><br>\n'
     htmlToReturn +=  '<img src="' + graphFilePath_Contour + '"><br><br>\n'
 
-    return htmlToReturn
+    return '<html><body>' + htmlToReturn + '</body></html>'
 
 
 
