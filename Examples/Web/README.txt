@@ -30,8 +30,8 @@ The command prompt should then display:
 
 * Running on http://127.0.0.1:5000/
 
-When you open this URL you should see a several graphs
-that were dynamically fit to example data sets.
+When you open this URL you should see a form
+that allows curve and surface fitting, with graphs.
 
 Use Control-C to exit the Flask development server.
 
