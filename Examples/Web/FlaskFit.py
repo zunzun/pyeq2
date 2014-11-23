@@ -59,8 +59,6 @@ exampleData_3D = '''
 @app.route('/')
 def test_curve_fiting_and_plotting():
 
-    htmlToReturn = '' # build this as we progress through the example
-    
     # First a simple form for a 2D fitter
     htmlToReturn_2Dform = '' # build this string as we progress
     
