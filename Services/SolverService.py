@@ -12,7 +12,11 @@ from __future__ import absolute_import
 #
 #    License: BSD-style (see LICENSE.txt in main source directory)
 
-import numpy, scipy.interpolate, scipy.optimize, scipy.odr.odrpack, copy
+import numpy, copy
+try:
+    import scipy.interpolate, scipy.optimize, scipy.odr.odrpack
+except:
+    pass
 numpy.seterr(all= 'ignore')
 
 import pyeq2

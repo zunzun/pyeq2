@@ -14,7 +14,11 @@ from __future__ import absolute_import
 
 import pyeq2
 
-import numpy, scipy.interpolate, scipy.stats
+import numpy
+try:
+    import scipy.interpolate, scipy.stats
+except:
+    pass
 numpy.seterr(all= 'ignore')
 
 
