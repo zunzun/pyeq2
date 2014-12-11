@@ -26,9 +26,19 @@ app = MyFlask(__name__)
 app.debug = True # only for development, never for production
 
 
+@app.route('/')
+def test_curve_fiting_and_plotting():
 
-exampleData_2D = '''
-  X        Y
+    # HTML for 2D fitter form
+    htmlToReturn_2Dform = '''
+<table border=1 cellpadding=20>
+<tr><td><b>Example 2D f(x) Web Fitter</b></td></tr>
+<tr><td>
+<form action="/simplefitter_2D" method="post" target=_blank>
+--- 2D Text Data ---<br>
+<textarea  rows="10" cols="45" name="textdata" wrap=off>
+Example 2D data for testing
+'  X        Y
 5.357    10.376
 5.457    10.489
 5.936    11.049
@@ -37,9 +47,34 @@ exampleData_2D = '''
 8.442    14.744
 9.769    17.068
 9.861    17.104
+</textarea>
+<br><br>
+    --- Example 2D Equations ---<br>
+<input type="radio" name="equation" value="Linear" checked>Linear Polynomial<br>
+<input type="radio" name="equation" value="Quadratic">Quadratic Polynomial<br>
+<input type="radio" name="equation" value="Cubic">Cubic Polynomial<br>
+<input type="radio" name="equation" value="WitchA">Witch Of Maria Agnesi A<br>
+<input type="radio" name="equation" value="VanDeemter">VanDeemter Chromatography<br>
+<input type="radio" name="equation" value="GammaRayDegreesB">Gamma Ray Angular Distribution (degrees) B<br>
+<br>
+<input type="submit" value="Submit">
+</form>
+<br><br>
+<a href="/equationlist_2D">Link to all standard 2D equations</a>
+</td></tr></table>
 '''
 
-exampleData_3D = '''
+
+
+    # HTML for 3D fitter form
+    htmlToReturn_3Dform = '''
+<table border=1 cellpadding=20>
+<tr><td><b>Example 3D f(x,y) Web Fitter</b></td></tr>
+<tr><td>
+<form action="/simplefitter_3D" method="post" target=_blank>
+--- 3D Text Data ---<br>
+<textarea  rows="10" cols="45" name="textdata" wrap=off>
+Example 3D data for testing
     X      Y       Z
   3.017  2.175   0.0320
   2.822  2.624   0.0629
@@ -54,116 +89,34 @@ exampleData_3D = '''
   2.485  2.320   0.0639
   0.742  2.568   6.581
   0.607  2.571   6.753
-'''
-
-@app.route('/')
-def test_curve_fiting_and_plotting():
-
-    # First a simple form for a 2D fitter
-    htmlToReturn_2Dform = '' # build this string as we progress
-    
-    # this HTML table gives an visual outline around the form
-    htmlToReturn_2Dform += '<table border=1 cellpadding=20>\n'
-
-    htmlToReturn_2Dform += '<tr><td><b>Example 2D f(x) Web Fitter</b></td></tr>\n'
-
-    # HTML form for the 2D fitter
-    htmlToReturn_2Dform += '<tr><td>\n'
-    htmlToReturn_2Dform += '<form action="/simplefitter_2D" method="post" target=_blank>\n'
-
-    # text data entry
-    htmlToReturn_2Dform += '--- 2D Text Data ---<br>\n'
-    htmlToReturn_2Dform += '<textarea  rows="10" cols="45" name="textdata" wrap=off>\n'
-    htmlToReturn_2Dform += "Example 2D data for testing\n"
-    htmlToReturn_2Dform  += exampleData_2D
-    htmlToReturn_2Dform += '</textarea>\n'
-
-    htmlToReturn_2Dform += '<br><br>'
-
-    # radio buttons on form to choose equation
-    htmlToReturn_2Dform += '''
-    --- Example 2D Equations ---<br>
-<input type="radio" name="equation" value="Linear" checked>Linear Polynomial
-<br>
-<input type="radio" name="equation" value="Quadratic">Quadratic Polynomial
-<br>
-<input type="radio" name="equation" value="Cubic">Cubic Polynomial
-<br>
-<input type="radio" name="equation" value="WitchA">Witch Of Maria Agnesi A
-<br>
-<input type="radio" name="equation" value="VanDeemter">VanDeemter Chromatography
-<br>
-<input type="radio" name="equation" value="GammaRayDegreesB">Gamma Ray Angular Distribution (degrees) B
-<br>
-<br>
-'''
-
-    htmlToReturn_2Dform += '<input type="submit" value="Submit">\n'
-    htmlToReturn_2Dform += '</form>\n' # end of 2D fitter form
-
-    htmlToReturn_2Dform += '<br><br>'
-    
-    htmlToReturn_2Dform += '<a href="/equationlist_2D">Link to all standard 2D equations</a>\n'
-    htmlToReturn_2Dform += '</td></tr></table>\n' # end of 2D fitter table outline
-
-
-
-    # now a simple 3D fitter
-    htmlToReturn_3Dform = ''
-    
-    # HTML table gives an visual outline around the form
-    htmlToReturn_3Dform += '<table border=1 cellpadding=20>\n'
-
-    htmlToReturn_3Dform += '<tr><td><b>Example 3D f(x,y) Web Fitter</b></td></tr>\n'
-
-    # HTML form for the 3D fitter
-    htmlToReturn_3Dform += '<tr><td>\n'
-    htmlToReturn_3Dform += '<form action="/simplefitter_3D" method="post" target=_blank>\n'
-
-    # text data entry
-    htmlToReturn_3Dform += '--- 3D Text Data ---<br>\n'
-    htmlToReturn_3Dform += '<textarea  rows="10" cols="45" name="textdata" wrap=off>\n'
-    htmlToReturn_3Dform += "Example 3D data for testing\n"
-    htmlToReturn_3Dform  += exampleData_3D
-    htmlToReturn_3Dform += '</textarea>\n'
-
-    htmlToReturn_3Dform += '<br><br>\n'
-
-    # radio buttons on form to choose equation
-    htmlToReturn_3Dform += '''
+</textarea>
+<br><br>
     --- Example 3D Equations ---<br>
-<input type="radio" name="equation" value="Linear" checked>Linear Polynomial
+<input type="radio" name="equation" value="Linear" checked>Linear Polynomial<br>
+<input type="radio" name="equation" value="FullQuadratic">Full Quadratic Polynomial<br>
+<input type="radio" name="equation" value="FullCubic">Full Cubic Polynomial<br>
+<input type="radio" name="equation" value="MonkeySaddleA">Monkey Saddle A<br>
+<input type="radio" name="equation" value="GaussianCurvatureOfWhitneysUmbrellaA">Gaussian Curvature Of Whitneys Umbrella A<br>
+<input type="radio" name="equation" value="NIST_NelsonAutolog">NIST Nelson Autolog<br>
+
 <br>
-<input type="radio" name="equation" value="FullQuadratic">Full Quadratic Polynomial
-<br>
-<input type="radio" name="equation" value="FullCubic">Full Cubic Polynomial
-<br>
-<input type="radio" name="equation" value="MonkeySaddleA">Monkey Saddle A
-<br>
-<input type="radio" name="equation" value="GaussianCurvatureOfWhitneysUmbrellaA">Gaussian Curvature Of Whitneys Umbrella A
-<br>
-<input type="radio" name="equation" value="NIST_NelsonAutolog">NIST Nelson Autolog
-<br>
-<br>
+
+<input type="submit" value="Submit">
+</form>
+
+<br><br>'
+
+<a href="/equationlist_3D">Link to all standard 3D equations</a>
+</td></tr></table>
 '''
 
-    htmlToReturn_3Dform += '<input type="submit" value="Submit">\n'
-    htmlToReturn_3Dform += '</form>\n' # end of 3D fitter form
-
-    htmlToReturn_3Dform += '<br><br>'
-
-    htmlToReturn_3Dform += '<a href="/equationlist_3D">Link to all standard 3D equations</a>\n'
-    htmlToReturn_3Dform += '</td></tr></table>\n' # end of 3D fitter table outline
-
-    # finish by returning the HTML to Flask
-    s = '<html><body>'
-    
+    # return HTML to Flask as a web page
+    s = '<html><body>'    
     s += '<table><tr>'
     s += '<td>' + htmlToReturn_2Dform + '</td>'
     s += '<td> </td>'
     s += '<td>' + htmlToReturn_3Dform + '</td>'
     s += '</tr></table>'
-    
     s +='</body></html>'
 
     return s
