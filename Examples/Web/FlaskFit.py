@@ -124,7 +124,7 @@ Example 3D data for testing
 
 
 @app.route('/simplefitter_2D', methods=['POST'])
-def simplefitter_2D_NoFormDataValidation():    
+def simplefitter_2D_NoFormDataValidation():
     formTextData = request.form['textdata']
     formEquation = request.form['equation']
 
