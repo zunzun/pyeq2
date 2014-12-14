@@ -38,7 +38,7 @@ def test_curve_fiting_and_plotting():
 --- 2D Text Data ---<br>
 <textarea  rows="10" cols="45" name="textdata" wrap=off>
 Example 2D data for testing
-'  X        Y
+  X        Y
 5.357    10.376
 5.457    10.489
 5.936    11.049
