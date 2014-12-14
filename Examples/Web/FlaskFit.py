@@ -57,7 +57,16 @@ Example 2D data for testing
 <input type="radio" name="equation" value="VanDeemter">VanDeemter Chromatography<br>
 <input type="radio" name="equation" value="GammaRayDegreesB">Gamma Ray Angular Distribution (degrees) B<br>
 <br>
+<table><tr>
+<td>
 <input type="submit" value="Submit">
+</td>
+<td align="left">
+<input type="radio" name="target" value="SSQABS" checked>Lowest Sum Of Squared Absolute Error<br>
+<input type="radio" name="target" value="SSQREL">Lowest Sum Of Squared Relative Error<br>
+<input type="radio" name="target" value="ODR">Lowest Sum Of Squared Orthogonal Distance<br>
+</td>
+</tr></table>
 </form>
 <br><br>
 <a href="/equationlist_2D">Link to all standard 2D equations</a>
@@ -101,7 +110,16 @@ Example 3D data for testing
 
 <br>
 
+<table><tr>
+<td>
 <input type="submit" value="Submit">
+</td>
+<td align="left">
+<input type="radio" name="target" value="SSQABS" checked>Lowest Sum Of Squared Absolute Error<br>
+<input type="radio" name="target" value="SSQREL">Lowest Sum Of Squared Relative Error<br>
+<input type="radio" name="target" value="ODR">Lowest Sum Of Squared Orthogonal Distance<br>
+</td>
+</tr></table>
 </form>
 
 <br><br>'
@@ -127,19 +145,20 @@ Example 3D data for testing
 def simplefitter_2D_NoFormDataValidation():
     formTextData = request.form['textdata']
     formEquation = request.form['equation']
+    formFittingTarget = request.form['target']
 
     if formEquation == 'Linear':
-        equation = pyeq2.Models_2D.Polynomial.Linear()
+        equation = pyeq2.Models_2D.Polynomial.Linear(formFittingTarget)
     elif formEquation == 'Quadratic':
-        equation = pyeq2.Models_2D.Polynomial.Quadratic()
+        equation = pyeq2.Models_2D.Polynomial.Quadratic(formFittingTarget)
     elif formEquation == 'Cubic':
-        equation = pyeq2.Models_2D.Polynomial.Cubic()
+        equation = pyeq2.Models_2D.Polynomial.Cubic(formFittingTarget)
     elif formEquation == 'WitchA':
-        equation = pyeq2.Models_2D.Miscellaneous.WitchOfAgnesiA()
+        equation = pyeq2.Models_2D.Miscellaneous.WitchOfAgnesiA(formFittingTarget)
     elif formEquation == 'VanDeemter':
-        equation = pyeq2.Models_2D.Engineering.VanDeemterChromatography()
+        equation = pyeq2.Models_2D.Engineering.VanDeemterChromatography(formFittingTarget)
     elif formEquation == 'GammaRayDegreesB':
-        equation = pyeq2.Models_2D.LegendrePolynomial.GammaRayAngularDistributionDegreesB()
+        equation = pyeq2.Models_2D.LegendrePolynomial.GammaRayAngularDistributionDegreesB(formFittingTarget)
     
     # the name of the data here is from the form
     pyeq2.dataConvertorService().ConvertAndSortColumnarASCII(formTextData, equation, False)
@@ -185,19 +204,20 @@ def simplefitter_3D_NoFormDataValidation():
     
     formTextData = request.form['textdata']
     formEquation = request.form['equation']
+    formFittingTarget = request.form['target']
 
     if formEquation == 'Linear':
-        equation = pyeq2.Models_3D.Polynomial.Linear()
+        equation = pyeq2.Models_3D.Polynomial.Linear(formFittingTarget)
     elif formEquation == 'FullQuadratic':
-        equation = pyeq2.Models_3D.Polynomial.FullQuadratic()
+        equation = pyeq2.Models_3D.Polynomial.FullQuadratic(formFittingTarget)
     elif formEquation == 'FullCubic':
-        equation = pyeq2.Models_3D.Polynomial.FullCubic()
+        equation = pyeq2.Models_3D.Polynomial.FullCubic(formFittingTarget)
     elif formEquation == 'MonkeySaddleA':
-        equation = pyeq2.Models_3D.Miscellaneous.MonkeySaddleA()
+        equation = pyeq2.Models_3D.Miscellaneous.MonkeySaddleA(formFittingTarget)
     elif formEquation == 'GaussianCurvatureOfWhitneysUmbrellaA':
-        equation = pyeq2.Models_3D.Miscellaneous.GaussianCurvatureOfWhitneysUmbrellaA()
+        equation = pyeq2.Models_3D.Miscellaneous.GaussianCurvatureOfWhitneysUmbrellaA(formFittingTarget)
     elif formEquation == 'NIST_NelsonAutolog':
-        equation = pyeq2.Models_3D.NIST.NIST_NelsonAutolog()
+        equation = pyeq2.Models_3D.NIST.NIST_NelsonAutolog(formFittingTarget)
     
     # the name of the data here is from the form
     pyeq2.dataConvertorService().ConvertAndSortColumnarASCII(formTextData, equation, False)
