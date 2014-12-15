@@ -122,7 +122,7 @@ Example 3D data for testing
 </tr></table>
 </form>
 
-<br><br>'
+<br><br>
 
 <a href="/equationlist_3D">Link to all standard 3D equations</a>
 </td></tr></table>
