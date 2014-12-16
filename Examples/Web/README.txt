@@ -1,5 +1,5 @@
 Welcome to FlaskFit, an example of creating a
-a web-based curve and surface fitting tool with
+web-based curve and surface fitting tool with
 Python Flask and the pyeq2 fitting library.
 
 
