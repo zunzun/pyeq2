@@ -97,8 +97,10 @@ def SurfaceAndContourPlots(in_filePathSurface, in_filePathContour, in_equation,
     Z = in_equation.CalculateModelPredictions(in_equation.solvedCoefficients, in_equation.dataCache.allDataCacheDictionary)
     in_equation.dataCache = tempcache
     
-    surf = ax.plot_surface(X, Y, Z, rstride=1, cstride=1, cmap=cm.coolwarm,
+    ax.plot_surface(X, Y, Z, rstride=1, cstride=1, cmap=cm.coolwarm,
             linewidth=1, antialiased=True)
+    
+    ax.scatter(x_data, y_data, z_data)
     
     ax.set_title(in_surfaceTitle) # add a title for surface plot
     ax.set_xlabel(in_xAxisLabel) # X axis data label
