@@ -162,6 +162,17 @@ def simplefitter_2D_NoFormDataValidation():
     
     # the name of the data here is from the form
     pyeq2.dataConvertorService().ConvertAndSortColumnarASCII(formTextData, equation, False)
+
+    # check for functions requiring non-zero nor non-negative data such as 1/x, etc.
+    if equation.ShouldDataBeRejected(equation):
+        return "Your data could not be fit to this equation, please check the data and try again."
+
+    # check for number of coefficients > number of data points to be fitted
+    coeffCount = len(equation.GetCoefficientDesignators())
+    dataCount = len(equation.dataCache.allDataCacheDictionary['DependentData'])
+    if coeffCount > dataCount:
+        return "This equation requires a minimum of " + repr(coeffCount) + " data points, you supplied " + repr(dataCount) + "."
+
     equation.Solve()
     equation.CalculateModelErrors(equation.solvedCoefficients, equation.dataCache.allDataCacheDictionary)
     equation.CalculateCoefficientAndFitStatistics()
@@ -221,6 +232,17 @@ def simplefitter_3D_NoFormDataValidation():
     
     # the name of the data here is from the form
     pyeq2.dataConvertorService().ConvertAndSortColumnarASCII(formTextData, equation, False)
+
+    # check for functions requiring non-zero nor non-negative data such as 1/x, etc.
+    if equation.ShouldDataBeRejected(equation):
+        return "Your data could not be fit to this equation, please check the data and try again."
+
+    # check for number of coefficients > number of data points to be fitted
+    coeffCount = len(equation.GetCoefficientDesignators())
+    dataCount = len(equation.dataCache.allDataCacheDictionary['DependentData'])
+    if coeffCount > dataCount:
+        return "This equation requires a minimum of " + repr(coeffCount) + " data points, you supplied " + repr(dataCount) + "."
+
     equation.Solve()
     equation.CalculateModelErrors(equation.solvedCoefficients, equation.dataCache.allDataCacheDictionary)
     equation.CalculateCoefficientAndFitStatistics()
