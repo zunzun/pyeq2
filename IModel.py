@@ -668,7 +668,32 @@ class IModel(object):
 
     
     def ShouldDataBeRejected(self, unused):
-        return self.extendedVersionHandler.ShouldDataBeRejected(self)
+        
+        # should data be rejected?
+        true_or_false = self.extendedVersionHandler.ShouldDataBeRejected(self)
+
+        if self.dataCache.DependentDataContainsZeroFlag and self.fittingTarget[-3:] == "REL":
+            true_or_false = True
+        
+        # if yes, why?
+        self.reasonWhyDataRejected = 'unknown condition' # hopefully this will not be used
+        if true_or_false:
+            if self.dataCache.DependentDataContainsZeroFlag and self.fittingTarget[-3:] == "REL":
+                self.reasonWhyDataRejected = 'The data contains at least one dependent data value of exactly 0.0, a relative fit cannot be performed as divide-by-zero errors would occur.'
+            
+            if self.independentData1CannotContainZeroFlag and self.dataCache.independentData1ContainsZeroFlag:
+                self.reasonWhyDataRejected = 'This equation requires non-zero values for the first independent variable (X). At least one of the values was exactly equal to zero. Examples that would fail would be ln(x) and 1/x.'
+    
+            if self.equation.independentData1CannotContainNegativeFlag and self.dataCache.independentData1ContainsNegativeFlag:
+                self.reasonWhyDataRejected = 'This equation requires non-negative values for the first independent variable (X). At least one of the values was negative. One example that would fail is ln(x).'
+    
+            if self.equation.independentData1CannotContainPositiveFlag and self.dataCache.independentData1ContainsPositiveFlag:
+                self.reasonWhyDataRejected = 'This equation requires non-positive values for the first independent variable (X). At least one of the values was positive. One xample that would fail would be ln(-x), please check the data.'
+    
+            if self.equation.independentData1CannotContainBothPositiveAndNegativeFlag and self.dataCache.independentData1ContainsPositiveFlag and self.dataCache.independentData1ContainsNegativeFlag:
+                self.reasonWhyDataRejected = 'This equation cannot have both positive and negative values for the first independent variable (X)/'
+
+        return true_or_false
 
 
     def RecursivelyConvertIntStringsToFloatStrings(self, inList):

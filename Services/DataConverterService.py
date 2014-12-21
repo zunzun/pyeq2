@@ -150,7 +150,7 @@ class DataConverterService(object):
                 dataLists[3].append(c)
                 
         if inModel.ShouldDataBeRejected(inModel) == True:
-            raise Exception('The model you have chosen cannot accept this data set')
+            raise Exception(inModel.reasonWhyDataRejected)
             
         if inModel.GetDimensionality() == 1:
             dataLists[0].sort()

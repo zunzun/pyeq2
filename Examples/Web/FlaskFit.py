@@ -47,6 +47,7 @@ Example 2D data for testing
 8.442    14.744
 9.769    17.068
 9.861    17.104
+
 </textarea>
 <br><br>
     --- Example 2D Equations ---<br>
@@ -161,11 +162,11 @@ def simplefitter_2D_NoFormDataValidation():
         equation = pyeq2.Models_2D.LegendrePolynomial.GammaRayAngularDistributionDegreesB(formFittingTarget)
     
     # the name of the data here is from the form
-    pyeq2.dataConvertorService().ConvertAndSortColumnarASCII(formTextData, equation, False)
-
     # check for functions requiring non-zero nor non-negative data such as 1/x, etc.
-    if equation.ShouldDataBeRejected(equation):
-        return "Your data could not be fit to this equation, please check the data and try again."
+    try:
+        pyeq2.dataConvertorService().ConvertAndSortColumnarASCII(formTextData, equation, False)
+    except:
+        return equation.reasonWhyDataRejected
 
     # check for number of coefficients > number of data points to be fitted
     coeffCount = len(equation.GetCoefficientDesignators())
@@ -231,11 +232,11 @@ def simplefitter_3D_NoFormDataValidation():
         equation = pyeq2.Models_3D.NIST.NIST_NelsonAutolog(formFittingTarget)
     
     # the name of the data here is from the form
-    pyeq2.dataConvertorService().ConvertAndSortColumnarASCII(formTextData, equation, False)
-
     # check for functions requiring non-zero nor non-negative data such as 1/x, etc.
-    if equation.ShouldDataBeRejected(equation):
-        return "Your data could not be fit to this equation, please check the data and try again."
+    try:
+        pyeq2.dataConvertorService().ConvertAndSortColumnarASCII(formTextData, equation, False)
+    except:
+        return equation.reasonWhyDataRejected
 
     # check for number of coefficients > number of data points to be fitted
     coeffCount = len(equation.GetCoefficientDesignators())
