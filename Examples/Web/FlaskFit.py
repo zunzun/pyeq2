@@ -108,7 +108,7 @@ Example 3D data for testing
 <input type="radio" name="equation" value="MonkeySaddleA">Monkey Saddle A<br>
 <input type="radio" name="equation" value="GaussianCurvatureOfWhitneysUmbrellaA">Gaussian Curvature Of Whitneys Umbrella A<br>
 <input type="radio" name="equation" value="NIST_NelsonAutolog">NIST Nelson Autolog<br>
-
+<input type="radio" name="equation" value="CustomPolynomialOne">Custom Polynomial One<br>
 <br>
 
 <table><tr>
@@ -230,6 +230,8 @@ def simplefitter_3D_NoFormDataValidation():
         equation = pyeq2.Models_3D.Miscellaneous.GaussianCurvatureOfWhitneysUmbrellaA(formFittingTarget)
     elif formEquation == 'NIST_NelsonAutolog':
         equation = pyeq2.Models_3D.NIST.NIST_NelsonAutolog(formFittingTarget)
+    elif formEquation == 'CustomPolynomialOne': # X order 3, Y order 1 in this example - passed as integers
+        equation = pyeq2.Models_3D.Polynomial.UserSelectablePolynomial(formFittingTarget, "Default", 3, 1)
     
     # the name of the data here is from the form
     # check for functions requiring non-zero nor non-negative data such as 1/x, etc.
