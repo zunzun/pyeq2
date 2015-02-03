@@ -28,10 +28,13 @@ python FlaskFit.py
 
 The command prompt should then display:
 
-* Running on http://127.0.0.1:5000/
+* Running on http://0.0.0.0:5000/
 
 When you open this URL you should see a form
 that allows curve and surface fitting, with graphs.
+The address "0.0.0.0" allows port 5000 to be seen
+externally.  On my development laptop, I can open
+the URL "127.0.0.1:5000/" and see the web server.
 
 Use Control-C to exit the Flask development server.
 
