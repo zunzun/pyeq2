@@ -57,6 +57,7 @@ Example 2D data for testing
 <input type="radio" name="equation" value="WitchA">Witch Of Maria Agnesi A<br>
 <input type="radio" name="equation" value="VanDeemter">VanDeemter Chromatography<br>
 <input type="radio" name="equation" value="GammaRayDegreesB">Gamma Ray Angular Distribution (degrees) B<br>
+<input type="radio" name="equation" value="ExponentialWithOffset">Exponential With Offset<br>
 <br>
 <table><tr>
 <td>
@@ -160,7 +161,9 @@ def simplefitter_2D_NoFormDataValidation():
         equation = pyeq2.Models_2D.Engineering.VanDeemterChromatography(formFittingTarget)
     elif formEquation == 'GammaRayDegreesB':
         equation = pyeq2.Models_2D.LegendrePolynomial.GammaRayAngularDistributionDegreesB(formFittingTarget)
-    
+    elif formEquation == 'ExponentialWithOffset':
+        equation = pyeq2.Models_2D.Exponential.Exponential(formFittingTarget, 'Offset')
+
     # the name of the data here is from the form
     # check for functions requiring non-zero nor non-negative data such as 1/x, etc.
     try:
@@ -324,4 +327,4 @@ def equationlist_3D():
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host='0.0.0.0', port=5000)
