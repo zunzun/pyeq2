@@ -8,6 +8,8 @@ if pyeq2IimportDirectory not in sys.path:
     sys.path.append(pyeq2IimportDirectory)
     
 import matplotlib
+matplotlib.use('Agg') # immediately following the "import matplotlib" statement, web only
+
 import matplotlib.pyplot as plt
 import numpy, scipy, pyeq2
 
