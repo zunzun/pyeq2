@@ -318,8 +318,8 @@ class DiffEvolver(object):
                     if trial_value < self.best_value:
                         self.best_vector = trial
                         self.best_value = trial_value
-            self.best_val_history.append(self.best_value)
-            self.best_vec_history.append(self.best_vector)
+            #self.best_val_history.append(self.best_value) # unused in pyeq2, comment out for performance
+            #self.best_vec_history.append(self.best_vector) # unused in pyeq2, comment out for performance
             if self.converged():
                 break
             if self.best_value <= sufficientSolution: ############### is current solution good enough?
