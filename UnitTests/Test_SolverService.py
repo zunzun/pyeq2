@@ -154,6 +154,14 @@ class TestSolverService(unittest.TestCase):
         self.assertTrue(numpy.allclose(coefficients, coefficientsShouldBe, rtol=1.0E-10, atol=1.0E-300))
 
 
+    def test_ExponentialSensitivity_2D(self):
+        coefficientsShouldBe = numpy.array([2.0, 0.1, -3000.0])
+        model = pyeq2.Models_2D.Exponential.Exponential('SSQABS', 'Offset')
+        pyeq2.dataConvertorService().ConvertAndSortColumnarASCII(DataForUnitTests.asciiDataForExponentialSensitivityTest, model, False)
+        model.Solve()
+        self.assertTrue(numpy.allclose(model.solvedCoefficients, coefficientsShouldBe, rtol=1.0E-10, atol=1.0E-300))
+
+
 
 if __name__ == '__main__':
     unittest.main()
