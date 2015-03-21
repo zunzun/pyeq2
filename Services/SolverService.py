@@ -102,7 +102,7 @@ class SolverService(object):
             
         depData = inModel.dataCache.reducedDataCacheDictionary['DependentData']
         sufficientSolution = (max(depData) - min(depData)) / guessDivisorForGA
-        de = diffev.DiffEvolver(inModel.CalculateReducedDataFittingTarget, pop0, crossover_rate = crossoverProbabilityForGA, scale = diffScaleForGA, strategy = ('best', 1, 'bin'), prng = custom_prng_for_diffev())
+        de = diffev.DiffEvolver(inModel.CalculateReducedDataFittingTarget, pop0, crossover_rate = crossoverProbabilityForGA, scale = diffScaleForGA, prng = custom_prng_for_diffev())
         de.solve(sufficientSolution, maxGenerationsForGA)
         
         inModel.solvedCoefficients = de.best_vector
