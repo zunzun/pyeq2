@@ -95,20 +95,64 @@ def SaveSourceCode(in_sourceCodeFilePath,  in_equation):
     
     outputFile = open(in_sourceCodeFilePath, 'w')
         
-    outputFile.write(pyeq2.outputSourceCodeService().GetOutputSourceCodeCPP(in_equation))
-    outputFile.write('\n\n\n\n\n\n\n\n')
-    outputFile.write(pyeq2.outputSourceCodeService().GetOutputSourceCodeCSHARP(in_equation))
-    outputFile.write('\n\n\n\n\n\n\n\n')
-    outputFile.write(pyeq2.outputSourceCodeService().GetOutputSourceCodeVBA(in_equation))
-    outputFile.write('\n\n\n\n\n\n\n\n')
-    outputFile.write(pyeq2.outputSourceCodeService().GetOutputSourceCodePYTHON(in_equation))
-    outputFile.write('\n\n\n\n\n\n\n\n')
-    outputFile.write(pyeq2.outputSourceCodeService().GetOutputSourceCodeJAVA(in_equation))
-    outputFile.write('\n\n\n\n\n\n\n\n')
-    outputFile.write(pyeq2.outputSourceCodeService().GetOutputSourceCodeJAVASCRIPT(in_equation))
-    outputFile.write('\n\n\n\n\n\n\n\n')
-    outputFile.write(pyeq2.outputSourceCodeService().GetOutputSourceCodeSCILAB(in_equation))
-    outputFile.write('\n\n\n\n\n\n\n\n')
-    outputFile.write(pyeq2.outputSourceCodeService().GetOutputSourceCodeMATLAB(in_equation))
+    outputFile.write('<html><body>\n\n')
+    
+    try:
+        outputFile.write('<b>C++</b><br><textarea rows="20" cols="85" wrap="OFF">')
+        outputFile.write(pyeq2.outputSourceCodeService().GetOutputSourceCodeCPP(in_equation))
+        outputFile.write('</textarea><br><br>\n\n')
+    except:
+        pass
+
+    try:
+        outputFile.write('<b>CSHARP</b><br><textarea rows="20" cols="85" wrap="OFF">')
+        outputFile.write(pyeq2.outputSourceCodeService().GetOutputSourceCodeCSHARP(in_equation))
+        outputFile.write('</textarea><br><br>\n\n')
+    except:
+        pass
+
+    try:
+        outputFile.write('<b>VBA</b><br><textarea rows="20" cols="85" wrap="OFF">')
+        outputFile.write(pyeq2.outputSourceCodeService().GetOutputSourceCodeVBA(in_equation))
+        outputFile.write('</textarea><br><br>\n\n')
+    except:
+        pass
+
+    try:
+        outputFile.write('<b>PYTHON</b><br><textarea rows="20" cols="85" wrap="OFF">')
+        outputFile.write(pyeq2.outputSourceCodeService().GetOutputSourceCodePYTHON(in_equation))
+        outputFile.write('</textarea><br><br>\n\n')
+    except:
+        pass
+
+    try:
+        outputFile.write('<b>JAVA</b><br><textarea rows="20" cols="85" wrap="OFF">')
+        outputFile.write(pyeq2.outputSourceCodeService().GetOutputSourceCodeJAVA(in_equation))
+        outputFile.write('</textarea><br><br>\n\n')
+    except:
+        pass
+
+    try:
+        outputFile.write('<b>JAVASCRIPT</b><br><textarea rows="20" cols="85" wrap="OFF">')
+        outputFile.write(pyeq2.outputSourceCodeService().GetOutputSourceCodeJAVASCRIPT(in_equation))
+        outputFile.write('</textarea><br><br>\n\n')
+    except:
+        pass
+
+    try:
+        outputFile.write('<b>SCILAB</b><br><textarea rows="20" cols="85" wrap="OFF">')
+        outputFile.write(pyeq2.outputSourceCodeService().GetOutputSourceCodeSCILAB(in_equation))
+        outputFile.write('</textarea><br><br>\n\n')
+    except:
+        pass
+
+    try:
+        outputFile.write('<b>MATLAB</b><br><textarea rows="20" cols="85" wrap="OFF">')
+        outputFile.write(pyeq2.outputSourceCodeService().GetOutputSourceCodeMATLAB(in_equation))
+        outputFile.write('</textarea><br><br>\n\n')
+    except:
+        pass
+
+    outputFile.write('</body></html>\n')
     
     outputFile.close()

@@ -19,7 +19,7 @@ class MyFlask(Flask):
             return 0.000001
         if name.lower().endswith('.txt'):
             return 0.000001
-        return flask.Flask.get_send_file_max_age(self, name)
+        return Flask.get_send_file_max_age(self, name)
 
 
 app = MyFlask(__name__)
@@ -186,7 +186,7 @@ def simplefitter_2D_NoFormDataValidation():
     TextUtils.SaveCoefficientAndFitStatistics(fitStatisticsFilePath,  equation)
 
     # save source code to a single text file, all available languages
-    sourceCodeFilePath = "static/sourcecode_simplefitter_2D.txt" # simplefitter_2D
+    sourceCodeFilePath = "static/sourcecode_simplefitter_2D.html" # simplefitter_2D
     TextUtils.SaveSourceCode(sourceCodeFilePath,  equation)
 
     # create graph
@@ -258,7 +258,7 @@ def simplefitter_3D_NoFormDataValidation():
     TextUtils.SaveCoefficientAndFitStatistics(fitStatisticsFilePath,  equation)
 
     # save source code to a single text file, all available languages
-    sourceCodeFilePath = "static/sourcecode_simplefitter_3D.txt" # simplefitter_3D
+    sourceCodeFilePath = "static/sourcecode_simplefitter_3D.html" # simplefitter_3D
     TextUtils.SaveSourceCode(sourceCodeFilePath,  equation)
 
     # create graphs
