@@ -19,6 +19,8 @@ class MyFlask(Flask):
             return 0.000001
         if name.lower().endswith('.txt'):
             return 0.000001
+        if name.lower().endswith('.html'):
+            return 0.000001
         return Flask.get_send_file_max_age(self, name)
 
 
