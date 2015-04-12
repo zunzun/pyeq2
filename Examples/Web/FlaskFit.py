@@ -202,15 +202,22 @@ def simplefitter_2D_NoFormDataValidation():
     absErrorPlotFilePath = "static/abs_error_simplefitter_2D.png" # simplefitter_2D
     title = "Absolute Error For An HTML FORM Model"
     GraphUtils.SaveAbsErrorScatterPlot(absErrorPlotFilePath, equation, title, yAxisLabel)
+    
+    if equation.dataCache.DependentDataContainsZeroFlag != 1:
+        percentErrorPlotFilePath = "static/percent_error_simplefitter_2D.png" # simplefitter_2D
+        title = "Percent Error For An HTML FORM Model"
+        GraphUtils.SavePercentErrorScatterPlot(percentErrorPlotFilePath, equation, title, yAxisLabel)
 
     # generate HTML
     htmlToReturn = ''
-    htmlToReturn +=  equation.GetDisplayName() + '<br><br>'
-    htmlToReturn +=  equation.GetDisplayHTML() + '<br><br>'
-    htmlToReturn += '<a href="' + fitStatisticsFilePath + '">Link to parameter and fit statistics</a><br><br>'
-    htmlToReturn += '<a href="' + sourceCodeFilePath + '">Link to source code, all available languages</a><br><br>'
-    htmlToReturn +=  '<img src="' + graphFilePath + '"> '
-    htmlToReturn +=  '<img src="' + absErrorPlotFilePath + '"><br><br>'
+    htmlToReturn +=  equation.GetDisplayName() + '<br><br>\n'
+    htmlToReturn +=  equation.GetDisplayHTML() + '<br><br>\n'
+    htmlToReturn += '<a href="' + fitStatisticsFilePath + '">Link to parameter and fit statistics</a><br><br>\n'
+    htmlToReturn += '<a href="' + sourceCodeFilePath + '">Link to source code, all available languages</a><br><br>\n'
+    htmlToReturn +=  '<img src="' + graphFilePath + '"> <br>\n'
+    htmlToReturn +=  '<img src="' + absErrorPlotFilePath + '"><br>\n'
+    if equation.dataCache.DependentDataContainsZeroFlag != 1:
+        htmlToReturn +=  '<img src="' + percentErrorPlotFilePath + '"><br><br>\n'
 
     return '<html><body>' + htmlToReturn + '</body></html>'
 
@@ -280,6 +287,11 @@ def simplefitter_3D_NoFormDataValidation():
     title = "Absolute Error For An HTML FORM Model"
     GraphUtils.SaveAbsErrorScatterPlot(absErrorPlotFilePath, equation, title, zAxisLabel)
 
+    if equation.dataCache.DependentDataContainsZeroFlag != 1:
+        percentErrorPlotFilePath = "static/percent_error_simplefitter_3D.png" # simplefitter_3D
+        title = "Percent Error For An HTML FORM Model"
+        GraphUtils.SavePercentErrorScatterPlot(percentErrorPlotFilePath, equation, title, zAxisLabel)
+
     # generate HTML
     htmlToReturn = ''
     htmlToReturn +=  equation.GetDisplayName() + '<br><br>\n'
@@ -287,8 +299,10 @@ def simplefitter_3D_NoFormDataValidation():
     htmlToReturn += '<a href="' + fitStatisticsFilePath + '">Link to parameter and fit statistics</a><br><br>\n'
     htmlToReturn += '<a href="' + sourceCodeFilePath + '">Link to source code, all available languages</a><br><br>\n'
     htmlToReturn +=  '<img src="' + graphFilePath_Surface + '"><br><br>\n'
-    htmlToReturn +=  '<img src="' + absErrorPlotFilePath + '"><br><br>\n'
     htmlToReturn +=  '<img src="' + graphFilePath_Contour + '"><br><br>\n'
+    htmlToReturn +=  '<img src="' + absErrorPlotFilePath + '"><br><br>\n'
+    if equation.dataCache.DependentDataContainsZeroFlag != 1:
+        htmlToReturn +=  '<img src="' + percentErrorPlotFilePath + '"><br><br>\n'
 
     return '<html><body>' + htmlToReturn + '</body></html>'
 
