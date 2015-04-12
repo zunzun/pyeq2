@@ -71,6 +71,7 @@ def SaveModelScatterConfidence(in_filePath, in_equation, in_title, in_xAxisLabel
     
     plt.tight_layout() # prevents cropping axis labels
     fig.savefig(in_filePath) # create PNG file
+    plt.close('all')
 
 
 def SurfaceAndContourPlots(in_filePathSurface, in_filePathContour, in_equation,
@@ -111,6 +112,7 @@ def SurfaceAndContourPlots(in_filePathSurface, in_filePathContour, in_equation,
     
     plt.tight_layout() # prevents cropping axis labels
     fig.savefig(in_filePathSurface) # create PNG file
+    plt.close('all')
 
     # contour plot here
     fig = plt.figure(figsize=(5, 4))
@@ -128,6 +130,7 @@ def SurfaceAndContourPlots(in_filePathSurface, in_filePathContour, in_equation,
 
     plt.tight_layout() # prevents cropping axis labels
     fig.savefig(in_filePathContour) # create PNG file
+    plt.close('all')
 
 
 def SaveAbsErrorScatterPlot(in_filePath, in_equation, in_title, in_xAxisLabel):
@@ -149,6 +152,7 @@ def SaveAbsErrorScatterPlot(in_filePath, in_equation, in_title, in_xAxisLabel):
 
     plt.tight_layout() # prevents cropping axis labels
     fig.savefig(in_filePath) # create PNG file
+    plt.close('all')
 
 
 def SavePercentErrorScatterPlot(in_filePath, in_equation, in_title, in_xAxisLabel):
@@ -170,3 +174,4 @@ def SavePercentErrorScatterPlot(in_filePath, in_equation, in_title, in_xAxisLabe
 
     plt.tight_layout() # prevents cropping axis labels
     fig.savefig(in_filePath) # create PNG file
+    plt.close('all')
