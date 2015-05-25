@@ -64,7 +64,7 @@ ax.scatter(x_data, y_data, z_data)
 ax.set_title("Surface Rotation") # add a title for surface plot
 ax.set_xlabel("X Data") # X axis data label
 ax.set_ylabel("Y Data") # Y axis data label
-ax.set_zlabel("Z Data") # Y axis data label
+ax.set_zlabel("Z Data") # Z axis data label
 
 
 plt.tight_layout() # prevents cropping axis labels
