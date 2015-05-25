@@ -3,17 +3,11 @@ animated surface rotation GIF file
 using pyeq2 and matplotlib.
 
 
-Step 1: Install scipy and matplotlib
+Step 1: Install matplotlib, imagemagick and gifsicle
 
 On Debian or Ubuntu Linux, you can use this command:
 
-sudo apt-get install python-scipy python-matplotlib
-
-
-On other operating systems, try the Canopy Express Free version:
-
-https://store.enthought.com/
-
+sudo apt-get install imagemagick python-matplotlib gifsicle
 
 
 
