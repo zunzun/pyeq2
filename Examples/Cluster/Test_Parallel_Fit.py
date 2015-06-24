@@ -15,12 +15,12 @@ import pyeq2
 
 
 # this is the function to be run on the cluster
-def fitEquationUsingDispyCluster(inEquationString, inFittingTargetString, inTextData):
+def fitEquationUsingDispyCluster(inEquationString, inFittingTargetString, inExtendedVersionString, inTextData):
 	
     # individual cluster nodes must be able to import pyeq2
     import pyeq2
 
-    exec('equation = ' + inEquationString +'("' + inFittingTargetString + '")')
+    exec('equation = ' + inEquationString +'("' + inFittingTargetString + '", "' + inExtendedVersionString + '")')
     pyeq2.dataConvertorService().ConvertAndSortColumnarASCII(inTextData, equation, False)
     equation.Solve()
     fittedTarget = equation.CalculateAllDataFittingTarget(equation.solvedCoefficients)
@@ -49,7 +49,7 @@ cluster = dispy.JobCluster(fitEquationUsingDispyCluster)
 print('Submitting', jobCount, 'jobs to the cluster')
 jobs = []
 for i in range(jobCount):
-    job = cluster.submit(equationString, fittingTargetString, textData)
+    job = cluster.submit(equationString, fittingTargetString, 'Default', textData)
     job.id = i # associate an ID to identify jobs (if needed later)
     jobs.append(job)
 
