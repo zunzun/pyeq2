@@ -25,17 +25,20 @@ fittingTargetString = 'SSQABS'
 smoothnessControl = 2
 
 textData = '''
-5.357    0.376
-5.457    0.489
-5.797    0.874
-5.936    1.049
-6.161    1.327
-6.697    2.054
-6.731    2.077
-6.775    2.138
-8.442    4.744
-9.769    7.068
-9.861    7.104
+    X      Y       Z
+  3.017  2.175   0.0320
+  2.822  2.624   0.0629
+  1.784  3.144   6.570
+  1.712  3.153   6.721
+  2.972  2.106   0.0313
+  2.719  2.542   0.0643
+  2.0 2.6 4.0  ending text is ignored
+  1.479  2.957   6.583
+  1.387  2.963   6.744
+  2.843  1.984   0.0315
+  2.485  2.320   0.0639
+  0.742  2.568   6.581
+  0.607  2.571   6.753
 '''
 
 
@@ -77,7 +80,7 @@ cluster = dispy.JobCluster(SetParametersAndFit)
 jobs = []
 
 # this example has named equations only, for simplicity it has no polyrationals or polyfunctions
-for submodule in inspect.getmembers(pyeq2.Models_2D):
+for submodule in inspect.getmembers(pyeq2.Models_3D):
     if inspect.ismodule(submodule[1]):
         for equationClass in inspect.getmembers(submodule[1]):
             if inspect.isclass(equationClass[1]):
