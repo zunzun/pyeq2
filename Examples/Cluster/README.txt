@@ -11,12 +11,10 @@ Instructions are at http://dispy.sourceforge.net/index.html
 Step 2: Install pyeq2 on remote cluster nodes
 
 The dispy code uses a python file named dispynode.py
-to run jobs on the remote cluster nodes.  By default,
-this can import any code from the file system location
-where a node is started using that command.  For example,
-if dispynode.py is started on a command line from the
-directory /home/cluster/ then simply place a copy of
-pyeq2 into that directory and it should import fine.
+to run jobs on the remote cluster nodes.  The examples
+will import pyeq2, so that must be available for import
+on the remote nodes.  I personally am lazy and copy the
+file dispynode.py locally and run my local copy.
 
 
 
