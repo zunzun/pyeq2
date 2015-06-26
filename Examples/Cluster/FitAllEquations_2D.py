@@ -25,11 +25,12 @@ fittingTargetString = 'SSQABS'
 smoothnessControl = 2
 
 textData = '''
+  X        Y
 5.357    0.376
 5.457    0.489
 5.797    0.874
 5.936    1.049
-6.161    1.327
+6.161    1.327 ending text is ignored
 6.697    2.054
 6.731    2.077
 6.775    2.138
