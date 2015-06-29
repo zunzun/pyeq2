@@ -6,6 +6,8 @@ Step 1: Install and test dispy (DIStributed PYthon)
 
 Instructions are at http://dispy.sourceforge.net/index.html
 
+I personally used the command "pip install dispy".
+
 
 
 Step 2: Install pyeq2 on remote cluster nodes
@@ -13,12 +15,29 @@ Step 2: Install pyeq2 on remote cluster nodes
 The dispy code uses a python file named dispynode.py
 to run jobs on the remote cluster nodes.  The examples
 will import pyeq2, so that must be available for import
-on the remote nodes.  I personally am lazy and copy the
-file dispynode.py locally and run my local copy.
+on the remote nodes.  I personally used the command
+"pip unstall pyeq2" (after installing scipy).
 
 
 
-Step 3: Test remote cluster fitting of one equation
+Step 3: Start the remote cluster nodes
+
+On Debian, I personally use the command
+
+"python /usr/local/bin/dispynode.py --clean".
+
+DOCKER-ONLY NOTE: if you use docker containers to
+provision the remote nodes, you will need to make
+dispynode's TCP and UDP communication ports available.
+I personally create containers with the command
+
+"docker run -it -p 51348:51348 -p 51348:51348/udp debian"
+
+which makes dispy's default TCP and UDP port available.
+
+
+
+Step 4: Test remote cluster fitting of one equation
 
 From a command prompt, run this command:
 
@@ -38,7 +57,7 @@ with coefficients  [-0.07726667  1.15795   ]
 
 
 
-Step 4: Test remote cluster fitting in parallel
+Step 5: Test remote cluster fitting in parallel
 
 From a command prompt, run this command:
 
@@ -95,7 +114,7 @@ Done.
 
 
 
-Step 5: Celebrate
+Step 6: Celebrate
 
 You are now parallel cluster fitting with pyeq2 and dispy!
 
