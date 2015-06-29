@@ -16,7 +16,7 @@ The dispy code uses a python file named dispynode.py
 to run jobs on the remote cluster nodes.  The examples
 will import pyeq2, so that must be available for import
 on the remote nodes.  I personally used the command
-"pip unstall pyeq2" (after installing scipy).
+"pip install pyeq2" (after installing scipy).
 
 
 
