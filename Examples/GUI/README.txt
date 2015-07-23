@@ -7,7 +7,7 @@ Step 1: Install wxPython, scipy and matplotlib
 
 On Debian or Ubuntu Linux, you can use this command:
 
-sudo apt-get install python-wxglade python-scipy python-matplotlib
+sudo apt-get install python-wxtools python-scipy python-matplotlib
 
 
 On other operating systems, try the Canopy Express Free version:
