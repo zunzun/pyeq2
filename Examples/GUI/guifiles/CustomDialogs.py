@@ -140,6 +140,7 @@ class PanelContainingOneGraphReport(wx.Panel):
         self.parent.Z = None
         
         self.figure = matplotlib.pyplot.figure()
+        matplotlib.pyplot.grid(True)
         self.axes = self.figure.add_subplot(111)
         self.canvas = FigureCanvas(self, -1, self.figure)
         self.sizer = wx.BoxSizer(wx.VERTICAL)
