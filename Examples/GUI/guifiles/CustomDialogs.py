@@ -214,7 +214,7 @@ class Report_SurfacePlot(PanelContainingOneGraphReport):
     
         self.axes.scatter(self.parent.x_data, self.parent.y_data, self.parent.z_data)
     
-        self.axes.set_title('Surface Plot') # add a title for surface plot
+        self.axes.set_title('Surface Plot (click-drag with mouse)') # add a title for surface plot
         self.axes.set_xlabel('X Data') # X axis data label
         self.axes.set_ylabel('Y Data') # Y axis data label
         self.axes.set_zlabel('Z Data') # Z axis data label
