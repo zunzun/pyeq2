@@ -123,6 +123,94 @@ class SourceCodeReport(wx.Panel):
 
 
 
+class AbsoluteErrorStatisticsReport(wx.Panel):
+    def __init__(self, parent, titleString, tempdata):
+        wx.Panel.__init__(self, parent=parent, id=wx.ID_ANY)
+        
+        self.text = wx.TextCtrl(self, -1, '', style=wx.TE_MULTILINE|wx.HSCROLL|wx.VSCROLL|wx.TE_READONLY)
+
+        self.text.AppendText(titleString + '\n\n')
+        
+        # must at least have max and min
+        minData = min(tempdata)
+        maxData = max(tempdata)
+        
+        if maxData == minData:
+            self.text.AppendText('All data has the same value,\n')
+            self.text.AppendText("value = %-.16E\n" % (minData))
+            self.text.AppendText('statistics cannot be calculated.')
+        else:
+            self.text.AppendText("max = %-.16E\n" % (maxData))
+            self.text.AppendText("min = %-.16E\n" % (minData))
+            
+            try:
+                temp = scipy.mean(tempdata)
+                self.text.AppendText("mean = %-.16E\n" % (temp))
+            except:
+                self.text.AppendText("mean gave error in calculation\n")
+
+            try:
+                temp = scipy.stats.sem(tempdata)
+                self.text.AppendText("standard error of mean = %-.16E\n" % (temp))
+            except:
+                self.text.AppendText("standard error of mean gave error in calculation\n")
+
+            try:
+                temp = scipy.median(tempdata)
+                self.text.AppendText("median = %-.16E\n" % (temp))
+            except:
+                self.text.AppendText("median gave error in calculation\n")
+
+            try:
+                temp = scipy.var(tempdata)
+                self.text.AppendText("variance = %-.16E\n" % (temp))
+            except:
+                self.text.AppendText("variance gave error in calculation\n")
+
+            try:
+                temp = scipy.std(tempdata)
+                self.text.AppendText("std. deviation = %-.16E\n" % (temp))
+            except:
+                self.text.AppendText("std. deviation gave error in calculation\n")
+
+            try:
+                temp = scipy.stats.skew(tempdata)
+                self.text.AppendText("skew = %-.16E\n" % (temp))
+            except:
+                self.text.AppendText("skew gave error in calculation\n")
+
+            try:
+                temp = scipy.stats.kurtosis(tempdata)
+                self.text.AppendText("kurtosis = %-.16E\n" % (temp))
+            except:
+                self.text.AppendText("kurtosis gave error in calculation\n")
+        
+    
+        sizer = wx.BoxSizer()
+        sizer.Add(self.text, 1, wx.EXPAND)
+    
+        self.SetSizer(sizer)
+        self.Fit()
+
+
+
+class CoefficientsReport(wx.Panel):
+    def __init__(self, parent, equation):
+        wx.Panel.__init__(self, parent=parent, id=wx.ID_ANY)
+        
+        self.text = wx.TextCtrl(self, -1, '\n', style=wx.TE_MULTILINE|wx.HSCROLL|wx.VSCROLL|wx.TE_READONLY)
+        cd = equation.GetCoefficientDesignators()
+        for i in range(len(equation.solvedCoefficients)):
+            self.text.AppendText("%s = %-.16E\n" % (cd[i], equation.solvedCoefficients[i]))
+
+            sizer = wx.BoxSizer()
+            sizer.Add(self.text, 1, wx.EXPAND)
+        
+            self.SetSizer(sizer)
+            self.Fit()
+
+
+
 # see the included wxNestedTabsExample.py file
 # and the included wxMatplotlibExample.py file
 class PanelContainingOneGraphReport(wx.Panel):
@@ -344,29 +432,38 @@ class TopLevelResultsNotebook(wx.Notebook):
         textReport1 = CoefficientAndFitStatisticsReport(textReportsTab, equation)
         textReportsTab.AddPage(textReport1, "Coefficient And Fit Statistics")
         
-        textReport2 = SourceCodeReport(textReportsTab, equation, 'CPP')
-        textReportsTab.AddPage(textReport2, "Source Code C++")
+        textReport2 = CoefficientsReport(textReportsTab, equation)
+        textReportsTab.AddPage(textReport2, "Coefficient Listing")
+        
+        textReport3 = AbsoluteErrorStatisticsReport(textReportsTab, 'Absolute Error Statistics', equation.modelAbsoluteError)
+        textReportsTab.AddPage(textReport3, "Absolute Error Statistics")
+        
+        sourceCodeTab = wx.Notebook(self)
+        self.AddPage(sourceCodeTab, "Source Code")
 
-        textReport3 = SourceCodeReport(textReportsTab, equation, 'CSHARP')
-        textReportsTab.AddPage(textReport3, "Source Code CSHARP")
+        aourcecode1 = SourceCodeReport(sourceCodeTab, equation, 'CPP')
+        sourceCodeTab.AddPage(aourcecode1, "C++")
+
+        aourcecode2 = SourceCodeReport(sourceCodeTab, equation, 'CSHARP')
+        sourceCodeTab.AddPage(aourcecode2, "CSHARP")
     
-        textReport4 = SourceCodeReport(textReportsTab, equation, 'VBA')
-        textReportsTab.AddPage(textReport4, "Source Code VBA")
+        aourcecode3 = SourceCodeReport(sourceCodeTab, equation, 'VBA')
+        sourceCodeTab.AddPage(aourcecode3, "VBA")
     
-        textReport5 = SourceCodeReport(textReportsTab, equation, 'PYTHON')
-        textReportsTab.AddPage(textReport5, "Source Code PYTHON")
+        aourcecode4 = SourceCodeReport(sourceCodeTab, equation, 'PYTHON')
+        sourceCodeTab.AddPage(aourcecode4, "PYTHON")
     
-        textReport6 = SourceCodeReport(textReportsTab, equation, 'JAVA')
-        textReportsTab.AddPage(textReport6, "Source Code JAVA")
+        aourcecode5 = SourceCodeReport(sourceCodeTab, equation, 'JAVA')
+        sourceCodeTab.AddPage(aourcecode5, "JAVA")
     
-        textReport7 = SourceCodeReport(textReportsTab, equation, 'JAVASCRIPT')
-        textReportsTab.AddPage(textReport7, "Source Code JAVASCRIPT")
+        aourcecode6 = SourceCodeReport(sourceCodeTab, equation, 'JAVASCRIPT')
+        sourceCodeTab.AddPage(aourcecode6, "JAVASCRIPT")
     
-        textReport8 = SourceCodeReport(textReportsTab, equation, 'SCILAB')
-        textReportsTab.AddPage(textReport8, "Source Code SCILAB")
+        aourcecode7 = SourceCodeReport(sourceCodeTab, equation, 'SCILAB')
+        sourceCodeTab.AddPage(aourcecode7, "SCILAB")
     
-        textReport9 = SourceCodeReport(textReportsTab, equation, 'MATLAB')
-        textReportsTab.AddPage(textReport9, "Source Code MATLAB")
+        aourcecode8 = SourceCodeReport(sourceCodeTab, equation, 'MATLAB')
+        sourceCodeTab.AddPage(aourcecode8, "MATLAB")
 
 
 

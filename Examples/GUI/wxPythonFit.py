@@ -110,10 +110,9 @@ class ApplicationFrame(wx.Frame):
             self.fittingWorkerThread = None
             self.equation = event.data
             
-            # give user a moment to see the final status
-            wx.FutureCall(2000, self.btnFit2D.Enable)
-            wx.FutureCall(2000, self.btnFit3D.Enable)
-            wx.FutureCall(2000, self.statusBox.Hide)
+            self.btnFit2D.Enable()
+            self.btnFit3D.Enable()
+            self.statusBox.Hide()
             
             resultsDialog = CustomDialogs.ResultsDialog(self, '', "Fitting Results (resizable dialog)", equation=self.equation)
             resultsDialog.Show()

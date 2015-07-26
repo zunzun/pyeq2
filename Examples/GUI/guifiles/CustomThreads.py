@@ -1,3 +1,6 @@
+
+# see the included wxThreadExample.py file
+
 import os, sys, time, threading
 import wx
 import CustomEvents
@@ -10,8 +13,6 @@ if pyeq2IimportDirectory not in sys.path:
     sys.path.append(pyeq2IimportDirectory)
     
 import pyeq2
-
-# see the included wxThreadExample.py file
 
 
 class FittingThread(threading.Thread):
