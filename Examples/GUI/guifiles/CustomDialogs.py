@@ -238,6 +238,28 @@ class PanelContainingOneGraphReport(wx.Panel):
 
 
 
+class Report_AbsoluteErrorHistogram(PanelContainingOneGraphReport):
+    def draw(self, equation):
+        if not self.parent.abs_error:
+            self.parent.abs_error = equation.modelAbsoluteError
+        bincount = len(self.parent.abs_error)/2
+        if bincount < 5:
+            bincount = 5
+        if bincount > 25:
+            bincount = 25
+        n, bins, patches = self.axes.hist(self.parent.abs_error, bincount, rwidth=0.8)
+        
+        # some axis space at the top of the graph
+        ylim = self.axes.get_ylim()
+        if ylim[1] == max(n):
+            self.axes.set_ylim(0.0, ylim[1] + 1)
+
+        self.axes.set_title('Abs Error Hist') # add a title
+        self.axes.set_xlabel('Absolute Error') # X axis data label
+        self.axes.set_ylabel(" Frequency") # Y axis label is always frequency
+
+
+
 class Report_AbsoluteErrorGraph(PanelContainingOneGraphReport):
     def draw(self, equation):
         if not self.parent.dep_data:
@@ -251,7 +273,29 @@ class Report_AbsoluteErrorGraph(PanelContainingOneGraphReport):
         else:
             self.axes.set_title('Absolute Error vs. Z Data') # add a title
             self.axes.set_xlabel('Z Data') # X axis data label
-        self.axes.set_ylabel(" Absolute Error") # Y axis label is always is absolute error
+        self.axes.set_ylabel(" Absolute Error") # Y axis label is always absolute error
+
+
+
+class Report_PercentErrorHistogram(PanelContainingOneGraphReport):
+    def draw(self, equation):
+        if not self.parent.per_error:
+            self.parent.per_error = equation.modelPercentError
+        bincount = len(self.parent.per_error)/2
+        if bincount < 5:
+            bincount = 5
+        if bincount > 25:
+            bincount = 25
+        n, bins, patches = self.axes.hist(self.parent.per_error, bincount, rwidth=0.8)
+        
+        # some axis space at the top of the graph
+        ylim = self.axes.get_ylim()
+        if ylim[1] == max(n):
+            self.axes.set_ylim(0.0, ylim[1] + 1)
+
+        self.axes.set_title('Per Error Hist') # add a title
+        self.axes.set_xlabel('APercent Error') # X axis data label
+        self.axes.set_ylabel(" Frequency") # Y axis label is always frequency
 
 
 
@@ -268,7 +312,7 @@ class Report_PercentErrorGraph(PanelContainingOneGraphReport):
         else:
             self.axes.set_title('APercent Error vs. Z Data') # add a title
             self.axes.set_xlabel('Z Data') # X axis data label
-        self.axes.set_ylabel(" Percent Error") # Y axis label is always is percent error
+        self.axes.set_ylabel(" Percent Error") # Y axis label is always percent error
 
 
 
@@ -421,11 +465,20 @@ class TopLevelResultsNotebook(wx.Notebook):
         absoluteErrorGraph = Report_AbsoluteErrorGraph(graphReportsTab)
         absoluteErrorGraph.draw(equation)
         graphReportsTab.AddPage(absoluteErrorGraph, "Absolute Error")
-    
-        percentErrorGraph = Report_PercentErrorGraph(graphReportsTab)
-        percentErrorGraph.draw(equation)
-        graphReportsTab.AddPage(percentErrorGraph, "Percent Error")
-        
+
+        absoluteErrorHistogram = Report_AbsoluteErrorHistogram(graphReportsTab)
+        absoluteErrorHistogram.draw(equation)
+        graphReportsTab.AddPage(absoluteErrorHistogram, "Absolute Error Histogram")
+
+        if equation.dataCache.DependentDataContainsZeroFlag != 1:
+            percentErrorGraph = Report_PercentErrorGraph(graphReportsTab)
+            percentErrorGraph.draw(equation)
+            graphReportsTab.AddPage(percentErrorGraph, "Percent Error")
+     
+            percentErrorHistogram = Report_PercentErrorHistogram(graphReportsTab)
+            percentErrorHistogram.draw(equation)
+            graphReportsTab.AddPage(percentErrorHistogram, "Percent Error Histogram")
+       
         textReportsTab = wx.Notebook(self)
         self.AddPage(textReportsTab, "Text Reports")
         
