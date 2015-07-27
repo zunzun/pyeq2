@@ -123,7 +123,7 @@ class SourceCodeReport(wx.Panel):
 
 
 
-class AbsoluteErrorStatisticsReport(wx.Panel):
+class DataArrayStatisticsReport(wx.Panel):
     def __init__(self, parent, titleString, tempdata):
         wx.Panel.__init__(self, parent=parent, id=wx.ID_ANY)
         
@@ -488,9 +488,13 @@ class TopLevelResultsNotebook(wx.Notebook):
         textReport2 = CoefficientsReport(textReportsTab, equation)
         textReportsTab.AddPage(textReport2, "Coefficient Listing")
         
-        textReport3 = AbsoluteErrorStatisticsReport(textReportsTab, 'Absolute Error Statistics', equation.modelAbsoluteError)
+        textReport3 = DataArrayStatisticsReport(textReportsTab, 'Absolute Error Statistics', equation.modelAbsoluteError)
         textReportsTab.AddPage(textReport3, "Absolute Error Statistics")
         
+        if equation.dataCache.DependentDataContainsZeroFlag != 1:
+            textReport4 = DataArrayStatisticsReport(textReportsTab, 'Percent Error Statistics', equation.modelPercentError)
+            textReportsTab.AddPage(textReport4, "Percent Error Statistics")
+
         sourceCodeTab = wx.Notebook(self)
         self.AddPage(sourceCodeTab, "Source Code")
 
