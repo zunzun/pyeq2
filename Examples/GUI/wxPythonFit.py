@@ -1,4 +1,4 @@
-import os, sys
+import os, sys, cPickle
 
 import wx # ensure this import works before starting the application
 import matplotlib # ensure this import works before starting the application
@@ -108,14 +108,20 @@ class ApplicationFrame(wx.Frame):
             self.statusBox.text.AppendText(event.data + "\n")
         else: # not string data type, the worker thread completed
             self.fittingWorkerThread = None
-            self.equation = event.data
+            
+            # event.data will be the fitted equation
+            pickledEquationFile = open("pickledEquationFile", "wb")
+            cPickle.dump(event.data, pickledEquationFile)
+            pickledEquationFile.close()
             
             self.btnFit2D.Enable()
             self.btnFit3D.Enable()
             self.statusBox.Hide()
-            
-            resultsDialog = CustomDialogs.ResultsDialog(self, '', "Fitting Results (resizable dialog)", equation=self.equation)
-            resultsDialog.Show()
+
+            currentDirectory = os.path.dirname(os.path.abspath(__file__))
+            dialogDirectory = os.path.join(currentDirectory, 'guifiles')
+            commandString = os.path.join(dialogDirectory, 'CustomDialogs.py')
+            os.popen(sys.executable + ' ' + commandString)
 
 
     def OnFit2D(self, evt):

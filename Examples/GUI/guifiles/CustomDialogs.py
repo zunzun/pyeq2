@@ -525,11 +525,11 @@ class TopLevelResultsNotebook(wx.Notebook):
 
 
 # see the included wxNestedTabsExample.py file
-class ResultsDialog(wx.Dialog):
+class ResultsFrame(wx.Frame):
     def __init__(self, parent, msg, caption,
                  pos=wx.DefaultPosition, size=(900,700),
                  style=wx.DEFAULT_DIALOG_STYLE | wx.RESIZE_BORDER, equation=None):
-        wx.Dialog.__init__(self, parent, -1, caption, pos, size, style)
+        wx.Frame.__init__(self, parent, -1, caption, pos, size, style)
         self.CenterOnParent()
 
         panel = wx.Panel(self)
@@ -550,3 +550,16 @@ class StatusDialog(wx.Dialog):
         wx.Dialog.__init__(self, parent, -1, caption, pos, size, style)
         self.CenterOnParent()
         self.text = wx.TextCtrl(self, -1, msg, style=wx.TE_MULTILINE | wx.TE_READONLY)
+
+
+
+if __name__ == "__main__":
+    app = wx.App()
+    import cPickle
+    f = open("pickledEquationFile", "rb")
+    unPickledEquation = cPickle.load(f)
+    f.close()
+    os.remove("pickledEquationFile")
+    resultsFrame = ResultsFrame(None, '', "Fitting Results (resizable dialog)", equation=unPickledEquation)
+    resultsFrame.Show()
+    app.MainLoop()
