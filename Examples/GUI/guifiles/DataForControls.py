@@ -36,6 +36,7 @@ Paste your own 3D data here
 """
 
 fittingTargetList = ['Lowest Sum Of Squared Absolute Error (SSQABS)',
+                     'Lowest Sum Of Squared Log[Pred/Actual] (LNQREL)',
                      'Lowest Sum Of Squared Relative Error (SSQREL)',
                      'Lowest Sum Of Squared Orthogonal Distance (ODR)',
                      'Lowest Akaike Information Criterion (AIC)',

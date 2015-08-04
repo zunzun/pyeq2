@@ -67,6 +67,7 @@ Example 2D data for testing
 </td>
 <td align="left">
 <input type="radio" name="target" value="SSQABS" checked>Lowest Sum Of Squared Absolute Error<br>
+<input type="radio" name="target" value="LNQREL">Lowest Sum Of Squared Log[Pred/Actual]<br>
 <input type="radio" name="target" value="SSQREL">Lowest Sum Of Squared Relative Error<br>
 <input type="radio" name="target" value="ODR">Lowest Sum Of Squared Orthogonal Distance<br>
 </td>
@@ -120,6 +121,7 @@ Example 3D data for testing
 </td>
 <td align="left">
 <input type="radio" name="target" value="SSQABS" checked>Lowest Sum Of Squared Absolute Error<br>
+<input type="radio" name="target" value="LNQREL">Lowest Sum Of Squared Log[Pred/Actual]<br>
 <input type="radio" name="target" value="SSQREL">Lowest Sum Of Squared Relative Error<br>
 <input type="radio" name="target" value="ODR">Lowest Sum Of Squared Orthogonal Distance<br>
 </td>

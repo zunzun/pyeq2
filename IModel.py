@@ -52,6 +52,7 @@ class IModel(object):
                                'SSQREL': 'sum of squared relative error',
                                'ODR':    'sum of squared orthogonal distance',
                                'ABSABS': 'sum of absolute value of absolute error',
+                               'LNQREL': 'sum of squared log[predicted/actual]',
                                'ABSREL': 'sum of absolute value of relative error',
                                'PEAKABS':'peak absolute value of absolute error',
                                'PEAKREL':'peak absolute value of relative error',
@@ -483,6 +484,17 @@ class IModel(object):
                     
             if self.fittingTarget == "ABSABS":
                 val = numpy.sum(numpy.abs(error))
+                if numpy.isfinite(val):
+                    return val
+                else:
+                    return 1.0E300
+                    
+            # see http://papers.ssrn.com/sol3/papers.cfm?abstract_id=2635088
+            if self.fittingTarget == "LNQREL":
+                
+                Q = self.modelPredictions / self.dataCache.allDataCacheDictionary['DependentData']
+                sumsqlogQ = numpy.sum(numpy.square(numpy.log(Q)))
+                val = sumsqlogQ
                 if numpy.isfinite(val):
                     return val
                 else:
