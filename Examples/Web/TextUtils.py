@@ -1,4 +1,5 @@
 import os, sys
+import scipy
 
 # ensure pyeq2 can be imported
 if -1 != sys.path[0].find('pyeq2-master'):raise Exception('Please rename git checkout directory from "pyeq2-master" to "pyeq2"')
@@ -8,6 +9,66 @@ if pyeq2IimportDirectory not in sys.path:
     sys.path.append(pyeq2IimportDirectory)
 
 import pyeq2
+
+
+def DataArrayStatistics(inArray):
+    returnString = '' # uild this as we progress
+    
+    # must at least have max and min
+    minData = min(inArray)
+    maxData = max(inArray)
+    
+    if maxData == minData:
+        returnString += 'All data has the same value,\n'
+        returnString += "value = %-.16E\n" % (minData)
+        returnString += 'statistics cannot be calculated.'
+    else:
+        returnString += "max = %-.16E\n" % (maxData)
+        returnString += "min = %-.16E\n" % (minData)
+        
+        try:
+            temp = scipy.mean(inArray)
+            returnString += "mean = %-.16E\n" % (temp)
+        except:
+            returnString += "mean gave error in calculation\n"
+
+        try:
+            temp = scipy.stats.sem(inArray)
+            returnString += "standard error of mean = %-.16E\n" % (temp)
+        except:
+            returnString += "standard error of mean gave error in calculation\n"
+
+        try:
+            temp = scipy.median(inArray)
+            returnString += "median = %-.16E\n" % (temp)
+        except:
+            returnString += "median gave error in calculation\n"
+
+        try:
+            temp = scipy.var(inArray)
+            returnString += "variance = %-.16E\n" % (temp)
+        except:
+            returnString += "variance gave error in calculation\n"
+
+        try:
+            temp = scipy.std(inArray)
+            returnString += "std. deviation = %-.16E\n" % (temp)
+        except:
+            returnString += "std. deviation gave error in calculation\n"
+
+        try:
+            temp = scipy.stats.skew(inArray)
+            returnString += "skew = %-.16E\n" % (temp)
+        except:
+            returnString += "skew gave error in calculation\n"
+
+        try:
+            temp = scipy.stats.kurtosis(inArray)
+            returnString += "kurtosis = %-.16E\n" % (temp)
+        except:
+            returnString += "kurtosis gave error in calculation\n"
+    
+    return returnString
 
 
 def SaveCoefficientAndFitStatistics(in_filePathFitStatistics, in_equation):
@@ -62,7 +123,6 @@ def SaveCoefficientAndFitStatistics(in_filePathFitStatistics, in_equation):
     else:
         outputFile.write('Model BIC: ' + str(in_equation.bic) + '\n')
     
-    
     outputFile.write('\n')
     outputFile.write("Individual Parameter Statistics:\n")
     for i in range(len(in_equation.solvedCoefficients)):
@@ -81,13 +141,25 @@ def SaveCoefficientAndFitStatistics(in_filePathFitStatistics, in_equation):
         else:
             outputFile.write("Coefficient %s = %-.16E, std error: n/a\n" % (in_equation.GetCoefficientDesignators()[i], in_equation.solvedCoefficients[i]))
         outputFile.write("          t-stat: %s, p-stat: %s, 95 percent confidence intervals: [%-.5E, %-.5E]\n" % (tstat,  pstat, in_equation.ci[i][0], in_equation.ci[i][1]))
-    
-    
+        
     outputFile.write('\n')
     outputFile.write("Coefficient Covariance Matrix:\n")
     for i in  in_equation.cov_beta:
         outputFile.write(str(i) + '\n')
     
+    # absolute error statistics
+    outputFile.write('\n\n\n')
+    outputFile.write('Absolute Error Statistics:\n')
+    outputFile.write(DataArrayStatistics(in_equation.modelAbsoluteError))
+    
+    if in_equation.dataCache.DependentDataContainsZeroFlag == 1:
+        outputFile.write('\n\n\n')
+        outputFile.write('Percent Error Statistics cannot be calculated, as\ndependent data contains at least one value of exactly zero.\n')
+    else:
+        outputFile.write('\n\n\n')
+        outputFile.write('Percent Error Statistics:\n')
+        outputFile.write(DataArrayStatistics(in_equation.modelPercentError))
+        
     outputFile.close()
 
 

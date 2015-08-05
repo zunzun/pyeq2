@@ -170,7 +170,7 @@ def SavePercentErrorScatterPlot(in_filePath, in_equation, in_title, in_xAxisLabe
     
     ax.set_title(in_title) # add a title
     ax.set_xlabel(in_xAxisLabel) # X axis data label
-    ax.set_ylabel(" Percent Error") # Y axis label is always is absolute error
+    ax.set_ylabel(" Percent Error") # Y axis label is always is percent error
 
     plt.tight_layout() # prevents cropping axis labels
     fig.savefig(in_filePath) # create PNG file
