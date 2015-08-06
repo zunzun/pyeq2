@@ -14,6 +14,32 @@ import matplotlib.pyplot as plt
 import numpy, scipy, pyeq2
 
 
+def SaveDataHistogram(in_filePath, in_data, in_title):
+    
+    fig = plt.figure(figsize=(5, 4))
+    axes = fig.add_subplot(1,1,1)
+    
+    bincount = len(in_data)/2
+    if bincount < 5:
+        bincount = 5
+    if bincount > 25:
+        bincount = 25
+    n, bins, patches = axes.hist(in_data, bincount, rwidth=0.8)
+    
+    # some axis space at the top of the graph
+    ylim = axes.get_ylim()
+    if ylim[1] == max(n):
+        axes.set_ylim(0.0, ylim[1] + 1)
+    
+    axes.set_title(in_title + ' Histogram') # add a title
+    axes.set_xlabel(in_title) # X axis data label
+    axes.set_ylabel(" Frequency") # Y axis label is always frequency
+    
+    plt.tight_layout() # prevents cropping axis labels
+    fig.savefig(in_filePath) # create PNG file
+    plt.close('all')
+    
+
 def SaveModelScatterConfidence(in_filePath, in_equation, in_title, in_xAxisLabel, in_yAxisLabel):
     
     # raw data

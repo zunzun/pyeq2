@@ -186,29 +186,38 @@ def simplefitter_2D_NoFormDataValidation():
     equation.CalculateCoefficientAndFitStatistics()
 
     # save fit statistics to a text file
-    fitStatisticsFilePath = "static/fitstatistics_simplefitter_2D.txt" # simplefitter_2D
+    fitStatisticsFilePath = "static/fitstatistics_2D.txt" # simplefitter_2D
     TextUtils.SaveCoefficientAndFitStatistics(fitStatisticsFilePath,  equation)
 
     # save source code to a single text file, all available languages
-    sourceCodeFilePath = "static/sourcecode_simplefitter_2D.html" # simplefitter_2D
+    sourceCodeFilePath = "static/sourcecode_2D.html" # simplefitter_2D
     TextUtils.SaveSourceCode(sourceCodeFilePath,  equation)
 
     # create graph
-    graphFilePath = "static/model_and_scatterplot_simplefitter_2D.png" # simplefitter_2D
+    graphFilePath = "static/model_and_scatterplot_2D.png" # simplefitter_2D
     title = "Example Of An HTML FORM Model"
     xAxisLabel = "X data"
     yAxisLabel = "Y data"
     GraphUtils.SaveModelScatterConfidence(graphFilePath,
                                           equation, title, xAxisLabel, yAxisLabel) 
 
-    absErrorPlotFilePath = "static/abs_error_simplefitter_2D.png" # simplefitter_2D
+    absErrorPlotFilePath = "static/abs_error_2D.png" # simplefitter_2D
     title = "Absolute Error For An HTML FORM Model"
     GraphUtils.SaveAbsErrorScatterPlot(absErrorPlotFilePath, equation, title, yAxisLabel)
     
+    absErrorHistFilePath = "static/abs_error_hist_2D.png" # simplefitter_2D
+    title = "Absolute Error"
+    GraphUtils.SaveDataHistogram(absErrorHistFilePath, equation.modelAbsoluteError, title)
+    
     if equation.dataCache.DependentDataContainsZeroFlag != 1:
-        percentErrorPlotFilePath = "static/percent_error_simplefitter_2D.png" # simplefitter_2D
+        percentErrorPlotFilePath = "static/per_error_2D.png" # simplefitter_2D
         title = "Percent Error For An HTML FORM Model"
         GraphUtils.SavePercentErrorScatterPlot(percentErrorPlotFilePath, equation, title, yAxisLabel)
+        
+        perErrorHistFilePath = "static/per_error_hist_2D.png" # simplefitter_2D
+        title = "Percent Error"
+        GraphUtils.SaveDataHistogram(perErrorHistFilePath, equation.modelPercentError, title)
+
 
     # generate HTML
     htmlToReturn = ''
@@ -218,8 +227,11 @@ def simplefitter_2D_NoFormDataValidation():
     htmlToReturn += '<a href="' + sourceCodeFilePath + '">Link to source code, all available languages</a><br><br>\n'
     htmlToReturn +=  '<img src="' + graphFilePath + '"> <br>\n'
     htmlToReturn +=  '<img src="' + absErrorPlotFilePath + '"><br>\n'
+    htmlToReturn +=  '<img src="' + absErrorHistFilePath + '"><br>\n'
+    
     if equation.dataCache.DependentDataContainsZeroFlag != 1:
         htmlToReturn +=  '<img src="' + percentErrorPlotFilePath + '"><br><br>\n'
+        htmlToReturn +=  '<img src="' + perErrorHistFilePath + '"><br><br>\n'
 
     return '<html><body>' + htmlToReturn + '</body></html>'
 
@@ -265,11 +277,11 @@ def simplefitter_3D_NoFormDataValidation():
     equation.CalculateCoefficientAndFitStatistics()
 
     # save fit statistics to a text file
-    fitStatisticsFilePath = "static/fitstatistics_simplefitter_3D.txt" # simplefitter_3D
+    fitStatisticsFilePath = "static/fitstatistics_3D.txt" # simplefitter_3D
     TextUtils.SaveCoefficientAndFitStatistics(fitStatisticsFilePath,  equation)
 
     # save source code to a single text file, all available languages
-    sourceCodeFilePath = "static/sourcecode_simplefitter_3D.html" # simplefitter_3D
+    sourceCodeFilePath = "static/sourcecode_3D.html" # simplefitter_3D
     TextUtils.SaveSourceCode(sourceCodeFilePath,  equation)
 
     # create graphs
@@ -285,14 +297,22 @@ def simplefitter_3D_NoFormDataValidation():
                                       equation, surfaceTitle, contourTitle,
                                       xAxisLabel, yAxisLabel, zAxisLabel)
 
-    absErrorPlotFilePath = "static/abs_error_simplefitter_3D.png" # simplefitter_3D
+    absErrorPlotFilePath = "static/abs_error_3D.png" # simplefitter_3D
     title = "Absolute Error For An HTML FORM Model"
     GraphUtils.SaveAbsErrorScatterPlot(absErrorPlotFilePath, equation, title, zAxisLabel)
 
+    absErrorHistFilePath = "static/abs_error_hist_3D.png" # simplefitter_3D
+    title = "Absolute Error"
+    GraphUtils.SaveDataHistogram(absErrorHistFilePath, equation.modelAbsoluteError, title)
+
     if equation.dataCache.DependentDataContainsZeroFlag != 1:
-        percentErrorPlotFilePath = "static/percent_error_simplefitter_3D.png" # simplefitter_3D
+        perErrorPlotFilePath = "static/per_error_3D.png" # simplefitter_3D
         title = "Percent Error For An HTML FORM Model"
-        GraphUtils.SavePercentErrorScatterPlot(percentErrorPlotFilePath, equation, title, zAxisLabel)
+        GraphUtils.SavePercentErrorScatterPlot(perErrorPlotFilePath, equation, title, zAxisLabel)
+        
+        perErrorHistFilePath = "static/per_error_hist_3D.png" # simplefitter_3D
+        title = "Percent Error"
+        GraphUtils.SaveDataHistogram(perErrorHistFilePath, equation.modelPercentError, title)
 
     # generate HTML
     htmlToReturn = ''
@@ -303,8 +323,10 @@ def simplefitter_3D_NoFormDataValidation():
     htmlToReturn +=  '<img src="' + graphFilePath_Surface + '"><br><br>\n'
     htmlToReturn +=  '<img src="' + graphFilePath_Contour + '"><br><br>\n'
     htmlToReturn +=  '<img src="' + absErrorPlotFilePath + '"><br><br>\n'
+    htmlToReturn +=  '<img src="' + absErrorHistFilePath + '"><br><br>\n'
     if equation.dataCache.DependentDataContainsZeroFlag != 1:
-        htmlToReturn +=  '<img src="' + percentErrorPlotFilePath + '"><br><br>\n'
+        htmlToReturn +=  '<img src="' + perErrorPlotFilePath + '"><br><br>\n'
+        htmlToReturn +=  '<img src="' + perErrorHistFilePath + '"><br><br>\n'
 
     return '<html><body>' + htmlToReturn + '</body></html>'
 
