@@ -335,6 +335,8 @@ def simplefitter_3D_NoFormDataValidation():
 @app.route('/equationlist_2D', methods=['GET'])
 def equationlist_2D():
     htmlToReturn = '' # build this as we progress
+
+    htmlToReturn += '<table border=1>'
     
     for submodule in inspect.getmembers(pyeq2.Models_2D):
         if inspect.ismodule(submodule[1]):
@@ -345,13 +347,22 @@ def equationlist_2D():
                             continue
     
                         equation = equationClass[1]('SSQABS', extendedVersionName)
-                        htmlToReturn += '2D ' + submodule[0] + ' --- ' + equation.GetDisplayName() + '<br>\n'
+                        htmlToReturn += '<tr>'
+                        htmlToReturn += '<td nowrap>2D ' + submodule[0] + '</td>'
+                        htmlToReturn += '<td nowrap>' + equation.GetDisplayName() + '</td>'
+                        htmlToReturn += '<td nowrap>' + equation.GetDisplayHTML() + '</td>'
+                        htmlToReturn += '</tr>'
+                        
+    htmlToReturn += '</table>'
+                        
     return '<html><body>' + htmlToReturn + '</body></html>'
 
 
 @app.route('/equationlist_3D', methods=['GET'])
 def equationlist_3D():
     htmlToReturn = '' # build this as we progress
+    
+    htmlToReturn += '<table border=1>'
     
     for submodule in inspect.getmembers(pyeq2.Models_3D):
         if inspect.ismodule(submodule[1]):
@@ -362,7 +373,14 @@ def equationlist_3D():
                             continue
     
                         equation = equationClass[1]('SSQABS', extendedVersionName)
-                        htmlToReturn += '3D ' + submodule[0] + ' --- ' + equation.GetDisplayName() + '<br>\n'
+                        htmlToReturn += '<tr>'
+                        htmlToReturn += '<td nowrap>3D ' + submodule[0] + '</td>'
+                        htmlToReturn += '<td nowrap>' + equation.GetDisplayName() + '</td>'
+                        htmlToReturn += '<td nowrap>' + equation.GetDisplayHTML() + '</td>'
+                        htmlToReturn += '</tr>'
+                        
+    htmlToReturn += '</table>'
+
     return '<html><body>' + htmlToReturn + '</body></html>'
 
 
