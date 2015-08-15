@@ -1,5 +1,5 @@
-import os, sys
-import  wx
+import os, sys, inspect
+import  wx, wx.html
 import numpy, scipy
 
 from matplotlib.backends.backend_wxagg import FigureCanvasWxAgg as FigureCanvas
@@ -120,6 +120,51 @@ class SourceCodeReport(wx.Panel):
 
         self.SetSizer(sizer)
         self.Fit()
+
+
+
+class EquationListReport(wx.Panel):
+    def __init__(self, parent, dimension):
+        wx.Panel.__init__(self, parent=parent, id=wx.ID_ANY)
+        
+        htmDisplay = wx.html.HtmlWindow(self)
+        htmDisplay.SetPage(self.CreateEquationlist(dimension))
+
+        sizer = wx.BoxSizer()
+        sizer.Add(htmDisplay, 1, wx.EXPAND)
+
+        self.SetSizer(sizer)
+        self.Fit()
+
+
+    def CreateEquationlist(self, dim):
+        htmlToReturn = '' # build this as we progress
+        
+        if dim == 2:
+            module = pyeq2.Models_2D
+        else:
+            module = pyeq2.Models_3D
+            
+        htmlToReturn += '<table border=1>'
+        
+        for submodule in inspect.getmembers(module):
+            if inspect.ismodule(submodule[1]):
+                for equationClass in inspect.getmembers(submodule[1]):
+                    if inspect.isclass(equationClass[1]):
+                        for extendedVersionName in ['Default', 'Offset']:
+                            if (-1 != extendedVersionName.find('Offset')) and (equationClass[1].autoGenerateOffsetForm == False):
+                                continue
+        
+                            equation = equationClass[1]('SSQABS', extendedVersionName)
+                            htmlToReturn += '<tr>'
+                            htmlToReturn += '<td nowrap>' + str(dim) + 'D ' + submodule[0] + '</td>'
+                            htmlToReturn += '<td nowrap>' + equation.GetDisplayName() + '</td>'
+                            htmlToReturn += '<td nowrap>' + equation.GetDisplayHTML() + '</td>'
+                            htmlToReturn += '</tr>'
+                            
+        htmlToReturn += '</table>'
+        
+        return htmlToReturn
 
 
 
@@ -498,29 +543,34 @@ class TopLevelResultsNotebook(wx.Notebook):
         sourceCodeTab = wx.Notebook(self)
         self.AddPage(sourceCodeTab, "Source Code")
 
-        aourcecode1 = SourceCodeReport(sourceCodeTab, equation, 'CPP')
-        sourceCodeTab.AddPage(aourcecode1, "C++")
+        sourcecode1 = SourceCodeReport(sourceCodeTab, equation, 'CPP')
+        sourceCodeTab.AddPage(sourcecode1, "C++")
 
-        aourcecode2 = SourceCodeReport(sourceCodeTab, equation, 'CSHARP')
-        sourceCodeTab.AddPage(aourcecode2, "CSHARP")
+        sourcecode2 = SourceCodeReport(sourceCodeTab, equation, 'CSHARP')
+        sourceCodeTab.AddPage(sourcecode2, "CSHARP")
     
-        aourcecode3 = SourceCodeReport(sourceCodeTab, equation, 'VBA')
-        sourceCodeTab.AddPage(aourcecode3, "VBA")
+        sourcecode3 = SourceCodeReport(sourceCodeTab, equation, 'VBA')
+        sourceCodeTab.AddPage(sourcecode3, "VBA")
     
-        aourcecode4 = SourceCodeReport(sourceCodeTab, equation, 'PYTHON')
-        sourceCodeTab.AddPage(aourcecode4, "PYTHON")
+        sourcecode4 = SourceCodeReport(sourceCodeTab, equation, 'PYTHON')
+        sourceCodeTab.AddPage(sourcecode4, "PYTHON")
     
-        aourcecode5 = SourceCodeReport(sourceCodeTab, equation, 'JAVA')
-        sourceCodeTab.AddPage(aourcecode5, "JAVA")
+        sourcecode5 = SourceCodeReport(sourceCodeTab, equation, 'JAVA')
+        sourceCodeTab.AddPage(sourcecode5, "JAVA")
     
-        aourcecode6 = SourceCodeReport(sourceCodeTab, equation, 'JAVASCRIPT')
-        sourceCodeTab.AddPage(aourcecode6, "JAVASCRIPT")
+        sourcecode6 = SourceCodeReport(sourceCodeTab, equation, 'JAVASCRIPT')
+        sourceCodeTab.AddPage(sourcecode6, "JAVASCRIPT")
     
-        aourcecode7 = SourceCodeReport(sourceCodeTab, equation, 'SCILAB')
-        sourceCodeTab.AddPage(aourcecode7, "SCILAB")
+        sourcecode7 = SourceCodeReport(sourceCodeTab, equation, 'SCILAB')
+        sourceCodeTab.AddPage(sourcecode7, "SCILAB")
     
-        aourcecode8 = SourceCodeReport(sourceCodeTab, equation, 'MATLAB')
-        sourceCodeTab.AddPage(aourcecode8, "MATLAB")
+        sourcecode8 = SourceCodeReport(sourceCodeTab, equation, 'MATLAB')
+        sourceCodeTab.AddPage(sourcecode8, "MATLAB")
+
+        # equation list
+        dim = equation.GetDimensionality()
+        equationList = EquationListReport(self, dim)
+        self.AddPage(equationList, "List Of Standard " + str(dim) + "D Equations")
 
 
 
