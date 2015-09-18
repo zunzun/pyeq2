@@ -38,13 +38,13 @@ for modelsTypeName in ['Models_2D', 'Models_3D']:
                             continue
                         
                         equationInstance = equationClass[1]('SSQABS', extendedVersionString)
-                        moduleName = equationInstance.__class__.__module__
+                        moduleName = equationInstance.__class__.__module__.split('.')[-1]
                         className = equationInstance.__class__.__name__
                         if (extendedVersionString == 'Offset'):
                             className += '_WithOffset'
-                        modelsFile.write('exports.' + className + ' = module.exports.' + className + ''' = {
+                        modelsFile.write('exports.' + moduleName + "__" + className + ' = module.exports.' + moduleName + "__" + className + ''' = {
     pythonModuleName : "''' + moduleName + '''",
-    pythonClassName : "''' + className + '''",
+    pythonClassName : "''' + equationClass[0] + '''",
     extendedVersionString : "''' + extendedVersionString + '''",
     displayName : "''' + equationInstance.GetDisplayName() + '''",
     displayHTML : "''' + equationInstance.GetDisplayHTML() + '''",
