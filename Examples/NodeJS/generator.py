@@ -20,6 +20,10 @@ for modelsTypeName in ['Models_2D', 'Models_3D']:
     exec('models = pyeq2.' + modelsTypeName)
     for submodule in inspect.getmembers(models):
         if inspect.ismodule(submodule[1]):
+
+            moduleName = submodule[0].split('.')[-1]
+            modelsFile.write('\nexports.' + moduleName + ' = module.exports.' + moduleName + ' = {};\n\n')
+            
             for equationClass in inspect.getmembers(submodule[1]):
                 if inspect.isclass(equationClass[1]):
                     
@@ -38,11 +42,10 @@ for modelsTypeName in ['Models_2D', 'Models_3D']:
                             continue
                         
                         equationInstance = equationClass[1]('SSQABS', extendedVersionString)
-                        moduleName = equationInstance.__class__.__module__.split('.')[-1]
                         className = equationInstance.__class__.__name__
                         if (extendedVersionString == 'Offset'):
                             className += '_WithOffset'
-                        modelsFile.write('exports.' + moduleName + "__" + className + ' = module.exports.' + moduleName + "__" + className + ''' = {
+                        modelsFile.write('exports.' + moduleName + "." + className + ' = module.exports.' + moduleName + "." + className + ''' = {
     pythonModuleName : "''' + moduleName + '''",
     pythonClassName : "''' + equationClass[0] + '''",
     extendedVersionString : "''' + extendedVersionString + '''",
