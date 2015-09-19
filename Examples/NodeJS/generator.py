@@ -50,7 +50,7 @@ for modelsTypeName in ['Models_2D', 'Models_3D']:
     pythonClassName : "''' + equationClass[0] + '''",
     extendedVersionString : "''' + extendedVersionString + '''",
     displayName : "''' + equationInstance.GetDisplayName() + '''",
-    displayHTML : "''' + equationInstance.GetDisplayHTML() + '''",
+    dimensionality : ''' + str(equationInstance.GetDimensionality()) + ''',
     numberOfParameters : ''' + str(len(equationInstance.GetCoefficientDesignators())) + '''
 };
 

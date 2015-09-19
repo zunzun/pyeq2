@@ -3,7 +3,7 @@ models_2D = require("./Models_2D.js");
 
 equationInfo = models_2D.Polynomial.Linear;
 
-console.log(equationInfo);
+fittingTarget = 'SSQABS' // could be ODR, SSQREL, etc.
 
 var textData = "" +
 "  X        Y \n" +
@@ -19,4 +19,30 @@ var textData = "" +
 " 9.769    17.068 \n" +
 " 9.861    17.104 \n";
 
-console.log(textData);
+////////////////////////////////////////////////
+////////////////////////////////////////////////
+
+// see https://github.com/extrabacon/python-shell
+var PythonShell = require('python-shell');
+
+var options = {
+  mode: 'json', // use JSON for communications
+  pythonPath: '', // use system default python executable in this example
+  pythonOptions: ['-u'], // the "-u" invokes unbuffered stdin and stdout
+  scriptPath: '.', //path to the example python interface file
+  
+  // call the python interface file with these arguments
+  args: [JSON.stringify(equationInfo),
+         JSON.stringify(textData),
+         JSON.stringify(fittingTarget)
+         ]
+};
+
+console.log('Calling PythonShell.run()');
+PythonShell.run('interface.py', options, function (err, results) {
+
+  if (err) throw err; // rethrow any exception from python
+
+  // results is an array consisting of messages collected during execution
+  console.log('fitted coefficients: %j', results);
+});
