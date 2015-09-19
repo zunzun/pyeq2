@@ -44,5 +44,7 @@ PythonShell.run('interface.py', options, function (err, results) {
   if (err) throw err; // rethrow any exception from python
 
   // results is an array consisting of messages collected during execution
-  console.log('fitted coefficients: %j', results);
+  console.log('fitted coefficients:\n%j\n', results[0]);
+  console.log('pyeq2-generated javascript code:\n%j\n', results[1]);
+
 });

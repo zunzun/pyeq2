@@ -33,3 +33,4 @@ pyeq2.dataConvertorService().ConvertAndSortColumnarASCII(textDataFromNodeJS, equ
 equation.Solve()
 
 print json.dumps(equation.solvedCoefficients.tolist())
+print(json.dumps(pyeq2.outputSourceCodeService().GetOutputSourceCodeJAVASCRIPT(equation)))
