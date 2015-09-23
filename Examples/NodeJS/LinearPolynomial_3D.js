@@ -1,7 +1,7 @@
 
-models_2D = require("./Models_2D.js");
+models_3D = require("./Models_3D.js");
 
-equationInfo = models_2D.Polynomial.Linear;
+equationInfo = models_3D.Polynomial.Linear;
 
 fittingTarget = 'SSQABS' // could be ODR, SSQREL, etc.
 
