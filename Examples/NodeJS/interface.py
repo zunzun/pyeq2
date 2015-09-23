@@ -32,5 +32,7 @@ exec(eqStringToEvaluate)
 pyeq2.dataConvertorService().ConvertAndSortColumnarASCII(textDataFromNodeJS, equation, False)
 equation.Solve()
 
+# output could include data statistics, error statistics, fit
+# and coefficients statistics, etc. from the other Python examples
 print json.dumps(equation.solvedCoefficients.tolist())
 print(json.dumps(pyeq2.outputSourceCodeService().GetOutputSourceCodeJAVASCRIPT(equation)))
