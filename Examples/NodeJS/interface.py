@@ -1,5 +1,12 @@
 import os, sys, json
 
+# we want *exceptions* but not *warnings* from the optimizers
+# to be propagated back to javascript.  Ignore only optimizer warnings
+import warnings
+from scipy.optimize import OptimizeWarning
+warnings.simplefilter("ignore", OptimizeWarning)
+
+
 # ensure pyeq2 can be imported
 if -1 != sys.path[0].find('pyeq2-master'):raise Exception('Please rename git checkout directory from "pyeq2-master" to "pyeq2"')
 exampleFileDirectory = sys.path[0][:sys.path[0].rfind(os.sep)]
@@ -30,6 +37,7 @@ eqStringToEvaluate += '"' + extendedVersionString + '")'
 exec(eqStringToEvaluate)
 
 pyeq2.dataConvertorService().ConvertAndSortColumnarASCII(textDataFromNodeJS, equation, False)
+
 equation.Solve()
 
 # output could include data statistics, error statistics, fit
