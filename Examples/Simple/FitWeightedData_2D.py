@@ -31,7 +31,9 @@ data = '''
 9.769    17.068     0.1
 9.861    17.104     0.1
 '''
-pyeq2.dataConvertorService().ConvertAndSortColumnarASCII(data, equation, True) # Note the True flag here, reads in weights
+
+# Note the True flag here, reads in weights
+pyeq2.dataConvertorService().ConvertAndSortColumnarASCII(data, equation, True)
 equation.Solve()
 
 
