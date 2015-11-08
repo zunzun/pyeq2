@@ -798,13 +798,13 @@ equation with an offset will reveal the bias.'''
 
 # HTML and image  generation
 htmlInfo = []
-#htmlInfo.append( Outlier_A() )
-#htmlInfo.append( Outlier_B() )
-#htmlInfo.append( ParallelData_A() )
-#htmlInfo.append( LargeStep_A() )
-#htmlInfo.append( PoorlyDefined_A() )
-#htmlInfo.append( MissingOffset_A() )
-#htmlInfo.append( Scatter_A() )
+htmlInfo.append( Outlier_A() )
+htmlInfo.append( Outlier_B() )
+htmlInfo.append( ParallelData_A() )
+htmlInfo.append( LargeStep_A() )
+htmlInfo.append( PoorlyDefined_A() )
+htmlInfo.append( MissingOffset_A() )
+htmlInfo.append( Scatter_A() )
 htmlInfo.append( RandomData_A() )
 
 # individual HTML files
