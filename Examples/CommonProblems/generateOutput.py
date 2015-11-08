@@ -634,6 +634,11 @@ random data that has no relationship of any kind.'''
     randomArrayY = numpy.random.random_sample(195)
     equation.dataCache.allDataCacheDictionary['Weights'] = []
     
+    # ensure a X data range for the graph, as on
+    # all other plots the X data range is constant
+    randomArrayX[0] = 0.001
+    randomArrayX[1] = 0.999
+    
     for i in range(0, 360):
         extraZerosString = ''
         if i < 100:
@@ -793,13 +798,13 @@ equation with an offset will reveal the bias.'''
 
 # HTML and image  generation
 htmlInfo = []
-htmlInfo.append( Outlier_A() )
-htmlInfo.append( Outlier_B() )
-htmlInfo.append( ParallelData_A() )
-htmlInfo.append( LargeStep_A() )
-htmlInfo.append( PoorlyDefined_A() )
-htmlInfo.append( MissingOffset_A() )
-htmlInfo.append( Scatter_A() )
+#htmlInfo.append( Outlier_A() )
+#htmlInfo.append( Outlier_B() )
+#htmlInfo.append( ParallelData_A() )
+#htmlInfo.append( LargeStep_A() )
+#htmlInfo.append( PoorlyDefined_A() )
+#htmlInfo.append( MissingOffset_A() )
+#htmlInfo.append( Scatter_A() )
 htmlInfo.append( RandomData_A() )
 
 # individual HTML files

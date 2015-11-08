@@ -7,9 +7,12 @@ encountered problems in curve fitting.
 A large number of animation frames are
 individually created, and this takes a
 long time to complete.  Pay close attention
-to how the 95% confidence intervals change
-as the animations run. Let me know if
-you have any questions.
+to how and where the 95% confidence intervals
+change as the animations run. Let me know if
+you have any questions by email to zunzun@zunzun.com
+or by posting to the user group at the URL
+https://groups.google.com/forum/#!forum/zunzun_dot_com
+
 
 Step 1: Install matplotlib, imagemagick and gifsicle
 
