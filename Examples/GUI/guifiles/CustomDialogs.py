@@ -561,11 +561,14 @@ class TopLevelResultsNotebook(wx.Notebook):
         sourcecode6 = SourceCodeReport(sourceCodeTab, equation, 'JAVASCRIPT')
         sourceCodeTab.AddPage(sourcecode6, "JAVASCRIPT")
     
-        sourcecode7 = SourceCodeReport(sourceCodeTab, equation, 'SCILAB')
-        sourceCodeTab.AddPage(sourcecode7, "SCILAB")
+        sourcecode7 = SourceCodeReport(sourceCodeTab, equation, 'JULIA')
+        sourceCodeTab.AddPage(sourcecode7, "JULIA")
     
-        sourcecode8 = SourceCodeReport(sourceCodeTab, equation, 'MATLAB')
-        sourceCodeTab.AddPage(sourcecode8, "MATLAB")
+        sourcecode8 = SourceCodeReport(sourceCodeTab, equation, 'SCILAB')
+        sourceCodeTab.AddPage(sourcecode8, "SCILAB")
+    
+        sourcecode9 = SourceCodeReport(sourceCodeTab, equation, 'MATLAB')
+        sourceCodeTab.AddPage(sourcecode9, "MATLAB")
 
         # equation list
         dim = equation.GetDimensionality()

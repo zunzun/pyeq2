@@ -47,7 +47,7 @@ class OutputSourceCodeService(object):
 
 
     def ConvertCppToVBA(self, inString):
-        newString = inString.replace(';', '')
+        newString = inString.replace(';', '') # no need for semicolons
         newString = newString.replace('double ', 'var ')
         newString = newString.replace('temp += ', 'temp = temp + ')
         newString = newString.replace('temp -= ', 'temp = temp - ')
@@ -66,7 +66,7 @@ class OutputSourceCodeService(object):
 
 
     def ConvertCppToPYTHON(self, inString):
-        newString = inString.replace(';', '')
+        newString = inString.replace(';', '') # no need for semicolons
         newString = newString.replace('double ', '')
         newString = newString.replace('abs(', 'math.fabs(')
         newString = newString.replace('pow(', 'math.pow(')
@@ -111,6 +111,13 @@ class OutputSourceCodeService(object):
         if newString[0] == '\t':
             newString = '\t' + newString
         newString = newString.replace('\n\t', '\n\t\t')
+        return newString
+
+
+    def ConvertCppToJULIA(self, inString):
+        newString = inString.replace(';', '') # no need for semicolons
+        newString = newString.replace('double ', '')
+        newString = newString.replace('//', "#") # comment token
         return newString
 
 
@@ -382,9 +389,44 @@ class OutputSourceCodeService(object):
         return s
 
 
+    def GetOutputSourceCodeJULIA(self, inEquation, inDigitsOfPrecisionString = '16'):
+        if inEquation.splineFlag == True:
+            raise NotImplementedError('Not implemented for splines')
+
+        s = self.ConvertCppToJULIA(cppOutputSourceCodeUpperComment)
+        s += '\n'
+        cppSourceCode = inEquation.extendedVersionHandler.AssembleOutputSourceCodeCPP(inEquation)
+        if -1 != cppSourceCode.find('pow('):
+            s += '#julia has no power function, only an operator, create\n'
+            s += '#a function for pyeq2 automated source code generation\n'
+            s += 'pow(x,y) = x ^ y\n'
+            s += '\n'
+        s += '# Fitting target: lowest ' + inEquation.fittingTargetDictionary[inEquation.fittingTarget] + '\n'
+        s += '# Fitting target value = ' + str(inEquation.CalculateAllDataFittingTarget(inEquation.solvedCoefficients)) + '\n\n'
+        if inEquation.GetDimensionality() == 2:
+            s += "function " + inEquation.extendedVersionHandler.AssembleSourceCodeName(inEquation) + "_model(x_in)\n"
+        else:
+            s += "function " + inEquation.extendedVersionHandler.AssembleSourceCodeName(inEquation) + "_model(x_in, y_in)\n"
+        s += "\ttemp = 0.0\n\n"
+
+        s += "\t# coefficients\n"
+        cd = inEquation.extendedVersionHandler.AssembleCoefficientDesignators(inEquation)
+        tempString = " = %-." + inDigitsOfPrecisionString + "E"
+        for i in range(len(cd)):
+            s += "\t" + cd[i] + tempString % (inEquation.solvedCoefficients[i]) + "\n"
+        s += "\n"
+
+        s += self.ConvertCppToJULIA(cppSourceCode)
+
+        s += "\nend\n"
+        return s
+
+
+
     ####################################################################################
     # spline code below this point
     ####################################################################################
+
 
 
     def SplineCodePYTHON_2D(self, inEquation):
