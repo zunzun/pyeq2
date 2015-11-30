@@ -219,6 +219,13 @@ def SaveSourceCode(in_sourceCodeFilePath,  in_equation):
         pass
 
     try:
+        outputFile.write('<b>FORTRAN90</b><br><textarea rows="20" cols="85" wrap="OFF">')
+        outputFile.write(pyeq2.outputSourceCodeService().GetOutputSourceCodeFORTRAN90(in_equation))
+        outputFile.write('</textarea><br><br>\n\n')
+    except:
+        pass
+
+    try:
         outputFile.write('<b>SCILAB</b><br><textarea rows="20" cols="85" wrap="OFF">')
         outputFile.write(pyeq2.outputSourceCodeService().GetOutputSourceCodeSCILAB(in_equation))
         outputFile.write('</textarea><br><br>\n\n')

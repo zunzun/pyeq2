@@ -121,6 +121,14 @@ class OutputSourceCodeService(object):
         return newString
 
 
+    def ConvertCppToFORTRAN90(self, inString):
+        newString = inString.replace(';', '') # no need for semicolons
+        newString = newString.replace('temp += ', 'temp = temp + ')
+        newString = newString.replace('double ', 'real :: ')
+        newString = newString.replace('//', "!") # comment token
+        return newString
+
+
     def ConvertCppToSCILAB(self, inString):
         newString = inString.replace('double ', '')
         newString = newString.replace('temp += ', 'temp = temp + ')
@@ -397,8 +405,8 @@ class OutputSourceCodeService(object):
         s += '\n'
         cppSourceCode = inEquation.extendedVersionHandler.AssembleOutputSourceCodeCPP(inEquation)
         if -1 != cppSourceCode.find('pow('):
-            s += '#julia has no power function, only an operator, create\n'
-            s += '#a function for pyeq2 automated source code generation\n'
+            s += '# julia has no power function, only an operator, create\n'
+            s += '# a function for pyeq2 automated source code generation\n'
             s += 'pow(x,y) = x ^ y\n'
             s += '\n'
         s += '# Fitting target: lowest ' + inEquation.fittingTargetDictionary[inEquation.fittingTarget] + '\n'
@@ -419,6 +427,49 @@ class OutputSourceCodeService(object):
         s += self.ConvertCppToJULIA(cppSourceCode)
 
         s += "\nend\n"
+        return s
+
+
+    def GetOutputSourceCodeFORTRAN90(self, inEquation, inDigitsOfPrecisionString = '16'):
+        if inEquation.splineFlag == True:
+            raise NotImplementedError('Not implemented for splines')
+
+        s = self.ConvertCppToFORTRAN90(cppOutputSourceCodeUpperComment)
+        s += '\n'
+        cppSourceCode = inEquation.extendedVersionHandler.AssembleOutputSourceCodeCPP(inEquation)
+        if -1 != cppSourceCode.find('pow('):
+            s += '! fortran90 has no power function, only an operator, create\n'
+            s += '! a function for pyeq2 automated source code generation\n'
+            s += 'real function pow(a, b)\n'
+            s += 'real :: a ! input\n'
+            s += 'real :: b ! input\n'
+            s += 'real :: c ! output\n'
+            s += 'c = a**b\n'
+            s += 'end function pow\n'
+            s += '\n'
+        s += '! Fitting target: lowest ' + inEquation.fittingTargetDictionary[inEquation.fittingTarget] + '\n'
+        s += '! Fitting target value = ' + str(inEquation.CalculateAllDataFittingTarget(inEquation.solvedCoefficients)) + '\n\n'
+        if inEquation.GetDimensionality() == 2:
+            s += "real function " + inEquation.extendedVersionHandler.AssembleSourceCodeName(inEquation) + "_model(x_in)\n"
+            s += 'real :: x_in ! input\n'
+        else:
+            s += "real function " + inEquation.extendedVersionHandler.AssembleSourceCodeName(inEquation) + "_model(x_in, y_in)\n"
+            s += 'real :: x_in ! input\n'
+            s += 'real :: y_in ! input\n'
+        s += " real :: temp ! output\n\n"
+
+        s += "! coefficients\n"
+        cd = inEquation.extendedVersionHandler.AssembleCoefficientDesignators(inEquation)
+        tempString = " = %-." + inDigitsOfPrecisionString + "E"
+        for i in range(len(cd)):
+            s += "real :: " + cd[i] + tempString % (inEquation.solvedCoefficients[i]) + "\n"
+        s += "\n"
+        s += "temp = 0.0\n\n"
+
+        s += self.ConvertCppToFORTRAN90(cppSourceCode).replace('\t', '')
+
+        s += '\n'
+        s += "end function " + inEquation.extendedVersionHandler.AssembleSourceCodeName(inEquation) + "_model\n"
         return s
 
 

@@ -570,6 +570,9 @@ class TopLevelResultsNotebook(wx.Notebook):
         sourcecode9 = SourceCodeReport(sourceCodeTab, equation, 'MATLAB')
         sourceCodeTab.AddPage(sourcecode9, "MATLAB")
 
+        sourcecode10 = SourceCodeReport(sourceCodeTab, equation, 'FORTRAN90')
+        sourceCodeTab.AddPage(sourcecode10, "FORTRAN90")
+
         # equation list
         dim = equation.GetDimensionality()
         equationList = EquationListReport(self, dim)
