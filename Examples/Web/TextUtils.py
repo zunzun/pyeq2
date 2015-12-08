@@ -12,7 +12,7 @@ import pyeq2
 
 
 def DataArrayStatistics(inArray):
-    returnString = '' # uild this as we progress
+    returnString = '' # build this as we progress
     
     # must at least have max and min
     minData = min(inArray)
