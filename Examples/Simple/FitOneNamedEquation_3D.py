@@ -15,7 +15,7 @@ import pyeq2
 
 
 # see IModel.fittingTargetDictionary
-equation = pyeq2.Models_3D.BioScience.ChenClayton('SSQABS')
+equation = pyeq2.Models_3D.Polynomial.SimplifiedQuadratic('SSQABS')
 
 data = equation.exampleData
 pyeq2.dataConvertorService().ConvertAndSortColumnarASCII(data, equation, False)
