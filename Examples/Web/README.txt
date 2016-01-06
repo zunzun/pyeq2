@@ -48,3 +48,7 @@ You are now curve and surface fitting data using Flask!
 
 Look at the other pyeq2 examples for more information on
 topics such as parallel processing or "function finding".
+
+
+If you would like to create a feature complete web site
+with pyeq2, see https://github.com/zunzun/zunzunsite
