@@ -96,8 +96,15 @@ def SaveModelScatterConfidence(in_fileName, in_equation, in_Ymax, in_Ymin):
     ax.set_ylabel("Y Data") # Y axis data label
     ax.set_xlabel("X Data") # X axis data label
     
+    if -1 != in_fileName.find('_small'): # small animation frame
+        for xlabel_i in ax.get_xticklabels():
+            xlabel_i.set_fontsize(xlabel_i.get_fontsize() * 0.1) 
+        for ylabel_i in ax.get_yticklabels():
+            ylabel_i.set_fontsize(ylabel_i.get_fontsize() * 0.1) 
+    
     plt.ylim(in_Ymin, in_Ymax)
 
+    fig.tight_layout()
     fig.savefig(in_fileName) # create PNG file
     plt.close('all') # clear pyplot else memory use becomes large
 
