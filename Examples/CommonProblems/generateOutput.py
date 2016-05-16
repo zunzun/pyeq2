@@ -63,7 +63,10 @@ def SaveModelScatterConfidence(in_fileName, in_equation, in_Ymax, in_Ymin):
     ax = fig.add_subplot(1,1,1)
     
     # first the raw data as a scatter plot
-    ax.plot(x_data, y_data,  'D')
+    if -1 != in_fileName.find('_small'): # small animation frame
+        ax.plot(x_data, y_data,  'D', markersize = 2)
+    else:
+        ax.plot(x_data, y_data,  'D')
     
     # now the model as a line plot
     ax.plot(xModel, yModel)
