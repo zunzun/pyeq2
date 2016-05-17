@@ -2,7 +2,9 @@ This creates a curve-fitting specific
 teaching tool with animated GIF files
 using pyeq2 and matplotlib.  The purpose
 is to visually  illustrate many commonly
-encountered problems in curve fitting.
+encountered problems in curve fitting,
+see http://commonproblems.readthedocs.io/en/latest/
+
 
 A large number of animation frames are
 individually created, and this takes a
