@@ -1,4 +1,5 @@
 You will need to install python and scipy to run this software.
+see http://commonproblems.readthedocs.io/en/latest/
 
 On Debian or Ubuntu Linux, you can use this command to get both:
 

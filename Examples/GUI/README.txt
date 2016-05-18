@@ -1,6 +1,7 @@
 Welcome to wxPythonFit, an example of creating a
 cross-platform curve and surface fitting application 
 using wxPython and the pyeq2 fitting library.
+see http://commonproblems.readthedocs.io/en/latest/
 
 
 Step 1: Install wxPython, scipy and matplotlib

@@ -1,6 +1,7 @@
 This is an example of creating an
 animated surface rotation GIF file
 using pyeq2 and matplotlib.
+see http://commonproblems.readthedocs.io/en/latest/
 
 
 Step 1: Install matplotlib, imagemagick and gifsicle
