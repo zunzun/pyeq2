@@ -69,8 +69,8 @@ def SaveModelScatterConfidence(in_fileName, in_equation, in_Ymax, in_Ymin):
         ax.plot(x_data, y_data,  'D')
     
     # now the model as a line plot
-    ax.plot(xModel, yModel)
-    
+    ax.plot(xModel, yModel, label = 'Fitted Equation')
+        
     # now calculate confidence intervals
     # http://support.sas.com/documentation/cdl/en/statug/63347/HTML/default/viewer.htm#statug_nlin_sect026.htm
     # http://www.staff.ncl.ac.uk/tom.holderness/software/pythonlinearfit
@@ -94,18 +94,27 @@ def SaveModelScatterConfidence(in_fileName, in_equation, in_Ymax, in_Ymin):
     ax.plot(xModel[booleanMask], lower[booleanMask], linestyle='solid', color='white')
     ax.plot(xModel[booleanMask], upper[booleanMask], linestyle='solid', color='white')
     ax.plot(xModel[booleanMask], lower[booleanMask], linestyle='dashed', color='blue')
-    ax.plot(xModel[booleanMask], upper[booleanMask], linestyle='dashed', color='blue')
+    ax.plot(xModel[booleanMask], upper[booleanMask], linestyle='dashed', color='blue', label = '95% Confidence Intervals')
     
-    ax.set_ylabel("Y Data") # Y axis data label
-    ax.set_xlabel("X Data") # X axis data label
+    if -1 != in_fileName.find('_small'): # small animation frame
+        ax.set_ylabel("Y Data", size='small') # Y axis data label
+        ax.set_xlabel("X Data", size='small') # X axis data label
+    else:
+        ax.set_ylabel("Y Data") # Y axis data label
+        ax.set_xlabel("X Data") # X axis data label
     
     if -1 != in_fileName.find('_small'): # small animation frame
         for xlabel_i in ax.get_xticklabels():
-            xlabel_i.set_fontsize(xlabel_i.get_fontsize() * 0.1) 
+            xlabel_i.set_fontsize(xlabel_i.get_fontsize() * 0.5) 
         for ylabel_i in ax.get_yticklabels():
-            ylabel_i.set_fontsize(ylabel_i.get_fontsize() * 0.1) 
+            ylabel_i.set_fontsize(ylabel_i.get_fontsize() * 0.5)
     
     plt.ylim(in_Ymin, in_Ymax)
+
+    # legends on large images
+    # http://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.legend
+    if -1 != in_fileName.find('large'): # large animation frame
+        ax.legend(loc=2, fontsize='small')
 
     fig.tight_layout()
     fig.savefig(in_fileName) # create PNG file
