@@ -119,17 +119,17 @@ else:
 print()
 print("Individual Parameter Statistics:")
 for i in range(len(equation.solvedCoefficients)):
-    if equation.tstat_beta_weighted == None:
+    if type(equation.tstat_beta_weighted( == type(None):
         tstat = 'n/a'
     else:
         tstat = '%-.5E' %  ( equation.tstat_beta_weighted[i])
 
-    if equation.pstat_beta_weighted == None:
+    if type(equation.pstat_beta_weighted) == type(None):
         pstat = 'n/a'
     else:
         pstat = '%-.5E' %  ( equation.pstat_beta_weighted[i])
 
-    if equation.sd_beta_weighted != None:
+    if type(equation.sd_beta_weighted) != type(None):
         print("Coefficient %s = %-.16E, std error (weighted): %-.5E" % (equation.GetCoefficientDesignators()[i], equation.solvedCoefficients[i], equation.sd_beta_weighted[i]))
     else:
         print("Coefficient %s = %-.16E, std error (weighted): n/a" % (equation.GetCoefficientDesignators()[i], equation.solvedCoefficients[i]))

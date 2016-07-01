@@ -126,17 +126,17 @@ def SaveCoefficientAndFitStatistics(in_filePathFitStatistics, in_equation):
     outputFile.write('\n')
     outputFile.write("Individual Parameter Statistics:\n")
     for i in range(len(in_equation.solvedCoefficients)):
-        if in_equation.tstat_beta == None:
+        if type(in_equation.tstat_beta) == type(None):
             tstat = 'n/a'
         else:
             tstat = '%-.5E' %  ( in_equation.tstat_beta[i])
     
-        if in_equation.pstat_beta == None:
+        if type(in_equation.pstat_beta) == type(None):
             pstat = 'n/a'
         else:
             pstat = '%-.5E' %  ( in_equation.pstat_beta[i])
     
-        if in_equation.sd_beta != None:
+        if type(in_equation.sd_beta) != type(None):
             outputFile.write("Coefficient %s = %-.16E, std error: %-.5E\n" % (in_equation.GetCoefficientDesignators()[i], in_equation.solvedCoefficients[i], in_equation.sd_beta[i]))
         else:
             outputFile.write("Coefficient %s = %-.16E, std error: n/a\n" % (in_equation.GetCoefficientDesignators()[i], in_equation.solvedCoefficients[i]))

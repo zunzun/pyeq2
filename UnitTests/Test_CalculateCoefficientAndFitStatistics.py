@@ -92,9 +92,9 @@ class TestCalculateCoefficientAndFitStatistics(unittest.TestCase):
         self.assertTrue(numpy.allclose(model.aic, model_aic_ShouldBe, rtol=1.0E-06, atol=1.0E-300))
         self.assertTrue(numpy.allclose(model.bic, model_bic_ShouldBe, rtol=1.0E-06, atol=1.0E-300))
         self.assertEqual(model.cov_beta, None)
-        self.assertEqual(model.sd_beta, None)
-        self.assertEqual(model.tstat_beta, None)
-        self.assertEqual(model.pstat_beta, None)
+        self.assertEqual(type(model.sd_beta), type(None))
+        self.assertEqual(type(model.tstat_beta), type(None))
+        self.assertEqual(type(model.pstat_beta), type(None))
         self.assertEqual(model.ci, None)
 
 

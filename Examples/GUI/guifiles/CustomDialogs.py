@@ -78,17 +78,17 @@ class CoefficientAndFitStatisticsReport(wx.Panel):
         self.text.AppendText('\n')
         self.text.AppendText("Individual Parameter Statistics:\n")
         for i in range(len(equation.solvedCoefficients)):
-            if equation.tstat_beta == None:
+            if type(equation.tstat_beta) == type(None):
                 tstat = 'n/a'
             else:
                 tstat = '%-.5E' %  ( equation.tstat_beta[i])
         
-            if equation.pstat_beta == None:
+            if type(equation.pstat_beta) == type(None):
                 pstat = 'n/a'
             else:
                 pstat = '%-.5E' %  ( equation.pstat_beta[i])
         
-            if equation.sd_beta != None:
+            if type(equation.sd_beta) != type(None):
                 self.text.AppendText("Coefficient %s = %-.16E, std error: %-.5E\n" % (equation.GetCoefficientDesignators()[i], equation.solvedCoefficients[i], equation.sd_beta[i]))
             else:
                 self.text.AppendText("Coefficient %s = %-.16E, std error: n/a\n" % (equation.GetCoefficientDesignators()[i], equation.solvedCoefficients[i]))
