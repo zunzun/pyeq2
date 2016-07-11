@@ -2590,7 +2590,7 @@ class WitchOfAgnesiC(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 class MorsePotential(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     
     _baseName = "Morse Potential"
-    _HTML = 'V = D*(exp(-2*m*(x-u)) - 2*exp(-m*(x-u)))'
+    _HTML = 'V = D*(exp(-2*m*(x-u)) - 2*exp(-m*(x-u))) + offset'
     _leftSideHTML = 'V'
     _coefficientDesignators = ['D', 'm', 'u', 'offset']
     _canLinearSolverBeUsedForSSQABS = False
