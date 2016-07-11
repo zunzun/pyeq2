@@ -2587,3 +2587,110 @@ class WitchOfAgnesiC(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
 
 
+class MorsePotential(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
+    
+    _baseName = "Morse Potential"
+    _HTML = 'V = D*(exp(-2*m*(x-u)) - 2*exp(-m*(x-u)))'
+    _leftSideHTML = 'V'
+    _coefficientDesignators = ['D', 'm', 'u', 'offset']
+    _canLinearSolverBeUsedForSSQABS = False
+    
+    webReferenceURL = 'http://stackoverflow.com/questions/36312303/morse-potential-fit-using-python-and-curve-fit-from-scipy'
+
+    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = True
+    autoGenerateOffsetForm = False
+    autoGenerateReciprocalForm = True
+    autoGenerateInverseForms = True
+    autoGenerateGrowthAndDecayForms = True
+
+    independentData1CannotContainZeroFlag = False
+    independentData1CannotContainPositiveFlag = False
+    independentData1CannotContainNegativeFlag = False
+    independentData2CannotContainZeroFlag = False
+    independentData2CannotContainPositiveFlag = False
+    independentData2CannotContainNegativeFlag = False
+    
+
+    def __init__(self, inFittingTarget = 'SSQABS', inExtendedVersionName = 'Default'):
+        pyeq2.Model_2D_BaseClass.Model_2D_BaseClass.__init__(self, inFittingTarget, inExtendedVersionName)
+        self.exampleData = '''
+  x         V
+1.0     -1360.121815
+1.1     -1368.532641
+1.2     -1374.215047
+1.3     -1378.090480
+1.4     -1380.648178
+1.5     -1382.223113
+1.6     -1383.091562
+1.7     -1383.479384
+1.8     -1383.558087
+1.9     -1383.445803
+2.0     -1383.220380
+2.1     -1382.931531
+2.2     -1382.609269
+2.3     -1382.273574
+2.4     -1381.940879
+2.5     -1381.621299
+2.6     -1381.319042
+2.7     -1381.036231
+2.8     -1380.772039
+2.9     -1380.527051
+3.0     -1380.301961
+3.1     -1380.096257
+3.2     -1379.907700
+3.3     -1379.734621
+3.4     -1379.575837
+3.5     -1379.430693
+3.6     -1379.299282
+3.7     -1379.181303
+3.8     -1379.077272
+3.9     -1378.985220
+4.0     -1378.903626
+4.1     -1378.831588
+4.2     -1378.768880
+4.3     -1378.715015
+4.4     -1378.668910
+4.5     -1378.629996
+4.6     -1378.597943
+4.7     -1378.572742
+4.8     -1378.554547
+4.9     -1378.543296
+5.0     -1378.539843
+5.1     -1378.543593
+5.2     -1378.554519
+5.3     -1378.572747
+5.4     -1378.597945
+5.5     -1378.630024
+5.6     -1378.668911
+5.7     -1378.715015
+5.8     -1378.768915
+5.9     -1378.831593
+'''
+
+
+    def GetDataCacheFunctions(self):
+        functionList = []
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.X(NameOrValueFlag=1), []])
+        return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
+
+
+    def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
+        x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
+        
+        D = inCoeffs[0]
+        m = inCoeffs[1]
+        u = inCoeffs[2]
+        offset = inCoeffs[3]
+
+        try:
+            temp = D*(numpy.exp(-2.0*m*(x_in-u)) - 2.0*numpy.exp(-m*(x_in-u))) + offset
+            return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
+        except:
+            return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
+
+
+    def SpecificCodeCPP(self):
+        s = "\ttemp = D*(exp(-2*m*(x-u)) - 2*exp(-m*(x-u))) + offset;\n"
+        return s
+
+
