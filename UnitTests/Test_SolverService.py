@@ -162,6 +162,15 @@ class TestSolverService(unittest.TestCase):
         self.assertTrue(numpy.allclose(model.solvedCoefficients, coefficientsShouldBe, rtol=1.0E-10, atol=1.0E-300))
 
 
+    def test_UserDefinedFunction_2D(self):
+        coefficientsShouldBe = numpy.array([3.28686108e-04, 1.30583728])
+        functionString = 'Scale * exp(X) + offset'
+        model = pyeq2.Models_2D.UserDefinedFunction.UserDefinedFunction(inUserFunctionString = functionString)
+        pyeq2.dataConvertorService().ConvertAndSortColumnarASCII(DataForUnitTests.asciiDataInColumns_2D, model, False)
+        model.Solve()
+        self.assertTrue(numpy.allclose(model.solvedCoefficients, coefficientsShouldBe, rtol=1.0E-8, atol=1.0E-300))
+
+
 
 if __name__ == '__main__':
     unittest.main()
