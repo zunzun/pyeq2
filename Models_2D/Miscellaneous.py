@@ -2694,3 +2694,110 @@ class MorsePotential(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         return s
 
 
+class NelsonSiegel(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
+    
+    _baseName = "Nelson-Siegel"
+    _HTML = 'y(m) = B0 + B1*((1-exp(-m/t))/(m/t)) + B2*(((1-exp(-m/t))/(m/t)) - exp(-m/t)))'
+    _leftSideHTML = 'y(m)'
+    _coefficientDesignators = ['B0', 'B1', 'B2', 't']
+    _canLinearSolverBeUsedForSSQABS = False
+    
+    webReferenceURL = 'https://en.wikipedia.org/wiki/Fixed-income_attribution#Modeling_the_yield_curve'
+
+    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
+    autoGenerateOffsetForm = False
+    autoGenerateReciprocalForm = True
+    autoGenerateInverseForms = True
+    autoGenerateGrowthAndDecayForms = True
+
+    independentData1CannotContainZeroFlag = False
+    independentData1CannotContainPositiveFlag = False
+    independentData1CannotContainNegativeFlag = False
+    independentData2CannotContainZeroFlag = False
+    independentData2CannotContainPositiveFlag = False
+    independentData2CannotContainNegativeFlag = False
+    
+
+    def GetDataCacheFunctions(self):
+        functionList = []
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.X(NameOrValueFlag=1), []])
+        return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
+
+
+    def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
+        x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
+        
+        B0 = inCoeffs[0]
+        B1 = inCoeffs[1]
+        B2 = inCoeffs[2]
+        t = inCoeffs[3]
+
+        try:
+            MoT = x_in/t
+            expNegMoT = numpy.exp(-MoT)
+            temp = B0 + B1*((1.0-expNegMoT)/MoT) + B2*(((1.0-expNegMoT)/MoT) - expNegMoT)
+            return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
+        except:
+            return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
+
+
+    def SpecificCodeCPP(self):
+        s = "\ttemp = B0 + B1*((1.0-exp(-x_in/t))/(x_in/t)) + B2*(((1.0-exp(-x_in/t))/(x_in/t)) - exp(-x_in/t));\n"
+        return s
+
+
+
+class NelsonSiegelSvensson(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
+    
+    _baseName = "Nelson-Siegel-Svensson"
+    _HTML = 'y(m) = B0 + B1*((1-exp(-m/t))/(m/t)) + B2*(((1-exp(-m/t))/(m/t)) - exp(-m/t)) + B3*(((1-exp(-m/t2))/(m/t2)) - exp(-m/t2))'
+    _leftSideHTML = 'y(m)'
+    _coefficientDesignators = ['B0', 'B1', 'B2', 'B3', 't', 't2']
+    _canLinearSolverBeUsedForSSQABS = False
+    
+    webReferenceURL = 'https://en.wikipedia.org/wiki/Fixed-income_attribution#Modeling_the_yield_curve'
+
+    baseEquationHasGlobalMultiplierOrDivisor_UsedInExtendedVersions = False
+    autoGenerateOffsetForm = False
+    autoGenerateReciprocalForm = True
+    autoGenerateInverseForms = True
+    autoGenerateGrowthAndDecayForms = True
+
+    independentData1CannotContainZeroFlag = False
+    independentData1CannotContainPositiveFlag = False
+    independentData1CannotContainNegativeFlag = False
+    independentData2CannotContainZeroFlag = False
+    independentData2CannotContainPositiveFlag = False
+    independentData2CannotContainNegativeFlag = False
+    
+
+    def GetDataCacheFunctions(self):
+        functionList = []
+        functionList.append([pyeq2.DataCache.DataCacheFunctions.X(NameOrValueFlag=1), []])
+        return self.extendedVersionHandler.GetAdditionalDataCacheFunctions(self, functionList)
+
+
+    def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
+        x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
+        
+        B0 = inCoeffs[0]
+        B1 = inCoeffs[1]
+        B2 = inCoeffs[2]
+        B3 = inCoeffs[3]
+        t = inCoeffs[4]
+        t2 = inCoeffs[5]
+
+        try:
+            MoT = x_in/t
+            expNegMoT = numpy.exp(-MoT)
+            MoT2 = x_in/t2
+            expNegMoT2 = numpy.exp(-MoT2)
+            temp = B0 + B1*((1.0-expNegMoT)/MoT) + B2*(((1.0-expNegMoT)/MoT) - expNegMoT) + B3*(((1.0-expNegMoT2)/MoT2) - expNegMoT2)
+            return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
+        except:
+            return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
+
+
+    def SpecificCodeCPP(self):
+        s = "\ttemp = B0 + B1*((1.0-exp(-x_in/t))/(x_in/t)) + B2*(((1.0-exp(-x_in/t))/(x_in/t)) - exp(-x_in/t)) + B3*(((1-exp(-x_in/t2))/(x_in/t2)) - exp(-x_in/t2));\n"
+        return s
