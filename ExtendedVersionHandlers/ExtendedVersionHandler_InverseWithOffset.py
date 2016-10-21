@@ -12,7 +12,6 @@ from __future__ import absolute_import
 #
 #    License: BSD-style (see LICENSE.txt in main source directory)
 
-import pyeq2
 from . import IExtendedVersionHandler
 
 

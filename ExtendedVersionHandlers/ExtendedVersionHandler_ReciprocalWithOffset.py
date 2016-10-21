@@ -1,5 +1,3 @@
-from __future__ import print_function
-from __future__ import unicode_literals
 from __future__ import absolute_import
 
 #    pyeq2 is a collection of equations expressed as Python classes
@@ -12,7 +10,6 @@ from __future__ import absolute_import
 #
 #    License: BSD-style (see LICENSE.txt in main source directory)
 
-import pyeq2
 from . import IExtendedVersionHandler
 
 

@@ -19,7 +19,6 @@ except:
     pass
 numpy.seterr(all= 'ignore')
 
-import pyeq2
 from . import diffev
 
 class custom_prng_for_diffev(numpy.random.mtrand.RandomState):
@@ -171,7 +170,7 @@ class SolverService(object):
 
     def SolveUsingODR(self, inModel):
 
-        data = inModel.dataCache.FindOrCreateAllDataCache(inModel)
+        inModel.dataCache.FindOrCreateAllDataCache(inModel)
         modelObject = scipy.odr.odrpack.Model(inModel.WrapperForODR)
         if len(inModel.dataCache.allDataCacheDictionary['Weights']):
             dataObject = scipy.odr.odrpack.Data(inModel.dataCache.allDataCacheDictionary['IndependentData'], inModel.dataCache.allDataCacheDictionary['DependentData'], inModel.dataCache.allDataCacheDictionary['Weights'])

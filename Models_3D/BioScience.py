@@ -169,7 +169,6 @@ class HighLowAffinityDoubleIsotopeDisplacement(pyeq2.Model_3D_BaseClass.Model_3D
 
 
     def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
-        x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
         y_in = inDataCacheDictionary['Y'] # only need to perform this dictionary look-up once
         x_plus_y = inDataCacheDictionary['XPLUSY'] # only need to perform this dictionary look-up once
         

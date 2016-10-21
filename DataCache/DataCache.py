@@ -12,7 +12,7 @@ from __future__ import absolute_import
 #
 #    License: BSD-style (see LICENSE.txt in main source directory)
 
-import sys, os, unittest
+import sys, os
 if os.path.join(sys.path[0][:sys.path[0].rfind(os.sep)], '..') not in sys.path:
     sys.path.append(os.path.join(sys.path[0][:sys.path[0].rfind(os.sep)], '..'))
 import pyeq2

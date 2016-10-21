@@ -1398,7 +1398,6 @@ class Schott2X6(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
 
     def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
-        x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
         x_PowX2 = inDataCacheDictionary['PowX_2.0'] # only need to perform this dictionary look-up once
         x_PowX4 = inDataCacheDictionary['PowX_4.0'] # only need to perform this dictionary look-up once
         x_PowX6 = inDataCacheDictionary['PowX_6.0'] # only need to perform this dictionary look-up once
@@ -1462,7 +1461,6 @@ class Schott3X3(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
 
 
     def CalculateModelPredictions(self, inCoeffs, inDataCacheDictionary):
-        x_in = inDataCacheDictionary['X'] # only need to perform this dictionary look-up once
         x_PowX2 = inDataCacheDictionary['PowX_2.0'] # only need to perform this dictionary look-up once
         x_PowX4 = inDataCacheDictionary['PowX_4.0'] # only need to perform this dictionary look-up once
         x_PowX6 = inDataCacheDictionary['PowX_6.0'] # only need to perform this dictionary look-up once

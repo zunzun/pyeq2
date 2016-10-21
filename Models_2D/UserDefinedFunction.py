@@ -21,7 +21,7 @@ import pyeq2
 import numpy # implicitly required by compiling the userFunctionCodeObject in the method EvaluateCachedData() below
 numpy.seterr(all= 'ignore')
 
-import StringIO, parser, types
+import StringIO, parser
 
 import pyeq2.Model_2D_BaseClass
 
@@ -70,9 +70,9 @@ class UserDefinedFunction(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
     def GetTokensFromTupleParsingHelper(self, tup, inList=None):
         if inList is None:
             inList = []
-        if type(tup) is types.TupleType:
+        if type(tup) is type(()):
             tupleLength = len(tup)
-            if tupleLength > 1 and type(tup[0]) is not types.TupleType:
+            if tupleLength > 1 and type(tup[0]) is not type(()):
                 if tup[0] == 1:
                     inList.append(tup[1])
             if tupleLength == 2: # so a caret character can be trapped later

@@ -1388,14 +1388,14 @@ class Gunary(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         c = inCoeffs[2]
 
         try:
-            temp = x_in / (a + b * x_in + x_PowX_half)
+            temp = x_in / (a + b * x_in + c * x_PowX_half)
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
 
 
     def SpecificCodeCPP(self):
-        s = "\ttemp = x_in / (a + b * x_in + pow(x_in, 0.5));\n"
+        s = "\ttemp = x_in / (a + b * x_in + c * pow(x_in, 0.5));\n"
         return s
 
 
@@ -2428,7 +2428,6 @@ class TransitionStateRateConstantLaw(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass
             temp = a * numpy.power(x_in, b) * numpy.exp(c / x_NegX)
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
-            x = inDataCacheDictionary['DependentData']
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
 
 

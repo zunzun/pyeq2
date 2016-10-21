@@ -1397,14 +1397,14 @@ class LorentzianModifiedPeakA(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):
         b = inCoeffs[1]
 
         try:
-            temp = 1.0 / (1.0 + numpy.square(x_in-a))
+            temp = 1.0 / (1.0 + numpy.power(x_in-a, b))
             return self.extendedVersionHandler.GetAdditionalModelPredictions(temp, inCoeffs, inDataCacheDictionary, self)
         except:
             return numpy.ones(len(inDataCacheDictionary['DependentData'])) * 1.0E300
 
 
     def SpecificCodeCPP(self):
-        s = "\ttemp = 1.0 / (1.0 + pow(x_in-a, 2.0));\n"
+        s = "\ttemp = 1.0 / (1.0 + pow(x_in-a, b));\n"
         return s
 
 
