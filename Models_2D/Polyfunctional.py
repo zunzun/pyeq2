@@ -16,13 +16,10 @@ import sys, os
 if os.path.join(sys.path[0][:sys.path[0].rfind(os.sep)], '..') not in sys.path:
     sys.path.append(os.path.join(sys.path[0][:sys.path[0].rfind(os.sep)], '..'))
 
-import pyeq2, pyeq2.PolyFunctions
-
 import numpy
 numpy.seterr(all= 'ignore')
 
-
-import pyeq2.Model_2D_BaseClass, pyeq2, pyeq2.PolyFunctions
+import pyeq2, pyeq2.PolyFunctions, pyeq2.Model_2D_BaseClass
 
 
 class UserSelectablePolyfunctional(pyeq2.Model_2D_BaseClass.Model_2D_BaseClass):

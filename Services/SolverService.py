@@ -122,7 +122,7 @@ class SolverService(object):
             if inAlgorithmName == 'Levenberg-Marquardt':
                 coeffs, unused = scipy.optimize.curve_fit(inModel.WrapperForScipyCurveFit, None, inModel.dataCache.allDataCacheDictionary['DependentData'], numpy.ones(len(inModel.GetCoefficientDesignators())), maxfev=1000000)
             else:
-                coeffs = scipy.optimize.minimize(inModel.CalculateAllDataFittingTarget, numpy.ones(len(inModel.GetCoefficientDesignators())), method=inAlgorithmName, maxiter = len(inModel.estimatedCoefficients) * self.fminIterationLimit, disp = 0)
+                coeffs = scipy.optimize.minimize(inModel.CalculateAllDataFittingTarget, numpy.ones(len(inModel.GetCoefficientDesignators())), method=inAlgorithmName)
             SSQ = inModel.CalculateAllDataFittingTarget(coeffs)
             results.append([SSQ, coeffs])
         except:
@@ -133,7 +133,7 @@ class SolverService(object):
             if inAlgorithmName == 'Levenberg-Marquardt':
                 coeffs, unused = scipy.optimize.curve_fit(inModel.WrapperForScipyCurveFit, None, inModel.dataCache.allDataCacheDictionary['DependentData'], inModel.deEstimatedCoefficients, maxfev=1000000) # initial coefficients are all equal to 1
             else:
-                coeffs = scipy.optimize.minimize(inModel.CalculateAllDataFittingTarget, inModel.deEstimatedCoefficients, method=inAlgorithmName, maxiter = len(inModel.estimatedCoefficients) * self.fminIterationLimit, disp = 0)
+                coeffs = scipy.optimize.minimize(inModel.CalculateAllDataFittingTarget, inModel.deEstimatedCoefficients, method=inAlgorithmName)
             SSQ = inModel.CalculateAllDataFittingTarget(coeffs)
             results.append([SSQ, coeffs])
         except:
@@ -152,7 +152,7 @@ class SolverService(object):
                 if inAlgorithmName == 'Levenberg-Marquardt':
                     coeffs, unused = scipy.optimize.curve_fit(inModel.WrapperForScipyCurveFit, None, inModel.dataCache.allDataCacheDictionary['DependentData'], inModel.estimatedCoefficients, maxfev=1000000)
                 else:
-                    coeffs = scipy.optimize.minimize(inModel.CalculateAllDataFittingTarget, inModel.estimatedCoefficients, method=inAlgorithmName, maxiter = len(inModel.estimatedCoefficients) * self.fminIterationLimit, disp = 0)
+                    coeffs = scipy.optimize.minimize(inModel.CalculateAllDataFittingTarget, inModel.estimatedCoefficients, method=inAlgorithmName)
                 SSQ = inModel.CalculateAllDataFittingTarget(coeffs)
                 results.append([SSQ, coeffs])
             except:
