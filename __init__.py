@@ -12,6 +12,9 @@ from __future__ import absolute_import
 #
 #    License: BSD-style (see LICENSE.txt in main source directory)
 
+import warnings
+warnings.warn('Python 2.x has announced end-of-life in the year 2020, please use pyeq3', category=FutureWarning)
+
 from . import DataCache
 from . import Services
 from . import ExtendedVersionHandlers
