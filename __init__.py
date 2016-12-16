@@ -13,7 +13,8 @@ from __future__ import absolute_import
 #    License: BSD-style (see LICENSE.txt in main source directory)
 
 import warnings
-warnings.warn('Python 2.x has announced end-of-life in the year 2020, please use pyeq3', category=FutureWarning)
+warnString = 'Python 2.X will end-of-life in the year 2020, please use pyeq3. See http://legacy.python.org/dev/peps/pep-0373/'
+warnings.warn(warnString, category=FutureWarning)
 
 from . import DataCache
 from . import Services
