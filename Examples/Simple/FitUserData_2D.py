@@ -138,3 +138,8 @@ print()
 print("Coefficient Covariance Matrix:")
 for i in  equation.cov_beta:
     print(i)
+
+
+print()
+print('Java Source Code:')
+print(pyeq2.outputSourceCodeService().GetOutputSourceCodeJAVA(equation))
