@@ -696,13 +696,13 @@ class IModel(object):
             if self.independentData1CannotContainZeroFlag and self.dataCache.independentData1ContainsZeroFlag:
                 self.reasonWhyDataRejected = 'This equation requires non-zero values for the first independent variable (X). At least one of the values was exactly equal to zero. Examples that would fail would be ln(x) and 1/x.'
     
-            if self.equation.independentData1CannotContainNegativeFlag and self.dataCache.independentData1ContainsNegativeFlag:
+            if self.independentData1CannotContainNegativeFlag and self.dataCache.independentData1ContainsNegativeFlag:
                 self.reasonWhyDataRejected = 'This equation requires non-negative values for the first independent variable (X). At least one of the values was negative. One example that would fail is ln(x).'
     
-            if self.equation.independentData1CannotContainPositiveFlag and self.dataCache.independentData1ContainsPositiveFlag:
+            if self.independentData1CannotContainPositiveFlag and self.dataCache.independentData1ContainsPositiveFlag:
                 self.reasonWhyDataRejected = 'This equation requires non-positive values for the first independent variable (X). At least one of the values was positive. One xample that would fail would be ln(-x), please check the data.'
     
-            if self.equation.independentData1CannotContainBothPositiveAndNegativeFlag and self.dataCache.independentData1ContainsPositiveFlag and self.dataCache.independentData1ContainsNegativeFlag:
+            if self.independentData1CannotContainBothPositiveAndNegativeFlag and self.dataCache.independentData1ContainsPositiveFlag and self.dataCache.independentData1ContainsNegativeFlag:
                 self.reasonWhyDataRejected = 'This equation cannot have both positive and negative values for the first independent variable (X)/'
 
         return true_or_false
