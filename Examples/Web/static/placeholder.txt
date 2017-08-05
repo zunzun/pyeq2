@@ -1,3 +1,0 @@
-placeholder file to ensure the "static" subdirectory is created.
-
-This is the default location from which Flask serves image files.
